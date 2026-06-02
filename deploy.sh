@@ -382,9 +382,28 @@ echo "==> Final check (local)"
 HTTP_STATUS="$(curl -s -o /dev/null -w "%{http_code}" "http://${DOMAIN}" || echo "000")"
 HTTPS_STATUS="$(curl -s -o /dev/null -w "%{http_code}" "https://${DOMAIN}" || echo "000")"
 IP_STATUS="$(curl -s -o /dev/null -w "%{http_code}" "http://143.110.185.245" || echo "000")"
+DATA_STATUS="$(curl -s -o /tmp/market-context-data.json -w "%{http_code}" "https://${DOMAIN}/data.json" || echo "000")"
+DATA_VALID="no"
+DATA_UPDATED="missing"
+if [ "${DATA_STATUS}" = "200" ] && command -v jq >/dev/null 2>&1; then
+  if jq -e '.generated_at and (.strategies | type == "array")' /tmp/market-context-data.json >/dev/null 2>&1; then
+    DATA_VALID="yes"
+    DATA_UPDATED="$(jq -r '.generated_at // "missing"' /tmp/market-context-data.json 2>/dev/null || echo "missing")"
+  fi
+fi
+LIVE_SERVICE_STATUS="unknown"
+if ssh "${SERVER}" "systemctl is-active --quiet market-context-live"; then
+  LIVE_SERVICE_STATUS="active"
+else
+  LIVE_SERVICE_STATUS="inactive"
+fi
 
 echo "==> OK summary"
 echo "http://${DOMAIN} -> ${HTTP_STATUS}"
 echo "https://${DOMAIN} -> ${HTTPS_STATUS}"
 echo "http://143.110.185.245 -> ${IP_STATUS}"
+echo "https://${DOMAIN}/data.json -> ${DATA_STATUS}"
+echo "data.json valid -> ${DATA_VALID}"
+echo "data.json generated_at -> ${DATA_UPDATED}"
+echo "market-context-live service -> ${LIVE_SERVICE_STATUS}"
 echo "==> Done"
