@@ -7,8 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN_SCRIPT = ROOT / "backend" / "run_all.py"
-# Default to 5 minutes. A 1s loop makes the site look like a "clock" and wastes CPU/network.
-INTERVAL_SEC = int(os.environ.get("UPDATE_INTERVAL_SEC", "300"))
+# Default to 60 seconds so fresh data lands quickly without turning into a busy loop.
+INTERVAL_SEC = int(os.environ.get("UPDATE_INTERVAL_SEC", "60"))
 BACKOFF_SEC = int(os.environ.get("UPDATE_FAIL_BACKOFF_SEC", "60"))
 
 
