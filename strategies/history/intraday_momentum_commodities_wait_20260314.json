@@ -1,0 +1,28 @@
+{
+  "strategy_id": "intraday_momentum_commodities_wait",
+  "title": "Commodities Intraday Momentum \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "filter_mode": "basic",
+  "rules": {
+    "breakout_condition": "close above previous 6-candle high",
+    "entry_window_candles": "same-day intraday",
+    "entry_trigger": "waiting for VWAP retouch + green close above VWAP",
+    "volume_multiple": 2.0,
+    "lookback_volume": 20,
+    "filter_mode": "basic"
+  },
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-14",
+  "runtime_sec": 2.82,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP."
+  ],
+  "items": []
+}

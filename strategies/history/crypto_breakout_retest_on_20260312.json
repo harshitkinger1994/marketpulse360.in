@@ -1,0 +1,3378 @@
+{
+  "strategy_id": "crypto_breakout_retest_on",
+  "title": "Crypto 1H Breakout Retest \u2014 Entry Valid",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "crypto",
+  "generated_at": "2026-03-12T12:02:54.107100+00:00",
+  "interval": "60m",
+  "rules": {
+    "volume_multiple": 3.0,
+    "lookback_volume": 30,
+    "breakout_condition": "close above EMA9 and VWAP",
+    "entry_window_candles": "5-6",
+    "entry_trigger": "retest touch + green close above EMA9 and VWAP",
+    "min_rr": 1.5,
+    "target_atr_multiple": 2.5
+  },
+  "counts": {
+    "assets": 5,
+    "assets_with_data": 5,
+    "breakouts": 1395,
+    "triggered": 195
+  },
+  "asset_summary": {
+    "BNB": {
+      "symbol": "BNB-USD",
+      "bars": 4290,
+      "breakouts": 308,
+      "triggered": 39
+    },
+    "BTC": {
+      "symbol": "BTC-USD",
+      "bars": 4290,
+      "breakouts": 267,
+      "triggered": 44
+    },
+    "ETH": {
+      "symbol": "ETH-USD",
+      "bars": 4287,
+      "breakouts": 263,
+      "triggered": 49
+    },
+    "SOL": {
+      "symbol": "SOL-USD",
+      "bars": 4289,
+      "breakouts": 274,
+      "triggered": 38
+    },
+    "XRP": {
+      "symbol": "XRP-USD",
+      "bars": 4290,
+      "breakouts": 283,
+      "triggered": 25
+    }
+  },
+  "notes": [
+    "1H breakout-retest strategy applied to this page universe.",
+    "Entry allowed only on candle 5-6 after breakout.",
+    "Telegram alert is sent by backend daily notifier for new valid entries."
+  ],
+  "items": [
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-03-10 08:00:00+00:00|2026-03-10 13:00:00+00:00|1.39",
+      "signal_time": "2026-03-10 13:30:00+05:30",
+      "entry_time": "2026-03-10 18:30:00+05:30",
+      "entry_price": 1.39,
+      "stop_price": 1.39,
+      "target_price": 1.42,
+      "rr_ratio": 3.56,
+      "vol_mult": 3.0,
+      "lines": [
+        "XRP breakout 2026-03-10 13:30:00+05:30 | entry 2026-03-10 18:30:00+05:30 (candle 5-6)",
+        "Entry 1.39 | SL 1.39 | Target 1.42 | RR 3.56 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-03-09 15:00:00+00:00|2026-03-09 21:00:00+00:00|640.07",
+      "signal_time": "2026-03-09 20:30:00+05:30",
+      "entry_time": "2026-03-10 02:30:00+05:30",
+      "entry_price": 640.07,
+      "stop_price": 636.49,
+      "target_price": 649.1,
+      "rr_ratio": 2.53,
+      "vol_mult": 3.61,
+      "lines": [
+        "BNB breakout 2026-03-09 20:30:00+05:30 | entry 2026-03-10 02:30:00+05:30 (candle 5-6)",
+        "Entry 640.07 | SL 636.49 | Target 649.10 | RR 2.53 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-03-09 14:00:00+00:00|2026-03-09 19:00:00+00:00|69053.77",
+      "signal_time": "2026-03-09 19:30:00+05:30",
+      "entry_time": "2026-03-10 00:30:00+05:30",
+      "entry_price": 69053.77,
+      "stop_price": 68400.16,
+      "target_price": 70607.51,
+      "rr_ratio": 2.38,
+      "vol_mult": 3.9,
+      "lines": [
+        "Bitcoin breakout 2026-03-09 19:30:00+05:30 | entry 2026-03-10 00:30:00+05:30 (candle 5-6)",
+        "Entry 69053.77 | SL 68400.16 | Target 70607.51 | RR 2.38 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-03-09 14:00:00+00:00|2026-03-09 19:00:00+00:00|1.37",
+      "signal_time": "2026-03-09 19:30:00+05:30",
+      "entry_time": "2026-03-10 00:30:00+05:30",
+      "entry_price": 1.37,
+      "stop_price": 1.36,
+      "target_price": 1.4,
+      "rr_ratio": 1.94,
+      "vol_mult": 3.17,
+      "lines": [
+        "XRP breakout 2026-03-09 19:30:00+05:30 | entry 2026-03-10 00:30:00+05:30 (candle 5-6)",
+        "Entry 1.37 | SL 1.36 | Target 1.40 | RR 1.94 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-03-09 03:00:00+00:00|2026-03-09 08:00:00+00:00|625.79",
+      "signal_time": "2026-03-09 08:30:00+05:30",
+      "entry_time": "2026-03-09 13:30:00+05:30",
+      "entry_price": 625.79,
+      "stop_price": 620.07,
+      "target_price": 637.38,
+      "rr_ratio": 2.02,
+      "vol_mult": 4.11,
+      "lines": [
+        "BNB breakout 2026-03-09 08:30:00+05:30 | entry 2026-03-09 13:30:00+05:30 (candle 5-6)",
+        "Entry 625.79 | SL 620.07 | Target 637.38 | RR 2.02 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-03-09 03:00:00+00:00|2026-03-09 08:00:00+00:00|83.73",
+      "signal_time": "2026-03-09 08:30:00+05:30",
+      "entry_time": "2026-03-09 13:30:00+05:30",
+      "entry_price": 83.73,
+      "stop_price": 82.62,
+      "target_price": 86.04,
+      "rr_ratio": 2.09,
+      "vol_mult": 3.75,
+      "lines": [
+        "Solana breakout 2026-03-09 08:30:00+05:30 | entry 2026-03-09 13:30:00+05:30 (candle 5-6)",
+        "Entry 83.73 | SL 82.62 | Target 86.04 | RR 2.09 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-03-09 00:00:00+00:00|2026-03-09 05:00:00+00:00|1.35",
+      "signal_time": "2026-03-09 05:30:00+05:30",
+      "entry_time": "2026-03-09 10:30:00+05:30",
+      "entry_price": 1.35,
+      "stop_price": 1.34,
+      "target_price": 1.38,
+      "rr_ratio": 2.18,
+      "vol_mult": 4.43,
+      "lines": [
+        "XRP breakout 2026-03-09 05:30:00+05:30 | entry 2026-03-09 10:30:00+05:30 (candle 5-6)",
+        "Entry 1.35 | SL 1.34 | Target 1.38 | RR 2.18 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-03-04 14:00:00+00:00|2026-03-04 19:00:00+00:00|663.79",
+      "signal_time": "2026-03-04 19:30:00+05:30",
+      "entry_time": "2026-03-05 00:30:00+05:30",
+      "entry_price": 663.79,
+      "stop_price": 656.83,
+      "target_price": 675.09,
+      "rr_ratio": 1.62,
+      "vol_mult": 5.4,
+      "lines": [
+        "BNB breakout 2026-03-04 19:30:00+05:30 | entry 2026-03-05 00:30:00+05:30 (candle 5-6)",
+        "Entry 663.79 | SL 656.83 | Target 675.09 | RR 1.62 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-03-04 14:00:00+00:00|2026-03-04 19:00:00+00:00|93.45",
+      "signal_time": "2026-03-04 19:30:00+05:30",
+      "entry_time": "2026-03-05 00:30:00+05:30",
+      "entry_price": 93.45,
+      "stop_price": 91.37,
+      "target_price": 96.9,
+      "rr_ratio": 1.66,
+      "vol_mult": 3.78,
+      "lines": [
+        "Solana breakout 2026-03-04 19:30:00+05:30 | entry 2026-03-05 00:30:00+05:30 (candle 5-6)",
+        "Entry 93.45 | SL 91.37 | Target 96.90 | RR 1.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-03-04 08:00:00+00:00|2026-03-04 13:00:00+00:00|1.4",
+      "signal_time": "2026-03-04 13:30:00+05:30",
+      "entry_time": "2026-03-04 18:30:00+05:30",
+      "entry_price": 1.4,
+      "stop_price": 1.39,
+      "target_price": 1.44,
+      "rr_ratio": 2.48,
+      "vol_mult": 12.47,
+      "lines": [
+        "XRP breakout 2026-03-04 13:30:00+05:30 | entry 2026-03-04 18:30:00+05:30 (candle 5-6)",
+        "Entry 1.40 | SL 1.39 | Target 1.44 | RR 2.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-03-02 16:00:00+00:00|2026-03-02 22:00:00+00:00|1.4",
+      "signal_time": "2026-03-02 21:30:00+05:30",
+      "entry_time": "2026-03-03 03:30:00+05:30",
+      "entry_price": 1.4,
+      "stop_price": 1.39,
+      "target_price": 1.44,
+      "rr_ratio": 4.95,
+      "vol_mult": 9.82,
+      "lines": [
+        "XRP breakout 2026-03-02 21:30:00+05:30 | entry 2026-03-03 03:30:00+05:30 (candle 5-6)",
+        "Entry 1.40 | SL 1.39 | Target 1.44 | RR 4.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-03-02 15:00:00+00:00|2026-03-02 21:00:00+00:00|2043.95",
+      "signal_time": "2026-03-02 20:30:00+05:30",
+      "entry_time": "2026-03-03 02:30:00+05:30",
+      "entry_price": 2043.95,
+      "stop_price": 2023.32,
+      "target_price": 2114.76,
+      "rr_ratio": 3.43,
+      "vol_mult": 12.06,
+      "lines": [
+        "Ethereum breakout 2026-03-02 20:30:00+05:30 | entry 2026-03-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 2043.95 | SL 2023.32 | Target 2114.76 | RR 3.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-03-02 16:00:00+00:00|2026-03-02 21:00:00+00:00|2043.95",
+      "signal_time": "2026-03-02 21:30:00+05:30",
+      "entry_time": "2026-03-03 02:30:00+05:30",
+      "entry_price": 2043.95,
+      "stop_price": 2023.32,
+      "target_price": 2114.76,
+      "rr_ratio": 3.43,
+      "vol_mult": 11.54,
+      "lines": [
+        "Ethereum breakout 2026-03-02 21:30:00+05:30 | entry 2026-03-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 2043.95 | SL 2023.32 | Target 2114.76 | RR 3.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-03-02 15:00:00+00:00|2026-03-02 20:00:00+00:00|69291.55",
+      "signal_time": "2026-03-02 20:30:00+05:30",
+      "entry_time": "2026-03-03 01:30:00+05:30",
+      "entry_price": 69291.55,
+      "stop_price": 68390.67,
+      "target_price": 71254.9,
+      "rr_ratio": 2.18,
+      "vol_mult": 16.57,
+      "lines": [
+        "Bitcoin breakout 2026-03-02 20:30:00+05:30 | entry 2026-03-03 01:30:00+05:30 (candle 5-6)",
+        "Entry 69291.55 | SL 68390.67 | Target 71254.90 | RR 2.18 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-03-02 15:00:00+00:00|2026-03-02 20:00:00+00:00|87.85",
+      "signal_time": "2026-03-02 20:30:00+05:30",
+      "entry_time": "2026-03-03 01:30:00+05:30",
+      "entry_price": 87.85,
+      "stop_price": 86.84,
+      "target_price": 90.75,
+      "rr_ratio": 2.88,
+      "vol_mult": 30.17,
+      "lines": [
+        "Solana breakout 2026-03-02 20:30:00+05:30 | entry 2026-03-03 01:30:00+05:30 (candle 5-6)",
+        "Entry 87.85 | SL 86.84 | Target 90.75 | RR 2.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-03-02 14:00:00+00:00|2026-03-02 19:00:00+00:00|68949.63",
+      "signal_time": "2026-03-02 19:30:00+05:30",
+      "entry_time": "2026-03-03 00:30:00+05:30",
+      "entry_price": 68949.63,
+      "stop_price": 68165.45,
+      "target_price": 70897.29,
+      "rr_ratio": 2.48,
+      "vol_mult": 8.01,
+      "lines": [
+        "Bitcoin breakout 2026-03-02 19:30:00+05:30 | entry 2026-03-03 00:30:00+05:30 (candle 5-6)",
+        "Entry 68949.63 | SL 68165.45 | Target 70897.29 | RR 2.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-03-02 14:00:00+00:00|2026-03-02 19:00:00+00:00|87.61",
+      "signal_time": "2026-03-02 19:30:00+05:30",
+      "entry_time": "2026-03-03 00:30:00+05:30",
+      "entry_price": 87.61,
+      "stop_price": 86.59,
+      "target_price": 90.61,
+      "rr_ratio": 2.95,
+      "vol_mult": 10.98,
+      "lines": [
+        "Solana breakout 2026-03-02 19:30:00+05:30 | entry 2026-03-03 00:30:00+05:30 (candle 5-6)",
+        "Entry 87.61 | SL 86.59 | Target 90.61 | RR 2.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-03-01 01:00:00+00:00|2026-03-01 07:00:00+00:00|2006.94",
+      "signal_time": "2026-03-01 06:30:00+05:30",
+      "entry_time": "2026-03-01 12:30:00+05:30",
+      "entry_price": 2006.94,
+      "stop_price": 1993.69,
+      "target_price": 2073.49,
+      "rr_ratio": 5.02,
+      "vol_mult": 4.34,
+      "lines": [
+        "Ethereum breakout 2026-03-01 06:30:00+05:30 | entry 2026-03-01 12:30:00+05:30 (candle 5-6)",
+        "Entry 2006.94 | SL 1993.69 | Target 2073.49 | RR 5.02 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-03-01 02:00:00+00:00|2026-03-01 07:00:00+00:00|2006.94",
+      "signal_time": "2026-03-01 07:30:00+05:30",
+      "entry_time": "2026-03-01 12:30:00+05:30",
+      "entry_price": 2006.94,
+      "stop_price": 1993.69,
+      "target_price": 2073.49,
+      "rr_ratio": 5.02,
+      "vol_mult": 8.95,
+      "lines": [
+        "Ethereum breakout 2026-03-01 07:30:00+05:30 | entry 2026-03-01 12:30:00+05:30 (candle 5-6)",
+        "Entry 2006.94 | SL 1993.69 | Target 2073.49 | RR 5.02 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-02-28 19:00:00+00:00|2026-03-01 01:00:00+00:00|67271.45",
+      "signal_time": "2026-03-01 00:30:00+05:30",
+      "entry_time": "2026-03-01 06:30:00+05:30",
+      "entry_price": 67271.45,
+      "stop_price": 66115.88,
+      "target_price": 69142.98,
+      "rr_ratio": 1.62,
+      "vol_mult": 4.59,
+      "lines": [
+        "Bitcoin breakout 2026-03-01 00:30:00+05:30 | entry 2026-03-01 06:30:00+05:30 (candle 5-6)",
+        "Entry 67271.45 | SL 66115.88 | Target 69142.98 | RR 1.62 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-02-28 14:00:00+00:00|2026-02-28 19:00:00+00:00|66335.44",
+      "signal_time": "2026-02-28 19:30:00+05:30",
+      "entry_time": "2026-03-01 00:30:00+05:30",
+      "entry_price": 66335.44,
+      "stop_price": 65268.24,
+      "target_price": 68366.67,
+      "rr_ratio": 1.9,
+      "vol_mult": 3.14,
+      "lines": [
+        "Bitcoin breakout 2026-02-28 19:30:00+05:30 | entry 2026-03-01 00:30:00+05:30 (candle 5-6)",
+        "Entry 66335.44 | SL 65268.24 | Target 68366.67 | RR 1.90 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-02-25 01:00:00+00:00|2026-02-25 06:00:00+00:00|81.51",
+      "signal_time": "2026-02-25 06:30:00+05:30",
+      "entry_time": "2026-02-25 11:30:00+05:30",
+      "entry_price": 81.51,
+      "stop_price": 80.91,
+      "target_price": 83.51,
+      "rr_ratio": 3.35,
+      "vol_mult": 7.73,
+      "lines": [
+        "Solana breakout 2026-02-25 06:30:00+05:30 | entry 2026-02-25 11:30:00+05:30 (candle 5-6)",
+        "Entry 81.51 | SL 80.91 | Target 83.51 | RR 3.35 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-02-20 18:00:00+00:00|2026-02-20 23:00:00+00:00|84.62",
+      "signal_time": "2026-02-20 23:30:00+05:30",
+      "entry_time": "2026-02-21 04:30:00+05:30",
+      "entry_price": 84.62,
+      "stop_price": 84.38,
+      "target_price": 86.69,
+      "rr_ratio": 8.47,
+      "vol_mult": 4.28,
+      "lines": [
+        "Solana breakout 2026-02-20 23:30:00+05:30 | entry 2026-02-21 04:30:00+05:30 (candle 5-6)",
+        "Entry 84.62 | SL 84.38 | Target 86.69 | RR 8.47 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-02-20 17:00:00+00:00|2026-02-20 22:00:00+00:00|68043.89",
+      "signal_time": "2026-02-20 22:30:00+05:30",
+      "entry_time": "2026-02-21 03:30:00+05:30",
+      "entry_price": 68043.89,
+      "stop_price": 67639.96,
+      "target_price": 69388.26,
+      "rr_ratio": 3.33,
+      "vol_mult": 6.92,
+      "lines": [
+        "Bitcoin breakout 2026-02-20 22:30:00+05:30 | entry 2026-02-21 03:30:00+05:30 (candle 5-6)",
+        "Entry 68043.89 | SL 67639.96 | Target 69388.26 | RR 3.33 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-02-20 16:00:00+00:00|2026-02-20 21:00:00+00:00|1973.92",
+      "signal_time": "2026-02-20 21:30:00+05:30",
+      "entry_time": "2026-02-21 02:30:00+05:30",
+      "entry_price": 1973.92,
+      "stop_price": 1964.6,
+      "target_price": 2014.76,
+      "rr_ratio": 4.38,
+      "vol_mult": 8.69,
+      "lines": [
+        "Ethereum breakout 2026-02-20 21:30:00+05:30 | entry 2026-02-21 02:30:00+05:30 (candle 5-6)",
+        "Entry 1973.92 | SL 1964.60 | Target 2014.76 | RR 4.38 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-02-20 15:00:00+00:00|2026-02-20 20:00:00+00:00|67704.04",
+      "signal_time": "2026-02-20 20:30:00+05:30",
+      "entry_time": "2026-02-21 01:30:00+05:30",
+      "entry_price": 67704.04,
+      "stop_price": 67559.56,
+      "target_price": 69007.58,
+      "rr_ratio": 9.02,
+      "vol_mult": 5.7,
+      "lines": [
+        "Bitcoin breakout 2026-02-20 20:30:00+05:30 | entry 2026-02-21 01:30:00+05:30 (candle 5-6)",
+        "Entry 67704.04 | SL 67559.56 | Target 69007.58 | RR 9.02 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-02-20 15:00:00+00:00|2026-02-20 20:00:00+00:00|1967.61",
+      "signal_time": "2026-02-20 20:30:00+05:30",
+      "entry_time": "2026-02-21 01:30:00+05:30",
+      "entry_price": 1967.61,
+      "stop_price": 1962.27,
+      "target_price": 2009.01,
+      "rr_ratio": 7.74,
+      "vol_mult": 4.84,
+      "lines": [
+        "Ethereum breakout 2026-02-20 20:30:00+05:30 | entry 2026-02-21 01:30:00+05:30 (candle 5-6)",
+        "Entry 1967.61 | SL 1962.27 | Target 2009.01 | RR 7.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-02-15 04:00:00+00:00|2026-02-15 10:00:00+00:00|70411.12",
+      "signal_time": "2026-02-15 09:30:00+05:30",
+      "entry_time": "2026-02-15 15:30:00+05:30",
+      "entry_price": 70411.12,
+      "stop_price": 70143.87,
+      "target_price": 71436.45,
+      "rr_ratio": 3.84,
+      "vol_mult": 8.46,
+      "lines": [
+        "Bitcoin breakout 2026-02-15 09:30:00+05:30 | entry 2026-02-15 15:30:00+05:30 (candle 5-6)",
+        "Entry 70411.12 | SL 70143.87 | Target 71436.45 | RR 3.84 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-02-14 22:00:00+00:00|2026-02-15 03:00:00+00:00|88.56",
+      "signal_time": "2026-02-15 03:30:00+05:30",
+      "entry_time": "2026-02-15 08:30:00+05:30",
+      "entry_price": 88.56,
+      "stop_price": 87.56,
+      "target_price": 90.15,
+      "rr_ratio": 1.59,
+      "vol_mult": 4.02,
+      "lines": [
+        "Solana breakout 2026-02-15 03:30:00+05:30 | entry 2026-02-15 08:30:00+05:30 (candle 5-6)",
+        "Entry 88.56 | SL 87.56 | Target 90.15 | RR 1.59 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-02-13 15:00:00+00:00|2026-02-13 21:00:00+00:00|620.49",
+      "signal_time": "2026-02-13 20:30:00+05:30",
+      "entry_time": "2026-02-14 02:30:00+05:30",
+      "entry_price": 620.49,
+      "stop_price": 614.2,
+      "target_price": 631.77,
+      "rr_ratio": 1.79,
+      "vol_mult": 12.83,
+      "lines": [
+        "BNB breakout 2026-02-13 20:30:00+05:30 | entry 2026-02-14 02:30:00+05:30 (candle 5-6)",
+        "Entry 620.49 | SL 614.20 | Target 631.77 | RR 1.79 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-02-13 15:00:00+00:00|2026-02-13 21:00:00+00:00|2051.87",
+      "signal_time": "2026-02-13 20:30:00+05:30",
+      "entry_time": "2026-02-14 02:30:00+05:30",
+      "entry_price": 2051.87,
+      "stop_price": 2033.19,
+      "target_price": 2103.58,
+      "rr_ratio": 2.77,
+      "vol_mult": 8.95,
+      "lines": [
+        "Ethereum breakout 2026-02-13 20:30:00+05:30 | entry 2026-02-14 02:30:00+05:30 (candle 5-6)",
+        "Entry 2051.87 | SL 2033.19 | Target 2103.58 | RR 2.77 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-02-13 08:00:00+00:00|2026-02-13 13:00:00+00:00|1.38",
+      "signal_time": "2026-02-13 13:30:00+05:30",
+      "entry_time": "2026-02-13 18:30:00+05:30",
+      "entry_price": 1.38,
+      "stop_price": 1.36,
+      "target_price": 1.4,
+      "rr_ratio": 1.52,
+      "vol_mult": 5.21,
+      "lines": [
+        "XRP breakout 2026-02-13 13:30:00+05:30 | entry 2026-02-13 18:30:00+05:30 (candle 5-6)",
+        "Entry 1.38 | SL 1.36 | Target 1.40 | RR 1.52 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-02-12 00:00:00+00:00|2026-02-12 05:00:00+00:00|1967.82",
+      "signal_time": "2026-02-12 05:30:00+05:30",
+      "entry_time": "2026-02-12 10:30:00+05:30",
+      "entry_price": 1967.82,
+      "stop_price": 1953.09,
+      "target_price": 2020.46,
+      "rr_ratio": 3.57,
+      "vol_mult": 3.07,
+      "lines": [
+        "Ethereum breakout 2026-02-12 05:30:00+05:30 | entry 2026-02-12 10:30:00+05:30 (candle 5-6)",
+        "Entry 1967.82 | SL 1953.09 | Target 2020.46 | RR 3.57 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-02-09 14:00:00+00:00|2026-02-09 19:00:00+00:00|1.45",
+      "signal_time": "2026-02-09 19:30:00+05:30",
+      "entry_time": "2026-02-10 00:30:00+05:30",
+      "entry_price": 1.45,
+      "stop_price": 1.44,
+      "target_price": 1.5,
+      "rr_ratio": 2.96,
+      "vol_mult": 4.62,
+      "lines": [
+        "XRP breakout 2026-02-09 19:30:00+05:30 | entry 2026-02-10 00:30:00+05:30 (candle 5-6)",
+        "Entry 1.45 | SL 1.44 | Target 1.50 | RR 2.96 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-02-06 17:00:00+00:00|2026-02-06 22:00:00+00:00|2072.31",
+      "signal_time": "2026-02-06 22:30:00+05:30",
+      "entry_time": "2026-02-07 03:30:00+05:30",
+      "entry_price": 2072.31,
+      "stop_price": 2034.3,
+      "target_price": 2168.38,
+      "rr_ratio": 2.53,
+      "vol_mult": 4.02,
+      "lines": [
+        "Ethereum breakout 2026-02-06 22:30:00+05:30 | entry 2026-02-07 03:30:00+05:30 (candle 5-6)",
+        "Entry 2072.31 | SL 2034.30 | Target 2168.38 | RR 2.53 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-02-03 20:00:00+00:00|2026-02-04 01:00:00+00:00|76332.23",
+      "signal_time": "2026-02-04 01:30:00+05:30",
+      "entry_time": "2026-02-04 06:30:00+05:30",
+      "entry_price": 76332.23,
+      "stop_price": 75180.26,
+      "target_price": 79167.23,
+      "rr_ratio": 2.46,
+      "vol_mult": 3.49,
+      "lines": [
+        "Bitcoin breakout 2026-02-04 01:30:00+05:30 | entry 2026-02-04 06:30:00+05:30 (candle 5-6)",
+        "Entry 76332.23 | SL 75180.26 | Target 79167.23 | RR 2.46 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-28 10:00:00+00:00|2026-01-28 16:00:00+00:00|89530.98",
+      "signal_time": "2026-01-28 15:30:00+05:30",
+      "entry_time": "2026-01-28 21:30:00+05:30",
+      "entry_price": 89530.98,
+      "stop_price": 89155.07,
+      "target_price": 90603.03,
+      "rr_ratio": 2.85,
+      "vol_mult": 3.8,
+      "lines": [
+        "Bitcoin breakout 2026-01-28 15:30:00+05:30 | entry 2026-01-28 21:30:00+05:30 (candle 5-6)",
+        "Entry 89530.98 | SL 89155.07 | Target 90603.03 | RR 2.85 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-28 11:00:00+00:00|2026-01-28 16:00:00+00:00|89530.98",
+      "signal_time": "2026-01-28 16:30:00+05:30",
+      "entry_time": "2026-01-28 21:30:00+05:30",
+      "entry_price": 89530.98,
+      "stop_price": 89155.07,
+      "target_price": 90603.03,
+      "rr_ratio": 2.85,
+      "vol_mult": 3.8,
+      "lines": [
+        "Bitcoin breakout 2026-01-28 16:30:00+05:30 | entry 2026-01-28 21:30:00+05:30 (candle 5-6)",
+        "Entry 89530.98 | SL 89155.07 | Target 90603.03 | RR 2.85 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-27 16:00:00+00:00|2026-01-27 22:00:00+00:00|898.62",
+      "signal_time": "2026-01-27 21:30:00+05:30",
+      "entry_time": "2026-01-28 03:30:00+05:30",
+      "entry_price": 898.62,
+      "stop_price": 891.68,
+      "target_price": 910.46,
+      "rr_ratio": 1.71,
+      "vol_mult": 3.61,
+      "lines": [
+        "BNB breakout 2026-01-27 21:30:00+05:30 | entry 2026-01-28 03:30:00+05:30 (candle 5-6)",
+        "Entry 898.62 | SL 891.68 | Target 910.46 | RR 1.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-01-21 19:00:00+00:00|2026-01-22 00:00:00+00:00|1.96",
+      "signal_time": "2026-01-22 00:30:00+05:30",
+      "entry_time": "2026-01-22 05:30:00+05:30",
+      "entry_price": 1.96,
+      "stop_price": 1.95,
+      "target_price": 2.02,
+      "rr_ratio": 5.89,
+      "vol_mult": 5.8,
+      "lines": [
+        "XRP breakout 2026-01-22 00:30:00+05:30 | entry 2026-01-22 05:30:00+05:30 (candle 5-6)",
+        "Entry 1.96 | SL 1.95 | Target 2.02 | RR 5.89 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-18 09:00:00+00:00|2026-01-18 15:00:00+00:00|3332.77",
+      "signal_time": "2026-01-18 14:30:00+05:30",
+      "entry_time": "2026-01-18 20:30:00+05:30",
+      "entry_price": 3332.77,
+      "stop_price": 3320.37,
+      "target_price": 3357.03,
+      "rr_ratio": 1.96,
+      "vol_mult": 10.51,
+      "lines": [
+        "Ethereum breakout 2026-01-18 14:30:00+05:30 | entry 2026-01-18 20:30:00+05:30 (candle 5-6)",
+        "Entry 3332.77 | SL 3320.37 | Target 3357.03 | RR 1.96 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-18 10:00:00+00:00|2026-01-18 15:00:00+00:00|3332.77",
+      "signal_time": "2026-01-18 15:30:00+05:30",
+      "entry_time": "2026-01-18 20:30:00+05:30",
+      "entry_price": 3332.77,
+      "stop_price": 3320.37,
+      "target_price": 3357.03,
+      "rr_ratio": 1.96,
+      "vol_mult": 9.28,
+      "lines": [
+        "Ethereum breakout 2026-01-18 15:30:00+05:30 | entry 2026-01-18 20:30:00+05:30 (candle 5-6)",
+        "Entry 3332.77 | SL 3320.37 | Target 3357.03 | RR 1.96 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-18 08:00:00+00:00|2026-01-18 13:00:00+00:00|3324.56",
+      "signal_time": "2026-01-18 13:30:00+05:30",
+      "entry_time": "2026-01-18 18:30:00+05:30",
+      "entry_price": 3324.56,
+      "stop_price": 3313.78,
+      "target_price": 3346.45,
+      "rr_ratio": 2.03,
+      "vol_mult": 3.73,
+      "lines": [
+        "Ethereum breakout 2026-01-18 13:30:00+05:30 | entry 2026-01-18 18:30:00+05:30 (candle 5-6)",
+        "Entry 3324.56 | SL 3313.78 | Target 3346.45 | RR 2.03 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-16 22:00:00+00:00|2026-01-17 04:00:00+00:00|937.73",
+      "signal_time": "2026-01-17 03:30:00+05:30",
+      "entry_time": "2026-01-17 09:30:00+05:30",
+      "entry_price": 937.73,
+      "stop_price": 935.92,
+      "target_price": 944.74,
+      "rr_ratio": 3.89,
+      "vol_mult": 5.83,
+      "lines": [
+        "BNB breakout 2026-01-17 03:30:00+05:30 | entry 2026-01-17 09:30:00+05:30 (candle 5-6)",
+        "Entry 937.73 | SL 935.92 | Target 944.74 | RR 3.89 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-16 23:00:00+00:00|2026-01-17 04:00:00+00:00|937.73",
+      "signal_time": "2026-01-17 04:30:00+05:30",
+      "entry_time": "2026-01-17 09:30:00+05:30",
+      "entry_price": 937.73,
+      "stop_price": 935.92,
+      "target_price": 944.74,
+      "rr_ratio": 3.89,
+      "vol_mult": 3.21,
+      "lines": [
+        "BNB breakout 2026-01-17 04:30:00+05:30 | entry 2026-01-17 09:30:00+05:30 (candle 5-6)",
+        "Entry 937.73 | SL 935.92 | Target 944.74 | RR 3.89 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-16 20:00:00+00:00|2026-01-17 02:00:00+00:00|3290.33",
+      "signal_time": "2026-01-17 01:30:00+05:30",
+      "entry_time": "2026-01-17 07:30:00+05:30",
+      "entry_price": 3290.33,
+      "stop_price": 3282.8,
+      "target_price": 3329.0,
+      "rr_ratio": 5.14,
+      "vol_mult": 3.97,
+      "lines": [
+        "Ethereum breakout 2026-01-17 01:30:00+05:30 | entry 2026-01-17 07:30:00+05:30 (candle 5-6)",
+        "Entry 3290.33 | SL 3282.80 | Target 3329.00 | RR 5.14 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-16 21:00:00+00:00|2026-01-17 02:00:00+00:00|3290.33",
+      "signal_time": "2026-01-17 02:30:00+05:30",
+      "entry_time": "2026-01-17 07:30:00+05:30",
+      "entry_price": 3290.33,
+      "stop_price": 3282.8,
+      "target_price": 3329.0,
+      "rr_ratio": 5.14,
+      "vol_mult": 6.88,
+      "lines": [
+        "Ethereum breakout 2026-01-17 02:30:00+05:30 | entry 2026-01-17 07:30:00+05:30 (candle 5-6)",
+        "Entry 3290.33 | SL 3282.80 | Target 3329.00 | RR 5.14 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-16 05:00:00+00:00|2026-01-16 11:00:00+00:00|934.84",
+      "signal_time": "2026-01-16 10:30:00+05:30",
+      "entry_time": "2026-01-16 16:30:00+05:30",
+      "entry_price": 934.84,
+      "stop_price": 932.16,
+      "target_price": 942.34,
+      "rr_ratio": 2.8,
+      "vol_mult": 5.53,
+      "lines": [
+        "BNB breakout 2026-01-16 10:30:00+05:30 | entry 2026-01-16 16:30:00+05:30 (candle 5-6)",
+        "Entry 934.84 | SL 932.16 | Target 942.34 | RR 2.80 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-13 22:00:00+00:00|2026-01-14 03:00:00+00:00|146.03",
+      "signal_time": "2026-01-14 03:30:00+05:30",
+      "entry_time": "2026-01-14 08:30:00+05:30",
+      "entry_price": 146.03,
+      "stop_price": 144.99,
+      "target_price": 149.4,
+      "rr_ratio": 3.23,
+      "vol_mult": 12.98,
+      "lines": [
+        "Solana breakout 2026-01-14 03:30:00+05:30 | entry 2026-01-14 08:30:00+05:30 (candle 5-6)",
+        "Entry 146.03 | SL 144.99 | Target 149.40 | RR 3.23 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-13 16:00:00+00:00|2026-01-13 21:00:00+00:00|3209.12",
+      "signal_time": "2026-01-13 21:30:00+05:30",
+      "entry_time": "2026-01-14 02:30:00+05:30",
+      "entry_price": 3209.12,
+      "stop_price": 3185.74,
+      "target_price": 3258.68,
+      "rr_ratio": 2.12,
+      "vol_mult": 4.63,
+      "lines": [
+        "Ethereum breakout 2026-01-13 21:30:00+05:30 | entry 2026-01-14 02:30:00+05:30 (candle 5-6)",
+        "Entry 3209.12 | SL 3185.74 | Target 3258.68 | RR 2.12 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-13 13:00:00+00:00|2026-01-13 19:00:00+00:00|144.19",
+      "signal_time": "2026-01-13 18:30:00+05:30",
+      "entry_time": "2026-01-14 00:30:00+05:30",
+      "entry_price": 144.19,
+      "stop_price": 142.83,
+      "target_price": 146.63,
+      "rr_ratio": 1.8,
+      "vol_mult": 5.17,
+      "lines": [
+        "Solana breakout 2026-01-13 18:30:00+05:30 | entry 2026-01-14 00:30:00+05:30 (candle 5-6)",
+        "Entry 144.19 | SL 142.83 | Target 146.63 | RR 1.80 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-11 12:00:00+00:00|2026-01-11 18:00:00+00:00|3124.61",
+      "signal_time": "2026-01-11 17:30:00+05:30",
+      "entry_time": "2026-01-11 23:30:00+05:30",
+      "entry_price": 3124.61,
+      "stop_price": 3115.17,
+      "target_price": 3150.6,
+      "rr_ratio": 2.76,
+      "vol_mult": 11.31,
+      "lines": [
+        "Ethereum breakout 2026-01-11 17:30:00+05:30 | entry 2026-01-11 23:30:00+05:30 (candle 5-6)",
+        "Entry 3124.61 | SL 3115.17 | Target 3150.60 | RR 2.76 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-11 13:00:00+00:00|2026-01-11 18:00:00+00:00|3124.61",
+      "signal_time": "2026-01-11 18:30:00+05:30",
+      "entry_time": "2026-01-11 23:30:00+05:30",
+      "entry_price": 3124.61,
+      "stop_price": 3115.17,
+      "target_price": 3150.6,
+      "rr_ratio": 2.76,
+      "vol_mult": 30.85,
+      "lines": [
+        "Ethereum breakout 2026-01-11 18:30:00+05:30 | entry 2026-01-11 23:30:00+05:30 (candle 5-6)",
+        "Entry 3124.61 | SL 3115.17 | Target 3150.60 | RR 2.76 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-08 22:00:00+00:00|2026-01-09 03:00:00+00:00|140.71",
+      "signal_time": "2026-01-09 03:30:00+05:30",
+      "entry_time": "2026-01-09 08:30:00+05:30",
+      "entry_price": 140.71,
+      "stop_price": 138.7,
+      "target_price": 144.08,
+      "rr_ratio": 1.68,
+      "vol_mult": 4.13,
+      "lines": [
+        "Solana breakout 2026-01-09 03:30:00+05:30 | entry 2026-01-09 08:30:00+05:30 (candle 5-6)",
+        "Entry 140.71 | SL 138.70 | Target 144.08 | RR 1.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-08 21:00:00+00:00|2026-01-09 02:00:00+00:00|138.8",
+      "signal_time": "2026-01-09 02:30:00+05:30",
+      "entry_time": "2026-01-09 07:30:00+05:30",
+      "entry_price": 138.8,
+      "stop_price": 138.15,
+      "target_price": 141.87,
+      "rr_ratio": 4.78,
+      "vol_mult": 3.7,
+      "lines": [
+        "Solana breakout 2026-01-09 02:30:00+05:30 | entry 2026-01-09 07:30:00+05:30 (candle 5-6)",
+        "Entry 138.80 | SL 138.15 | Target 141.87 | RR 4.78 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-01-08 16:00:00+00:00|2026-01-08 21:00:00+00:00|2.14",
+      "signal_time": "2026-01-08 21:30:00+05:30",
+      "entry_time": "2026-01-09 02:30:00+05:30",
+      "entry_price": 2.14,
+      "stop_price": 2.12,
+      "target_price": 2.19,
+      "rr_ratio": 3.66,
+      "vol_mult": 6.38,
+      "lines": [
+        "XRP breakout 2026-01-08 21:30:00+05:30 | entry 2026-01-09 02:30:00+05:30 (candle 5-6)",
+        "Entry 2.14 | SL 2.12 | Target 2.19 | RR 3.66 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-05 16:00:00+00:00|2026-01-05 22:00:00+00:00|3240.3",
+      "signal_time": "2026-01-05 21:30:00+05:30",
+      "entry_time": "2026-01-06 03:30:00+05:30",
+      "entry_price": 3240.3,
+      "stop_price": 3216.94,
+      "target_price": 3301.92,
+      "rr_ratio": 2.64,
+      "vol_mult": 3.09,
+      "lines": [
+        "Ethereum breakout 2026-01-05 21:30:00+05:30 | entry 2026-01-06 03:30:00+05:30 (candle 5-6)",
+        "Entry 3240.30 | SL 3216.94 | Target 3301.92 | RR 2.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-05 15:00:00+00:00|2026-01-05 21:00:00+00:00|138.47",
+      "signal_time": "2026-01-05 20:30:00+05:30",
+      "entry_time": "2026-01-06 02:30:00+05:30",
+      "entry_price": 138.47,
+      "stop_price": 137.02,
+      "target_price": 141.42,
+      "rr_ratio": 2.03,
+      "vol_mult": 3.4,
+      "lines": [
+        "Solana breakout 2026-01-05 20:30:00+05:30 | entry 2026-01-06 02:30:00+05:30 (candle 5-6)",
+        "Entry 138.47 | SL 137.02 | Target 141.42 | RR 2.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-05 15:00:00+00:00|2026-01-05 20:00:00+00:00|3239.56",
+      "signal_time": "2026-01-05 20:30:00+05:30",
+      "entry_time": "2026-01-06 01:30:00+05:30",
+      "entry_price": 3239.56,
+      "stop_price": 3204.51,
+      "target_price": 3299.88,
+      "rr_ratio": 1.72,
+      "vol_mult": 6.67,
+      "lines": [
+        "Ethereum breakout 2026-01-05 20:30:00+05:30 | entry 2026-01-06 01:30:00+05:30 (candle 5-6)",
+        "Entry 3239.56 | SL 3204.51 | Target 3299.88 | RR 1.72 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-05 11:00:00+00:00|2026-01-05 17:00:00+00:00|906.18",
+      "signal_time": "2026-01-05 16:30:00+05:30",
+      "entry_time": "2026-01-05 22:30:00+05:30",
+      "entry_price": 906.18,
+      "stop_price": 902.23,
+      "target_price": 916.46,
+      "rr_ratio": 2.61,
+      "vol_mult": 6.17,
+      "lines": [
+        "BNB breakout 2026-01-05 16:30:00+05:30 | entry 2026-01-05 22:30:00+05:30 (candle 5-6)",
+        "Entry 906.18 | SL 902.23 | Target 916.46 | RR 2.61 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-01-05 01:00:00+00:00|2026-01-05 07:00:00+00:00|2.13",
+      "signal_time": "2026-01-05 06:30:00+05:30",
+      "entry_time": "2026-01-05 12:30:00+05:30",
+      "entry_price": 2.13,
+      "stop_price": 2.12,
+      "target_price": 2.17,
+      "rr_ratio": 4.81,
+      "vol_mult": 7.37,
+      "lines": [
+        "XRP breakout 2026-01-05 06:30:00+05:30 | entry 2026-01-05 12:30:00+05:30 (candle 5-6)",
+        "Entry 2.13 | SL 2.12 | Target 2.17 | RR 4.81 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2026-01-04 14:00:00+00:00|2026-01-04 20:00:00+00:00|2.09",
+      "signal_time": "2026-01-04 19:30:00+05:30",
+      "entry_time": "2026-01-05 01:30:00+05:30",
+      "entry_price": 2.09,
+      "stop_price": 2.08,
+      "target_price": 2.12,
+      "rr_ratio": 3.88,
+      "vol_mult": 3.43,
+      "lines": [
+        "XRP breakout 2026-01-04 19:30:00+05:30 | entry 2026-01-05 01:30:00+05:30 (candle 5-6)",
+        "Entry 2.09 | SL 2.08 | Target 2.12 | RR 3.88 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-04 04:00:00+00:00|2026-01-04 09:00:00+00:00|885.73",
+      "signal_time": "2026-01-04 09:30:00+05:30",
+      "entry_time": "2026-01-04 14:30:00+05:30",
+      "entry_price": 885.73,
+      "stop_price": 884.24,
+      "target_price": 892.22,
+      "rr_ratio": 4.33,
+      "vol_mult": 4.52,
+      "lines": [
+        "BNB breakout 2026-01-04 09:30:00+05:30 | entry 2026-01-04 14:30:00+05:30 (candle 5-6)",
+        "Entry 885.73 | SL 884.24 | Target 892.22 | RR 4.33 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-04 00:00:00+00:00|2026-01-04 05:00:00+00:00|3148.76",
+      "signal_time": "2026-01-04 05:30:00+05:30",
+      "entry_time": "2026-01-04 10:30:00+05:30",
+      "entry_price": 3148.76,
+      "stop_price": 3139.11,
+      "target_price": 3177.89,
+      "rr_ratio": 3.02,
+      "vol_mult": 5.75,
+      "lines": [
+        "Ethereum breakout 2026-01-04 05:30:00+05:30 | entry 2026-01-04 10:30:00+05:30 (candle 5-6)",
+        "Entry 3148.76 | SL 3139.11 | Target 3177.89 | RR 3.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-02 15:00:00+00:00|2026-01-02 21:00:00+00:00|881.95",
+      "signal_time": "2026-01-02 20:30:00+05:30",
+      "entry_time": "2026-01-03 02:30:00+05:30",
+      "entry_price": 881.95,
+      "stop_price": 878.65,
+      "target_price": 893.71,
+      "rr_ratio": 3.57,
+      "vol_mult": 10.57,
+      "lines": [
+        "BNB breakout 2026-01-02 20:30:00+05:30 | entry 2026-01-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 881.95 | SL 878.65 | Target 893.71 | RR 3.57 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-02 16:00:00+00:00|2026-01-02 21:00:00+00:00|881.95",
+      "signal_time": "2026-01-02 21:30:00+05:30",
+      "entry_time": "2026-01-03 02:30:00+05:30",
+      "entry_price": 881.95,
+      "stop_price": 878.65,
+      "target_price": 893.71,
+      "rr_ratio": 3.57,
+      "vol_mult": 10.58,
+      "lines": [
+        "BNB breakout 2026-01-02 21:30:00+05:30 | entry 2026-01-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 881.95 | SL 878.65 | Target 893.71 | RR 3.57 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-02 15:00:00+00:00|2026-01-02 21:00:00+00:00|3128.77",
+      "signal_time": "2026-01-02 20:30:00+05:30",
+      "entry_time": "2026-01-03 02:30:00+05:30",
+      "entry_price": 3128.77,
+      "stop_price": 3103.12,
+      "target_price": 3194.62,
+      "rr_ratio": 2.57,
+      "vol_mult": 6.8,
+      "lines": [
+        "Ethereum breakout 2026-01-02 20:30:00+05:30 | entry 2026-01-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 3128.77 | SL 3103.12 | Target 3194.62 | RR 2.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-02 16:00:00+00:00|2026-01-02 21:00:00+00:00|3128.77",
+      "signal_time": "2026-01-02 21:30:00+05:30",
+      "entry_time": "2026-01-03 02:30:00+05:30",
+      "entry_price": 3128.77,
+      "stop_price": 3103.12,
+      "target_price": 3194.62,
+      "rr_ratio": 2.57,
+      "vol_mult": 7.96,
+      "lines": [
+        "Ethereum breakout 2026-01-02 21:30:00+05:30 | entry 2026-01-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 3128.77 | SL 3103.12 | Target 3194.62 | RR 2.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-02 15:00:00+00:00|2026-01-02 21:00:00+00:00|131.79",
+      "signal_time": "2026-01-02 20:30:00+05:30",
+      "entry_time": "2026-01-03 02:30:00+05:30",
+      "entry_price": 131.79,
+      "stop_price": 130.48,
+      "target_price": 134.72,
+      "rr_ratio": 2.23,
+      "vol_mult": 5.12,
+      "lines": [
+        "Solana breakout 2026-01-02 20:30:00+05:30 | entry 2026-01-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 131.79 | SL 130.48 | Target 134.72 | RR 2.23 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-02 16:00:00+00:00|2026-01-02 21:00:00+00:00|131.79",
+      "signal_time": "2026-01-02 21:30:00+05:30",
+      "entry_time": "2026-01-03 02:30:00+05:30",
+      "entry_price": 131.79,
+      "stop_price": 130.48,
+      "target_price": 134.72,
+      "rr_ratio": 2.23,
+      "vol_mult": 7.75,
+      "lines": [
+        "Solana breakout 2026-01-02 21:30:00+05:30 | entry 2026-01-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 131.79 | SL 130.48 | Target 134.72 | RR 2.23 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-02 14:00:00+00:00|2026-01-02 19:00:00+00:00|89878.86",
+      "signal_time": "2026-01-02 19:30:00+05:30",
+      "entry_time": "2026-01-03 00:30:00+05:30",
+      "entry_price": 89878.86,
+      "stop_price": 89683.12,
+      "target_price": 91359.56,
+      "rr_ratio": 7.56,
+      "vol_mult": 9.99,
+      "lines": [
+        "Bitcoin breakout 2026-01-02 19:30:00+05:30 | entry 2026-01-03 00:30:00+05:30 (candle 5-6)",
+        "Entry 89878.86 | SL 89683.12 | Target 91359.56 | RR 7.56 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-02 14:00:00+00:00|2026-01-02 19:00:00+00:00|3121.93",
+      "signal_time": "2026-01-02 19:30:00+05:30",
+      "entry_time": "2026-01-03 00:30:00+05:30",
+      "entry_price": 3121.93,
+      "stop_price": 3091.63,
+      "target_price": 3188.81,
+      "rr_ratio": 2.21,
+      "vol_mult": 13.56,
+      "lines": [
+        "Ethereum breakout 2026-01-02 19:30:00+05:30 | entry 2026-01-03 00:30:00+05:30 (candle 5-6)",
+        "Entry 3121.93 | SL 3091.63 | Target 3188.81 | RR 2.21 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-02 14:00:00+00:00|2026-01-02 19:00:00+00:00|131.58",
+      "signal_time": "2026-01-02 19:30:00+05:30",
+      "entry_time": "2026-01-03 00:30:00+05:30",
+      "entry_price": 131.58,
+      "stop_price": 129.95,
+      "target_price": 134.33,
+      "rr_ratio": 1.68,
+      "vol_mult": 6.02,
+      "lines": [
+        "Solana breakout 2026-01-02 19:30:00+05:30 | entry 2026-01-03 00:30:00+05:30 (candle 5-6)",
+        "Entry 131.58 | SL 129.95 | Target 134.33 | RR 1.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-02 09:00:00+00:00|2026-01-02 15:00:00+00:00|128.82",
+      "signal_time": "2026-01-02 14:30:00+05:30",
+      "entry_time": "2026-01-02 20:30:00+05:30",
+      "entry_price": 128.82,
+      "stop_price": 127.65,
+      "target_price": 131.0,
+      "rr_ratio": 1.87,
+      "vol_mult": 9.67,
+      "lines": [
+        "Solana breakout 2026-01-02 14:30:00+05:30 | entry 2026-01-02 20:30:00+05:30 (candle 5-6)",
+        "Entry 128.82 | SL 127.65 | Target 131.00 | RR 1.87 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-02 10:00:00+00:00|2026-01-02 15:00:00+00:00|128.82",
+      "signal_time": "2026-01-02 15:30:00+05:30",
+      "entry_time": "2026-01-02 20:30:00+05:30",
+      "entry_price": 128.82,
+      "stop_price": 127.65,
+      "target_price": 131.0,
+      "rr_ratio": 1.87,
+      "vol_mult": 5.2,
+      "lines": [
+        "Solana breakout 2026-01-02 15:30:00+05:30 | entry 2026-01-02 20:30:00+05:30 (candle 5-6)",
+        "Entry 128.82 | SL 127.65 | Target 131.00 | RR 1.87 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-02 08:00:00+00:00|2026-01-02 13:00:00+00:00|870.03",
+      "signal_time": "2026-01-02 13:30:00+05:30",
+      "entry_time": "2026-01-02 18:30:00+05:30",
+      "entry_price": 870.03,
+      "stop_price": 867.87,
+      "target_price": 876.31,
+      "rr_ratio": 2.9,
+      "vol_mult": 22.87,
+      "lines": [
+        "BNB breakout 2026-01-02 13:30:00+05:30 | entry 2026-01-02 18:30:00+05:30 (candle 5-6)",
+        "Entry 870.03 | SL 867.87 | Target 876.31 | RR 2.90 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2026-01-02 03:00:00+00:00|2026-01-02 08:00:00+00:00|866.74",
+      "signal_time": "2026-01-02 08:30:00+05:30",
+      "entry_time": "2026-01-02 13:30:00+05:30",
+      "entry_price": 866.74,
+      "stop_price": 863.88,
+      "target_price": 872.08,
+      "rr_ratio": 1.87,
+      "vol_mult": 10.97,
+      "lines": [
+        "BNB breakout 2026-01-02 08:30:00+05:30 | entry 2026-01-02 13:30:00+05:30 (candle 5-6)",
+        "Entry 866.74 | SL 863.88 | Target 872.08 | RR 1.87 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-02 03:00:00+00:00|2026-01-02 08:00:00+00:00|89049.57",
+      "signal_time": "2026-01-02 08:30:00+05:30",
+      "entry_time": "2026-01-02 13:30:00+05:30",
+      "entry_price": 89049.57,
+      "stop_price": 88710.23,
+      "target_price": 89762.41,
+      "rr_ratio": 2.1,
+      "vol_mult": 9.77,
+      "lines": [
+        "Bitcoin breakout 2026-01-02 08:30:00+05:30 | entry 2026-01-02 13:30:00+05:30 (candle 5-6)",
+        "Entry 89049.57 | SL 88710.23 | Target 89762.41 | RR 2.10 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-01 23:00:00+00:00|2026-01-02 05:00:00+00:00|88652.29",
+      "signal_time": "2026-01-02 04:30:00+05:30",
+      "entry_time": "2026-01-02 10:30:00+05:30",
+      "entry_price": 88652.29,
+      "stop_price": 88477.4,
+      "target_price": 89376.46,
+      "rr_ratio": 4.14,
+      "vol_mult": 5.24,
+      "lines": [
+        "Bitcoin breakout 2026-01-02 04:30:00+05:30 | entry 2026-01-02 10:30:00+05:30 (candle 5-6)",
+        "Entry 88652.29 | SL 88477.40 | Target 89376.46 | RR 4.14 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-02 00:00:00+00:00|2026-01-02 05:00:00+00:00|88652.29",
+      "signal_time": "2026-01-02 05:30:00+05:30",
+      "entry_time": "2026-01-02 10:30:00+05:30",
+      "entry_price": 88652.29,
+      "stop_price": 88477.4,
+      "target_price": 89376.46,
+      "rr_ratio": 4.14,
+      "vol_mult": 5.83,
+      "lines": [
+        "Bitcoin breakout 2026-01-02 05:30:00+05:30 | entry 2026-01-02 10:30:00+05:30 (candle 5-6)",
+        "Entry 88652.29 | SL 88477.40 | Target 89376.46 | RR 4.14 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2026-01-01 23:00:00+00:00|2026-01-02 05:00:00+00:00|3012.94",
+      "signal_time": "2026-01-02 04:30:00+05:30",
+      "entry_time": "2026-01-02 10:30:00+05:30",
+      "entry_price": 3012.94,
+      "stop_price": 3002.71,
+      "target_price": 3042.19,
+      "rr_ratio": 2.86,
+      "vol_mult": 17.3,
+      "lines": [
+        "Ethereum breakout 2026-01-02 04:30:00+05:30 | entry 2026-01-02 10:30:00+05:30 (candle 5-6)",
+        "Entry 3012.94 | SL 3002.71 | Target 3042.19 | RR 2.86 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2026-01-01 23:00:00+00:00|2026-01-02 05:00:00+00:00|127.16",
+      "signal_time": "2026-01-02 04:30:00+05:30",
+      "entry_time": "2026-01-02 10:30:00+05:30",
+      "entry_price": 127.16,
+      "stop_price": 126.52,
+      "target_price": 128.75,
+      "rr_ratio": 2.45,
+      "vol_mult": 5.38,
+      "lines": [
+        "Solana breakout 2026-01-02 04:30:00+05:30 | entry 2026-01-02 10:30:00+05:30 (candle 5-6)",
+        "Entry 127.16 | SL 126.52 | Target 128.75 | RR 2.45 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2026-01-01 22:00:00+00:00|2026-01-02 03:00:00+00:00|88778.7",
+      "signal_time": "2026-01-02 03:30:00+05:30",
+      "entry_time": "2026-01-02 08:30:00+05:30",
+      "entry_price": 88778.7,
+      "stop_price": 88471.66,
+      "target_price": 89455.9,
+      "rr_ratio": 2.21,
+      "vol_mult": 3.67,
+      "lines": [
+        "Bitcoin breakout 2026-01-02 03:30:00+05:30 | entry 2026-01-02 08:30:00+05:30 (candle 5-6)",
+        "Entry 88778.70 | SL 88471.66 | Target 89455.90 | RR 2.21 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-12-29 01:00:00+00:00|2025-12-29 07:00:00+00:00|127.78",
+      "signal_time": "2025-12-29 06:30:00+05:30",
+      "entry_time": "2025-12-29 12:30:00+05:30",
+      "entry_price": 127.78,
+      "stop_price": 127.3,
+      "target_price": 130.23,
+      "rr_ratio": 5.13,
+      "vol_mult": 11.71,
+      "lines": [
+        "Solana breakout 2025-12-29 06:30:00+05:30 | entry 2025-12-29 12:30:00+05:30 (candle 5-6)",
+        "Entry 127.78 | SL 127.30 | Target 130.23 | RR 5.13 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-12-29 02:00:00+00:00|2025-12-29 07:00:00+00:00|127.78",
+      "signal_time": "2025-12-29 07:30:00+05:30",
+      "entry_time": "2025-12-29 12:30:00+05:30",
+      "entry_price": 127.78,
+      "stop_price": 127.3,
+      "target_price": 130.23,
+      "rr_ratio": 5.13,
+      "vol_mult": 4.48,
+      "lines": [
+        "Solana breakout 2025-12-29 07:30:00+05:30 | entry 2025-12-29 12:30:00+05:30 (candle 5-6)",
+        "Entry 127.78 | SL 127.30 | Target 130.23 | RR 5.13 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-12-28 13:00:00+00:00|2025-12-28 19:00:00+00:00|859.55",
+      "signal_time": "2025-12-28 18:30:00+05:30",
+      "entry_time": "2025-12-29 00:30:00+05:30",
+      "entry_price": 859.55,
+      "stop_price": 857.77,
+      "target_price": 866.45,
+      "rr_ratio": 3.87,
+      "vol_mult": 3.37,
+      "lines": [
+        "BNB breakout 2025-12-28 18:30:00+05:30 | entry 2025-12-29 00:30:00+05:30 (candle 5-6)",
+        "Entry 859.55 | SL 857.77 | Target 866.45 | RR 3.87 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-12-27 10:00:00+00:00|2025-12-27 15:00:00+00:00|840.61",
+      "signal_time": "2025-12-27 15:30:00+05:30",
+      "entry_time": "2025-12-27 20:30:00+05:30",
+      "entry_price": 840.61,
+      "stop_price": 838.61,
+      "target_price": 845.26,
+      "rr_ratio": 2.32,
+      "vol_mult": 8.38,
+      "lines": [
+        "BNB breakout 2025-12-27 15:30:00+05:30 | entry 2025-12-27 20:30:00+05:30 (candle 5-6)",
+        "Entry 840.61 | SL 838.61 | Target 845.26 | RR 2.32 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-12-26 07:00:00+00:00|2025-12-26 12:00:00+00:00|841.11",
+      "signal_time": "2025-12-26 12:30:00+05:30",
+      "entry_time": "2025-12-26 17:30:00+05:30",
+      "entry_price": 841.11,
+      "stop_price": 836.85,
+      "target_price": 850.21,
+      "rr_ratio": 2.14,
+      "vol_mult": 4.06,
+      "lines": [
+        "BNB breakout 2025-12-26 12:30:00+05:30 | entry 2025-12-26 17:30:00+05:30 (candle 5-6)",
+        "Entry 841.11 | SL 836.85 | Target 850.21 | RR 2.14 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-12-26 03:00:00+00:00|2025-12-26 09:00:00+00:00|123.67",
+      "signal_time": "2025-12-26 08:30:00+05:30",
+      "entry_time": "2025-12-26 14:30:00+05:30",
+      "entry_price": 123.67,
+      "stop_price": 121.96,
+      "target_price": 126.4,
+      "rr_ratio": 1.59,
+      "vol_mult": 3.38,
+      "lines": [
+        "Solana breakout 2025-12-26 08:30:00+05:30 | entry 2025-12-26 14:30:00+05:30 (candle 5-6)",
+        "Entry 123.67 | SL 121.96 | Target 126.40 | RR 1.59 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-12-26 02:00:00+00:00|2025-12-26 08:00:00+00:00|2961.66",
+      "signal_time": "2025-12-26 07:30:00+05:30",
+      "entry_time": "2025-12-26 13:30:00+05:30",
+      "entry_price": 2961.66,
+      "stop_price": 2947.38,
+      "target_price": 3014.16,
+      "rr_ratio": 3.68,
+      "vol_mult": 24.42,
+      "lines": [
+        "Ethereum breakout 2025-12-26 07:30:00+05:30 | entry 2025-12-26 13:30:00+05:30 (candle 5-6)",
+        "Entry 2961.66 | SL 2947.38 | Target 3014.16 | RR 3.68 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-12-26 03:00:00+00:00|2025-12-26 08:00:00+00:00|2961.66",
+      "signal_time": "2025-12-26 08:30:00+05:30",
+      "entry_time": "2025-12-26 13:30:00+05:30",
+      "entry_price": 2961.66,
+      "stop_price": 2947.38,
+      "target_price": 3014.16,
+      "rr_ratio": 3.68,
+      "vol_mult": 4.0,
+      "lines": [
+        "Ethereum breakout 2025-12-26 08:30:00+05:30 | entry 2025-12-26 13:30:00+05:30 (candle 5-6)",
+        "Entry 2961.66 | SL 2947.38 | Target 3014.16 | RR 3.68 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-12-26 02:00:00+00:00|2025-12-26 08:00:00+00:00|1.86",
+      "signal_time": "2025-12-26 07:30:00+05:30",
+      "entry_time": "2025-12-26 13:30:00+05:30",
+      "entry_price": 1.86,
+      "stop_price": 1.85,
+      "target_price": 1.89,
+      "rr_ratio": 2.71,
+      "vol_mult": 16.49,
+      "lines": [
+        "XRP breakout 2025-12-26 07:30:00+05:30 | entry 2025-12-26 13:30:00+05:30 (candle 5-6)",
+        "Entry 1.86 | SL 1.85 | Target 1.89 | RR 2.71 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-12-19 08:00:00+00:00|2025-12-19 14:00:00+00:00|847.63",
+      "signal_time": "2025-12-19 13:30:00+05:30",
+      "entry_time": "2025-12-19 19:30:00+05:30",
+      "entry_price": 847.63,
+      "stop_price": 841.93,
+      "target_price": 858.53,
+      "rr_ratio": 1.91,
+      "vol_mult": 10.18,
+      "lines": [
+        "BNB breakout 2025-12-19 13:30:00+05:30 | entry 2025-12-19 19:30:00+05:30 (candle 5-6)",
+        "Entry 847.63 | SL 841.93 | Target 858.53 | RR 1.91 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-12-19 09:00:00+00:00|2025-12-19 14:00:00+00:00|847.63",
+      "signal_time": "2025-12-19 14:30:00+05:30",
+      "entry_time": "2025-12-19 19:30:00+05:30",
+      "entry_price": 847.63,
+      "stop_price": 841.93,
+      "target_price": 858.53,
+      "rr_ratio": 1.91,
+      "vol_mult": 10.87,
+      "lines": [
+        "BNB breakout 2025-12-19 14:30:00+05:30 | entry 2025-12-19 19:30:00+05:30 (candle 5-6)",
+        "Entry 847.63 | SL 841.93 | Target 858.53 | RR 1.91 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-12-13 04:00:00+00:00|2025-12-13 10:00:00+00:00|2.04",
+      "signal_time": "2025-12-13 09:30:00+05:30",
+      "entry_time": "2025-12-13 15:30:00+05:30",
+      "entry_price": 2.04,
+      "stop_price": 2.03,
+      "target_price": 2.06,
+      "rr_ratio": 2.52,
+      "vol_mult": 3.49,
+      "lines": [
+        "XRP breakout 2025-12-13 09:30:00+05:30 | entry 2025-12-13 15:30:00+05:30 (candle 5-6)",
+        "Entry 2.04 | SL 2.03 | Target 2.06 | RR 2.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-12-12 06:00:00+00:00|2025-12-12 11:00:00+00:00|138.68",
+      "signal_time": "2025-12-12 11:30:00+05:30",
+      "entry_time": "2025-12-12 16:30:00+05:30",
+      "entry_price": 138.68,
+      "stop_price": 138.02,
+      "target_price": 141.06,
+      "rr_ratio": 3.59,
+      "vol_mult": 4.64,
+      "lines": [
+        "Solana breakout 2025-12-12 11:30:00+05:30 | entry 2025-12-12 16:30:00+05:30 (candle 5-6)",
+        "Entry 138.68 | SL 138.02 | Target 141.06 | RR 3.59 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-12-09 16:00:00+00:00|2025-12-09 22:00:00+00:00|3334.8",
+      "signal_time": "2025-12-09 21:30:00+05:30",
+      "entry_time": "2025-12-10 03:30:00+05:30",
+      "entry_price": 3334.8,
+      "stop_price": 3299.1,
+      "target_price": 3442.44,
+      "rr_ratio": 3.02,
+      "vol_mult": 22.95,
+      "lines": [
+        "Ethereum breakout 2025-12-09 21:30:00+05:30 | entry 2025-12-10 03:30:00+05:30 (candle 5-6)",
+        "Entry 3334.80 | SL 3299.10 | Target 3442.44 | RR 3.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-12-09 17:00:00+00:00|2025-12-09 22:00:00+00:00|3334.8",
+      "signal_time": "2025-12-09 22:30:00+05:30",
+      "entry_time": "2025-12-10 03:30:00+05:30",
+      "entry_price": 3334.8,
+      "stop_price": 3299.1,
+      "target_price": 3442.44,
+      "rr_ratio": 3.02,
+      "vol_mult": 7.09,
+      "lines": [
+        "Ethereum breakout 2025-12-09 22:30:00+05:30 | entry 2025-12-10 03:30:00+05:30 (candle 5-6)",
+        "Entry 3334.80 | SL 3299.10 | Target 3442.44 | RR 3.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-12-07 15:00:00+00:00|2025-12-07 20:00:00+00:00|91456.53",
+      "signal_time": "2025-12-07 20:30:00+05:30",
+      "entry_time": "2025-12-08 01:30:00+05:30",
+      "entry_price": 91456.53,
+      "stop_price": 90495.97,
+      "target_price": 92906.2,
+      "rr_ratio": 1.51,
+      "vol_mult": 17.2,
+      "lines": [
+        "Bitcoin breakout 2025-12-07 20:30:00+05:30 | entry 2025-12-08 01:30:00+05:30 (candle 5-6)",
+        "Entry 91456.53 | SL 90495.97 | Target 92906.20 | RR 1.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-12-03 05:00:00+00:00|2025-12-03 11:00:00+00:00|93030.83",
+      "signal_time": "2025-12-03 10:30:00+05:30",
+      "entry_time": "2025-12-03 16:30:00+05:30",
+      "entry_price": 93030.83,
+      "stop_price": 92771.69,
+      "target_price": 94375.14,
+      "rr_ratio": 5.19,
+      "vol_mult": 3.4,
+      "lines": [
+        "Bitcoin breakout 2025-12-03 10:30:00+05:30 | entry 2025-12-03 16:30:00+05:30 (candle 5-6)",
+        "Entry 93030.83 | SL 92771.69 | Target 94375.14 | RR 5.19 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-12-02 15:00:00+00:00|2025-12-02 21:00:00+00:00|2.17",
+      "signal_time": "2025-12-02 20:30:00+05:30",
+      "entry_time": "2025-12-03 02:30:00+05:30",
+      "entry_price": 2.17,
+      "stop_price": 2.14,
+      "target_price": 2.22,
+      "rr_ratio": 1.79,
+      "vol_mult": 3.54,
+      "lines": [
+        "XRP breakout 2025-12-02 20:30:00+05:30 | entry 2025-12-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 2.17 | SL 2.14 | Target 2.22 | RR 1.79 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-11-30 13:00:00+00:00|2025-11-30 18:00:00+00:00|138.63",
+      "signal_time": "2025-11-30 18:30:00+05:30",
+      "entry_time": "2025-11-30 23:30:00+05:30",
+      "entry_price": 138.63,
+      "stop_price": 138.09,
+      "target_price": 140.7,
+      "rr_ratio": 3.84,
+      "vol_mult": 5.5,
+      "lines": [
+        "Solana breakout 2025-11-30 18:30:00+05:30 | entry 2025-11-30 23:30:00+05:30 (candle 5-6)",
+        "Entry 138.63 | SL 138.09 | Target 140.70 | RR 3.84 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-11-28 08:00:00+00:00|2025-11-28 13:00:00+00:00|142.27",
+      "signal_time": "2025-11-28 13:30:00+05:30",
+      "entry_time": "2025-11-28 18:30:00+05:30",
+      "entry_price": 142.27,
+      "stop_price": 140.59,
+      "target_price": 144.88,
+      "rr_ratio": 1.55,
+      "vol_mult": 4.24,
+      "lines": [
+        "Solana breakout 2025-11-28 13:30:00+05:30 | entry 2025-11-28 18:30:00+05:30 (candle 5-6)",
+        "Entry 142.27 | SL 140.59 | Target 144.88 | RR 1.55 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-11-26 18:00:00+00:00|2025-11-27 00:00:00+00:00|893.91",
+      "signal_time": "2025-11-26 23:30:00+05:30",
+      "entry_time": "2025-11-27 05:30:00+05:30",
+      "entry_price": 893.91,
+      "stop_price": 887.33,
+      "target_price": 907.47,
+      "rr_ratio": 2.06,
+      "vol_mult": 14.76,
+      "lines": [
+        "BNB breakout 2025-11-26 23:30:00+05:30 | entry 2025-11-27 05:30:00+05:30 (candle 5-6)",
+        "Entry 893.91 | SL 887.33 | Target 907.47 | RR 2.06 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-11-26 18:00:00+00:00|2025-11-26 23:00:00+00:00|3027.87",
+      "signal_time": "2025-11-26 23:30:00+05:30",
+      "entry_time": "2025-11-27 04:30:00+05:30",
+      "entry_price": 3027.87,
+      "stop_price": 3006.57,
+      "target_price": 3094.63,
+      "rr_ratio": 3.13,
+      "vol_mult": 4.26,
+      "lines": [
+        "Ethereum breakout 2025-11-26 23:30:00+05:30 | entry 2025-11-27 04:30:00+05:30 (candle 5-6)",
+        "Entry 3027.87 | SL 3006.57 | Target 3094.63 | RR 3.13 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-11-26 16:00:00+00:00|2025-11-26 22:00:00+00:00|891.84",
+      "signal_time": "2025-11-26 21:30:00+05:30",
+      "entry_time": "2025-11-27 03:30:00+05:30",
+      "entry_price": 891.84,
+      "stop_price": 884.15,
+      "target_price": 905.73,
+      "rr_ratio": 1.81,
+      "vol_mult": 25.66,
+      "lines": [
+        "BNB breakout 2025-11-26 21:30:00+05:30 | entry 2025-11-27 03:30:00+05:30 (candle 5-6)",
+        "Entry 891.84 | SL 884.15 | Target 905.73 | RR 1.81 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-11-26 17:00:00+00:00|2025-11-26 22:00:00+00:00|891.84",
+      "signal_time": "2025-11-26 22:30:00+05:30",
+      "entry_time": "2025-11-27 03:30:00+05:30",
+      "entry_price": 891.84,
+      "stop_price": 884.15,
+      "target_price": 905.73,
+      "rr_ratio": 1.81,
+      "vol_mult": 70.18,
+      "lines": [
+        "BNB breakout 2025-11-26 22:30:00+05:30 | entry 2025-11-27 03:30:00+05:30 (candle 5-6)",
+        "Entry 891.84 | SL 884.15 | Target 905.73 | RR 1.81 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-11-26 17:00:00+00:00|2025-11-26 22:00:00+00:00|3028.7",
+      "signal_time": "2025-11-26 22:30:00+05:30",
+      "entry_time": "2025-11-27 03:30:00+05:30",
+      "entry_price": 3028.7,
+      "stop_price": 3001.24,
+      "target_price": 3095.18,
+      "rr_ratio": 2.42,
+      "vol_mult": 6.91,
+      "lines": [
+        "Ethereum breakout 2025-11-26 22:30:00+05:30 | entry 2025-11-27 03:30:00+05:30 (candle 5-6)",
+        "Entry 3028.70 | SL 3001.24 | Target 3095.18 | RR 2.42 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-26 16:00:00+00:00|2025-11-26 21:00:00+00:00|90179.11",
+      "signal_time": "2025-11-26 21:30:00+05:30",
+      "entry_time": "2025-11-27 02:30:00+05:30",
+      "entry_price": 90179.11,
+      "stop_price": 89107.17,
+      "target_price": 91853.86,
+      "rr_ratio": 1.56,
+      "vol_mult": 18.65,
+      "lines": [
+        "Bitcoin breakout 2025-11-26 21:30:00+05:30 | entry 2025-11-27 02:30:00+05:30 (candle 5-6)",
+        "Entry 90179.11 | SL 89107.17 | Target 91853.86 | RR 1.56 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-11-24 18:00:00+00:00|2025-11-25 00:00:00+00:00|138.51",
+      "signal_time": "2025-11-24 23:30:00+05:30",
+      "entry_time": "2025-11-25 05:30:00+05:30",
+      "entry_price": 138.51,
+      "stop_price": 137.1,
+      "target_price": 141.85,
+      "rr_ratio": 2.36,
+      "vol_mult": 3.38,
+      "lines": [
+        "Solana breakout 2025-11-24 23:30:00+05:30 | entry 2025-11-25 05:30:00+05:30 (candle 5-6)",
+        "Entry 138.51 | SL 137.10 | Target 141.85 | RR 2.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-11-24 18:00:00+00:00|2025-11-25 00:00:00+00:00|2.26",
+      "signal_time": "2025-11-24 23:30:00+05:30",
+      "entry_time": "2025-11-25 05:30:00+05:30",
+      "entry_price": 2.26,
+      "stop_price": 2.21,
+      "target_price": 2.33,
+      "rr_ratio": 1.57,
+      "vol_mult": 5.6,
+      "lines": [
+        "XRP breakout 2025-11-24 23:30:00+05:30 | entry 2025-11-25 05:30:00+05:30 (candle 5-6)",
+        "Entry 2.26 | SL 2.21 | Target 2.33 | RR 1.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-23 16:00:00+00:00|2025-11-23 21:00:00+00:00|87973.95",
+      "signal_time": "2025-11-23 21:30:00+05:30",
+      "entry_time": "2025-11-24 02:30:00+05:30",
+      "entry_price": 87973.95,
+      "stop_price": 87120.86,
+      "target_price": 89266.15,
+      "rr_ratio": 1.51,
+      "vol_mult": 4.96,
+      "lines": [
+        "Bitcoin breakout 2025-11-23 21:30:00+05:30 | entry 2025-11-24 02:30:00+05:30 (candle 5-6)",
+        "Entry 87973.95 | SL 87120.86 | Target 89266.15 | RR 1.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-11-23 15:00:00+00:00|2025-11-23 20:00:00+00:00|132.65",
+      "signal_time": "2025-11-23 20:30:00+05:30",
+      "entry_time": "2025-11-24 01:30:00+05:30",
+      "entry_price": 132.65,
+      "stop_price": 131.79,
+      "target_price": 135.39,
+      "rr_ratio": 3.18,
+      "vol_mult": 4.19,
+      "lines": [
+        "Solana breakout 2025-11-23 20:30:00+05:30 | entry 2025-11-24 01:30:00+05:30 (candle 5-6)",
+        "Entry 132.65 | SL 131.79 | Target 135.39 | RR 3.18 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-23 14:00:00+00:00|2025-11-23 19:00:00+00:00|87326.5",
+      "signal_time": "2025-11-23 19:30:00+05:30",
+      "entry_time": "2025-11-24 00:30:00+05:30",
+      "entry_price": 87326.5,
+      "stop_price": 86781.83,
+      "target_price": 88603.76,
+      "rr_ratio": 2.35,
+      "vol_mult": 3.03,
+      "lines": [
+        "Bitcoin breakout 2025-11-23 19:30:00+05:30 | entry 2025-11-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 87326.50 | SL 86781.83 | Target 88603.76 | RR 2.35 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-11-23 13:00:00+00:00|2025-11-23 19:00:00+00:00|132.56",
+      "signal_time": "2025-11-23 18:30:00+05:30",
+      "entry_time": "2025-11-24 00:30:00+05:30",
+      "entry_price": 132.56,
+      "stop_price": 131.58,
+      "target_price": 135.5,
+      "rr_ratio": 2.97,
+      "vol_mult": 4.12,
+      "lines": [
+        "Solana breakout 2025-11-23 18:30:00+05:30 | entry 2025-11-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 132.56 | SL 131.58 | Target 135.50 | RR 2.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-11-23 14:00:00+00:00|2025-11-23 19:00:00+00:00|132.56",
+      "signal_time": "2025-11-23 19:30:00+05:30",
+      "entry_time": "2025-11-24 00:30:00+05:30",
+      "entry_price": 132.56,
+      "stop_price": 131.58,
+      "target_price": 135.5,
+      "rr_ratio": 2.97,
+      "vol_mult": 5.92,
+      "lines": [
+        "Solana breakout 2025-11-23 19:30:00+05:30 | entry 2025-11-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 132.56 | SL 131.58 | Target 135.50 | RR 2.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-23 11:00:00+00:00|2025-11-23 17:00:00+00:00|86721.82",
+      "signal_time": "2025-11-23 16:30:00+05:30",
+      "entry_time": "2025-11-23 22:30:00+05:30",
+      "entry_price": 86721.82,
+      "stop_price": 86334.43,
+      "target_price": 87998.34,
+      "rr_ratio": 3.3,
+      "vol_mult": 16.79,
+      "lines": [
+        "Bitcoin breakout 2025-11-23 16:30:00+05:30 | entry 2025-11-23 22:30:00+05:30 (candle 5-6)",
+        "Entry 86721.82 | SL 86334.43 | Target 87998.34 | RR 3.30 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-23 12:00:00+00:00|2025-11-23 17:00:00+00:00|86721.82",
+      "signal_time": "2025-11-23 17:30:00+05:30",
+      "entry_time": "2025-11-23 22:30:00+05:30",
+      "entry_price": 86721.82,
+      "stop_price": 86334.43,
+      "target_price": 87998.34,
+      "rr_ratio": 3.3,
+      "vol_mult": 4.29,
+      "lines": [
+        "Bitcoin breakout 2025-11-23 17:30:00+05:30 | entry 2025-11-23 22:30:00+05:30 (candle 5-6)",
+        "Entry 86721.82 | SL 86334.43 | Target 87998.34 | RR 3.30 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-11-23 02:00:00+00:00|2025-11-23 08:00:00+00:00|2.04",
+      "signal_time": "2025-11-23 07:30:00+05:30",
+      "entry_time": "2025-11-23 13:30:00+05:30",
+      "entry_price": 2.04,
+      "stop_price": 2.02,
+      "target_price": 2.09,
+      "rr_ratio": 3.59,
+      "vol_mult": 41.46,
+      "lines": [
+        "XRP breakout 2025-11-23 07:30:00+05:30 | entry 2025-11-23 13:30:00+05:30 (candle 5-6)",
+        "Entry 2.04 | SL 2.02 | Target 2.09 | RR 3.59 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-11-23 03:00:00+00:00|2025-11-23 08:00:00+00:00|2.04",
+      "signal_time": "2025-11-23 08:30:00+05:30",
+      "entry_time": "2025-11-23 13:30:00+05:30",
+      "entry_price": 2.04,
+      "stop_price": 2.02,
+      "target_price": 2.09,
+      "rr_ratio": 3.59,
+      "vol_mult": 4.29,
+      "lines": [
+        "XRP breakout 2025-11-23 08:30:00+05:30 | entry 2025-11-23 13:30:00+05:30 (candle 5-6)",
+        "Entry 2.04 | SL 2.02 | Target 2.09 | RR 3.59 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-16 02:00:00+00:00|2025-11-16 07:00:00+00:00|96000.01",
+      "signal_time": "2025-11-16 07:30:00+05:30",
+      "entry_time": "2025-11-16 12:30:00+05:30",
+      "entry_price": 96000.01,
+      "stop_price": 95587.13,
+      "target_price": 96979.03,
+      "rr_ratio": 2.37,
+      "vol_mult": 53.79,
+      "lines": [
+        "Bitcoin breakout 2025-11-16 07:30:00+05:30 | entry 2025-11-16 12:30:00+05:30 (candle 5-6)",
+        "Entry 96000.01 | SL 95587.13 | Target 96979.03 | RR 2.37 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-15 02:00:00+00:00|2025-11-15 07:00:00+00:00|96275.25",
+      "signal_time": "2025-11-15 07:30:00+05:30",
+      "entry_time": "2025-11-15 12:30:00+05:30",
+      "entry_price": 96275.25,
+      "stop_price": 95436.05,
+      "target_price": 98263.72,
+      "rr_ratio": 2.37,
+      "vol_mult": 3.19,
+      "lines": [
+        "Bitcoin breakout 2025-11-15 07:30:00+05:30 | entry 2025-11-15 12:30:00+05:30 (candle 5-6)",
+        "Entry 96275.25 | SL 95436.05 | Target 98263.72 | RR 2.37 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-13 06:00:00+00:00|2025-11-13 12:00:00+00:00|103139.97",
+      "signal_time": "2025-11-13 11:30:00+05:30",
+      "entry_time": "2025-11-13 17:30:00+05:30",
+      "entry_price": 103139.97,
+      "stop_price": 102240.37,
+      "target_price": 104831.0,
+      "rr_ratio": 1.88,
+      "vol_mult": 5.3,
+      "lines": [
+        "Bitcoin breakout 2025-11-13 11:30:00+05:30 | entry 2025-11-13 17:30:00+05:30 (candle 5-6)",
+        "Entry 103139.97 | SL 102240.37 | Target 104831.00 | RR 1.88 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-11-13 06:00:00+00:00|2025-11-13 11:00:00+00:00|3505.42",
+      "signal_time": "2025-11-13 11:30:00+05:30",
+      "entry_time": "2025-11-13 16:30:00+05:30",
+      "entry_price": 3505.42,
+      "stop_price": 3484.37,
+      "target_price": 3592.65,
+      "rr_ratio": 4.14,
+      "vol_mult": 3.43,
+      "lines": [
+        "Ethereum breakout 2025-11-13 11:30:00+05:30 | entry 2025-11-13 16:30:00+05:30 (candle 5-6)",
+        "Entry 3505.42 | SL 3484.37 | Target 3592.65 | RR 4.14 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-13 04:00:00+00:00|2025-11-13 10:00:00+00:00|102932.07",
+      "signal_time": "2025-11-13 09:30:00+05:30",
+      "entry_time": "2025-11-13 15:30:00+05:30",
+      "entry_price": 102932.07,
+      "stop_price": 102240.37,
+      "target_price": 104629.76,
+      "rr_ratio": 2.45,
+      "vol_mult": 5.61,
+      "lines": [
+        "Bitcoin breakout 2025-11-13 09:30:00+05:30 | entry 2025-11-13 15:30:00+05:30 (candle 5-6)",
+        "Entry 102932.07 | SL 102240.37 | Target 104629.76 | RR 2.45 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-11-13 04:00:00+00:00|2025-11-13 10:00:00+00:00|3502.78",
+      "signal_time": "2025-11-13 09:30:00+05:30",
+      "entry_time": "2025-11-13 15:30:00+05:30",
+      "entry_price": 3502.78,
+      "stop_price": 3484.37,
+      "target_price": 3589.93,
+      "rr_ratio": 4.74,
+      "vol_mult": 7.66,
+      "lines": [
+        "Ethereum breakout 2025-11-13 09:30:00+05:30 | entry 2025-11-13 15:30:00+05:30 (candle 5-6)",
+        "Entry 3502.78 | SL 3484.37 | Target 3589.93 | RR 4.74 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-09 17:00:00+00:00|2025-11-09 22:00:00+00:00|104688.78",
+      "signal_time": "2025-11-09 22:30:00+05:30",
+      "entry_time": "2025-11-10 03:30:00+05:30",
+      "entry_price": 104688.78,
+      "stop_price": 104084.73,
+      "target_price": 106269.17,
+      "rr_ratio": 2.62,
+      "vol_mult": 3.92,
+      "lines": [
+        "Bitcoin breakout 2025-11-09 22:30:00+05:30 | entry 2025-11-10 03:30:00+05:30 (candle 5-6)",
+        "Entry 104688.78 | SL 104084.73 | Target 106269.17 | RR 2.62 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-11-09 17:00:00+00:00|2025-11-09 22:00:00+00:00|3588.64",
+      "signal_time": "2025-11-09 22:30:00+05:30",
+      "entry_time": "2025-11-10 03:30:00+05:30",
+      "entry_price": 3588.64,
+      "stop_price": 3544.17,
+      "target_price": 3670.34,
+      "rr_ratio": 1.84,
+      "vol_mult": 3.16,
+      "lines": [
+        "Ethereum breakout 2025-11-09 22:30:00+05:30 | entry 2025-11-10 03:30:00+05:30 (candle 5-6)",
+        "Entry 3588.64 | SL 3544.17 | Target 3670.34 | RR 1.84 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-11-08 02:00:00+00:00|2025-11-08 07:00:00+00:00|995.21",
+      "signal_time": "2025-11-08 07:30:00+05:30",
+      "entry_time": "2025-11-08 12:30:00+05:30",
+      "entry_price": 995.21,
+      "stop_price": 989.98,
+      "target_price": 1015.63,
+      "rr_ratio": 3.9,
+      "vol_mult": 3.31,
+      "lines": [
+        "BNB breakout 2025-11-08 07:30:00+05:30 | entry 2025-11-08 12:30:00+05:30 (candle 5-6)",
+        "Entry 995.21 | SL 989.98 | Target 1015.63 | RR 3.90 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-11-07 15:00:00+00:00|2025-11-07 21:00:00+00:00|3466.58",
+      "signal_time": "2025-11-07 20:30:00+05:30",
+      "entry_time": "2025-11-08 02:30:00+05:30",
+      "entry_price": 3466.58,
+      "stop_price": 3393.39,
+      "target_price": 3587.71,
+      "rr_ratio": 1.66,
+      "vol_mult": 3.04,
+      "lines": [
+        "Ethereum breakout 2025-11-07 20:30:00+05:30 | entry 2025-11-08 02:30:00+05:30 (candle 5-6)",
+        "Entry 3466.58 | SL 3393.39 | Target 3587.71 | RR 1.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-11-07 02:00:00+00:00|2025-11-07 07:00:00+00:00|101970.91",
+      "signal_time": "2025-11-07 07:30:00+05:30",
+      "entry_time": "2025-11-07 12:30:00+05:30",
+      "entry_price": 101970.91,
+      "stop_price": 101602.02,
+      "target_price": 103559.19,
+      "rr_ratio": 4.31,
+      "vol_mult": 10.99,
+      "lines": [
+        "Bitcoin breakout 2025-11-07 07:30:00+05:30 | entry 2025-11-07 12:30:00+05:30 (candle 5-6)",
+        "Entry 101970.91 | SL 101602.02 | Target 103559.19 | RR 4.31 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-11-06 18:00:00+00:00|2025-11-07 00:00:00+00:00|952.21",
+      "signal_time": "2025-11-06 23:30:00+05:30",
+      "entry_time": "2025-11-07 05:30:00+05:30",
+      "entry_price": 952.21,
+      "stop_price": 946.09,
+      "target_price": 972.7,
+      "rr_ratio": 3.35,
+      "vol_mult": 3.93,
+      "lines": [
+        "BNB breakout 2025-11-06 23:30:00+05:30 | entry 2025-11-07 05:30:00+05:30 (candle 5-6)",
+        "Entry 952.21 | SL 946.09 | Target 972.70 | RR 3.35 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-27 01:00:00+00:00|2025-10-27 06:00:00+00:00|1151.91",
+      "signal_time": "2025-10-27 06:30:00+05:30",
+      "entry_time": "2025-10-27 11:30:00+05:30",
+      "entry_price": 1151.91,
+      "stop_price": 1146.3,
+      "target_price": 1168.42,
+      "rr_ratio": 2.94,
+      "vol_mult": 3.82,
+      "lines": [
+        "BNB breakout 2025-10-27 06:30:00+05:30 | entry 2025-10-27 11:30:00+05:30 (candle 5-6)",
+        "Entry 1151.91 | SL 1146.30 | Target 1168.42 | RR 2.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-26 16:00:00+00:00|2025-10-26 21:00:00+00:00|4080.33",
+      "signal_time": "2025-10-26 21:30:00+05:30",
+      "entry_time": "2025-10-27 02:30:00+05:30",
+      "entry_price": 4080.33,
+      "stop_price": 4058.65,
+      "target_price": 4141.57,
+      "rr_ratio": 2.82,
+      "vol_mult": 3.77,
+      "lines": [
+        "Ethereum breakout 2025-10-26 21:30:00+05:30 | entry 2025-10-27 02:30:00+05:30 (candle 5-6)",
+        "Entry 4080.33 | SL 4058.65 | Target 4141.57 | RR 2.82 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-26 09:00:00+00:00|2025-10-26 15:00:00+00:00|1133.43",
+      "signal_time": "2025-10-26 14:30:00+05:30",
+      "entry_time": "2025-10-26 20:30:00+05:30",
+      "entry_price": 1133.43,
+      "stop_price": 1127.8,
+      "target_price": 1145.12,
+      "rr_ratio": 2.08,
+      "vol_mult": 26.64,
+      "lines": [
+        "BNB breakout 2025-10-26 14:30:00+05:30 | entry 2025-10-26 20:30:00+05:30 (candle 5-6)",
+        "Entry 1133.43 | SL 1127.80 | Target 1145.12 | RR 2.08 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-26 09:00:00+00:00|2025-10-26 15:00:00+00:00|2.64",
+      "signal_time": "2025-10-26 14:30:00+05:30",
+      "entry_time": "2025-10-26 20:30:00+05:30",
+      "entry_price": 2.64,
+      "stop_price": 2.62,
+      "target_price": 2.68,
+      "rr_ratio": 1.92,
+      "vol_mult": 11.0,
+      "lines": [
+        "XRP breakout 2025-10-26 14:30:00+05:30 | entry 2025-10-26 20:30:00+05:30 (candle 5-6)",
+        "Entry 2.64 | SL 2.62 | Target 2.68 | RR 1.92 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-24 19:00:00+00:00|2025-10-25 00:00:00+00:00|2.52",
+      "signal_time": "2025-10-25 00:30:00+05:30",
+      "entry_time": "2025-10-25 05:30:00+05:30",
+      "entry_price": 2.52,
+      "stop_price": 2.5,
+      "target_price": 2.57,
+      "rr_ratio": 2.94,
+      "vol_mult": 3.81,
+      "lines": [
+        "XRP breakout 2025-10-25 00:30:00+05:30 | entry 2025-10-25 05:30:00+05:30 (candle 5-6)",
+        "Entry 2.52 | SL 2.50 | Target 2.57 | RR 2.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-24 13:00:00+00:00|2025-10-24 19:00:00+00:00|2.51",
+      "signal_time": "2025-10-24 18:30:00+05:30",
+      "entry_time": "2025-10-25 00:30:00+05:30",
+      "entry_price": 2.51,
+      "stop_price": 2.48,
+      "target_price": 2.56,
+      "rr_ratio": 1.66,
+      "vol_mult": 12.64,
+      "lines": [
+        "XRP breakout 2025-10-24 18:30:00+05:30 | entry 2025-10-25 00:30:00+05:30 (candle 5-6)",
+        "Entry 2.51 | SL 2.48 | Target 2.56 | RR 1.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-24 14:00:00+00:00|2025-10-24 19:00:00+00:00|2.51",
+      "signal_time": "2025-10-24 19:30:00+05:30",
+      "entry_time": "2025-10-25 00:30:00+05:30",
+      "entry_price": 2.51,
+      "stop_price": 2.48,
+      "target_price": 2.56,
+      "rr_ratio": 1.66,
+      "vol_mult": 6.27,
+      "lines": [
+        "XRP breakout 2025-10-24 19:30:00+05:30 | entry 2025-10-25 00:30:00+05:30 (candle 5-6)",
+        "Entry 2.51 | SL 2.48 | Target 2.56 | RR 1.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-24 07:00:00+00:00|2025-10-24 12:00:00+00:00|3965.16",
+      "signal_time": "2025-10-24 12:30:00+05:30",
+      "entry_time": "2025-10-24 17:30:00+05:30",
+      "entry_price": 3965.16,
+      "stop_price": 3939.26,
+      "target_price": 4040.05,
+      "rr_ratio": 2.89,
+      "vol_mult": 3.36,
+      "lines": [
+        "Ethereum breakout 2025-10-24 12:30:00+05:30 | entry 2025-10-24 17:30:00+05:30 (candle 5-6)",
+        "Entry 3965.16 | SL 3939.26 | Target 4040.05 | RR 2.89 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-24 05:00:00+00:00|2025-10-24 11:00:00+00:00|2.45",
+      "signal_time": "2025-10-24 10:30:00+05:30",
+      "entry_time": "2025-10-24 16:30:00+05:30",
+      "entry_price": 2.45,
+      "stop_price": 2.44,
+      "target_price": 2.48,
+      "rr_ratio": 1.82,
+      "vol_mult": 9.35,
+      "lines": [
+        "XRP breakout 2025-10-24 10:30:00+05:30 | entry 2025-10-24 16:30:00+05:30 (candle 5-6)",
+        "Entry 2.45 | SL 2.44 | Target 2.48 | RR 1.82 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-23 18:00:00+00:00|2025-10-24 00:00:00+00:00|110572.97",
+      "signal_time": "2025-10-23 23:30:00+05:30",
+      "entry_time": "2025-10-24 05:30:00+05:30",
+      "entry_price": 110572.97,
+      "stop_price": 110034.7,
+      "target_price": 112215.57,
+      "rr_ratio": 3.05,
+      "vol_mult": 6.57,
+      "lines": [
+        "Bitcoin breakout 2025-10-23 23:30:00+05:30 | entry 2025-10-24 05:30:00+05:30 (candle 5-6)",
+        "Entry 110572.97 | SL 110034.70 | Target 112215.57 | RR 3.05 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-10-21 14:00:00+00:00|2025-10-21 19:00:00+00:00|194.32",
+      "signal_time": "2025-10-21 19:30:00+05:30",
+      "entry_time": "2025-10-22 00:30:00+05:30",
+      "entry_price": 194.32,
+      "stop_price": 192.08,
+      "target_price": 200.01,
+      "rr_ratio": 2.54,
+      "vol_mult": 6.86,
+      "lines": [
+        "Solana breakout 2025-10-21 19:30:00+05:30 | entry 2025-10-22 00:30:00+05:30 (candle 5-6)",
+        "Entry 194.32 | SL 192.08 | Target 200.01 | RR 2.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-20 06:00:00+00:00|2025-10-20 11:00:00+00:00|4036.29",
+      "signal_time": "2025-10-20 11:30:00+05:30",
+      "entry_time": "2025-10-20 16:30:00+05:30",
+      "entry_price": 4036.29,
+      "stop_price": 4016.48,
+      "target_price": 4122.7,
+      "rr_ratio": 4.36,
+      "vol_mult": 8.01,
+      "lines": [
+        "Ethereum breakout 2025-10-20 11:30:00+05:30 | entry 2025-10-20 16:30:00+05:30 (candle 5-6)",
+        "Entry 4036.29 | SL 4016.48 | Target 4122.70 | RR 4.36 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-19 17:00:00+00:00|2025-10-19 22:00:00+00:00|109200.05",
+      "signal_time": "2025-10-19 22:30:00+05:30",
+      "entry_time": "2025-10-20 03:30:00+05:30",
+      "entry_price": 109200.05,
+      "stop_price": 108787.16,
+      "target_price": 110589.5,
+      "rr_ratio": 3.37,
+      "vol_mult": 3.12,
+      "lines": [
+        "Bitcoin breakout 2025-10-19 22:30:00+05:30 | entry 2025-10-20 03:30:00+05:30 (candle 5-6)",
+        "Entry 109200.05 | SL 108787.16 | Target 110589.50 | RR 3.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-19 17:00:00+00:00|2025-10-19 22:00:00+00:00|4023.26",
+      "signal_time": "2025-10-19 22:30:00+05:30",
+      "entry_time": "2025-10-20 03:30:00+05:30",
+      "entry_price": 4023.26,
+      "stop_price": 3990.71,
+      "target_price": 4103.3,
+      "rr_ratio": 2.46,
+      "vol_mult": 3.38,
+      "lines": [
+        "Ethereum breakout 2025-10-19 22:30:00+05:30 | entry 2025-10-20 03:30:00+05:30 (candle 5-6)",
+        "Entry 4023.26 | SL 3990.71 | Target 4103.30 | RR 2.46 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-19 14:00:00+00:00|2025-10-19 20:00:00+00:00|1119.76",
+      "signal_time": "2025-10-19 19:30:00+05:30",
+      "entry_time": "2025-10-20 01:30:00+05:30",
+      "entry_price": 1119.76,
+      "stop_price": 1115.99,
+      "target_price": 1146.03,
+      "rr_ratio": 6.97,
+      "vol_mult": 16.38,
+      "lines": [
+        "BNB breakout 2025-10-19 19:30:00+05:30 | entry 2025-10-20 01:30:00+05:30 (candle 5-6)",
+        "Entry 1119.76 | SL 1115.99 | Target 1146.03 | RR 6.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-19 15:00:00+00:00|2025-10-19 20:00:00+00:00|1119.76",
+      "signal_time": "2025-10-19 20:30:00+05:30",
+      "entry_time": "2025-10-20 01:30:00+05:30",
+      "entry_price": 1119.76,
+      "stop_price": 1115.99,
+      "target_price": 1146.03,
+      "rr_ratio": 6.97,
+      "vol_mult": 4.49,
+      "lines": [
+        "BNB breakout 2025-10-19 20:30:00+05:30 | entry 2025-10-20 01:30:00+05:30 (candle 5-6)",
+        "Entry 1119.76 | SL 1115.99 | Target 1146.03 | RR 6.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-19 14:00:00+00:00|2025-10-19 20:00:00+00:00|4002.0",
+      "signal_time": "2025-10-19 19:30:00+05:30",
+      "entry_time": "2025-10-20 01:30:00+05:30",
+      "entry_price": 4002.0,
+      "stop_price": 3977.87,
+      "target_price": 4091.15,
+      "rr_ratio": 3.69,
+      "vol_mult": 6.99,
+      "lines": [
+        "Ethereum breakout 2025-10-19 19:30:00+05:30 | entry 2025-10-20 01:30:00+05:30 (candle 5-6)",
+        "Entry 4002.00 | SL 3977.87 | Target 4091.15 | RR 3.69 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-19 15:00:00+00:00|2025-10-19 20:00:00+00:00|4002.0",
+      "signal_time": "2025-10-19 20:30:00+05:30",
+      "entry_time": "2025-10-20 01:30:00+05:30",
+      "entry_price": 4002.0,
+      "stop_price": 3977.87,
+      "target_price": 4091.15,
+      "rr_ratio": 3.69,
+      "vol_mult": 4.81,
+      "lines": [
+        "Ethereum breakout 2025-10-19 20:30:00+05:30 | entry 2025-10-20 01:30:00+05:30 (candle 5-6)",
+        "Entry 4002.00 | SL 3977.87 | Target 4091.15 | RR 3.69 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-19 14:00:00+00:00|2025-10-19 20:00:00+00:00|2.41",
+      "signal_time": "2025-10-19 19:30:00+05:30",
+      "entry_time": "2025-10-20 01:30:00+05:30",
+      "entry_price": 2.41,
+      "stop_price": 2.4,
+      "target_price": 2.46,
+      "rr_ratio": 5.55,
+      "vol_mult": 6.99,
+      "lines": [
+        "XRP breakout 2025-10-19 19:30:00+05:30 | entry 2025-10-20 01:30:00+05:30 (candle 5-6)",
+        "Entry 2.41 | SL 2.40 | Target 2.46 | RR 5.55 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-10-19 13:00:00+00:00|2025-10-19 18:00:00+00:00|190.19",
+      "signal_time": "2025-10-19 18:30:00+05:30",
+      "entry_time": "2025-10-19 23:30:00+05:30",
+      "entry_price": 190.19,
+      "stop_price": 188.8,
+      "target_price": 194.44,
+      "rr_ratio": 3.05,
+      "vol_mult": 6.07,
+      "lines": [
+        "Solana breakout 2025-10-19 18:30:00+05:30 | entry 2025-10-19 23:30:00+05:30 (candle 5-6)",
+        "Entry 190.19 | SL 188.80 | Target 194.44 | RR 3.05 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-16 02:00:00+00:00|2025-10-16 08:00:00+00:00|1188.07",
+      "signal_time": "2025-10-16 07:30:00+05:30",
+      "entry_time": "2025-10-16 13:30:00+05:30",
+      "entry_price": 1188.07,
+      "stop_price": 1181.61,
+      "target_price": 1213.88,
+      "rr_ratio": 4.0,
+      "vol_mult": 3.44,
+      "lines": [
+        "BNB breakout 2025-10-16 07:30:00+05:30 | entry 2025-10-16 13:30:00+05:30 (candle 5-6)",
+        "Entry 1188.07 | SL 1181.61 | Target 1213.88 | RR 4.00 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-16 01:00:00+00:00|2025-10-16 06:00:00+00:00|1190.7",
+      "signal_time": "2025-10-16 06:30:00+05:30",
+      "entry_time": "2025-10-16 11:30:00+05:30",
+      "entry_price": 1190.7,
+      "stop_price": 1180.95,
+      "target_price": 1219.41,
+      "rr_ratio": 2.94,
+      "vol_mult": 9.55,
+      "lines": [
+        "BNB breakout 2025-10-16 06:30:00+05:30 | entry 2025-10-16 11:30:00+05:30 (candle 5-6)",
+        "Entry 1190.70 | SL 1180.95 | Target 1219.41 | RR 2.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-14 16:00:00+00:00|2025-10-14 22:00:00+00:00|113259.67",
+      "signal_time": "2025-10-14 21:30:00+05:30",
+      "entry_time": "2025-10-15 03:30:00+05:30",
+      "entry_price": 113259.67,
+      "stop_price": 112745.71,
+      "target_price": 115630.39,
+      "rr_ratio": 4.61,
+      "vol_mult": 5.16,
+      "lines": [
+        "Bitcoin breakout 2025-10-14 21:30:00+05:30 | entry 2025-10-15 03:30:00+05:30 (candle 5-6)",
+        "Entry 113259.67 | SL 112745.71 | Target 115630.39 | RR 4.61 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-14 17:00:00+00:00|2025-10-14 22:00:00+00:00|113259.67",
+      "signal_time": "2025-10-14 22:30:00+05:30",
+      "entry_time": "2025-10-15 03:30:00+05:30",
+      "entry_price": 113259.67,
+      "stop_price": 112745.71,
+      "target_price": 115630.39,
+      "rr_ratio": 4.61,
+      "vol_mult": 3.08,
+      "lines": [
+        "Bitcoin breakout 2025-10-14 22:30:00+05:30 | entry 2025-10-15 03:30:00+05:30 (candle 5-6)",
+        "Entry 113259.67 | SL 112745.71 | Target 115630.39 | RR 4.61 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-14 16:00:00+00:00|2025-10-14 21:00:00+00:00|4120.32",
+      "signal_time": "2025-10-14 21:30:00+05:30",
+      "entry_time": "2025-10-15 02:30:00+05:30",
+      "entry_price": 4120.32,
+      "stop_price": 4086.01,
+      "target_price": 4273.29,
+      "rr_ratio": 4.46,
+      "vol_mult": 3.42,
+      "lines": [
+        "Ethereum breakout 2025-10-14 21:30:00+05:30 | entry 2025-10-15 02:30:00+05:30 (candle 5-6)",
+        "Entry 4120.32 | SL 4086.01 | Target 4273.29 | RR 4.46 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-14 15:00:00+00:00|2025-10-14 20:00:00+00:00|4118.26",
+      "signal_time": "2025-10-14 20:30:00+05:30",
+      "entry_time": "2025-10-15 01:30:00+05:30",
+      "entry_price": 4118.26,
+      "stop_price": 4077.43,
+      "target_price": 4275.75,
+      "rr_ratio": 3.86,
+      "vol_mult": 5.36,
+      "lines": [
+        "Ethereum breakout 2025-10-14 20:30:00+05:30 | entry 2025-10-15 01:30:00+05:30 (candle 5-6)",
+        "Entry 4118.26 | SL 4077.43 | Target 4275.75 | RR 3.86 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-10-12 17:00:00+00:00|2025-10-12 23:00:00+00:00|4162.33",
+      "signal_time": "2025-10-12 22:30:00+05:30",
+      "entry_time": "2025-10-13 04:30:00+05:30",
+      "entry_price": 4162.33,
+      "stop_price": 4097.41,
+      "target_price": 4316.77,
+      "rr_ratio": 2.38,
+      "vol_mult": 4.11,
+      "lines": [
+        "Ethereum breakout 2025-10-12 22:30:00+05:30 | entry 2025-10-13 04:30:00+05:30 (candle 5-6)",
+        "Entry 4162.33 | SL 4097.41 | Target 4316.77 | RR 2.38 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-10-12 16:00:00+00:00|2025-10-12 22:00:00+00:00|197.57",
+      "signal_time": "2025-10-12 21:30:00+05:30",
+      "entry_time": "2025-10-13 03:30:00+05:30",
+      "entry_price": 197.57,
+      "stop_price": 193.41,
+      "target_price": 204.85,
+      "rr_ratio": 1.75,
+      "vol_mult": 9.02,
+      "lines": [
+        "Solana breakout 2025-10-12 21:30:00+05:30 | entry 2025-10-13 03:30:00+05:30 (candle 5-6)",
+        "Entry 197.57 | SL 193.41 | Target 204.85 | RR 1.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-10-12 17:00:00+00:00|2025-10-12 22:00:00+00:00|197.57",
+      "signal_time": "2025-10-12 22:30:00+05:30",
+      "entry_time": "2025-10-13 03:30:00+05:30",
+      "entry_price": 197.57,
+      "stop_price": 193.41,
+      "target_price": 204.85,
+      "rr_ratio": 1.75,
+      "vol_mult": 3.45,
+      "lines": [
+        "Solana breakout 2025-10-12 22:30:00+05:30 | entry 2025-10-13 03:30:00+05:30 (candle 5-6)",
+        "Entry 197.57 | SL 193.41 | Target 204.85 | RR 1.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-10-08 18:00:00+00:00|2025-10-08 23:00:00+00:00|229.12",
+      "signal_time": "2025-10-08 23:30:00+05:30",
+      "entry_time": "2025-10-09 04:30:00+05:30",
+      "entry_price": 229.12,
+      "stop_price": 227.22,
+      "target_price": 234.24,
+      "rr_ratio": 2.69,
+      "vol_mult": 3.04,
+      "lines": [
+        "Solana breakout 2025-10-08 23:30:00+05:30 | entry 2025-10-09 04:30:00+05:30 (candle 5-6)",
+        "Entry 229.12 | SL 227.22 | Target 234.24 | RR 2.69 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-06 13:00:00+00:00|2025-10-06 19:00:00+00:00|1225.2",
+      "signal_time": "2025-10-06 18:30:00+05:30",
+      "entry_time": "2025-10-07 00:30:00+05:30",
+      "entry_price": 1225.2,
+      "stop_price": 1219.64,
+      "target_price": 1251.83,
+      "rr_ratio": 4.79,
+      "vol_mult": 3.1,
+      "lines": [
+        "BNB breakout 2025-10-06 18:30:00+05:30 | entry 2025-10-07 00:30:00+05:30 (candle 5-6)",
+        "Entry 1225.20 | SL 1219.64 | Target 1251.83 | RR 4.79 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-05 02:00:00+00:00|2025-10-05 07:00:00+00:00|1178.86",
+      "signal_time": "2025-10-05 07:30:00+05:30",
+      "entry_time": "2025-10-05 12:30:00+05:30",
+      "entry_price": 1178.86,
+      "stop_price": 1167.78,
+      "target_price": 1198.83,
+      "rr_ratio": 1.8,
+      "vol_mult": 3.57,
+      "lines": [
+        "BNB breakout 2025-10-05 07:30:00+05:30 | entry 2025-10-05 12:30:00+05:30 (candle 5-6)",
+        "Entry 1178.86 | SL 1167.78 | Target 1198.83 | RR 1.80 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-03 17:00:00+00:00|2025-10-03 23:00:00+00:00|1189.97",
+      "signal_time": "2025-10-03 22:30:00+05:30",
+      "entry_time": "2025-10-04 04:30:00+05:30",
+      "entry_price": 1189.97,
+      "stop_price": 1168.1,
+      "target_price": 1226.08,
+      "rr_ratio": 1.65,
+      "vol_mult": 3.07,
+      "lines": [
+        "BNB breakout 2025-10-03 22:30:00+05:30 | entry 2025-10-04 04:30:00+05:30 (candle 5-6)",
+        "Entry 1189.97 | SL 1168.10 | Target 1226.08 | RR 1.65 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-03 16:00:00+00:00|2025-10-03 22:00:00+00:00|122528.68",
+      "signal_time": "2025-10-03 21:30:00+05:30",
+      "entry_time": "2025-10-04 03:30:00+05:30",
+      "entry_price": 122528.68,
+      "stop_price": 122169.77,
+      "target_price": 124333.37,
+      "rr_ratio": 5.03,
+      "vol_mult": 29.99,
+      "lines": [
+        "Bitcoin breakout 2025-10-03 21:30:00+05:30 | entry 2025-10-04 03:30:00+05:30 (candle 5-6)",
+        "Entry 122528.68 | SL 122169.77 | Target 124333.37 | RR 5.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-03 17:00:00+00:00|2025-10-03 22:00:00+00:00|122528.68",
+      "signal_time": "2025-10-03 22:30:00+05:30",
+      "entry_time": "2025-10-04 03:30:00+05:30",
+      "entry_price": 122528.68,
+      "stop_price": 122169.77,
+      "target_price": 124333.37,
+      "rr_ratio": 5.03,
+      "vol_mult": 5.55,
+      "lines": [
+        "Bitcoin breakout 2025-10-03 22:30:00+05:30 | entry 2025-10-04 03:30:00+05:30 (candle 5-6)",
+        "Entry 122528.68 | SL 122169.77 | Target 124333.37 | RR 5.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-03 15:00:00+00:00|2025-10-03 20:00:00+00:00|1174.39",
+      "signal_time": "2025-10-03 20:30:00+05:30",
+      "entry_time": "2025-10-04 01:30:00+05:30",
+      "entry_price": 1174.39,
+      "stop_price": 1151.7,
+      "target_price": 1210.72,
+      "rr_ratio": 1.6,
+      "vol_mult": 3.53,
+      "lines": [
+        "BNB breakout 2025-10-03 20:30:00+05:30 | entry 2025-10-04 01:30:00+05:30 (candle 5-6)",
+        "Entry 1174.39 | SL 1151.70 | Target 1210.72 | RR 1.60 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-10-02 16:00:00+00:00|2025-10-02 21:00:00+00:00|232.88",
+      "signal_time": "2025-10-02 21:30:00+05:30",
+      "entry_time": "2025-10-03 02:30:00+05:30",
+      "entry_price": 232.88,
+      "stop_price": 230.2,
+      "target_price": 237.77,
+      "rr_ratio": 1.82,
+      "vol_mult": 3.89,
+      "lines": [
+        "Solana breakout 2025-10-02 21:30:00+05:30 | entry 2025-10-03 02:30:00+05:30 (candle 5-6)",
+        "Entry 232.88 | SL 230.20 | Target 237.77 | RR 1.82 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-10-01 23:00:00+00:00|2025-10-02 05:00:00+00:00|1031.69",
+      "signal_time": "2025-10-02 04:30:00+05:30",
+      "entry_time": "2025-10-02 10:30:00+05:30",
+      "entry_price": 1031.69,
+      "stop_price": 1029.27,
+      "target_price": 1042.62,
+      "rr_ratio": 4.51,
+      "vol_mult": 3.26,
+      "lines": [
+        "BNB breakout 2025-10-02 04:30:00+05:30 | entry 2025-10-02 10:30:00+05:30 (candle 5-6)",
+        "Entry 1031.69 | SL 1029.27 | Target 1042.62 | RR 4.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-10-01 16:00:00+00:00|2025-10-01 22:00:00+00:00|117870.01",
+      "signal_time": "2025-10-01 21:30:00+05:30",
+      "entry_time": "2025-10-02 03:30:00+05:30",
+      "entry_price": 117870.01,
+      "stop_price": 117331.32,
+      "target_price": 119066.01,
+      "rr_ratio": 2.22,
+      "vol_mult": 4.78,
+      "lines": [
+        "Bitcoin breakout 2025-10-01 21:30:00+05:30 | entry 2025-10-02 03:30:00+05:30 (candle 5-6)",
+        "Entry 117870.01 | SL 117331.32 | Target 119066.01 | RR 2.22 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-10-01 12:00:00+00:00|2025-10-01 18:00:00+00:00|2.94",
+      "signal_time": "2025-10-01 17:30:00+05:30",
+      "entry_time": "2025-10-01 23:30:00+05:30",
+      "entry_price": 2.94,
+      "stop_price": 2.91,
+      "target_price": 2.99,
+      "rr_ratio": 1.96,
+      "vol_mult": 3.44,
+      "lines": [
+        "XRP breakout 2025-10-01 17:30:00+05:30 | entry 2025-10-01 23:30:00+05:30 (candle 5-6)",
+        "Entry 2.94 | SL 2.91 | Target 2.99 | RR 1.96 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-09-29 15:00:00+00:00|2025-09-29 20:00:00+00:00|214.3",
+      "signal_time": "2025-09-29 20:30:00+05:30",
+      "entry_time": "2025-09-30 01:30:00+05:30",
+      "entry_price": 214.3,
+      "stop_price": 211.1,
+      "target_price": 219.16,
+      "rr_ratio": 1.51,
+      "vol_mult": 3.15,
+      "lines": [
+        "Solana breakout 2025-09-29 20:30:00+05:30 | entry 2025-09-30 01:30:00+05:30 (candle 5-6)",
+        "Entry 214.30 | SL 211.10 | Target 219.16 | RR 1.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-29 13:00:00+00:00|2025-09-29 19:00:00+00:00|114370.83",
+      "signal_time": "2025-09-29 18:30:00+05:30",
+      "entry_time": "2025-09-30 00:30:00+05:30",
+      "entry_price": 114370.83,
+      "stop_price": 113619.87,
+      "target_price": 115529.51,
+      "rr_ratio": 1.54,
+      "vol_mult": 4.0,
+      "lines": [
+        "Bitcoin breakout 2025-09-29 18:30:00+05:30 | entry 2025-09-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 114370.83 | SL 113619.87 | Target 115529.51 | RR 1.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-29 14:00:00+00:00|2025-09-29 19:00:00+00:00|114370.83",
+      "signal_time": "2025-09-29 19:30:00+05:30",
+      "entry_time": "2025-09-30 00:30:00+05:30",
+      "entry_price": 114370.83,
+      "stop_price": 113619.87,
+      "target_price": 115529.51,
+      "rr_ratio": 1.54,
+      "vol_mult": 5.76,
+      "lines": [
+        "Bitcoin breakout 2025-09-29 19:30:00+05:30 | entry 2025-09-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 114370.83 | SL 113619.87 | Target 115529.51 | RR 1.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-09-29 14:00:00+00:00|2025-09-29 19:00:00+00:00|4193.91",
+      "signal_time": "2025-09-29 19:30:00+05:30",
+      "entry_time": "2025-09-30 00:30:00+05:30",
+      "entry_price": 4193.91,
+      "stop_price": 4159.43,
+      "target_price": 4268.93,
+      "rr_ratio": 2.18,
+      "vol_mult": 6.01,
+      "lines": [
+        "Ethereum breakout 2025-09-29 19:30:00+05:30 | entry 2025-09-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 4193.91 | SL 4159.43 | Target 4268.93 | RR 2.18 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-09-29 14:00:00+00:00|2025-09-29 19:00:00+00:00|212.9",
+      "signal_time": "2025-09-29 19:30:00+05:30",
+      "entry_time": "2025-09-30 00:30:00+05:30",
+      "entry_price": 212.9,
+      "stop_price": 210.3,
+      "target_price": 217.71,
+      "rr_ratio": 1.85,
+      "vol_mult": 8.39,
+      "lines": [
+        "Solana breakout 2025-09-29 19:30:00+05:30 | entry 2025-09-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 212.90 | SL 210.30 | Target 217.71 | RR 1.85 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-09-29 13:00:00+00:00|2025-09-29 18:00:00+00:00|4164.09",
+      "signal_time": "2025-09-29 18:30:00+05:30",
+      "entry_time": "2025-09-29 23:30:00+05:30",
+      "entry_price": 4164.09,
+      "stop_price": 4135.86,
+      "target_price": 4236.26,
+      "rr_ratio": 2.56,
+      "vol_mult": 3.0,
+      "lines": [
+        "Ethereum breakout 2025-09-29 18:30:00+05:30 | entry 2025-09-29 23:30:00+05:30 (candle 5-6)",
+        "Entry 4164.09 | SL 4135.86 | Target 4236.26 | RR 2.56 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-09-29 13:00:00+00:00|2025-09-29 18:00:00+00:00|210.69",
+      "signal_time": "2025-09-29 18:30:00+05:30",
+      "entry_time": "2025-09-29 23:30:00+05:30",
+      "entry_price": 210.69,
+      "stop_price": 209.43,
+      "target_price": 215.31,
+      "rr_ratio": 3.67,
+      "vol_mult": 5.29,
+      "lines": [
+        "Solana breakout 2025-09-29 18:30:00+05:30 | entry 2025-09-29 23:30:00+05:30 (candle 5-6)",
+        "Entry 210.69 | SL 209.43 | Target 215.31 | RR 3.67 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-29 02:00:00+00:00|2025-09-29 07:00:00+00:00|111868.7",
+      "signal_time": "2025-09-29 07:30:00+05:30",
+      "entry_time": "2025-09-29 12:30:00+05:30",
+      "entry_price": 111868.7,
+      "stop_price": 111608.58,
+      "target_price": 112799.26,
+      "rr_ratio": 3.58,
+      "vol_mult": 5.02,
+      "lines": [
+        "Bitcoin breakout 2025-09-29 07:30:00+05:30 | entry 2025-09-29 12:30:00+05:30 (candle 5-6)",
+        "Entry 111868.70 | SL 111608.58 | Target 112799.26 | RR 3.58 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP",
+      "symbol": "XRP-USD",
+      "notify_key": "XRP|XRP-USD|2025-09-29 02:00:00+00:00|2025-09-29 07:00:00+00:00|2.89",
+      "signal_time": "2025-09-29 07:30:00+05:30",
+      "entry_time": "2025-09-29 12:30:00+05:30",
+      "entry_price": 2.89,
+      "stop_price": 2.86,
+      "target_price": 2.93,
+      "rr_ratio": 1.62,
+      "vol_mult": 8.93,
+      "lines": [
+        "XRP breakout 2025-09-29 07:30:00+05:30 | entry 2025-09-29 12:30:00+05:30 (candle 5-6)",
+        "Entry 2.89 | SL 2.86 | Target 2.93 | RR 1.62 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-28 21:00:00+00:00|2025-09-29 03:00:00+00:00|111856.88",
+      "signal_time": "2025-09-29 02:30:00+05:30",
+      "entry_time": "2025-09-29 08:30:00+05:30",
+      "entry_price": 111856.88,
+      "stop_price": 111506.52,
+      "target_price": 112846.07,
+      "rr_ratio": 2.82,
+      "vol_mult": 6.38,
+      "lines": [
+        "Bitcoin breakout 2025-09-29 02:30:00+05:30 | entry 2025-09-29 08:30:00+05:30 (candle 5-6)",
+        "Entry 111856.88 | SL 111506.52 | Target 112846.07 | RR 2.82 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-09-28 22:00:00+00:00|2025-09-29 03:00:00+00:00|4121.0",
+      "signal_time": "2025-09-29 03:30:00+05:30",
+      "entry_time": "2025-09-29 08:30:00+05:30",
+      "entry_price": 4121.0,
+      "stop_price": 4100.09,
+      "target_price": 4176.05,
+      "rr_ratio": 2.63,
+      "vol_mult": 5.61,
+      "lines": [
+        "Ethereum breakout 2025-09-29 03:30:00+05:30 | entry 2025-09-29 08:30:00+05:30 (candle 5-6)",
+        "Entry 4121.00 | SL 4100.09 | Target 4176.05 | RR 2.63 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-09-28 15:00:00+00:00|2025-09-28 20:00:00+00:00|4054.51",
+      "signal_time": "2025-09-28 20:30:00+05:30",
+      "entry_time": "2025-09-29 01:30:00+05:30",
+      "entry_price": 4054.51,
+      "stop_price": 4032.58,
+      "target_price": 4097.42,
+      "rr_ratio": 1.96,
+      "vol_mult": 6.37,
+      "lines": [
+        "Ethereum breakout 2025-09-28 20:30:00+05:30 | entry 2025-09-29 01:30:00+05:30 (candle 5-6)",
+        "Entry 4054.51 | SL 4032.58 | Target 4097.42 | RR 1.96 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-28 14:00:00+00:00|2025-09-28 19:00:00+00:00|110351.72",
+      "signal_time": "2025-09-28 19:30:00+05:30",
+      "entry_time": "2025-09-29 00:30:00+05:30",
+      "entry_price": 110351.72,
+      "stop_price": 110037.81,
+      "target_price": 110899.65,
+      "rr_ratio": 1.75,
+      "vol_mult": 17.96,
+      "lines": [
+        "Bitcoin breakout 2025-09-28 19:30:00+05:30 | entry 2025-09-29 00:30:00+05:30 (candle 5-6)",
+        "Entry 110351.72 | SL 110037.81 | Target 110899.65 | RR 1.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-24 15:00:00+00:00|2025-09-24 20:00:00+00:00|113598.15",
+      "signal_time": "2025-09-24 20:30:00+05:30",
+      "entry_time": "2025-09-25 01:30:00+05:30",
+      "entry_price": 113598.15,
+      "stop_price": 113450.06,
+      "target_price": 114497.58,
+      "rr_ratio": 6.07,
+      "vol_mult": 6.01,
+      "lines": [
+        "Bitcoin breakout 2025-09-24 20:30:00+05:30 | entry 2025-09-25 01:30:00+05:30 (candle 5-6)",
+        "Entry 113598.15 | SL 113450.06 | Target 114497.58 | RR 6.07 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-09-24 11:00:00+00:00|2025-09-24 17:00:00+00:00|4185.84",
+      "signal_time": "2025-09-24 16:30:00+05:30",
+      "entry_time": "2025-09-24 22:30:00+05:30",
+      "entry_price": 4185.84,
+      "stop_price": 4158.9,
+      "target_price": 4249.04,
+      "rr_ratio": 2.35,
+      "vol_mult": 7.61,
+      "lines": [
+        "Ethereum breakout 2025-09-24 16:30:00+05:30 | entry 2025-09-24 22:30:00+05:30 (candle 5-6)",
+        "Entry 4185.84 | SL 4158.90 | Target 4249.04 | RR 2.35 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-09-18 07:00:00+00:00|2025-09-18 12:00:00+00:00|995.96",
+      "signal_time": "2025-09-18 12:30:00+05:30",
+      "entry_time": "2025-09-18 17:30:00+05:30",
+      "entry_price": 995.96,
+      "stop_price": 991.06,
+      "target_price": 1009.88,
+      "rr_ratio": 2.84,
+      "vol_mult": 3.06,
+      "lines": [
+        "BNB breakout 2025-09-18 12:30:00+05:30 | entry 2025-09-18 17:30:00+05:30 (candle 5-6)",
+        "Entry 995.96 | SL 991.06 | Target 1009.88 | RR 2.84 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "symbol": "ETH-USD",
+      "notify_key": "ETH|ETH-USD|2025-09-16 21:00:00+00:00|2025-09-17 02:00:00+00:00|4535.37",
+      "signal_time": "2025-09-17 02:30:00+05:30",
+      "entry_time": "2025-09-17 07:30:00+05:30",
+      "entry_price": 4535.37,
+      "stop_price": 4511.23,
+      "target_price": 4608.37,
+      "rr_ratio": 3.02,
+      "vol_mult": 3.17,
+      "lines": [
+        "Ethereum breakout 2025-09-17 02:30:00+05:30 | entry 2025-09-17 07:30:00+05:30 (candle 5-6)",
+        "Entry 4535.37 | SL 4511.23 | Target 4608.37 | RR 3.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-09-16 18:00:00+00:00|2025-09-17 00:00:00+00:00|959.7",
+      "signal_time": "2025-09-16 23:30:00+05:30",
+      "entry_time": "2025-09-17 05:30:00+05:30",
+      "entry_price": 959.7,
+      "stop_price": 952.23,
+      "target_price": 972.51,
+      "rr_ratio": 1.71,
+      "vol_mult": 3.91,
+      "lines": [
+        "BNB breakout 2025-09-16 23:30:00+05:30 | entry 2025-09-17 05:30:00+05:30 (candle 5-6)",
+        "Entry 959.70 | SL 952.23 | Target 972.51 | RR 1.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-09-16 19:00:00+00:00|2025-09-17 00:00:00+00:00|959.7",
+      "signal_time": "2025-09-17 00:30:00+05:30",
+      "entry_time": "2025-09-17 05:30:00+05:30",
+      "entry_price": 959.7,
+      "stop_price": 952.23,
+      "target_price": 972.51,
+      "rr_ratio": 1.71,
+      "vol_mult": 4.3,
+      "lines": [
+        "BNB breakout 2025-09-17 00:30:00+05:30 | entry 2025-09-17 05:30:00+05:30 (candle 5-6)",
+        "Entry 959.70 | SL 952.23 | Target 972.51 | RR 1.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-16 16:00:00+00:00|2025-09-16 22:00:00+00:00|116892.42",
+      "signal_time": "2025-09-16 21:30:00+05:30",
+      "entry_time": "2025-09-17 03:30:00+05:30",
+      "entry_price": 116892.42,
+      "stop_price": 116486.54,
+      "target_price": 117877.78,
+      "rr_ratio": 2.43,
+      "vol_mult": 3.42,
+      "lines": [
+        "Bitcoin breakout 2025-09-16 21:30:00+05:30 | entry 2025-09-17 03:30:00+05:30 (candle 5-6)",
+        "Entry 116892.42 | SL 116486.54 | Target 117877.78 | RR 2.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "notify_key": "BTC|BTC-USD|2025-09-16 17:00:00+00:00|2025-09-16 22:00:00+00:00|116892.42",
+      "signal_time": "2025-09-16 22:30:00+05:30",
+      "entry_time": "2025-09-17 03:30:00+05:30",
+      "entry_price": 116892.42,
+      "stop_price": 116486.54,
+      "target_price": 117877.78,
+      "rr_ratio": 2.43,
+      "vol_mult": 3.48,
+      "lines": [
+        "Bitcoin breakout 2025-09-16 22:30:00+05:30 | entry 2025-09-17 03:30:00+05:30 (candle 5-6)",
+        "Entry 116892.42 | SL 116486.54 | Target 117877.78 | RR 2.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "Solana",
+      "symbol": "SOL-USD",
+      "notify_key": "SOL|SOL-USD|2025-09-16 16:00:00+00:00|2025-09-16 21:00:00+00:00|238.64",
+      "signal_time": "2025-09-16 21:30:00+05:30",
+      "entry_time": "2025-09-17 02:30:00+05:30",
+      "entry_price": 238.64,
+      "stop_price": 237.53,
+      "target_price": 242.64,
+      "rr_ratio": 3.58,
+      "vol_mult": 6.9,
+      "lines": [
+        "Solana breakout 2025-09-16 21:30:00+05:30 | entry 2025-09-17 02:30:00+05:30 (candle 5-6)",
+        "Entry 238.64 | SL 237.53 | Target 242.64 | RR 3.58 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "notify_key": "BNB|BNB-USD|2025-09-16 05:00:00+00:00|2025-09-16 11:00:00+00:00|927.92",
+      "signal_time": "2025-09-16 10:30:00+05:30",
+      "entry_time": "2025-09-16 16:30:00+05:30",
+      "entry_price": 927.92,
+      "stop_price": 925.41,
+      "target_price": 935.56,
+      "rr_ratio": 3.04,
+      "vol_mult": 3.33,
+      "lines": [
+        "BNB breakout 2025-09-16 10:30:00+05:30 | entry 2025-09-16 16:30:00+05:30 (candle 5-6)",
+        "Entry 927.92 | SL 925.41 | Target 935.56 | RR 3.04 | Touch EMA9"
+      ]
+    }
+  ]
+}

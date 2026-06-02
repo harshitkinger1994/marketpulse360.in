@@ -1,0 +1,22 @@
+{
+  "strategy_id": "local_intraday_momentum_basic_on",
+  "title": "Intraday Momentum Basic \u2014 Trade ON (VWAP + Green Close)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "all",
+  "filter_mode": "basic",
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-05",
+  "runtime_sec": 52.44,
+  "notes": [
+    "Entry only after VWAP retouch and a green 5m close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP.",
+    "Basic mode: breakout + volume + VWAP only.",
+    "Exit shown at day close and +15m from entry."
+  ],
+  "items": []
+}

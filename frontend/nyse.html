@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NYSE Dashboard | Market Pulse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://marketpulse360.in/nyse.html" />
+  <meta name="theme-color" content="#6b4f2a" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="site-config.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5497995330157167"
+     crossorigin="anonymous"></script>
+  <meta name="description" content="Dedicated NYSE dashboard for mapped US large-cap coverage, movers and strategy filtering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Market Pulse" />
+  <meta property="og:title" content="NYSE Dashboard | Market Pulse" />
+  <meta property="og:description" content="Dedicated NYSE dashboard for mapped US large-cap coverage, movers and strategy filtering." />
+  <meta property="og:url" content="https://marketpulse360.in/nyse.html" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="NYSE Dashboard | Market Pulse" />
+  <meta name="twitter:description" content="Dedicated NYSE dashboard for mapped US large-cap coverage, movers and strategy filtering." />
+</head>
+<body data-page="exchange" data-exchange="nyse">
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-link" href="index.html">Market Pulse</a>
+      <span class="subtitle">NYSE</span>
+    </div>
+    <nav class="topnav">
+      <a href="index.html">India</a>
+      <a href="global.html">Global</a>
+      <a href="commodities.html">Commodities</a>
+      <a href="crypto.html">Crypto</a>
+      <a class="active" href="world-exchanges.html">World Exchanges</a>
+    </nav>
+    <div class="status-stack">
+      <div class="status-row">
+        <span id="liveStatusDot" class="status-dot offline"></span>
+        <span id="liveStatusLabel" class="muted">Offline</span>
+        <div id="lastUpdated" class="last-updated"></div>
+      </div>
+      <div class="market-row">
+        <span id="marketStatusLabel" class="chip-offline">Market Closed</span>
+        <span id="marketCountdown" class="chip-neutral">Opens in --:--:--</span>
+      </div>
+      <div class="clock-panel">
+        <div id="clockPrimary" class="clock-line"></div>
+        <div id="clockSecondary" class="clock-line"></div>
+      </div>
+      <div class="theme-switch">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect">
+          <option value="royal">Royal</option>
+          <option value="dark-royal">Dark Royal</option>
+          <option value="sage">Sage</option>
+          <option value="beige">Beige</option>
+          <option value="sunrise">Sunrise</option>
+          <option value="slate">Slate</option>
+          <option value="silver">Silver</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="liveIntelligence"></div>
+    <section class="full-width" id="exchangeHero"></section>
+    <section class="card full-width" id="strategyDesk"></section>
+    <section class="card full-width">
+      <h2>Search Exchange Assets</h2>
+      <input id="exchangeSearchInput" type="text" list="exchangeSearchList" placeholder="Type symbol or benchmark" />
+      <datalist id="exchangeSearchList"></datalist>
+      <div id="exchangeSearchOutput"></div>
+    </section>
+    <section class="grid-2">
+      <div class="card" id="topGainers"></div>
+      <div class="card" id="topLosers"></div>
+    </section>
+    <section class="grid-2">
+      <div class="card" id="eventsSection"></div>
+      <div class="card" id="newsSection"></div>
+    </section>
+    <section class="full-width" id="exchangeFootnote"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Market Pulse</h3>
+        <p class="muted">Exchange-aware market context with dedicated page routing.</p>
+      </div>
+      <div class="footer-links">
+        <a href="world-exchanges.html">World Exchanges</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <p class="disclaimer">
+      Disclaimer: Content is for educational purposes only and not investment advice. Markets involve risk.
+    </p>
+  </footer>
+
+  <div id="consentBanner" class="consent-banner" hidden>
+    <p>
+      We use cookies for analytics and ad personalization. You can update this anytime in your browser settings.
+      See <a href="privacy.html">Privacy Policy</a>.
+    </p>
+    <div class="consent-actions">
+      <button id="consentAccept" class="primary" type="button">Accept</button>
+      <button id="consentDecline" type="button">Decline</button>
+    </div>
+  </div>
+
+  <script src="exchange-pages.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

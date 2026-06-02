@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-03-12T11:56:59.193344+00:00",
+  "source": "reliance_open_close",
+  "strategy_id": "swing_gap_trend",
+  "title": "Swing Trades",
+  "owner": "HARSHIT",
+  "trade_type": "SWING",
+  "runtime_sec": 2.3643759170008707,
+  "runtime_human": "2.36s",
+  "items": [],
+  "win_ratio_pct": null,
+  "win_ratio_days": 183,
+  "win_ratio_trades": 0,
+  "win_ratio_wins": 0
+}

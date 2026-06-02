@@ -1,0 +1,239 @@
+{
+  "strategy_id": "gold_breakout_retest_on",
+  "title": "Gold Breakout Retest \u2014 Entry Valid",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "generated_at": "2026-03-12T11:28:41.907286+00:00",
+  "symbol": "GC=F",
+  "interval": "60m",
+  "rules": {
+    "volume_multiple": 3.0,
+    "lookback_volume": 30,
+    "breakout_condition": "close above EMA9 and VWAP",
+    "entry_window_candles": "5-6",
+    "entry_trigger": "retest touch + green close above EMA9 and VWAP",
+    "min_rr": 1.5,
+    "target_atr_multiple": 2.5
+  },
+  "counts": {
+    "bars": 2768,
+    "buy_breakouts": 29,
+    "setups_total": 29,
+    "triggered": 13
+  },
+  "notes": [
+    "Entry allowed only on candle 5-6 after breakout.",
+    "Telegram alert is sent by backend daily notifier for new valid entries."
+  ],
+  "items": [
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2025-10-24 13:00:00+00:00|2025-10-24 18:00:00+00:00|4126.7",
+      "signal_time": "2025-10-24 18:30:00+05:30",
+      "entry_time": "2025-10-24 23:30:00+05:30",
+      "entry_price": 4126.7,
+      "stop_price": 4116.69,
+      "target_price": 4190.04,
+      "rr_ratio": 6.33,
+      "vol_mult": 3.2,
+      "lines": [
+        "Breakout 2025-10-24 18:30:00+05:30 | Entry 2025-10-24 23:30:00+05:30 (candle 5-6)",
+        "Entry 4126.70 | SL 4116.69 | Target 4190.04 | RR 6.33 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2025-11-25 20:00:00+00:00|2025-11-26 02:00:00+00:00|4196.9",
+      "signal_time": "2025-11-26 01:30:00+05:30",
+      "entry_time": "2025-11-26 07:30:00+05:30",
+      "entry_price": 4196.9,
+      "stop_price": 4144.9,
+      "target_price": 4336.47,
+      "rr_ratio": 2.68,
+      "vol_mult": 6.37,
+      "lines": [
+        "Breakout 2025-11-26 01:30:00+05:30 | Entry 2025-11-26 07:30:00+05:30 (candle 5-6)",
+        "Entry 4196.90 | SL 4144.90 | Target 4336.47 | RR 2.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2025-12-11 14:00:00+00:00|2025-12-11 19:00:00+00:00|4302.6",
+      "signal_time": "2025-12-11 19:30:00+05:30",
+      "entry_time": "2025-12-12 00:30:00+05:30",
+      "entry_price": 4302.6,
+      "stop_price": 4283.56,
+      "target_price": 4344.6,
+      "rr_ratio": 2.21,
+      "vol_mult": 3.38,
+      "lines": [
+        "Breakout 2025-12-11 19:30:00+05:30 | Entry 2025-12-12 00:30:00+05:30 (candle 5-6)",
+        "Entry 4302.60 | SL 4283.56 | Target 4344.60 | RR 2.21 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2025-12-11 15:00:00+00:00|2025-12-11 20:00:00+00:00|4304.8",
+      "signal_time": "2025-12-11 20:30:00+05:30",
+      "entry_time": "2025-12-12 01:30:00+05:30",
+      "entry_price": 4304.8,
+      "stop_price": 4287.81,
+      "target_price": 4346.91,
+      "rr_ratio": 2.48,
+      "vol_mult": 3.44,
+      "lines": [
+        "Breakout 2025-12-11 20:30:00+05:30 | Entry 2025-12-12 01:30:00+05:30 (candle 5-6)",
+        "Entry 4304.80 | SL 4287.81 | Target 4346.91 | RR 2.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2025-12-17 14:00:00+00:00|2025-12-17 19:00:00+00:00|4369.3",
+      "signal_time": "2025-12-17 19:30:00+05:30",
+      "entry_time": "2025-12-18 00:30:00+05:30",
+      "entry_price": 4369.3,
+      "stop_price": 4362.4,
+      "target_price": 4409.21,
+      "rr_ratio": 5.78,
+      "vol_mult": 3.05,
+      "lines": [
+        "Breakout 2025-12-17 19:30:00+05:30 | Entry 2025-12-18 00:30:00+05:30 (candle 5-6)",
+        "Entry 4369.30 | SL 4362.40 | Target 4409.21 | RR 5.78 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2025-12-17 15:00:00+00:00|2025-12-17 20:00:00+00:00|4373.4",
+      "signal_time": "2025-12-17 20:30:00+05:30",
+      "entry_time": "2025-12-18 01:30:00+05:30",
+      "entry_price": 4373.4,
+      "stop_price": 4366.13,
+      "target_price": 4412.95,
+      "rr_ratio": 5.44,
+      "vol_mult": 3.54,
+      "lines": [
+        "Breakout 2025-12-17 20:30:00+05:30 | Entry 2025-12-18 01:30:00+05:30 (candle 5-6)",
+        "Entry 4373.40 | SL 4366.13 | Target 4412.95 | RR 5.44 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-01-08 15:00:00+00:00|2026-01-08 20:00:00+00:00|4485.1",
+      "signal_time": "2026-01-08 20:30:00+05:30",
+      "entry_time": "2026-01-09 01:30:00+05:30",
+      "entry_price": 4485.1,
+      "stop_price": 4460.3,
+      "target_price": 4526.76,
+      "rr_ratio": 1.68,
+      "vol_mult": 3.24,
+      "lines": [
+        "Breakout 2026-01-08 20:30:00+05:30 | Entry 2026-01-09 01:30:00+05:30 (candle 5-6)",
+        "Entry 4485.10 | SL 4460.30 | Target 4526.76 | RR 1.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-01-09 14:00:00+00:00|2026-01-09 19:00:00+00:00|4508.3",
+      "signal_time": "2026-01-09 19:30:00+05:30",
+      "entry_time": "2026-01-10 00:30:00+05:30",
+      "entry_price": 4508.3,
+      "stop_price": 4500.57,
+      "target_price": 4549.94,
+      "rr_ratio": 5.39,
+      "vol_mult": 3.28,
+      "lines": [
+        "Breakout 2026-01-09 19:30:00+05:30 | Entry 2026-01-10 00:30:00+05:30 (candle 5-6)",
+        "Entry 4508.30 | SL 4500.57 | Target 4549.94 | RR 5.39 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-01-09 15:00:00+00:00|2026-01-09 20:00:00+00:00|4516.1",
+      "signal_time": "2026-01-09 20:30:00+05:30",
+      "entry_time": "2026-01-10 01:30:00+05:30",
+      "entry_price": 4516.1,
+      "stop_price": 4503.68,
+      "target_price": 4557.81,
+      "rr_ratio": 3.36,
+      "vol_mult": 3.26,
+      "lines": [
+        "Breakout 2026-01-09 20:30:00+05:30 | Entry 2026-01-10 01:30:00+05:30 (candle 5-6)",
+        "Entry 4516.10 | SL 4503.68 | Target 4557.81 | RR 3.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-01-28 08:00:00+00:00|2026-01-28 14:00:00+00:00|5318.8",
+      "signal_time": "2026-01-28 13:30:00+05:30",
+      "entry_time": "2026-01-28 19:30:00+05:30",
+      "entry_price": 5318.8,
+      "stop_price": 5267.19,
+      "target_price": 5399.57,
+      "rr_ratio": 1.57,
+      "vol_mult": 7.38,
+      "lines": [
+        "Breakout 2026-01-28 13:30:00+05:30 | Entry 2026-01-28 19:30:00+05:30 (candle 5-6)",
+        "Entry 5318.80 | SL 5267.19 | Target 5399.57 | RR 1.57 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-02-20 14:00:00+00:00|2026-02-20 19:00:00+00:00|5102.4",
+      "signal_time": "2026-02-20 19:30:00+05:30",
+      "entry_time": "2026-02-21 00:30:00+05:30",
+      "entry_price": 5102.4,
+      "stop_price": 5077.71,
+      "target_price": 5168.1,
+      "rr_ratio": 2.66,
+      "vol_mult": 3.42,
+      "lines": [
+        "Breakout 2026-02-20 19:30:00+05:30 | Entry 2026-02-21 00:30:00+05:30 (candle 5-6)",
+        "Entry 5102.40 | SL 5077.71 | Target 5168.10 | RR 2.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-02-20 15:00:00+00:00|2026-02-20 20:00:00+00:00|5119.4",
+      "signal_time": "2026-02-20 20:30:00+05:30",
+      "entry_time": "2026-02-21 01:30:00+05:30",
+      "entry_price": 5119.4,
+      "stop_price": 5086.05,
+      "target_price": 5185.4,
+      "rr_ratio": 1.98,
+      "vol_mult": 5.84,
+      "lines": [
+        "Breakout 2026-02-20 20:30:00+05:30 | Entry 2026-02-21 01:30:00+05:30 (candle 5-6)",
+        "Entry 5119.40 | SL 5086.05 | Target 5185.40 | RR 1.98 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "Gold",
+      "notify_key": "GC=F|2026-02-27 13:00:00+00:00|2026-02-27 19:00:00+00:00|5268.4",
+      "signal_time": "2026-02-27 18:30:00+05:30",
+      "entry_time": "2026-02-28 00:30:00+05:30",
+      "entry_price": 5268.4,
+      "stop_price": 5244.74,
+      "target_price": 5319.31,
+      "rr_ratio": 2.15,
+      "vol_mult": 4.79,
+      "lines": [
+        "Breakout 2026-02-27 18:30:00+05:30 | Entry 2026-02-28 00:30:00+05:30 (candle 5-6)",
+        "Entry 5268.40 | SL 5244.74 | Target 5319.31 | RR 2.15 | Touch VWAP"
+      ]
+    }
+  ]
+}

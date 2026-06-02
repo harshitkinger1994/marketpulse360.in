@@ -1,0 +1,13 @@
+{
+  "strategy_id": "intraday_short",
+  "title": "Intraday Short Sell",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "generated_at": null,
+  "runtime_sec": null,
+  "runtime_human": null,
+  "notes": [
+    "Strategy placeholder. Intraday short setups will appear here."
+  ],
+  "items": []
+}

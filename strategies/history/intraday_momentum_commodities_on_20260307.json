@@ -1,0 +1,23 @@
+{
+  "strategy_id": "intraday_momentum_commodities_on",
+  "title": "Commodities Intraday Momentum \u2014 Trade ON (VWAP + Green Close)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "generated_at": "2026-03-07",
+  "runtime_sec": 1.68,
+  "notes": [
+    "Entry only after VWAP retouch and a green 5m close above VWAP.",
+    "Exit shown at day close and +15m from entry."
+  ],
+  "items": [
+    {
+      "ticker": "HG=F",
+      "name": "HG=F",
+      "notify_key": "HG=F|2026-03-07 01:40|ON",
+      "lines": [
+        "Signal 2026-03-07 01:40 | VWAP touch 2026-03-07 02:05 | Trade ON 2026-03-07 02:10 | Entry 5.84 | Exit@Close 5.84 (+0.04%) | Exit@+15m 5.84 (+0.03%)"
+      ]
+    }
+  ]
+}

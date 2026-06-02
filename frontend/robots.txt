@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marketpulse360.in/sitemap.xml
+

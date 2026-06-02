@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Commodities | Market Context</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://marketpulse360.in/commodities.html" />
+  <meta name="theme-color" content="#6b4f2a" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="site-config.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5497995330157167"
+     crossorigin="anonymous"></script>
+  <meta name="description"
+        content="Commodities dashboard with gold, silver, and top movers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Market Pulse" />
+  <meta property="og:title" content="Commodities Dashboard | Market Pulse" />
+  <meta property="og:description" content="Track gold, silver, crude oil and commodity strategy signals in one dashboard." />
+  <meta property="og:url" content="https://marketpulse360.in/commodities.html" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Commodities Dashboard | Market Pulse" />
+  <meta name="twitter:description" content="Commodity market pulse with daily context, setups and top movers." />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Commodities Dashboard",
+      "description": "Commodities dashboard with market context and strategy signals.",
+      "url": "https://marketpulse360.in/commodities.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Market Pulse",
+        "url": "https://marketpulse360.in/"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which commodities are covered here?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The page tracks major contracts such as Gold, Silver, Crude Oil, Brent, Natural Gas, Copper and Platinum."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Commodities EMA9 strategy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a rule-driven scanner that checks EMA9 alignment, volume and trend context to surface commodity trade candidates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can these signals be used directly for trading?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use them as screening ideas only. Confirm execution levels, risk controls, and market conditions before taking trades."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+
+<body data-page="commodities">
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-link" href="index.html">Market Pulse</a>
+      <span class="subtitle">Commodities</span>
+    </div>
+    <nav class="topnav">
+      <a href="index.html">India</a>
+      <a href="global.html">Global</a>
+      <a class="active" href="commodities.html">Commodities</a>
+      <a href="crypto.html">Crypto</a>
+      <a href="world-exchanges.html">World Exchanges</a>
+    </nav>
+    <div class="status-stack">
+      <div class="status-row">
+        <span id="liveStatusDot" class="status-dot offline"></span>
+        <span id="liveStatusLabel" class="muted">Offline</span>
+        <div id="lastUpdated" class="last-updated"></div>
+        <div id="livePriceTime" class="last-updated"></div>
+      </div>
+      <div class="clock-panel">
+        <div id="clockPrimary" class="clock-line"></div>
+        <div id="clockSecondary" class="clock-line"></div>
+      </div>
+      <div class="theme-switch">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect">
+          <option value="royal">Royal</option>
+          <option value="dark-royal">Dark Royal</option>
+          <option value="sage">Sage</option>
+          <option value="beige">Beige</option>
+          <option value="sunrise">Sunrise</option>
+          <option value="slate">Slate</option>
+          <option value="silver">Silver</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="liveIntelligence"></div>
+
+    <section class="full-width" id="globalContext"></section>
+    <section class="card full-width" id="topTrades"></section>
+    <section class="card full-width ad-surface" aria-label="Sponsored section" hidden data-ad-state="waiting-content">
+      <h2>Sponsored</h2>
+      <div class="ad-slot-wrap">
+        <ins class="adsbygoogle ad-slot-box"
+             style="display:block"
+             data-ad-client="ca-pub-5497995330157167"
+             data-ad-slot="1001001003"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+      <p class="muted">Advertisement</p>
+    </section>
+
+    <section class="card full-width">
+      <h2>Commodities Board</h2>
+      <p class="muted">Tap a commodity to open full details instantly.</p>
+      <div id="commodityButtons" class="chip-row"></div>
+    </section>
+
+    <section class="card full-width">
+      <h2>Search Commodity</h2>
+      <input id="commoditySearchInput" type="text" list="commoditySearchList" placeholder="Type commodity (e.g., GOLD, SILVER)" />
+      <datalist id="commoditySearchList"></datalist>
+      <div id="commoditySearchOutput"></div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card" id="topGainers"></div>
+      <div class="card" id="topLosers"></div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card" id="eventsSection"></div>
+      <div class="card" id="newsSection"></div>
+    </section>
+
+    <section class="card full-width">
+      <h2>Suggestion Box</h2>
+      <p class="muted">Share your feedback. We read every note.</p>
+      <form id="suggestionForm">
+        <input id="suggestionName" type="text" placeholder="Your name" maxlength="100" required />
+        <input id="suggestionEmail" type="email" placeholder="Your email" required />
+        <input id="suggestionCompany" type="text" name="company" autocomplete="off" tabindex="-1" aria-hidden="true" class="hp-field" />
+        <textarea id="suggestionText" placeholder="Your suggestion or improvement idea" required></textarea>
+        <div id="turnstileWrap" class="turnstile-wrap" hidden></div>
+        <button class="primary" type="submit">Send Suggestion</button>
+        <p id="suggestionStatus" class="muted"></p>
+      </form>
+    </section>
+
+    <section class="card full-width">
+      <h2>Market Terms Explained</h2>
+      <div class="glossary">
+        <div>
+          <strong>Dow Confirmation</strong>
+          <p>
+            Dow Confirmation checks whether major indices are moving in the same primary direction.
+            <br/>
+            <span class="muted">
+              Confirmed = broad market strength.<br/>
+              Not Confirmed = caution, trends are not aligned.
+            </span>
+          </p>
+        </div>
+
+        <div>
+          <strong>VIX</strong>
+          <p>
+            VIX measures expected market volatility.
+            A low VIX means calm markets, while a high VIX signals fear or uncertainty.
+            <br/>
+            <span class="muted">
+              Low (&lt;12) = Complacency · Medium (12–20) = Normal · High (&gt;20) = Risk
+            </span>
+          </p>
+        </div>
+
+        <div>
+          <strong>Primary Trend</strong>
+          <p>
+            The primary trend represents the long-term direction of the market
+            based on Dow Theory.
+            <br/>
+            <span class="muted">
+              Primary Uptrend = higher highs & higher lows over time.
+            </span>
+          </p>
+        </div>
+
+        <div>
+          <strong>Historical Ranges</strong>
+          <p>
+            Historical ranges show how much the market moved in similar past conditions
+            over different time periods.
+            <br/>
+            <span class="muted">
+              These are probabilities, not predictions.
+            </span>
+          </p>
+        </div>
+
+        <div>
+          <strong>Top Movers</strong>
+          <p>
+            Highlights the biggest daily gainers and losers.
+            <br/>
+            <span class="muted">
+              Useful to identify momentum or panic.
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Market Pulse</h3>
+        <p class="muted">Data-first market context for India, Global, Commodities and Crypto.</p>
+      </div>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <p class="disclaimer">
+      Disclaimer: Content is for educational purposes only and not investment advice. Markets involve risk.
+    </p>
+  </footer>
+
+  <div id="consentBanner" class="consent-banner" hidden>
+    <p>
+      We use cookies for analytics and ad personalization. You can update this anytime in your browser settings.
+      See <a href="privacy.html">Privacy Policy</a>.
+    </p>
+    <div class="consent-actions">
+      <button id="consentAccept" class="primary" type="button">Accept</button>
+      <button id="consentDecline" type="button">Decline</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

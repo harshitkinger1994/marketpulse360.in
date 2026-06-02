@@ -1,0 +1,61 @@
+{
+  "strategy_id": "intraday_momentum_commodities_wait",
+  "title": "Commodities Intraday Momentum \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "filter_mode": "basic",
+  "rules": {
+    "breakout_condition": "close above previous 6-candle high",
+    "entry_window_candles": "same-day intraday",
+    "entry_trigger": "waiting for VWAP retouch + green close above VWAP",
+    "volume_multiple": 2.0,
+    "lookback_volume": 20,
+    "filter_mode": "basic"
+  },
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-13",
+  "runtime_sec": 2.82,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP."
+  ],
+  "items": [
+    {
+      "ticker": "GC=F",
+      "name": "GC=F",
+      "notify_key": "GC=F|2026-03-13 17:25|WAIT",
+      "lines": [
+        "Signal 2026-03-13 17:25 | VWAP touch 2026-03-13 19:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "GC=F",
+      "notify_key": "GC=F|2026-03-13 17:30|WAIT",
+      "lines": [
+        "Signal 2026-03-13 17:30 | VWAP touch 2026-03-13 19:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "GC=F",
+      "name": "GC=F",
+      "notify_key": "GC=F|2026-03-13 18:15|WAIT",
+      "lines": [
+        "Signal 2026-03-13 18:15 | VWAP touch 2026-03-13 19:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-13 21:45|WAIT",
+      "lines": [
+        "Signal 2026-03-13 21:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    }
+  ]
+}

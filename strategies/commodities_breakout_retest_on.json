@@ -1,0 +1,2615 @@
+{
+  "strategy_id": "commodities_breakout_retest_on",
+  "title": "Commodities 1H Breakout Retest \u2014 Entry Valid",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "generated_at": "2026-03-16T17:31:47.653275+00:00",
+  "interval": "60m",
+  "rules": {
+    "volume_multiple": 3.0,
+    "lookback_volume": 30,
+    "adx_min": 20.0,
+    "breakout_condition": "BUY: close > EMA9 > VWAP and > Daily EMA9 | SELL: close < EMA9 < VWAP and < Daily EMA9",
+    "daily_ema_filter": "daily close must align with trade side vs Daily EMA9",
+    "entry_window_candles": "5-6",
+    "entry_trigger": "retest touch + side-confirm candle (green above EMA9/VWAP for BUY, red below EMA9/VWAP for SELL)",
+    "min_rr": 1.5,
+    "target_atr_multiple": 2.5
+  },
+  "counts": {
+    "assets": 7,
+    "assets_with_data": 7,
+    "breakouts": 445,
+    "triggered": 141
+  },
+  "asset_summary": {
+    "BRENT": {
+      "symbol": "BZ=F",
+      "bars": 2752,
+      "breakouts": 66,
+      "triggered": 13
+    },
+    "COPPER": {
+      "symbol": "HG=F",
+      "bars": 2756,
+      "breakouts": 74,
+      "triggered": 23
+    },
+    "CRUDEOIL": {
+      "symbol": "CL=F",
+      "bars": 2754,
+      "breakouts": 69,
+      "triggered": 24
+    },
+    "GOLD": {
+      "symbol": "GC=F",
+      "bars": 2756,
+      "breakouts": 24,
+      "triggered": 12
+    },
+    "NATGAS": {
+      "symbol": "NG=F",
+      "bars": 2738,
+      "breakouts": 105,
+      "triggered": 21
+    },
+    "PLATINUM": {
+      "symbol": "PL=F",
+      "bars": 2754,
+      "breakouts": 55,
+      "triggered": 21
+    },
+    "SILVER": {
+      "symbol": "SI=F",
+      "bars": 2756,
+      "breakouts": 52,
+      "triggered": 27
+    }
+  },
+  "notes": [
+    "1H breakout-retest strategy applied to this page universe.",
+    "Entry allowed only on candle 5-6 after breakout.",
+    "Telegram alert is sent by backend daily notifier for new valid entries."
+  ],
+  "items": [
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "SELL",
+      "notify_key": "PLATINUM|PL=F|SELL|2026-03-13 14:00:00+00:00|2026-03-13 19:00:00+00:00|2022.5",
+      "signal_time": "2026-03-13 19:30:00+05:30",
+      "entry_time": "2026-03-14 00:30:00+05:30",
+      "entry_price": 2022.5,
+      "stop_price": 2049.68,
+      "target_price": 1959.04,
+      "rr_ratio": 2.34,
+      "vol_mult": 4.86,
+      "lines": [
+        "SELL | Platinum breakout 2026-03-13 19:30:00+05:30 | entry 2026-03-14 00:30:00+05:30 (candle 5-6)",
+        "Entry 2022.50 | SL 2049.68 | Target 1959.04 | RR 2.34 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2026-03-13 14:00:00+00:00|2026-03-13 19:00:00+00:00|80.36",
+      "signal_time": "2026-03-13 19:30:00+05:30",
+      "entry_time": "2026-03-14 00:30:00+05:30",
+      "entry_price": 80.36,
+      "stop_price": 81.48,
+      "target_price": 77.25,
+      "rr_ratio": 2.81,
+      "vol_mult": 4.34,
+      "lines": [
+        "SELL | Silver breakout 2026-03-13 19:30:00+05:30 | entry 2026-03-14 00:30:00+05:30 (candle 5-6)",
+        "Entry 80.36 | SL 81.48 | Target 77.25 | RR 2.81 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2026-03-05 13:00:00+00:00|2026-03-05 19:00:00+00:00|5074.6",
+      "signal_time": "2026-03-05 18:30:00+05:30",
+      "entry_time": "2026-03-06 00:30:00+05:30",
+      "entry_price": 5074.6,
+      "stop_price": 5104.82,
+      "target_price": 4983.58,
+      "rr_ratio": 3.01,
+      "vol_mult": 4.45,
+      "lines": [
+        "SELL | Gold breakout 2026-03-05 18:30:00+05:30 | entry 2026-03-06 00:30:00+05:30 (candle 5-6)",
+        "Entry 5074.60 | SL 5104.82 | Target 4983.58 | RR 3.01 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2026-03-05 13:00:00+00:00|2026-03-05 19:00:00+00:00|81.17",
+      "signal_time": "2026-03-05 18:30:00+05:30",
+      "entry_time": "2026-03-06 00:30:00+05:30",
+      "entry_price": 81.17,
+      "stop_price": 82.35,
+      "target_price": 77.6,
+      "rr_ratio": 3.0,
+      "vol_mult": 3.66,
+      "lines": [
+        "SELL | Silver breakout 2026-03-05 18:30:00+05:30 | entry 2026-03-06 00:30:00+05:30 (candle 5-6)",
+        "Entry 81.17 | SL 82.35 | Target 77.60 | RR 3.00 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2026-03-03 14:00:00+00:00|2026-03-03 19:00:00+00:00|5122.3",
+      "signal_time": "2026-03-03 19:30:00+05:30",
+      "entry_time": "2026-03-04 00:30:00+05:30",
+      "entry_price": 5122.3,
+      "stop_price": 5161.5,
+      "target_price": 4926.03,
+      "rr_ratio": 5.01,
+      "vol_mult": 3.35,
+      "lines": [
+        "SELL | Gold breakout 2026-03-03 19:30:00+05:30 | entry 2026-03-04 00:30:00+05:30 (candle 5-6)",
+        "Entry 5122.30 | SL 5161.50 | Target 4926.03 | RR 5.01 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2026-03-03 11:00:00+00:00|2026-03-03 17:00:00+00:00|82.44",
+      "signal_time": "2026-03-03 16:30:00+05:30",
+      "entry_time": "2026-03-03 22:30:00+05:30",
+      "entry_price": 82.44,
+      "stop_price": 84.18,
+      "target_price": 75.29,
+      "rr_ratio": 4.11,
+      "vol_mult": 3.62,
+      "lines": [
+        "SELL | Silver breakout 2026-03-03 16:30:00+05:30 | entry 2026-03-03 22:30:00+05:30 (candle 5-6)",
+        "Entry 82.44 | SL 84.18 | Target 75.29 | RR 4.11 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "SELL",
+      "notify_key": "COPPER|HG=F|SELL|2026-03-03 08:00:00+00:00|2026-03-03 13:00:00+00:00|5.84",
+      "signal_time": "2026-03-03 13:30:00+05:30",
+      "entry_time": "2026-03-03 18:30:00+05:30",
+      "entry_price": 5.84,
+      "stop_price": 5.87,
+      "target_price": 5.7,
+      "rr_ratio": 4.11,
+      "vol_mult": 3.55,
+      "lines": [
+        "SELL | Copper breakout 2026-03-03 13:30:00+05:30 | entry 2026-03-03 18:30:00+05:30 (candle 5-6)",
+        "Entry 5.84 | SL 5.87 | Target 5.70 | RR 4.11 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-02-25 14:00:00+00:00|2026-02-25 19:00:00+00:00|91.77",
+      "signal_time": "2026-02-25 19:30:00+05:30",
+      "entry_time": "2026-02-26 00:30:00+05:30",
+      "entry_price": 91.77,
+      "stop_price": 91.32,
+      "target_price": 93.62,
+      "rr_ratio": 4.11,
+      "vol_mult": 3.93,
+      "lines": [
+        "BUY | Silver breakout 2026-02-25 19:30:00+05:30 | entry 2026-02-26 00:30:00+05:30 (candle 5-6)",
+        "Entry 91.77 | SL 91.32 | Target 93.62 | RR 4.11 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-02-25 08:00:00+00:00|2026-02-25 14:00:00+00:00|91.17",
+      "signal_time": "2026-02-25 13:30:00+05:30",
+      "entry_time": "2026-02-25 19:30:00+05:30",
+      "entry_price": 91.17,
+      "stop_price": 89.93,
+      "target_price": 93.6,
+      "rr_ratio": 1.97,
+      "vol_mult": 3.62,
+      "lines": [
+        "BUY | Silver breakout 2026-02-25 13:30:00+05:30 | entry 2026-02-25 19:30:00+05:30 (candle 5-6)",
+        "Entry 91.17 | SL 89.93 | Target 93.60 | RR 1.97 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2026-02-24 17:00:00+00:00|2026-02-24 23:00:00+00:00|5.96",
+      "signal_time": "2026-02-24 22:30:00+05:30",
+      "entry_time": "2026-02-25 04:30:00+05:30",
+      "entry_price": 5.96,
+      "stop_price": 5.96,
+      "target_price": 6.03,
+      "rr_ratio": 8.09,
+      "vol_mult": 3.23,
+      "lines": [
+        "BUY | Copper breakout 2026-02-24 22:30:00+05:30 | entry 2026-02-25 04:30:00+05:30 (candle 5-6)",
+        "Entry 5.96 | SL 5.96 | Target 6.03 | RR 8.09 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2026-02-24 08:00:00+00:00|2026-02-24 14:00:00+00:00|5.95",
+      "signal_time": "2026-02-24 13:30:00+05:30",
+      "entry_time": "2026-02-24 19:30:00+05:30",
+      "entry_price": 5.95,
+      "stop_price": 5.9,
+      "target_price": 6.04,
+      "rr_ratio": 1.98,
+      "vol_mult": 4.58,
+      "lines": [
+        "BUY | Copper breakout 2026-02-24 13:30:00+05:30 | entry 2026-02-24 19:30:00+05:30 (candle 5-6)",
+        "Entry 5.95 | SL 5.90 | Target 6.04 | RR 1.98 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2026-02-20 15:00:00+00:00|2026-02-20 21:00:00+00:00|2176.0",
+      "signal_time": "2026-02-20 20:30:00+05:30",
+      "entry_time": "2026-02-21 02:30:00+05:30",
+      "entry_price": 2176.0,
+      "stop_price": 2163.06,
+      "target_price": 2227.25,
+      "rr_ratio": 3.96,
+      "vol_mult": 3.62,
+      "lines": [
+        "BUY | Platinum breakout 2026-02-20 20:30:00+05:30 | entry 2026-02-21 02:30:00+05:30 (candle 5-6)",
+        "Entry 2176.00 | SL 2163.06 | Target 2227.25 | RR 3.96 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-02-20 15:00:00+00:00|2026-02-20 21:00:00+00:00|84.54",
+      "signal_time": "2026-02-20 20:30:00+05:30",
+      "entry_time": "2026-02-21 02:30:00+05:30",
+      "entry_price": 84.54,
+      "stop_price": 82.88,
+      "target_price": 87.39,
+      "rr_ratio": 1.72,
+      "vol_mult": 6.62,
+      "lines": [
+        "BUY | Silver breakout 2026-02-20 20:30:00+05:30 | entry 2026-02-21 02:30:00+05:30 (candle 5-6)",
+        "Entry 84.54 | SL 82.88 | Target 87.39 | RR 1.72 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-02-20 14:00:00+00:00|2026-02-20 19:00:00+00:00|83.35",
+      "signal_time": "2026-02-20 19:30:00+05:30",
+      "entry_time": "2026-02-21 00:30:00+05:30",
+      "entry_price": 83.35,
+      "stop_price": 81.98,
+      "target_price": 85.97,
+      "rr_ratio": 1.92,
+      "vol_mult": 3.28,
+      "lines": [
+        "BUY | Silver breakout 2026-02-20 19:30:00+05:30 | entry 2026-02-21 00:30:00+05:30 (candle 5-6)",
+        "Entry 83.35 | SL 81.98 | Target 85.97 | RR 1.92 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-02-19 15:00:00+00:00|2026-02-19 20:00:00+00:00|66.71",
+      "signal_time": "2026-02-19 20:30:00+05:30",
+      "entry_time": "2026-02-20 01:30:00+05:30",
+      "entry_price": 66.71,
+      "stop_price": 66.43,
+      "target_price": 67.94,
+      "rr_ratio": 4.43,
+      "vol_mult": 4.38,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-02-19 20:30:00+05:30 | entry 2026-02-20 01:30:00+05:30 (candle 5-6)",
+        "Entry 66.71 | SL 66.43 | Target 67.94 | RR 4.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-02-18 14:00:00+00:00|2026-02-18 20:00:00+00:00|65.24",
+      "signal_time": "2026-02-18 19:30:00+05:30",
+      "entry_time": "2026-02-19 01:30:00+05:30",
+      "entry_price": 65.24,
+      "stop_price": 64.54,
+      "target_price": 66.4,
+      "rr_ratio": 1.65,
+      "vol_mult": 3.79,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-02-18 19:30:00+05:30 | entry 2026-02-19 01:30:00+05:30 (candle 5-6)",
+        "Entry 65.24 | SL 64.54 | Target 66.40 | RR 1.65 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2026-02-17 13:00:00+00:00|2026-02-17 19:00:00+00:00|62.18",
+      "signal_time": "2026-02-17 18:30:00+05:30",
+      "entry_time": "2026-02-18 00:30:00+05:30",
+      "entry_price": 62.18,
+      "stop_price": 62.43,
+      "target_price": 60.99,
+      "rr_ratio": 4.69,
+      "vol_mult": 4.66,
+      "lines": [
+        "SELL | Crude Oil breakout 2026-02-17 18:30:00+05:30 | entry 2026-02-18 00:30:00+05:30 (candle 5-6)",
+        "Entry 62.18 | SL 62.43 | Target 60.99 | RR 4.69 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2026-02-17 14:00:00+00:00|2026-02-17 19:00:00+00:00|62.18",
+      "signal_time": "2026-02-17 19:30:00+05:30",
+      "entry_time": "2026-02-18 00:30:00+05:30",
+      "entry_price": 62.18,
+      "stop_price": 62.43,
+      "target_price": 60.99,
+      "rr_ratio": 4.69,
+      "vol_mult": 4.06,
+      "lines": [
+        "SELL | Crude Oil breakout 2026-02-17 19:30:00+05:30 | entry 2026-02-18 00:30:00+05:30 (candle 5-6)",
+        "Entry 62.18 | SL 62.43 | Target 60.99 | RR 4.69 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2026-02-12 18:00:00+00:00|2026-02-13 00:00:00+00:00|74.85",
+      "signal_time": "2026-02-12 23:30:00+05:30",
+      "entry_time": "2026-02-13 05:30:00+05:30",
+      "entry_price": 74.85,
+      "stop_price": 76.46,
+      "target_price": 70.21,
+      "rr_ratio": 2.88,
+      "vol_mult": 3.27,
+      "lines": [
+        "SELL | Silver breakout 2026-02-12 23:30:00+05:30 | entry 2026-02-13 05:30:00+05:30 (candle 5-6)",
+        "Entry 74.85 | SL 76.46 | Target 70.21 | RR 2.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2026-02-12 16:00:00+00:00|2026-02-12 23:00:00+00:00|74.92",
+      "signal_time": "2026-02-12 21:30:00+05:30",
+      "entry_time": "2026-02-13 04:30:00+05:30",
+      "entry_price": 74.92,
+      "stop_price": 76.87,
+      "target_price": 70.52,
+      "rr_ratio": 2.26,
+      "vol_mult": 10.71,
+      "lines": [
+        "SELL | Silver breakout 2026-02-12 21:30:00+05:30 | entry 2026-02-13 04:30:00+05:30 (candle 5-6)",
+        "Entry 74.92 | SL 76.87 | Target 70.52 | RR 2.26 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "SELL",
+      "notify_key": "PLATINUM|PL=F|SELL|2026-02-11 15:00:00+00:00|2026-02-11 21:00:00+00:00|2137.9",
+      "signal_time": "2026-02-11 20:30:00+05:30",
+      "entry_time": "2026-02-12 02:30:00+05:30",
+      "entry_price": 2137.9,
+      "stop_price": 2148.5,
+      "target_price": 2065.08,
+      "rr_ratio": 6.87,
+      "vol_mult": 3.24,
+      "lines": [
+        "SELL | Platinum breakout 2026-02-11 20:30:00+05:30 | entry 2026-02-12 02:30:00+05:30 (candle 5-6)",
+        "Entry 2137.90 | SL 2148.50 | Target 2065.08 | RR 6.87 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2026-01-29 15:00:00+00:00|2026-01-29 20:00:00+00:00|69.59",
+      "signal_time": "2026-01-29 20:30:00+05:30",
+      "entry_time": "2026-01-30 01:30:00+05:30",
+      "entry_price": 69.59,
+      "stop_price": 69.37,
+      "target_price": 71.34,
+      "rr_ratio": 7.83,
+      "vol_mult": 6.22,
+      "lines": [
+        "BUY | Brent breakout 2026-01-29 20:30:00+05:30 | entry 2026-01-30 01:30:00+05:30 (candle 5-6)",
+        "Entry 69.59 | SL 69.37 | Target 71.34 | RR 7.83 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-29 15:00:00+00:00|2026-01-29 20:00:00+00:00|65.48",
+      "signal_time": "2026-01-29 20:30:00+05:30",
+      "entry_time": "2026-01-30 01:30:00+05:30",
+      "entry_price": 65.48,
+      "stop_price": 65.26,
+      "target_price": 67.26,
+      "rr_ratio": 8.09,
+      "vol_mult": 4.87,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-29 20:30:00+05:30 | entry 2026-01-30 01:30:00+05:30 (candle 5-6)",
+        "Entry 65.48 | SL 65.26 | Target 67.26 | RR 8.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2026-01-29 14:00:00+00:00|2026-01-29 19:00:00+00:00|69.54",
+      "signal_time": "2026-01-29 19:30:00+05:30",
+      "entry_time": "2026-01-30 00:30:00+05:30",
+      "entry_price": 69.54,
+      "stop_price": 69.21,
+      "target_price": 71.29,
+      "rr_ratio": 5.31,
+      "vol_mult": 5.97,
+      "lines": [
+        "BUY | Brent breakout 2026-01-29 19:30:00+05:30 | entry 2026-01-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 69.54 | SL 69.21 | Target 71.29 | RR 5.31 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-29 13:00:00+00:00|2026-01-29 19:00:00+00:00|65.38",
+      "signal_time": "2026-01-29 18:30:00+05:30",
+      "entry_time": "2026-01-30 00:30:00+05:30",
+      "entry_price": 65.38,
+      "stop_price": 65.07,
+      "target_price": 67.15,
+      "rr_ratio": 5.7,
+      "vol_mult": 3.52,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-29 18:30:00+05:30 | entry 2026-01-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 65.38 | SL 65.07 | Target 67.15 | RR 5.70 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-29 14:00:00+00:00|2026-01-29 19:00:00+00:00|65.38",
+      "signal_time": "2026-01-29 19:30:00+05:30",
+      "entry_time": "2026-01-30 00:30:00+05:30",
+      "entry_price": 65.38,
+      "stop_price": 65.07,
+      "target_price": 67.15,
+      "rr_ratio": 5.7,
+      "vol_mult": 5.95,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-29 19:30:00+05:30 | entry 2026-01-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 65.38 | SL 65.07 | Target 67.15 | RR 5.70 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2026-01-28 14:00:00+00:00|2026-01-28 19:00:00+00:00|67.35",
+      "signal_time": "2026-01-28 19:30:00+05:30",
+      "entry_time": "2026-01-29 00:30:00+05:30",
+      "entry_price": 67.35,
+      "stop_price": 67.04,
+      "target_price": 68.48,
+      "rr_ratio": 3.64,
+      "vol_mult": 3.5,
+      "lines": [
+        "BUY | Brent breakout 2026-01-28 19:30:00+05:30 | entry 2026-01-29 00:30:00+05:30 (candle 5-6)",
+        "Entry 67.35 | SL 67.04 | Target 68.48 | RR 3.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "BUY",
+      "notify_key": "GOLD|GC=F|BUY|2026-01-28 08:00:00+00:00|2026-01-28 14:00:00+00:00|5318.8",
+      "signal_time": "2026-01-28 13:30:00+05:30",
+      "entry_time": "2026-01-28 19:30:00+05:30",
+      "entry_price": 5318.8,
+      "stop_price": 5267.19,
+      "target_price": 5399.57,
+      "rr_ratio": 1.57,
+      "vol_mult": 7.38,
+      "lines": [
+        "BUY | Gold breakout 2026-01-28 13:30:00+05:30 | entry 2026-01-28 19:30:00+05:30 (candle 5-6)",
+        "Entry 5318.80 | SL 5267.19 | Target 5399.57 | RR 1.57 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-27 14:00:00+00:00|2026-01-27 20:00:00+00:00|62.56",
+      "signal_time": "2026-01-27 19:30:00+05:30",
+      "entry_time": "2026-01-28 01:30:00+05:30",
+      "entry_price": 62.56,
+      "stop_price": 61.83,
+      "target_price": 63.8,
+      "rr_ratio": 1.71,
+      "vol_mult": 4.16,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-27 19:30:00+05:30 | entry 2026-01-28 01:30:00+05:30 (candle 5-6)",
+        "Entry 62.56 | SL 61.83 | Target 63.80 | RR 1.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2026-01-26 01:00:00+00:00|2026-01-26 06:00:00+00:00|2860.5",
+      "signal_time": "2026-01-26 06:30:00+05:30",
+      "entry_time": "2026-01-26 11:30:00+05:30",
+      "entry_price": 2860.5,
+      "stop_price": 2823.6,
+      "target_price": 2971.07,
+      "rr_ratio": 3.0,
+      "vol_mult": 3.73,
+      "lines": [
+        "BUY | Platinum breakout 2026-01-26 06:30:00+05:30 | entry 2026-01-26 11:30:00+05:30 (candle 5-6)",
+        "Entry 2860.50 | SL 2823.60 | Target 2971.07 | RR 3.00 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-23 14:00:00+00:00|2026-01-23 20:00:00+00:00|61.16",
+      "signal_time": "2026-01-23 19:30:00+05:30",
+      "entry_time": "2026-01-24 01:30:00+05:30",
+      "entry_price": 61.16,
+      "stop_price": 60.92,
+      "target_price": 62.06,
+      "rr_ratio": 3.8,
+      "vol_mult": 3.29,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-23 19:30:00+05:30 | entry 2026-01-24 01:30:00+05:30 (candle 5-6)",
+        "Entry 61.16 | SL 60.92 | Target 62.06 | RR 3.80 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2026-01-23 13:00:00+00:00|2026-01-23 19:00:00+00:00|5.93",
+      "signal_time": "2026-01-23 18:30:00+05:30",
+      "entry_time": "2026-01-24 00:30:00+05:30",
+      "entry_price": 5.93,
+      "stop_price": 5.91,
+      "target_price": 6.04,
+      "rr_ratio": 5.58,
+      "vol_mult": 3.2,
+      "lines": [
+        "BUY | Copper breakout 2026-01-23 18:30:00+05:30 | entry 2026-01-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 5.93 | SL 5.91 | Target 6.04 | RR 5.58 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2026-01-23 14:00:00+00:00|2026-01-23 19:00:00+00:00|3.58",
+      "signal_time": "2026-01-23 19:30:00+05:30",
+      "entry_time": "2026-01-24 00:30:00+05:30",
+      "entry_price": 3.58,
+      "stop_price": 3.67,
+      "target_price": 3.1,
+      "rr_ratio": 5.68,
+      "vol_mult": 3.3,
+      "lines": [
+        "SELL | Natural Gas breakout 2026-01-23 19:30:00+05:30 | entry 2026-01-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 3.58 | SL 3.67 | Target 3.10 | RR 5.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-01-22 15:00:00+00:00|2026-01-22 20:00:00+00:00|96.17",
+      "signal_time": "2026-01-22 20:30:00+05:30",
+      "entry_time": "2026-01-23 01:30:00+05:30",
+      "entry_price": 96.17,
+      "stop_price": 95.44,
+      "target_price": 98.32,
+      "rr_ratio": 2.98,
+      "vol_mult": 3.04,
+      "lines": [
+        "BUY | Silver breakout 2026-01-22 20:30:00+05:30 | entry 2026-01-23 01:30:00+05:30 (candle 5-6)",
+        "Entry 96.17 | SL 95.44 | Target 98.32 | RR 2.98 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2026-01-20 15:00:00+00:00|2026-01-20 20:00:00+00:00|3.91",
+      "signal_time": "2026-01-20 20:30:00+05:30",
+      "entry_time": "2026-01-21 01:30:00+05:30",
+      "entry_price": 3.91,
+      "stop_price": 3.85,
+      "target_price": 4.14,
+      "rr_ratio": 3.87,
+      "vol_mult": 3.65,
+      "lines": [
+        "BUY | Natural Gas breakout 2026-01-20 20:30:00+05:30 | entry 2026-01-21 01:30:00+05:30 (candle 5-6)",
+        "Entry 3.91 | SL 3.85 | Target 4.14 | RR 3.87 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2026-01-20 15:00:00+00:00|2026-01-20 20:00:00+00:00|2463.1",
+      "signal_time": "2026-01-20 20:30:00+05:30",
+      "entry_time": "2026-01-21 01:30:00+05:30",
+      "entry_price": 2463.1,
+      "stop_price": 2437.94,
+      "target_price": 2534.1,
+      "rr_ratio": 2.82,
+      "vol_mult": 4.1,
+      "lines": [
+        "BUY | Platinum breakout 2026-01-20 20:30:00+05:30 | entry 2026-01-21 01:30:00+05:30 (candle 5-6)",
+        "Entry 2463.10 | SL 2437.94 | Target 2534.10 | RR 2.82 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2026-01-20 14:00:00+00:00|2026-01-20 19:00:00+00:00|2458.6",
+      "signal_time": "2026-01-20 19:30:00+05:30",
+      "entry_time": "2026-01-21 00:30:00+05:30",
+      "entry_price": 2458.6,
+      "stop_price": 2431.65,
+      "target_price": 2530.87,
+      "rr_ratio": 2.68,
+      "vol_mult": 3.95,
+      "lines": [
+        "BUY | Platinum breakout 2026-01-20 19:30:00+05:30 | entry 2026-01-21 00:30:00+05:30 (candle 5-6)",
+        "Entry 2458.60 | SL 2431.65 | Target 2530.87 | RR 2.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2026-01-20 13:00:00+00:00|2026-01-20 18:00:00+00:00|3.91",
+      "signal_time": "2026-01-20 18:30:00+05:30",
+      "entry_time": "2026-01-20 23:30:00+05:30",
+      "entry_price": 3.91,
+      "stop_price": 3.8,
+      "target_price": 4.17,
+      "rr_ratio": 2.44,
+      "vol_mult": 5.3,
+      "lines": [
+        "BUY | Natural Gas breakout 2026-01-20 18:30:00+05:30 | entry 2026-01-20 23:30:00+05:30 (candle 5-6)",
+        "Entry 3.91 | SL 3.80 | Target 4.17 | RR 2.44 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "SELL",
+      "notify_key": "PLATINUM|PL=F|SELL|2026-01-16 13:00:00+00:00|2026-01-16 18:00:00+00:00|2308.9",
+      "signal_time": "2026-01-16 18:30:00+05:30",
+      "entry_time": "2026-01-16 23:30:00+05:30",
+      "entry_price": 2308.9,
+      "stop_price": 2331.78,
+      "target_price": 2234.29,
+      "rr_ratio": 3.26,
+      "vol_mult": 3.56,
+      "lines": [
+        "SELL | Platinum breakout 2026-01-16 18:30:00+05:30 | entry 2026-01-16 23:30:00+05:30 (candle 5-6)",
+        "Entry 2308.90 | SL 2331.78 | Target 2234.29 | RR 3.26 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2026-01-13 15:00:00+00:00|2026-01-13 21:00:00+00:00|65.42",
+      "signal_time": "2026-01-13 20:30:00+05:30",
+      "entry_time": "2026-01-14 02:30:00+05:30",
+      "entry_price": 65.42,
+      "stop_price": 65.25,
+      "target_price": 66.74,
+      "rr_ratio": 8.01,
+      "vol_mult": 3.52,
+      "lines": [
+        "BUY | Brent breakout 2026-01-13 20:30:00+05:30 | entry 2026-01-14 02:30:00+05:30 (candle 5-6)",
+        "Entry 65.42 | SL 65.25 | Target 66.74 | RR 8.01 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-13 14:00:00+00:00|2026-01-13 20:00:00+00:00|61.04",
+      "signal_time": "2026-01-13 19:30:00+05:30",
+      "entry_time": "2026-01-14 01:30:00+05:30",
+      "entry_price": 61.04,
+      "stop_price": 60.93,
+      "target_price": 62.38,
+      "rr_ratio": 12.21,
+      "vol_mult": 5.11,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-13 19:30:00+05:30 | entry 2026-01-14 01:30:00+05:30 (candle 5-6)",
+        "Entry 61.04 | SL 60.93 | Target 62.38 | RR 12.21 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-01-13 13:00:00+00:00|2026-01-13 18:00:00+00:00|87.43",
+      "signal_time": "2026-01-13 18:30:00+05:30",
+      "entry_time": "2026-01-13 23:30:00+05:30",
+      "entry_price": 87.43,
+      "stop_price": 86.11,
+      "target_price": 90.27,
+      "rr_ratio": 2.16,
+      "vol_mult": 3.53,
+      "lines": [
+        "BUY | Silver breakout 2026-01-13 18:30:00+05:30 | entry 2026-01-13 23:30:00+05:30 (candle 5-6)",
+        "Entry 87.43 | SL 86.11 | Target 90.27 | RR 2.16 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-01-12 14:00:00+00:00|2026-01-12 19:00:00+00:00|85.68",
+      "signal_time": "2026-01-12 19:30:00+05:30",
+      "entry_time": "2026-01-13 00:30:00+05:30",
+      "entry_price": 85.68,
+      "stop_price": 85.27,
+      "target_price": 87.85,
+      "rr_ratio": 5.33,
+      "vol_mult": 3.51,
+      "lines": [
+        "BUY | Silver breakout 2026-01-12 19:30:00+05:30 | entry 2026-01-13 00:30:00+05:30 (candle 5-6)",
+        "Entry 85.68 | SL 85.27 | Target 87.85 | RR 5.33 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2026-01-09 13:00:00+00:00|2026-01-09 18:00:00+00:00|5.9",
+      "signal_time": "2026-01-09 18:30:00+05:30",
+      "entry_time": "2026-01-09 23:30:00+05:30",
+      "entry_price": 5.9,
+      "stop_price": 5.88,
+      "target_price": 5.99,
+      "rr_ratio": 3.64,
+      "vol_mult": 3.2,
+      "lines": [
+        "BUY | Copper breakout 2026-01-09 18:30:00+05:30 | entry 2026-01-09 23:30:00+05:30 (candle 5-6)",
+        "Entry 5.90 | SL 5.88 | Target 5.99 | RR 3.64 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2026-01-08 19:00:00+00:00|2026-01-09 02:00:00+00:00|58.15",
+      "signal_time": "2026-01-09 00:30:00+05:30",
+      "entry_time": "2026-01-09 07:30:00+05:30",
+      "entry_price": 58.15,
+      "stop_price": 57.99,
+      "target_price": 58.95,
+      "rr_ratio": 4.92,
+      "vol_mult": 4.62,
+      "lines": [
+        "BUY | Crude Oil breakout 2026-01-09 00:30:00+05:30 | entry 2026-01-09 07:30:00+05:30 (candle 5-6)",
+        "Entry 58.15 | SL 57.99 | Target 58.95 | RR 4.92 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "BUY",
+      "notify_key": "GOLD|GC=F|BUY|2026-01-08 15:00:00+00:00|2026-01-08 20:00:00+00:00|4485.1",
+      "signal_time": "2026-01-08 20:30:00+05:30",
+      "entry_time": "2026-01-09 01:30:00+05:30",
+      "entry_price": 4485.1,
+      "stop_price": 4460.3,
+      "target_price": 4526.76,
+      "rr_ratio": 1.68,
+      "vol_mult": 3.24,
+      "lines": [
+        "BUY | Gold breakout 2026-01-08 20:30:00+05:30 | entry 2026-01-09 01:30:00+05:30 (candle 5-6)",
+        "Entry 4485.10 | SL 4460.30 | Target 4526.76 | RR 1.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2026-01-06 14:00:00+00:00|2026-01-06 20:00:00+00:00|2451.4",
+      "signal_time": "2026-01-06 19:30:00+05:30",
+      "entry_time": "2026-01-07 01:30:00+05:30",
+      "entry_price": 2451.4,
+      "stop_price": 2412.5,
+      "target_price": 2530.85,
+      "rr_ratio": 2.04,
+      "vol_mult": 3.37,
+      "lines": [
+        "BUY | Platinum breakout 2026-01-06 19:30:00+05:30 | entry 2026-01-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 2451.40 | SL 2412.50 | Target 2530.85 | RR 2.04 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2026-01-06 15:00:00+00:00|2026-01-06 20:00:00+00:00|2451.4",
+      "signal_time": "2026-01-06 20:30:00+05:30",
+      "entry_time": "2026-01-07 01:30:00+05:30",
+      "entry_price": 2451.4,
+      "stop_price": 2412.5,
+      "target_price": 2530.85,
+      "rr_ratio": 2.04,
+      "vol_mult": 3.01,
+      "lines": [
+        "BUY | Platinum breakout 2026-01-06 20:30:00+05:30 | entry 2026-01-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 2451.40 | SL 2412.50 | Target 2530.85 | RR 2.04 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-01-06 14:00:00+00:00|2026-01-06 20:00:00+00:00|81.18",
+      "signal_time": "2026-01-06 19:30:00+05:30",
+      "entry_time": "2026-01-07 01:30:00+05:30",
+      "entry_price": 81.18,
+      "stop_price": 79.94,
+      "target_price": 83.63,
+      "rr_ratio": 1.98,
+      "vol_mult": 3.56,
+      "lines": [
+        "BUY | Silver breakout 2026-01-06 19:30:00+05:30 | entry 2026-01-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 81.18 | SL 79.94 | Target 83.63 | RR 1.98 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2026-01-06 15:00:00+00:00|2026-01-06 20:00:00+00:00|81.18",
+      "signal_time": "2026-01-06 20:30:00+05:30",
+      "entry_time": "2026-01-07 01:30:00+05:30",
+      "entry_price": 81.18,
+      "stop_price": 79.94,
+      "target_price": 83.63,
+      "rr_ratio": 1.98,
+      "vol_mult": 3.03,
+      "lines": [
+        "BUY | Silver breakout 2026-01-06 20:30:00+05:30 | entry 2026-01-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 81.18 | SL 79.94 | Target 83.63 | RR 1.98 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2026-01-05 13:00:00+00:00|2026-01-05 19:00:00+00:00|6.0",
+      "signal_time": "2026-01-05 18:30:00+05:30",
+      "entry_time": "2026-01-06 00:30:00+05:30",
+      "entry_price": 6.0,
+      "stop_price": 5.95,
+      "target_price": 6.09,
+      "rr_ratio": 1.6,
+      "vol_mult": 4.41,
+      "lines": [
+        "BUY | Copper breakout 2026-01-05 18:30:00+05:30 | entry 2026-01-06 00:30:00+05:30 (candle 5-6)",
+        "Entry 6.00 | SL 5.95 | Target 6.09 | RR 1.60 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-12-31 14:00:00+00:00|2025-12-31 20:00:00+00:00|3.7",
+      "signal_time": "2025-12-31 19:30:00+05:30",
+      "entry_time": "2026-01-01 01:30:00+05:30",
+      "entry_price": 3.7,
+      "stop_price": 3.75,
+      "target_price": 3.59,
+      "rr_ratio": 2.5,
+      "vol_mult": 3.12,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-12-31 19:30:00+05:30 | entry 2026-01-01 01:30:00+05:30 (candle 5-6)",
+        "Entry 3.70 | SL 3.75 | Target 3.59 | RR 2.50 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-12-29 15:00:00+00:00|2025-12-29 21:00:00+00:00|4350.2",
+      "signal_time": "2025-12-29 20:30:00+05:30",
+      "entry_time": "2025-12-30 02:30:00+05:30",
+      "entry_price": 4350.2,
+      "stop_price": 4374.83,
+      "target_price": 4274.4,
+      "rr_ratio": 3.08,
+      "vol_mult": 3.62,
+      "lines": [
+        "SELL | Gold breakout 2025-12-29 20:30:00+05:30 | entry 2025-12-30 02:30:00+05:30 (candle 5-6)",
+        "Entry 4350.20 | SL 4374.83 | Target 4274.40 | RR 3.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-26 19:00:00+00:00|2025-12-29 01:00:00+00:00|57.13",
+      "signal_time": "2025-12-27 00:30:00+05:30",
+      "entry_time": "2025-12-29 06:30:00+05:30",
+      "entry_price": 57.13,
+      "stop_price": 57.29,
+      "target_price": 56.35,
+      "rr_ratio": 4.87,
+      "vol_mult": 3.46,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-27 00:30:00+05:30 | entry 2025-12-29 06:30:00+05:30 (candle 5-6)",
+        "Entry 57.13 | SL 57.29 | Target 56.35 | RR 4.87 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-12-26 14:00:00+00:00|2025-12-26 20:00:00+00:00|5.84",
+      "signal_time": "2025-12-26 19:30:00+05:30",
+      "entry_time": "2025-12-27 01:30:00+05:30",
+      "entry_price": 5.84,
+      "stop_price": 5.81,
+      "target_price": 5.96,
+      "rr_ratio": 5.26,
+      "vol_mult": 3.31,
+      "lines": [
+        "BUY | Copper breakout 2025-12-26 19:30:00+05:30 | entry 2025-12-27 01:30:00+05:30 (candle 5-6)",
+        "Entry 5.84 | SL 5.81 | Target 5.96 | RR 5.26 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-12-23 15:00:00+00:00|2025-12-23 20:00:00+00:00|2301.5",
+      "signal_time": "2025-12-23 20:30:00+05:30",
+      "entry_time": "2025-12-24 01:30:00+05:30",
+      "entry_price": 2301.5,
+      "stop_price": 2272.39,
+      "target_price": 2361.82,
+      "rr_ratio": 2.07,
+      "vol_mult": 3.5,
+      "lines": [
+        "BUY | Platinum breakout 2025-12-23 20:30:00+05:30 | entry 2025-12-24 01:30:00+05:30 (candle 5-6)",
+        "Entry 2301.50 | SL 2272.39 | Target 2361.82 | RR 2.07 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-23 15:00:00+00:00|2025-12-23 20:00:00+00:00|71.61",
+      "signal_time": "2025-12-23 20:30:00+05:30",
+      "entry_time": "2025-12-24 01:30:00+05:30",
+      "entry_price": 71.61,
+      "stop_price": 70.78,
+      "target_price": 73.1,
+      "rr_ratio": 1.8,
+      "vol_mult": 3.79,
+      "lines": [
+        "BUY | Silver breakout 2025-12-23 20:30:00+05:30 | entry 2025-12-24 01:30:00+05:30 (candle 5-6)",
+        "Entry 71.61 | SL 70.78 | Target 73.10 | RR 1.80 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-12-23 14:00:00+00:00|2025-12-23 19:00:00+00:00|2297.0",
+      "signal_time": "2025-12-23 19:30:00+05:30",
+      "entry_time": "2025-12-24 00:30:00+05:30",
+      "entry_price": 2297.0,
+      "stop_price": 2265.12,
+      "target_price": 2359.14,
+      "rr_ratio": 1.95,
+      "vol_mult": 3.3,
+      "lines": [
+        "BUY | Platinum breakout 2025-12-23 19:30:00+05:30 | entry 2025-12-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 2297.00 | SL 2265.12 | Target 2359.14 | RR 1.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-12-23 01:00:00+00:00|2025-12-23 06:00:00+00:00|2205.6",
+      "signal_time": "2025-12-23 06:30:00+05:30",
+      "entry_time": "2025-12-23 11:30:00+05:30",
+      "entry_price": 2205.6,
+      "stop_price": 2172.88,
+      "target_price": 2272.14,
+      "rr_ratio": 2.03,
+      "vol_mult": 3.33,
+      "lines": [
+        "BUY | Platinum breakout 2025-12-23 06:30:00+05:30 | entry 2025-12-23 11:30:00+05:30 (candle 5-6)",
+        "Entry 2205.60 | SL 2172.88 | Target 2272.14 | RR 2.03 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2025-12-22 14:00:00+00:00|2025-12-22 19:00:00+00:00|58.03",
+      "signal_time": "2025-12-22 19:30:00+05:30",
+      "entry_time": "2025-12-23 00:30:00+05:30",
+      "entry_price": 58.03,
+      "stop_price": 57.76,
+      "target_price": 58.73,
+      "rr_ratio": 2.57,
+      "vol_mult": 3.63,
+      "lines": [
+        "BUY | Crude Oil breakout 2025-12-22 19:30:00+05:30 | entry 2025-12-23 00:30:00+05:30 (candle 5-6)",
+        "Entry 58.03 | SL 57.76 | Target 58.73 | RR 2.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-12-17 14:00:00+00:00|2025-12-17 19:00:00+00:00|5.42",
+      "signal_time": "2025-12-17 19:30:00+05:30",
+      "entry_time": "2025-12-18 00:30:00+05:30",
+      "entry_price": 5.42,
+      "stop_price": 5.41,
+      "target_price": 5.49,
+      "rr_ratio": 7.05,
+      "vol_mult": 3.66,
+      "lines": [
+        "BUY | Copper breakout 2025-12-17 19:30:00+05:30 | entry 2025-12-18 00:30:00+05:30 (candle 5-6)",
+        "Entry 5.42 | SL 5.41 | Target 5.49 | RR 7.05 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-17 14:00:00+00:00|2025-12-17 19:00:00+00:00|66.64",
+      "signal_time": "2025-12-17 19:30:00+05:30",
+      "entry_time": "2025-12-18 00:30:00+05:30",
+      "entry_price": 66.64,
+      "stop_price": 66.32,
+      "target_price": 68.13,
+      "rr_ratio": 4.59,
+      "vol_mult": 3.83,
+      "lines": [
+        "BUY | Silver breakout 2025-12-17 19:30:00+05:30 | entry 2025-12-18 00:30:00+05:30 (candle 5-6)",
+        "Entry 66.64 | SL 66.32 | Target 68.13 | RR 4.59 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "SELL",
+      "notify_key": "BRENT|BZ=F|SELL|2025-12-16 14:00:00+00:00|2025-12-16 19:00:00+00:00|58.92",
+      "signal_time": "2025-12-16 19:30:00+05:30",
+      "entry_time": "2025-12-17 00:30:00+05:30",
+      "entry_price": 58.92,
+      "stop_price": 59.22,
+      "target_price": 58.21,
+      "rr_ratio": 2.36,
+      "vol_mult": 3.22,
+      "lines": [
+        "SELL | Brent breakout 2025-12-16 19:30:00+05:30 | entry 2025-12-17 00:30:00+05:30 (candle 5-6)",
+        "Entry 58.92 | SL 59.22 | Target 58.21 | RR 2.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-16 11:00:00+00:00|2025-12-16 17:00:00+00:00|55.24",
+      "signal_time": "2025-12-16 16:30:00+05:30",
+      "entry_time": "2025-12-16 22:30:00+05:30",
+      "entry_price": 55.24,
+      "stop_price": 55.71,
+      "target_price": 54.34,
+      "rr_ratio": 1.91,
+      "vol_mult": 3.52,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-16 16:30:00+05:30 | entry 2025-12-16 22:30:00+05:30 (candle 5-6)",
+        "Entry 55.24 | SL 55.71 | Target 54.34 | RR 1.91 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-15 14:00:00+00:00|2025-12-15 20:00:00+00:00|56.65",
+      "signal_time": "2025-12-15 19:30:00+05:30",
+      "entry_time": "2025-12-16 01:30:00+05:30",
+      "entry_price": 56.65,
+      "stop_price": 56.81,
+      "target_price": 55.93,
+      "rr_ratio": 4.43,
+      "vol_mult": 3.52,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-15 19:30:00+05:30 | entry 2025-12-16 01:30:00+05:30 (candle 5-6)",
+        "Entry 56.65 | SL 56.81 | Target 55.93 | RR 4.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-12-15 14:00:00+00:00|2025-12-15 20:00:00+00:00|4.02",
+      "signal_time": "2025-12-15 19:30:00+05:30",
+      "entry_time": "2025-12-16 01:30:00+05:30",
+      "entry_price": 4.02,
+      "stop_price": 4.06,
+      "target_price": 3.89,
+      "rr_ratio": 3.94,
+      "vol_mult": 3.37,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-12-15 19:30:00+05:30 | entry 2025-12-16 01:30:00+05:30 (candle 5-6)",
+        "Entry 4.02 | SL 4.06 | Target 3.89 | RR 3.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-12-11 16:00:00+00:00|2025-12-11 23:00:00+00:00|4.22",
+      "signal_time": "2025-12-11 21:30:00+05:30",
+      "entry_time": "2025-12-12 04:30:00+05:30",
+      "entry_price": 4.22,
+      "stop_price": 4.27,
+      "target_price": 4.09,
+      "rr_ratio": 2.68,
+      "vol_mult": 3.06,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-12-11 21:30:00+05:30 | entry 2025-12-12 04:30:00+05:30 (candle 5-6)",
+        "Entry 4.22 | SL 4.27 | Target 4.09 | RR 2.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-12-11 14:00:00+00:00|2025-12-11 20:00:00+00:00|4.23",
+      "signal_time": "2025-12-11 19:30:00+05:30",
+      "entry_time": "2025-12-12 01:30:00+05:30",
+      "entry_price": 4.23,
+      "stop_price": 4.29,
+      "target_price": 4.09,
+      "rr_ratio": 2.06,
+      "vol_mult": 4.33,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-12-11 19:30:00+05:30 | entry 2025-12-12 01:30:00+05:30 (candle 5-6)",
+        "Entry 4.23 | SL 4.29 | Target 4.09 | RR 2.06 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-12-11 15:00:00+00:00|2025-12-11 20:00:00+00:00|4.23",
+      "signal_time": "2025-12-11 20:30:00+05:30",
+      "entry_time": "2025-12-12 01:30:00+05:30",
+      "entry_price": 4.23,
+      "stop_price": 4.29,
+      "target_price": 4.09,
+      "rr_ratio": 2.06,
+      "vol_mult": 4.51,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-12-11 20:30:00+05:30 | entry 2025-12-12 01:30:00+05:30 (candle 5-6)",
+        "Entry 4.23 | SL 4.29 | Target 4.09 | RR 2.06 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-09 16:00:00+00:00|2025-12-09 23:00:00+00:00|61.37",
+      "signal_time": "2025-12-09 21:30:00+05:30",
+      "entry_time": "2025-12-10 04:30:00+05:30",
+      "entry_price": 61.37,
+      "stop_price": 60.8,
+      "target_price": 62.51,
+      "rr_ratio": 2.01,
+      "vol_mult": 3.76,
+      "lines": [
+        "BUY | Silver breakout 2025-12-09 21:30:00+05:30 | entry 2025-12-10 04:30:00+05:30 (candle 5-6)",
+        "Entry 61.37 | SL 60.80 | Target 62.51 | RR 2.01 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-09 14:00:00+00:00|2025-12-09 20:00:00+00:00|58.33",
+      "signal_time": "2025-12-09 19:30:00+05:30",
+      "entry_time": "2025-12-10 01:30:00+05:30",
+      "entry_price": 58.33,
+      "stop_price": 58.42,
+      "target_price": 57.71,
+      "rr_ratio": 6.91,
+      "vol_mult": 4.15,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-09 19:30:00+05:30 | entry 2025-12-10 01:30:00+05:30 (candle 5-6)",
+        "Entry 58.33 | SL 58.42 | Target 57.71 | RR 6.91 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-09 15:00:00+00:00|2025-12-09 20:00:00+00:00|58.33",
+      "signal_time": "2025-12-09 20:30:00+05:30",
+      "entry_time": "2025-12-10 01:30:00+05:30",
+      "entry_price": 58.33,
+      "stop_price": 58.42,
+      "target_price": 57.71,
+      "rr_ratio": 6.91,
+      "vol_mult": 4.03,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-09 20:30:00+05:30 | entry 2025-12-10 01:30:00+05:30 (candle 5-6)",
+        "Entry 58.33 | SL 58.42 | Target 57.71 | RR 6.91 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-12-09 15:00:00+00:00|2025-12-09 20:00:00+00:00|1709.1",
+      "signal_time": "2025-12-09 20:30:00+05:30",
+      "entry_time": "2025-12-10 01:30:00+05:30",
+      "entry_price": 1709.1,
+      "stop_price": 1695.88,
+      "target_price": 1743.28,
+      "rr_ratio": 2.59,
+      "vol_mult": 5.23,
+      "lines": [
+        "BUY | Platinum breakout 2025-12-09 20:30:00+05:30 | entry 2025-12-10 01:30:00+05:30 (candle 5-6)",
+        "Entry 1709.10 | SL 1695.88 | Target 1743.28 | RR 2.59 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-09 14:00:00+00:00|2025-12-09 20:00:00+00:00|61.24",
+      "signal_time": "2025-12-09 19:30:00+05:30",
+      "entry_time": "2025-12-10 01:30:00+05:30",
+      "entry_price": 61.24,
+      "stop_price": 60.54,
+      "target_price": 62.38,
+      "rr_ratio": 1.64,
+      "vol_mult": 4.7,
+      "lines": [
+        "BUY | Silver breakout 2025-12-09 19:30:00+05:30 | entry 2025-12-10 01:30:00+05:30 (candle 5-6)",
+        "Entry 61.24 | SL 60.54 | Target 62.38 | RR 1.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-09 15:00:00+00:00|2025-12-09 20:00:00+00:00|61.24",
+      "signal_time": "2025-12-09 20:30:00+05:30",
+      "entry_time": "2025-12-10 01:30:00+05:30",
+      "entry_price": 61.24,
+      "stop_price": 60.54,
+      "target_price": 62.38,
+      "rr_ratio": 1.64,
+      "vol_mult": 6.58,
+      "lines": [
+        "BUY | Silver breakout 2025-12-09 20:30:00+05:30 | entry 2025-12-10 01:30:00+05:30 (candle 5-6)",
+        "Entry 61.24 | SL 60.54 | Target 62.38 | RR 1.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-08 19:00:00+00:00|2025-12-09 01:00:00+00:00|58.77",
+      "signal_time": "2025-12-09 00:30:00+05:30",
+      "entry_time": "2025-12-09 06:30:00+05:30",
+      "entry_price": 58.77,
+      "stop_price": 58.95,
+      "target_price": 58.18,
+      "rr_ratio": 3.23,
+      "vol_mult": 3.54,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-09 00:30:00+05:30 | entry 2025-12-09 06:30:00+05:30 (candle 5-6)",
+        "Entry 58.77 | SL 58.95 | Target 58.18 | RR 3.23 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-05 15:00:00+00:00|2025-12-05 21:00:00+00:00|59.05",
+      "signal_time": "2025-12-05 20:30:00+05:30",
+      "entry_time": "2025-12-06 02:30:00+05:30",
+      "entry_price": 59.05,
+      "stop_price": 58.72,
+      "target_price": 60.58,
+      "rr_ratio": 4.59,
+      "vol_mult": 3.73,
+      "lines": [
+        "BUY | Silver breakout 2025-12-05 20:30:00+05:30 | entry 2025-12-06 02:30:00+05:30 (candle 5-6)",
+        "Entry 59.05 | SL 58.72 | Target 60.58 | RR 4.59 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-12-05 16:00:00+00:00|2025-12-05 21:00:00+00:00|59.05",
+      "signal_time": "2025-12-05 21:30:00+05:30",
+      "entry_time": "2025-12-06 02:30:00+05:30",
+      "entry_price": 59.05,
+      "stop_price": 58.72,
+      "target_price": 60.58,
+      "rr_ratio": 4.59,
+      "vol_mult": 4.28,
+      "lines": [
+        "BUY | Silver breakout 2025-12-05 21:30:00+05:30 | entry 2025-12-06 02:30:00+05:30 (candle 5-6)",
+        "Entry 59.05 | SL 58.72 | Target 60.58 | RR 4.59 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-12-03 13:00:00+00:00|2025-12-03 19:00:00+00:00|5.4",
+      "signal_time": "2025-12-03 18:30:00+05:30",
+      "entry_time": "2025-12-04 00:30:00+05:30",
+      "entry_price": 5.4,
+      "stop_price": 5.31,
+      "target_price": 5.63,
+      "rr_ratio": 2.69,
+      "vol_mult": 3.72,
+      "lines": [
+        "BUY | Copper breakout 2025-12-03 18:30:00+05:30 | entry 2025-12-04 00:30:00+05:30 (candle 5-6)",
+        "Entry 5.40 | SL 5.31 | Target 5.63 | RR 2.69 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-12-03 14:00:00+00:00|2025-12-03 19:00:00+00:00|5.4",
+      "signal_time": "2025-12-03 19:30:00+05:30",
+      "entry_time": "2025-12-04 00:30:00+05:30",
+      "entry_price": 5.4,
+      "stop_price": 5.31,
+      "target_price": 5.63,
+      "rr_ratio": 2.69,
+      "vol_mult": 3.75,
+      "lines": [
+        "BUY | Copper breakout 2025-12-03 19:30:00+05:30 | entry 2025-12-04 00:30:00+05:30 (candle 5-6)",
+        "Entry 5.40 | SL 5.31 | Target 5.63 | RR 2.69 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-12-03 13:00:00+00:00|2025-12-03 19:00:00+00:00|5.01",
+      "signal_time": "2025-12-03 18:30:00+05:30",
+      "entry_time": "2025-12-04 00:30:00+05:30",
+      "entry_price": 5.01,
+      "stop_price": 4.97,
+      "target_price": 5.11,
+      "rr_ratio": 2.14,
+      "vol_mult": 3.12,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-12-03 18:30:00+05:30 | entry 2025-12-04 00:30:00+05:30 (candle 5-6)",
+        "Entry 5.01 | SL 4.97 | Target 5.11 | RR 2.14 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-12-03 09:00:00+00:00|2025-12-03 15:00:00+00:00|5.43",
+      "signal_time": "2025-12-03 14:30:00+05:30",
+      "entry_time": "2025-12-03 20:30:00+05:30",
+      "entry_price": 5.43,
+      "stop_price": 5.32,
+      "target_price": 5.61,
+      "rr_ratio": 1.58,
+      "vol_mult": 3.69,
+      "lines": [
+        "BUY | Copper breakout 2025-12-03 14:30:00+05:30 | entry 2025-12-03 20:30:00+05:30 (candle 5-6)",
+        "Entry 5.43 | SL 5.32 | Target 5.61 | RR 1.58 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-12-02 19:00:00+00:00|2025-12-03 01:00:00+00:00|58.54",
+      "signal_time": "2025-12-03 00:30:00+05:30",
+      "entry_time": "2025-12-03 06:30:00+05:30",
+      "entry_price": 58.54,
+      "stop_price": 58.73,
+      "target_price": 57.64,
+      "rr_ratio": 4.75,
+      "vol_mult": 3.14,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-12-03 00:30:00+05:30 | entry 2025-12-03 06:30:00+05:30 (candle 5-6)",
+        "Entry 58.54 | SL 58.73 | Target 57.64 | RR 4.75 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-11-28 14:30:00+00:00|2025-12-01 00:00:00+00:00|5.32",
+      "signal_time": "2025-11-28 20:00:00+05:30",
+      "entry_time": "2025-12-01 05:30:00+05:30",
+      "entry_price": 5.32,
+      "stop_price": 5.24,
+      "target_price": 5.54,
+      "rr_ratio": 2.66,
+      "vol_mult": 4.53,
+      "lines": [
+        "BUY | Copper breakout 2025-11-28 20:00:00+05:30 | entry 2025-12-01 05:30:00+05:30 (candle 5-6)",
+        "Entry 5.32 | SL 5.24 | Target 5.54 | RR 2.66 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-11-28 14:30:00+00:00|2025-11-30 23:00:00+00:00|57.72",
+      "signal_time": "2025-11-28 20:00:00+05:30",
+      "entry_time": "2025-12-01 04:30:00+05:30",
+      "entry_price": 57.72,
+      "stop_price": 56.05,
+      "target_price": 60.37,
+      "rr_ratio": 1.59,
+      "vol_mult": 3.56,
+      "lines": [
+        "BUY | Silver breakout 2025-11-28 20:00:00+05:30 | entry 2025-12-01 04:30:00+05:30 (candle 5-6)",
+        "Entry 57.72 | SL 56.05 | Target 60.37 | RR 1.59 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-11-26 13:00:00+00:00|2025-11-26 18:00:00+00:00|53.6",
+      "signal_time": "2025-11-26 18:30:00+05:30",
+      "entry_time": "2025-11-26 23:30:00+05:30",
+      "entry_price": 53.6,
+      "stop_price": 52.13,
+      "target_price": 56.2,
+      "rr_ratio": 1.77,
+      "vol_mult": 4.7,
+      "lines": [
+        "BUY | Silver breakout 2025-11-26 18:30:00+05:30 | entry 2025-11-26 23:30:00+05:30 (candle 5-6)",
+        "Entry 53.60 | SL 52.13 | Target 56.20 | RR 1.77 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "BUY",
+      "notify_key": "GOLD|GC=F|BUY|2025-11-25 20:00:00+00:00|2025-11-26 02:00:00+00:00|4196.9",
+      "signal_time": "2025-11-26 01:30:00+05:30",
+      "entry_time": "2025-11-26 07:30:00+05:30",
+      "entry_price": 4196.9,
+      "stop_price": 4144.9,
+      "target_price": 4336.47,
+      "rr_ratio": 2.68,
+      "vol_mult": 6.37,
+      "lines": [
+        "BUY | Gold breakout 2025-11-26 01:30:00+05:30 | entry 2025-11-26 07:30:00+05:30 (candle 5-6)",
+        "Entry 4196.90 | SL 4144.90 | Target 4336.47 | RR 2.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-11-21 16:00:00+00:00|2025-11-21 21:00:00+00:00|5.01",
+      "signal_time": "2025-11-21 21:30:00+05:30",
+      "entry_time": "2025-11-22 02:30:00+05:30",
+      "entry_price": 5.01,
+      "stop_price": 4.99,
+      "target_price": 5.08,
+      "rr_ratio": 3.49,
+      "vol_mult": 3.04,
+      "lines": [
+        "BUY | Copper breakout 2025-11-21 21:30:00+05:30 | entry 2025-11-22 02:30:00+05:30 (candle 5-6)",
+        "Entry 5.01 | SL 4.99 | Target 5.08 | RR 3.49 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2025-11-14 14:00:00+00:00|2025-11-14 19:00:00+00:00|64.38",
+      "signal_time": "2025-11-14 19:30:00+05:30",
+      "entry_time": "2025-11-15 00:30:00+05:30",
+      "entry_price": 64.38,
+      "stop_price": 63.8,
+      "target_price": 66.47,
+      "rr_ratio": 3.61,
+      "vol_mult": 3.45,
+      "lines": [
+        "BUY | Brent breakout 2025-11-14 19:30:00+05:30 | entry 2025-11-15 00:30:00+05:30 (candle 5-6)",
+        "Entry 64.38 | SL 63.80 | Target 66.47 | RR 3.61 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-11-14 13:00:00+00:00|2025-11-14 19:00:00+00:00|4091.8",
+      "signal_time": "2025-11-14 18:30:00+05:30",
+      "entry_time": "2025-11-15 00:30:00+05:30",
+      "entry_price": 4091.8,
+      "stop_price": 4108.61,
+      "target_price": 4018.43,
+      "rr_ratio": 4.37,
+      "vol_mult": 4.52,
+      "lines": [
+        "SELL | Gold breakout 2025-11-14 18:30:00+05:30 | entry 2025-11-15 00:30:00+05:30 (candle 5-6)",
+        "Entry 4091.80 | SL 4108.61 | Target 4018.43 | RR 4.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-11-14 14:00:00+00:00|2025-11-14 19:00:00+00:00|4091.8",
+      "signal_time": "2025-11-14 19:30:00+05:30",
+      "entry_time": "2025-11-15 00:30:00+05:30",
+      "entry_price": 4091.8,
+      "stop_price": 4108.61,
+      "target_price": 4018.43,
+      "rr_ratio": 4.37,
+      "vol_mult": 3.2,
+      "lines": [
+        "SELL | Gold breakout 2025-11-14 19:30:00+05:30 | entry 2025-11-15 00:30:00+05:30 (candle 5-6)",
+        "Entry 4091.80 | SL 4108.61 | Target 4018.43 | RR 4.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2025-11-14 01:00:00+00:00|2025-11-14 07:00:00+00:00|59.64",
+      "signal_time": "2025-11-14 06:30:00+05:30",
+      "entry_time": "2025-11-14 12:30:00+05:30",
+      "entry_price": 59.64,
+      "stop_price": 59.41,
+      "target_price": 60.63,
+      "rr_ratio": 4.29,
+      "vol_mult": 3.73,
+      "lines": [
+        "BUY | Crude Oil breakout 2025-11-14 06:30:00+05:30 | entry 2025-11-14 12:30:00+05:30 (candle 5-6)",
+        "Entry 59.64 | SL 59.41 | Target 60.63 | RR 4.29 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "BUY",
+      "notify_key": "SILVER|SI=F|BUY|2025-11-12 18:00:00+00:00|2025-11-13 00:00:00+00:00|53.34",
+      "signal_time": "2025-11-12 23:30:00+05:30",
+      "entry_time": "2025-11-13 05:30:00+05:30",
+      "entry_price": 53.34,
+      "stop_price": 53.03,
+      "target_price": 54.39,
+      "rr_ratio": 3.33,
+      "vol_mult": 3.52,
+      "lines": [
+        "BUY | Silver breakout 2025-11-12 23:30:00+05:30 | entry 2025-11-13 05:30:00+05:30 (candle 5-6)",
+        "Entry 53.34 | SL 53.03 | Target 54.39 | RR 3.33 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "SELL",
+      "notify_key": "BRENT|BZ=F|SELL|2025-11-12 17:00:00+00:00|2025-11-12 23:00:00+00:00|62.2",
+      "signal_time": "2025-11-12 22:30:00+05:30",
+      "entry_time": "2025-11-13 04:30:00+05:30",
+      "entry_price": 62.2,
+      "stop_price": 62.78,
+      "target_price": 60.79,
+      "rr_ratio": 2.45,
+      "vol_mult": 5.38,
+      "lines": [
+        "SELL | Brent breakout 2025-11-12 22:30:00+05:30 | entry 2025-11-13 04:30:00+05:30 (candle 5-6)",
+        "Entry 62.20 | SL 62.78 | Target 60.79 | RR 2.45 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "SELL",
+      "notify_key": "CRUDEOIL|CL=F|SELL|2025-11-12 16:00:00+00:00|2025-11-12 23:00:00+00:00|58.2",
+      "signal_time": "2025-11-12 21:30:00+05:30",
+      "entry_time": "2025-11-13 04:30:00+05:30",
+      "entry_price": 58.2,
+      "stop_price": 58.72,
+      "target_price": 57.33,
+      "rr_ratio": 1.67,
+      "vol_mult": 3.41,
+      "lines": [
+        "SELL | Crude Oil breakout 2025-11-12 21:30:00+05:30 | entry 2025-11-13 04:30:00+05:30 (candle 5-6)",
+        "Entry 58.20 | SL 58.72 | Target 57.33 | RR 1.67 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "SELL",
+      "notify_key": "BRENT|BZ=F|SELL|2025-11-12 14:00:00+00:00|2025-11-12 20:00:00+00:00|62.4",
+      "signal_time": "2025-11-12 19:30:00+05:30",
+      "entry_time": "2025-11-13 01:30:00+05:30",
+      "entry_price": 62.4,
+      "stop_price": 63.04,
+      "target_price": 60.98,
+      "rr_ratio": 2.21,
+      "vol_mult": 5.64,
+      "lines": [
+        "SELL | Brent breakout 2025-11-12 19:30:00+05:30 | entry 2025-11-13 01:30:00+05:30 (candle 5-6)",
+        "Entry 62.40 | SL 63.04 | Target 60.98 | RR 2.21 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2025-11-11 16:00:00+00:00|2025-11-11 21:00:00+00:00|61.04",
+      "signal_time": "2025-11-11 21:30:00+05:30",
+      "entry_time": "2025-11-12 02:30:00+05:30",
+      "entry_price": 61.04,
+      "stop_price": 60.89,
+      "target_price": 61.78,
+      "rr_ratio": 4.97,
+      "vol_mult": 3.5,
+      "lines": [
+        "BUY | Crude Oil breakout 2025-11-11 21:30:00+05:30 | entry 2025-11-12 02:30:00+05:30 (candle 5-6)",
+        "Entry 61.04 | SL 60.89 | Target 61.78 | RR 4.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "SELL",
+      "notify_key": "PLATINUM|PL=F|SELL|2025-11-06 14:00:00+00:00|2025-11-06 20:00:00+00:00|1539.9",
+      "signal_time": "2025-11-06 19:30:00+05:30",
+      "entry_time": "2025-11-07 01:30:00+05:30",
+      "entry_price": 1539.9,
+      "stop_price": 1545.38,
+      "target_price": 1507.27,
+      "rr_ratio": 5.95,
+      "vol_mult": 3.28,
+      "lines": [
+        "SELL | Platinum breakout 2025-11-06 19:30:00+05:30 | entry 2025-11-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 1539.90 | SL 1545.38 | Target 1507.27 | RR 5.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "SELL",
+      "notify_key": "PLATINUM|PL=F|SELL|2025-11-06 15:00:00+00:00|2025-11-06 20:00:00+00:00|1539.9",
+      "signal_time": "2025-11-06 20:30:00+05:30",
+      "entry_time": "2025-11-07 01:30:00+05:30",
+      "entry_price": 1539.9,
+      "stop_price": 1545.38,
+      "target_price": 1507.27,
+      "rr_ratio": 5.95,
+      "vol_mult": 3.96,
+      "lines": [
+        "SELL | Platinum breakout 2025-11-06 20:30:00+05:30 | entry 2025-11-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 1539.90 | SL 1545.38 | Target 1507.27 | RR 5.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2025-11-06 15:00:00+00:00|2025-11-06 20:00:00+00:00|47.85",
+      "signal_time": "2025-11-06 20:30:00+05:30",
+      "entry_time": "2025-11-07 01:30:00+05:30",
+      "entry_price": 47.85,
+      "stop_price": 48.03,
+      "target_price": 47.16,
+      "rr_ratio": 3.71,
+      "vol_mult": 4.54,
+      "lines": [
+        "SELL | Silver breakout 2025-11-06 20:30:00+05:30 | entry 2025-11-07 01:30:00+05:30 (candle 5-6)",
+        "Entry 47.85 | SL 48.03 | Target 47.16 | RR 3.71 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-11-04 14:00:00+00:00|2025-11-04 19:00:00+00:00|3947.2",
+      "signal_time": "2025-11-04 19:30:00+05:30",
+      "entry_time": "2025-11-05 00:30:00+05:30",
+      "entry_price": 3947.2,
+      "stop_price": 3968.91,
+      "target_price": 3898.5,
+      "rr_ratio": 2.24,
+      "vol_mult": 5.05,
+      "lines": [
+        "SELL | Gold breakout 2025-11-04 19:30:00+05:30 | entry 2025-11-05 00:30:00+05:30 (candle 5-6)",
+        "Entry 3947.20 | SL 3968.91 | Target 3898.50 | RR 2.24 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-10-31 16:00:00+00:00|2025-11-02 23:00:00+00:00|3989.7",
+      "signal_time": "2025-10-31 21:30:00+05:30",
+      "entry_time": "2025-11-03 04:30:00+05:30",
+      "entry_price": 3989.7,
+      "stop_price": 4010.27,
+      "target_price": 3939.31,
+      "rr_ratio": 2.45,
+      "vol_mult": 3.3,
+      "lines": [
+        "SELL | Gold breakout 2025-10-31 21:30:00+05:30 | entry 2025-11-03 04:30:00+05:30 (candle 5-6)",
+        "Entry 3989.70 | SL 4010.27 | Target 3939.31 | RR 2.45 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "SELL",
+      "notify_key": "COPPER|HG=F|SELL|2025-10-30 14:00:00+00:00|2025-10-30 19:00:00+00:00|5.1",
+      "signal_time": "2025-10-30 19:30:00+05:30",
+      "entry_time": "2025-10-31 00:30:00+05:30",
+      "entry_price": 5.1,
+      "stop_price": 5.11,
+      "target_price": 5.01,
+      "rr_ratio": 4.91,
+      "vol_mult": 5.51,
+      "lines": [
+        "SELL | Copper breakout 2025-10-30 19:30:00+05:30 | entry 2025-10-31 00:30:00+05:30 (candle 5-6)",
+        "Entry 5.10 | SL 5.11 | Target 5.01 | RR 4.91 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-10-30 13:00:00+00:00|2025-10-30 19:00:00+00:00|3.98",
+      "signal_time": "2025-10-30 18:30:00+05:30",
+      "entry_time": "2025-10-31 00:30:00+05:30",
+      "entry_price": 3.98,
+      "stop_price": 3.89,
+      "target_price": 4.17,
+      "rr_ratio": 2.08,
+      "vol_mult": 10.2,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-10-30 18:30:00+05:30 | entry 2025-10-31 00:30:00+05:30 (candle 5-6)",
+        "Entry 3.98 | SL 3.89 | Target 4.17 | RR 2.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-10-30 14:00:00+00:00|2025-10-30 19:00:00+00:00|3.98",
+      "signal_time": "2025-10-30 19:30:00+05:30",
+      "entry_time": "2025-10-31 00:30:00+05:30",
+      "entry_price": 3.98,
+      "stop_price": 3.89,
+      "target_price": 4.17,
+      "rr_ratio": 2.08,
+      "vol_mult": 16.86,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-10-30 19:30:00+05:30 | entry 2025-10-31 00:30:00+05:30 (candle 5-6)",
+        "Entry 3.98 | SL 3.89 | Target 4.17 | RR 2.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-10-29 18:00:00+00:00|2025-10-30 01:00:00+00:00|3960.4",
+      "signal_time": "2025-10-29 23:30:00+05:30",
+      "entry_time": "2025-10-30 06:30:00+05:30",
+      "entry_price": 3960.4,
+      "stop_price": 3978.2,
+      "target_price": 3894.85,
+      "rr_ratio": 3.68,
+      "vol_mult": 3.27,
+      "lines": [
+        "SELL | Gold breakout 2025-10-29 23:30:00+05:30 | entry 2025-10-30 06:30:00+05:30 (candle 5-6)",
+        "Entry 3960.40 | SL 3978.20 | Target 3894.85 | RR 3.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "name": "Gold",
+      "symbol": "GC=F",
+      "side": "SELL",
+      "notify_key": "GOLD|GC=F|SELL|2025-10-27 14:00:00+00:00|2025-10-27 19:00:00+00:00|4006.0",
+      "signal_time": "2025-10-27 19:30:00+05:30",
+      "entry_time": "2025-10-28 00:30:00+05:30",
+      "entry_price": 4006.0,
+      "stop_price": 4023.64,
+      "target_price": 3945.12,
+      "rr_ratio": 3.45,
+      "vol_mult": 3.84,
+      "lines": [
+        "SELL | Gold breakout 2025-10-27 19:30:00+05:30 | entry 2025-10-28 00:30:00+05:30 (candle 5-6)",
+        "Entry 4006.00 | SL 4023.64 | Target 3945.12 | RR 3.45 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2025-10-27 14:00:00+00:00|2025-10-27 19:00:00+00:00|46.78",
+      "signal_time": "2025-10-27 19:30:00+05:30",
+      "entry_time": "2025-10-28 00:30:00+05:30",
+      "entry_price": 46.78,
+      "stop_price": 46.97,
+      "target_price": 45.73,
+      "rr_ratio": 5.58,
+      "vol_mult": 5.64,
+      "lines": [
+        "SELL | Silver breakout 2025-10-27 19:30:00+05:30 | entry 2025-10-28 00:30:00+05:30 (candle 5-6)",
+        "Entry 46.78 | SL 46.97 | Target 45.73 | RR 5.58 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SILVER",
+      "name": "Silver",
+      "symbol": "SI=F",
+      "side": "SELL",
+      "notify_key": "SILVER|SI=F|SELL|2025-10-27 13:00:00+00:00|2025-10-27 18:00:00+00:00|46.87",
+      "signal_time": "2025-10-27 18:30:00+05:30",
+      "entry_time": "2025-10-27 23:30:00+05:30",
+      "entry_price": 46.87,
+      "stop_price": 47.18,
+      "target_price": 45.8,
+      "rr_ratio": 3.43,
+      "vol_mult": 3.54,
+      "lines": [
+        "SELL | Silver breakout 2025-10-27 18:30:00+05:30 | entry 2025-10-27 23:30:00+05:30 (candle 5-6)",
+        "Entry 46.87 | SL 47.18 | Target 45.80 | RR 3.43 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-10-23 13:00:00+00:00|2025-10-23 18:00:00+00:00|5.1",
+      "signal_time": "2025-10-23 18:30:00+05:30",
+      "entry_time": "2025-10-23 23:30:00+05:30",
+      "entry_price": 5.1,
+      "stop_price": 5.08,
+      "target_price": 5.16,
+      "rr_ratio": 2.84,
+      "vol_mult": 3.26,
+      "lines": [
+        "BUY | Copper breakout 2025-10-23 18:30:00+05:30 | entry 2025-10-23 23:30:00+05:30 (candle 5-6)",
+        "Entry 5.10 | SL 5.08 | Target 5.16 | RR 2.84 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2025-10-23 13:00:00+00:00|2025-10-23 18:00:00+00:00|61.71",
+      "signal_time": "2025-10-23 18:30:00+05:30",
+      "entry_time": "2025-10-23 23:30:00+05:30",
+      "entry_price": 61.71,
+      "stop_price": 61.16,
+      "target_price": 63.15,
+      "rr_ratio": 2.62,
+      "vol_mult": 4.1,
+      "lines": [
+        "BUY | Crude Oil breakout 2025-10-23 18:30:00+05:30 | entry 2025-10-23 23:30:00+05:30 (candle 5-6)",
+        "Entry 61.71 | SL 61.16 | Target 63.15 | RR 2.62 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2025-10-23 11:00:00+00:00|2025-10-23 16:00:00+00:00|66.19",
+      "signal_time": "2025-10-23 16:30:00+05:30",
+      "entry_time": "2025-10-23 21:30:00+05:30",
+      "entry_price": 66.19,
+      "stop_price": 65.15,
+      "target_price": 68.56,
+      "rr_ratio": 2.27,
+      "vol_mult": 4.25,
+      "lines": [
+        "BUY | Brent breakout 2025-10-23 16:30:00+05:30 | entry 2025-10-23 21:30:00+05:30 (candle 5-6)",
+        "Entry 66.19 | SL 65.15 | Target 68.56 | RR 2.27 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-10-23 08:00:00+00:00|2025-10-23 13:00:00+00:00|5.1",
+      "signal_time": "2025-10-23 13:30:00+05:30",
+      "entry_time": "2025-10-23 18:30:00+05:30",
+      "entry_price": 5.1,
+      "stop_price": 5.07,
+      "target_price": 5.16,
+      "rr_ratio": 1.76,
+      "vol_mult": 3.45,
+      "lines": [
+        "BUY | Copper breakout 2025-10-23 13:30:00+05:30 | entry 2025-10-23 18:30:00+05:30 (candle 5-6)",
+        "Entry 5.10 | SL 5.07 | Target 5.16 | RR 1.76 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "SELL",
+      "notify_key": "COPPER|HG=F|SELL|2025-10-21 13:00:00+00:00|2025-10-21 19:00:00+00:00|4.95",
+      "signal_time": "2025-10-21 18:30:00+05:30",
+      "entry_time": "2025-10-22 00:30:00+05:30",
+      "entry_price": 4.95,
+      "stop_price": 4.97,
+      "target_price": 4.87,
+      "rr_ratio": 2.94,
+      "vol_mult": 4.11,
+      "lines": [
+        "SELL | Copper breakout 2025-10-21 18:30:00+05:30 | entry 2025-10-22 00:30:00+05:30 (candle 5-6)",
+        "Entry 4.95 | SL 4.97 | Target 4.87 | RR 2.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-10-21 13:00:00+00:00|2025-10-21 18:00:00+00:00|3.46",
+      "signal_time": "2025-10-21 18:30:00+05:30",
+      "entry_time": "2025-10-21 23:30:00+05:30",
+      "entry_price": 3.46,
+      "stop_price": 3.43,
+      "target_price": 3.59,
+      "rr_ratio": 3.56,
+      "vol_mult": 3.42,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-10-21 18:30:00+05:30 | entry 2025-10-21 23:30:00+05:30 (candle 5-6)",
+        "Entry 3.46 | SL 3.43 | Target 3.59 | RR 3.56 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "SELL",
+      "notify_key": "PLATINUM|PL=F|SELL|2025-10-17 13:00:00+00:00|2025-10-17 19:00:00+00:00|1626.8",
+      "signal_time": "2025-10-17 18:30:00+05:30",
+      "entry_time": "2025-10-18 00:30:00+05:30",
+      "entry_price": 1626.8,
+      "stop_price": 1645.59,
+      "target_price": 1570.96,
+      "rr_ratio": 2.97,
+      "vol_mult": 3.07,
+      "lines": [
+        "SELL | Platinum breakout 2025-10-17 18:30:00+05:30 | entry 2025-10-18 00:30:00+05:30 (candle 5-6)",
+        "Entry 1626.80 | SL 1645.59 | Target 1570.96 | RR 2.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-10-17 11:00:00+00:00|2025-10-17 17:00:00+00:00|4.99",
+      "signal_time": "2025-10-17 16:30:00+05:30",
+      "entry_time": "2025-10-17 22:30:00+05:30",
+      "entry_price": 4.99,
+      "stop_price": 4.96,
+      "target_price": 5.08,
+      "rr_ratio": 3.32,
+      "vol_mult": 3.37,
+      "lines": [
+        "BUY | Copper breakout 2025-10-17 16:30:00+05:30 | entry 2025-10-17 22:30:00+05:30 (candle 5-6)",
+        "Entry 4.99 | SL 4.96 | Target 5.08 | RR 3.32 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "SELL",
+      "notify_key": "BRENT|BZ=F|SELL|2025-10-14 08:00:00+00:00|2025-10-14 14:00:00+00:00|61.97",
+      "signal_time": "2025-10-14 13:30:00+05:30",
+      "entry_time": "2025-10-14 19:30:00+05:30",
+      "entry_price": 61.97,
+      "stop_price": 62.27,
+      "target_price": 60.92,
+      "rr_ratio": 3.49,
+      "vol_mult": 3.02,
+      "lines": [
+        "SELL | Brent breakout 2025-10-14 13:30:00+05:30 | entry 2025-10-14 19:30:00+05:30 (candle 5-6)",
+        "Entry 61.97 | SL 62.27 | Target 60.92 | RR 3.49 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-10-09 14:00:00+00:00|2025-10-09 19:00:00+00:00|3.24",
+      "signal_time": "2025-10-09 19:30:00+05:30",
+      "entry_time": "2025-10-10 00:30:00+05:30",
+      "entry_price": 3.24,
+      "stop_price": 3.29,
+      "target_price": 3.15,
+      "rr_ratio": 2.02,
+      "vol_mult": 3.66,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-10-09 19:30:00+05:30 | entry 2025-10-10 00:30:00+05:30 (candle 5-6)",
+        "Entry 3.24 | SL 3.29 | Target 3.15 | RR 2.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-10-03 14:00:00+00:00|2025-10-03 20:00:00+00:00|5.09",
+      "signal_time": "2025-10-03 19:30:00+05:30",
+      "entry_time": "2025-10-04 01:30:00+05:30",
+      "entry_price": 5.09,
+      "stop_price": 5.07,
+      "target_price": 5.15,
+      "rr_ratio": 5.63,
+      "vol_mult": 4.74,
+      "lines": [
+        "BUY | Copper breakout 2025-10-03 19:30:00+05:30 | entry 2025-10-04 01:30:00+05:30 (candle 5-6)",
+        "Entry 5.09 | SL 5.07 | Target 5.15 | RR 5.63 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-10-03 13:00:00+00:00|2025-10-03 19:00:00+00:00|1644.5",
+      "signal_time": "2025-10-03 18:30:00+05:30",
+      "entry_time": "2025-10-04 00:30:00+05:30",
+      "entry_price": 1644.5,
+      "stop_price": 1634.89,
+      "target_price": 1683.16,
+      "rr_ratio": 4.02,
+      "vol_mult": 3.95,
+      "lines": [
+        "BUY | Platinum breakout 2025-10-03 18:30:00+05:30 | entry 2025-10-04 00:30:00+05:30 (candle 5-6)",
+        "Entry 1644.50 | SL 1634.89 | Target 1683.16 | RR 4.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-30 12:00:00+00:00|2025-09-30 18:00:00+00:00|3.34",
+      "signal_time": "2025-09-30 17:30:00+05:30",
+      "entry_time": "2025-09-30 23:30:00+05:30",
+      "entry_price": 3.34,
+      "stop_price": 3.29,
+      "target_price": 3.42,
+      "rr_ratio": 1.93,
+      "vol_mult": 4.71,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-30 17:30:00+05:30 | entry 2025-09-30 23:30:00+05:30 (candle 5-6)",
+        "Entry 3.34 | SL 3.29 | Target 3.42 | RR 1.93 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-30 13:00:00+00:00|2025-09-30 18:00:00+00:00|3.34",
+      "signal_time": "2025-09-30 18:30:00+05:30",
+      "entry_time": "2025-09-30 23:30:00+05:30",
+      "entry_price": 3.34,
+      "stop_price": 3.29,
+      "target_price": 3.42,
+      "rr_ratio": 1.93,
+      "vol_mult": 4.41,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-30 18:30:00+05:30 | entry 2025-09-30 23:30:00+05:30 (candle 5-6)",
+        "Entry 3.34 | SL 3.29 | Target 3.42 | RR 1.93 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-29 16:00:00+00:00|2025-09-29 23:00:00+00:00|3.27",
+      "signal_time": "2025-09-29 21:30:00+05:30",
+      "entry_time": "2025-09-30 04:30:00+05:30",
+      "entry_price": 3.27,
+      "stop_price": 3.25,
+      "target_price": 3.34,
+      "rr_ratio": 4.15,
+      "vol_mult": 3.34,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-29 21:30:00+05:30 | entry 2025-09-30 04:30:00+05:30 (candle 5-6)",
+        "Entry 3.27 | SL 3.25 | Target 3.34 | RR 4.15 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-09-29 13:00:00+00:00|2025-09-29 19:00:00+00:00|4.91",
+      "signal_time": "2025-09-29 18:30:00+05:30",
+      "entry_time": "2025-09-30 00:30:00+05:30",
+      "entry_price": 4.91,
+      "stop_price": 4.88,
+      "target_price": 4.98,
+      "rr_ratio": 1.83,
+      "vol_mult": 3.58,
+      "lines": [
+        "BUY | Copper breakout 2025-09-29 18:30:00+05:30 | entry 2025-09-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 4.91 | SL 4.88 | Target 4.98 | RR 1.83 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-09-29 14:00:00+00:00|2025-09-29 19:00:00+00:00|4.91",
+      "signal_time": "2025-09-29 19:30:00+05:30",
+      "entry_time": "2025-09-30 00:30:00+05:30",
+      "entry_price": 4.91,
+      "stop_price": 4.88,
+      "target_price": 4.98,
+      "rr_ratio": 1.83,
+      "vol_mult": 7.0,
+      "lines": [
+        "BUY | Copper breakout 2025-09-29 19:30:00+05:30 | entry 2025-09-30 00:30:00+05:30 (candle 5-6)",
+        "Entry 4.91 | SL 4.88 | Target 4.98 | RR 1.83 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-09-26 13:00:00+00:00|2025-09-26 18:00:00+00:00|1612.8",
+      "signal_time": "2025-09-26 18:30:00+05:30",
+      "entry_time": "2025-09-26 23:30:00+05:30",
+      "entry_price": 1612.8,
+      "stop_price": 1581.52,
+      "target_price": 1686.09,
+      "rr_ratio": 2.34,
+      "vol_mult": 3.71,
+      "lines": [
+        "BUY | Platinum breakout 2025-09-26 18:30:00+05:30 | entry 2025-09-26 23:30:00+05:30 (candle 5-6)",
+        "Entry 1612.80 | SL 1581.52 | Target 1686.09 | RR 2.34 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-09-26 11:00:00+00:00|2025-09-26 16:00:00+00:00|1603.1",
+      "signal_time": "2025-09-26 16:30:00+05:30",
+      "entry_time": "2025-09-26 21:30:00+05:30",
+      "entry_price": 1603.1,
+      "stop_price": 1578.0,
+      "target_price": 1667.49,
+      "rr_ratio": 2.57,
+      "vol_mult": 6.55,
+      "lines": [
+        "BUY | Platinum breakout 2025-09-26 16:30:00+05:30 | entry 2025-09-26 21:30:00+05:30 (candle 5-6)",
+        "Entry 1603.10 | SL 1578.00 | Target 1667.49 | RR 2.57 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-25 17:00:00+00:00|2025-09-26 00:00:00+00:00|3.22",
+      "signal_time": "2025-09-25 22:30:00+05:30",
+      "entry_time": "2025-09-26 05:30:00+05:30",
+      "entry_price": 3.22,
+      "stop_price": 2.92,
+      "target_price": 4.04,
+      "rr_ratio": 2.68,
+      "vol_mult": 14.97,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-25 22:30:00+05:30 | entry 2025-09-26 05:30:00+05:30 (candle 5-6)",
+        "Entry 3.22 | SL 2.92 | Target 4.04 | RR 2.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-24 16:00:00+00:00|2025-09-24 22:00:00+00:00|3.15",
+      "signal_time": "2025-09-24 21:30:00+05:30",
+      "entry_time": "2025-09-25 03:30:00+05:30",
+      "entry_price": 3.15,
+      "stop_price": 2.87,
+      "target_price": 3.91,
+      "rr_ratio": 2.74,
+      "vol_mult": 8.58,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-24 21:30:00+05:30 | entry 2025-09-25 03:30:00+05:30 (candle 5-6)",
+        "Entry 3.15 | SL 2.87 | Target 3.91 | RR 2.74 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "BUY",
+      "notify_key": "BRENT|BZ=F|BUY|2025-09-24 15:00:00+00:00|2025-09-24 20:00:00+00:00|69.13",
+      "signal_time": "2025-09-24 20:30:00+05:30",
+      "entry_time": "2025-09-25 01:30:00+05:30",
+      "entry_price": 69.13,
+      "stop_price": 68.3,
+      "target_price": 71.8,
+      "rr_ratio": 3.22,
+      "vol_mult": 7.23,
+      "lines": [
+        "BUY | Brent breakout 2025-09-24 20:30:00+05:30 | entry 2025-09-25 01:30:00+05:30 (candle 5-6)",
+        "Entry 69.13 | SL 68.30 | Target 71.80 | RR 3.22 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-09-24 14:00:00+00:00|2025-09-24 20:00:00+00:00|4.83",
+      "signal_time": "2025-09-24 19:30:00+05:30",
+      "entry_time": "2025-09-25 01:30:00+05:30",
+      "entry_price": 4.83,
+      "stop_price": 4.79,
+      "target_price": 4.92,
+      "rr_ratio": 2.3,
+      "vol_mult": 9.45,
+      "lines": [
+        "BUY | Copper breakout 2025-09-24 19:30:00+05:30 | entry 2025-09-25 01:30:00+05:30 (candle 5-6)",
+        "Entry 4.83 | SL 4.79 | Target 4.92 | RR 2.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COPPER",
+      "name": "Copper",
+      "symbol": "HG=F",
+      "side": "BUY",
+      "notify_key": "COPPER|HG=F|BUY|2025-09-24 15:00:00+00:00|2025-09-24 20:00:00+00:00|4.83",
+      "signal_time": "2025-09-24 20:30:00+05:30",
+      "entry_time": "2025-09-25 01:30:00+05:30",
+      "entry_price": 4.83,
+      "stop_price": 4.79,
+      "target_price": 4.92,
+      "rr_ratio": 2.3,
+      "vol_mult": 3.25,
+      "lines": [
+        "BUY | Copper breakout 2025-09-24 20:30:00+05:30 | entry 2025-09-25 01:30:00+05:30 (candle 5-6)",
+        "Entry 4.83 | SL 4.79 | Target 4.92 | RR 2.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRUDEOIL",
+      "name": "Crude Oil",
+      "symbol": "CL=F",
+      "side": "BUY",
+      "notify_key": "CRUDEOIL|CL=F|BUY|2025-09-23 15:00:00+00:00|2025-09-23 22:00:00+00:00|63.81",
+      "signal_time": "2025-09-23 20:30:00+05:30",
+      "entry_time": "2025-09-24 03:30:00+05:30",
+      "entry_price": 63.81,
+      "stop_price": 63.47,
+      "target_price": 64.62,
+      "rr_ratio": 2.38,
+      "vol_mult": 3.28,
+      "lines": [
+        "BUY | Crude Oil breakout 2025-09-23 20:30:00+05:30 | entry 2025-09-24 03:30:00+05:30 (candle 5-6)",
+        "Entry 63.81 | SL 63.47 | Target 64.62 | RR 2.38 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-09-23 13:00:00+00:00|2025-09-23 19:00:00+00:00|1485.5",
+      "signal_time": "2025-09-23 18:30:00+05:30",
+      "entry_time": "2025-09-24 00:30:00+05:30",
+      "entry_price": 1485.5,
+      "stop_price": 1480.6,
+      "target_price": 1518.37,
+      "rr_ratio": 6.71,
+      "vol_mult": 4.29,
+      "lines": [
+        "BUY | Platinum breakout 2025-09-23 18:30:00+05:30 | entry 2025-09-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 1485.50 | SL 1480.60 | Target 1518.37 | RR 6.71 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "PLATINUM",
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "side": "BUY",
+      "notify_key": "PLATINUM|PL=F|BUY|2025-09-23 14:00:00+00:00|2025-09-23 19:00:00+00:00|1485.5",
+      "signal_time": "2025-09-23 19:30:00+05:30",
+      "entry_time": "2025-09-24 00:30:00+05:30",
+      "entry_price": 1485.5,
+      "stop_price": 1480.6,
+      "target_price": 1518.37,
+      "rr_ratio": 6.71,
+      "vol_mult": 3.18,
+      "lines": [
+        "BUY | Platinum breakout 2025-09-23 19:30:00+05:30 | entry 2025-09-24 00:30:00+05:30 (candle 5-6)",
+        "Entry 1485.50 | SL 1480.60 | Target 1518.37 | RR 6.71 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-23 13:00:00+00:00|2025-09-23 18:00:00+00:00|3.14",
+      "signal_time": "2025-09-23 18:30:00+05:30",
+      "entry_time": "2025-09-23 23:30:00+05:30",
+      "entry_price": 3.14,
+      "stop_price": 2.85,
+      "target_price": 3.81,
+      "rr_ratio": 2.28,
+      "vol_mult": 3.36,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-23 18:30:00+05:30 | entry 2025-09-23 23:30:00+05:30 (candle 5-6)",
+        "Entry 3.14 | SL 2.85 | Target 3.81 | RR 2.28 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "BUY",
+      "notify_key": "NATGAS|NG=F|BUY|2025-09-23 12:00:00+00:00|2025-09-23 17:00:00+00:00|3.13",
+      "signal_time": "2025-09-23 17:30:00+05:30",
+      "entry_time": "2025-09-23 22:30:00+05:30",
+      "entry_price": 3.13,
+      "stop_price": 2.83,
+      "target_price": 3.75,
+      "rr_ratio": 2.02,
+      "vol_mult": 3.64,
+      "lines": [
+        "BUY | Natural Gas breakout 2025-09-23 17:30:00+05:30 | entry 2025-09-23 22:30:00+05:30 (candle 5-6)",
+        "Entry 3.13 | SL 2.83 | Target 3.75 | RR 2.02 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NATGAS",
+      "name": "Natural Gas",
+      "symbol": "NG=F",
+      "side": "SELL",
+      "notify_key": "NATGAS|NG=F|SELL|2025-09-22 15:00:00+00:00|2025-09-22 22:00:00+00:00|2.8",
+      "signal_time": "2025-09-22 20:30:00+05:30",
+      "entry_time": "2025-09-23 03:30:00+05:30",
+      "entry_price": 2.8,
+      "stop_price": 2.83,
+      "target_price": 2.72,
+      "rr_ratio": 2.71,
+      "vol_mult": 5.57,
+      "lines": [
+        "SELL | Natural Gas breakout 2025-09-22 20:30:00+05:30 | entry 2025-09-23 03:30:00+05:30 (candle 5-6)",
+        "Entry 2.80 | SL 2.83 | Target 2.72 | RR 2.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "SELL",
+      "notify_key": "BRENT|BZ=F|SELL|2025-09-19 17:00:00+00:00|2025-09-21 23:00:00+00:00|66.19",
+      "signal_time": "2025-09-19 22:30:00+05:30",
+      "entry_time": "2025-09-22 04:30:00+05:30",
+      "entry_price": 66.19,
+      "stop_price": 66.83,
+      "target_price": 64.02,
+      "rr_ratio": 3.39,
+      "vol_mult": 5.8,
+      "lines": [
+        "SELL | Brent breakout 2025-09-19 22:30:00+05:30 | entry 2025-09-22 04:30:00+05:30 (candle 5-6)",
+        "Entry 66.19 | SL 66.83 | Target 64.02 | RR 3.39 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRENT",
+      "name": "Brent",
+      "symbol": "BZ=F",
+      "side": "SELL",
+      "notify_key": "BRENT|BZ=F|SELL|2025-09-19 15:00:00+00:00|2025-09-21 22:00:00+00:00|66.16",
+      "signal_time": "2025-09-19 20:30:00+05:30",
+      "entry_time": "2025-09-22 03:30:00+05:30",
+      "entry_price": 66.16,
+      "stop_price": 66.82,
+      "target_price": 63.97,
+      "rr_ratio": 3.32,
+      "vol_mult": 6.75,
+      "lines": [
+        "SELL | Brent breakout 2025-09-19 20:30:00+05:30 | entry 2025-09-22 03:30:00+05:30 (candle 5-6)",
+        "Entry 66.16 | SL 66.82 | Target 63.97 | RR 3.32 | Touch EMA9, VWAP"
+      ]
+    }
+  ]
+}

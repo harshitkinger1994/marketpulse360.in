@@ -1,0 +1,13 @@
+{
+  "strategy_id": "intraday_momentum_commodities_wait",
+  "title": "Commodities Intraday Momentum \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "generated_at": "2026-03-03",
+  "runtime_sec": 0.01,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP."
+  ],
+  "items": []
+}

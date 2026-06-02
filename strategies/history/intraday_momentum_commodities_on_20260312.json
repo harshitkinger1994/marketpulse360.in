@@ -1,0 +1,223 @@
+{
+  "strategy_id": "intraday_momentum_commodities_on",
+  "title": "Commodities Intraday Momentum \u2014 Trade ON (VWAP + Green Close)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "filter_mode": "basic",
+  "rules": {
+    "breakout_condition": "close above previous 6-candle high",
+    "entry_window_candles": "same-day intraday",
+    "entry_trigger": "VWAP retouch + green close above VWAP",
+    "volume_multiple": 2.0,
+    "lookback_volume": 20,
+    "filter_mode": "basic"
+  },
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-12",
+  "runtime_sec": 2.82,
+  "notes": [
+    "Entry only after VWAP retouch and a green 5m close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP.",
+    "Basic mode: breakout + volume + VWAP only.",
+    "Exit shown at day close and +15m from entry."
+  ],
+  "items": [
+    {
+      "ticker": "GC=F",
+      "name": "GC=F",
+      "notify_key": "GC=F|2026-03-12 12:10|ON",
+      "lines": [
+        "Signal 2026-03-12 12:10 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 17:50 | Entry 5176.80 | Exit@Close 5111.20 (-1.27%) | Exit@+15m 5176.60 (-0.00%)"
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-12 01:25|ON",
+      "lines": [
+        "Signal 2026-03-12 01:25 | VWAP touch 2026-03-12 02:00 | Trade ON 2026-03-12 02:05 | Entry 85.94 | Exit@Close 84.98 (-1.12%) | Exit@+15m 85.97 (+0.03%)"
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-12 12:05|ON",
+      "lines": [
+        "Signal 2026-03-12 12:05 | VWAP touch 2026-03-12 19:05 | Trade ON 2026-03-12 19:10 | Entry 86.64 | Exit@Close 84.98 (-1.92%) | Exit@+15m 86.07 (-0.66%)"
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-12 12:10|ON",
+      "lines": [
+        "Signal 2026-03-12 12:10 | VWAP touch 2026-03-12 19:05 | Trade ON 2026-03-12 19:10 | Entry 86.64 | Exit@Close 84.98 (-1.92%) | Exit@+15m 86.07 (-0.66%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 03:50|ON",
+      "lines": [
+        "Signal 2026-03-12 03:50 | VWAP touch 2026-03-12 12:15 | Trade ON 2026-03-12 12:25 | Entry 92.56 | Exit@Close 95.72 (+3.41%) | Exit@+15m 91.61 (-1.03%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 03:55|ON",
+      "lines": [
+        "Signal 2026-03-12 03:55 | VWAP touch 2026-03-12 12:15 | Trade ON 2026-03-12 12:25 | Entry 92.56 | Exit@Close 95.72 (+3.41%) | Exit@+15m 91.61 (-1.03%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 04:00|ON",
+      "lines": [
+        "Signal 2026-03-12 04:00 | VWAP touch 2026-03-12 12:15 | Trade ON 2026-03-12 12:25 | Entry 92.56 | Exit@Close 95.72 (+3.41%) | Exit@+15m 91.61 (-1.03%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 04:05|ON",
+      "lines": [
+        "Signal 2026-03-12 04:05 | VWAP touch 2026-03-12 12:15 | Trade ON 2026-03-12 12:25 | Entry 92.56 | Exit@Close 95.72 (+3.41%) | Exit@+15m 91.61 (-1.03%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 08:00|ON",
+      "lines": [
+        "Signal 2026-03-12 08:00 | VWAP touch 2026-03-12 12:15 | Trade ON 2026-03-12 12:25 | Entry 92.56 | Exit@Close 95.72 (+3.41%) | Exit@+15m 91.61 (-1.03%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 08:05|ON",
+      "lines": [
+        "Signal 2026-03-12 08:05 | VWAP touch 2026-03-12 12:15 | Trade ON 2026-03-12 12:25 | Entry 92.56 | Exit@Close 95.72 (+3.41%) | Exit@+15m 91.61 (-1.03%)"
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-12 18:45|ON",
+      "lines": [
+        "Signal 2026-03-12 18:45 | VWAP touch 2026-03-12 22:05 | Trade ON 2026-03-12 22:10 | Entry 93.97 | Exit@Close 95.72 (+1.86%) | Exit@+15m 94.83 (+0.92%)"
+      ]
+    },
+    {
+      "ticker": "NG=F",
+      "name": "NG=F",
+      "notify_key": "NG=F|2026-03-12 02:25|ON",
+      "lines": [
+        "Signal 2026-03-12 02:25 | VWAP touch 2026-03-12 13:30 | Trade ON 2026-03-12 13:35 | Entry 3.25 | Exit@Close 3.25 (-0.03%) | Exit@+15m 3.24 (-0.15%)"
+      ]
+    },
+    {
+      "ticker": "NG=F",
+      "name": "NG=F",
+      "notify_key": "NG=F|2026-03-12 04:05|ON",
+      "lines": [
+        "Signal 2026-03-12 04:05 | VWAP touch 2026-03-12 13:30 | Trade ON 2026-03-12 13:35 | Entry 3.25 | Exit@Close 3.25 (-0.03%) | Exit@+15m 3.24 (-0.15%)"
+      ]
+    },
+    {
+      "ticker": "HG=F",
+      "name": "HG=F",
+      "notify_key": "HG=F|2026-03-12 01:25|ON",
+      "lines": [
+        "Signal 2026-03-12 01:25 | VWAP touch 2026-03-12 02:00 | Trade ON 2026-03-12 12:45 | Entry 5.87 | Exit@Close 5.84 (-0.48%) | Exit@+15m 5.87 (-0.04%)"
+      ]
+    },
+    {
+      "ticker": "HG=F",
+      "name": "HG=F",
+      "notify_key": "HG=F|2026-03-12 13:25|ON",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 17:50 | Entry 5.88 | Exit@Close 5.84 (-0.64%) | Exit@+15m 5.87 (-0.14%)"
+      ]
+    },
+    {
+      "ticker": "HG=F",
+      "name": "HG=F",
+      "notify_key": "HG=F|2026-03-12 14:30|ON",
+      "lines": [
+        "Signal 2026-03-12 14:30 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 17:50 | Entry 5.88 | Exit@Close 5.84 (-0.64%) | Exit@+15m 5.87 (-0.14%)"
+      ]
+    },
+    {
+      "ticker": "HG=F",
+      "name": "HG=F",
+      "notify_key": "HG=F|2026-03-12 17:25|ON",
+      "lines": [
+        "Signal 2026-03-12 17:25 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 17:50 | Entry 5.88 | Exit@Close 5.84 (-0.64%) | Exit@+15m 5.87 (-0.14%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 06:30|ON",
+      "lines": [
+        "Signal 2026-03-12 06:30 | VWAP touch 2026-03-12 06:35 | Trade ON 2026-03-12 07:05 | Entry 2179.00 | Exit@Close 2149.50 (-1.35%) | Exit@+15m 2175.00 (-0.18%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 12:05|ON",
+      "lines": [
+        "Signal 2026-03-12 12:05 | VWAP touch 2026-03-12 12:30 | Trade ON 2026-03-12 12:35 | Entry 2170.60 | Exit@Close 2149.50 (-0.97%) | Exit@+15m 2179.40 (+0.41%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 13:05|ON",
+      "lines": [
+        "Signal 2026-03-12 13:05 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 18:20 | Entry 2182.10 | Exit@Close 2149.50 (-1.49%) | Exit@+15m 2187.40 (+0.24%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 13:10|ON",
+      "lines": [
+        "Signal 2026-03-12 13:10 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 18:20 | Entry 2182.10 | Exit@Close 2149.50 (-1.49%) | Exit@+15m 2187.40 (+0.24%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 15:15|ON",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 18:20 | Entry 2182.10 | Exit@Close 2149.50 (-1.49%) | Exit@+15m 2187.40 (+0.24%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 15:20|ON",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 18:20 | Entry 2182.10 | Exit@Close 2149.50 (-1.49%) | Exit@+15m 2187.40 (+0.24%)"
+      ]
+    },
+    {
+      "ticker": "PL=F",
+      "name": "PL=F",
+      "notify_key": "PL=F|2026-03-12 17:00|ON",
+      "lines": [
+        "Signal 2026-03-12 17:00 | VWAP touch 2026-03-12 17:45 | Trade ON 2026-03-12 18:20 | Entry 2182.10 | Exit@Close 2149.50 (-1.49%) | Exit@+15m 2187.40 (+0.24%)"
+      ]
+    }
+  ]
+}

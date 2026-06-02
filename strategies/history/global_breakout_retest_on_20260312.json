@@ -1,0 +1,2666 @@
+{
+  "strategy_id": "global_breakout_retest_on",
+  "title": "Global 1H Breakout Retest \u2014 Entry Valid",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "global",
+  "generated_at": "2026-03-12T12:02:52.113940+00:00",
+  "interval": "60m",
+  "rules": {
+    "volume_multiple": 3.0,
+    "lookback_volume": 30,
+    "breakout_condition": "close above EMA9 and VWAP",
+    "entry_window_candles": "5-6",
+    "entry_trigger": "retest touch + green close above EMA9 and VWAP",
+    "min_rr": 1.5,
+    "target_atr_multiple": 2.5
+  },
+  "counts": {
+    "assets": 50,
+    "assets_with_data": 50,
+    "breakouts": 333,
+    "triggered": 137
+  },
+  "asset_summary": {
+    "AAPL": {
+      "symbol": "AAPL",
+      "bars": 847,
+      "breakouts": 14,
+      "triggered": 5
+    },
+    "ABBV": {
+      "symbol": "ABBV",
+      "bars": 846,
+      "breakouts": 4,
+      "triggered": 3
+    },
+    "ADBE": {
+      "symbol": "ADBE",
+      "bars": 847,
+      "breakouts": 3,
+      "triggered": 1
+    },
+    "AMD": {
+      "symbol": "AMD",
+      "bars": 847,
+      "breakouts": 13,
+      "triggered": 7
+    },
+    "AMZN": {
+      "symbol": "AMZN",
+      "bars": 847,
+      "breakouts": 6,
+      "triggered": 2
+    },
+    "AVGO": {
+      "symbol": "AVGO",
+      "bars": 847,
+      "breakouts": 9,
+      "triggered": 5
+    },
+    "BAC": {
+      "symbol": "BAC",
+      "bars": 846,
+      "breakouts": 5,
+      "triggered": 2
+    },
+    "BMY": {
+      "symbol": "BMY",
+      "bars": 846,
+      "breakouts": 7,
+      "triggered": 2
+    },
+    "BRK-B": {
+      "symbol": "BRK-B",
+      "bars": 846,
+      "breakouts": 2,
+      "triggered": 1
+    },
+    "CAT": {
+      "symbol": "CAT",
+      "bars": 846,
+      "breakouts": 7,
+      "triggered": 3
+    },
+    "COST": {
+      "symbol": "COST",
+      "bars": 847,
+      "breakouts": 7,
+      "triggered": 2
+    },
+    "CRM": {
+      "symbol": "CRM",
+      "bars": 846,
+      "breakouts": 6,
+      "triggered": 2
+    },
+    "CSCO": {
+      "symbol": "CSCO",
+      "bars": 847,
+      "breakouts": 9,
+      "triggered": 7
+    },
+    "DIS": {
+      "symbol": "DIS",
+      "bars": 846,
+      "breakouts": 2,
+      "triggered": 1
+    },
+    "GE": {
+      "symbol": "GE",
+      "bars": 846,
+      "breakouts": 3,
+      "triggered": 1
+    },
+    "GOOG": {
+      "symbol": "GOOG",
+      "bars": 847,
+      "breakouts": 15,
+      "triggered": 8
+    },
+    "GOOGL": {
+      "symbol": "GOOGL",
+      "bars": 847,
+      "breakouts": 14,
+      "triggered": 7
+    },
+    "HD": {
+      "symbol": "HD",
+      "bars": 846,
+      "breakouts": 2,
+      "triggered": 0
+    },
+    "HON": {
+      "symbol": "HON",
+      "bars": 847,
+      "breakouts": 9,
+      "triggered": 1
+    },
+    "IBM": {
+      "symbol": "IBM",
+      "bars": 846,
+      "breakouts": 13,
+      "triggered": 6
+    },
+    "INTC": {
+      "symbol": "INTC",
+      "bars": 847,
+      "breakouts": 21,
+      "triggered": 7
+    },
+    "JNJ": {
+      "symbol": "JNJ",
+      "bars": 846,
+      "breakouts": 1,
+      "triggered": 0
+    },
+    "JPM": {
+      "symbol": "JPM",
+      "bars": 846,
+      "breakouts": 6,
+      "triggered": 1
+    },
+    "KO": {
+      "symbol": "KO",
+      "bars": 846,
+      "breakouts": 7,
+      "triggered": 3
+    },
+    "LIN": {
+      "symbol": "LIN",
+      "bars": 847,
+      "breakouts": 4,
+      "triggered": 1
+    },
+    "LLY": {
+      "symbol": "LLY",
+      "bars": 846,
+      "breakouts": 6,
+      "triggered": 3
+    },
+    "LOW": {
+      "symbol": "LOW",
+      "bars": 846,
+      "breakouts": 2,
+      "triggered": 0
+    },
+    "MA": {
+      "symbol": "MA",
+      "bars": 846,
+      "breakouts": 4,
+      "triggered": 2
+    },
+    "MCD": {
+      "symbol": "MCD",
+      "bars": 846,
+      "breakouts": 4,
+      "triggered": 2
+    },
+    "META": {
+      "symbol": "META",
+      "bars": 847,
+      "breakouts": 7,
+      "triggered": 4
+    },
+    "MRK": {
+      "symbol": "MRK",
+      "bars": 846,
+      "breakouts": 7,
+      "triggered": 1
+    },
+    "MSFT": {
+      "symbol": "MSFT",
+      "bars": 847,
+      "breakouts": 10,
+      "triggered": 4
+    },
+    "NFLX": {
+      "symbol": "NFLX",
+      "bars": 847,
+      "breakouts": 12,
+      "triggered": 3
+    },
+    "NKE": {
+      "symbol": "NKE",
+      "bars": 846,
+      "breakouts": 7,
+      "triggered": 4
+    },
+    "NVDA": {
+      "symbol": "NVDA",
+      "bars": 847,
+      "breakouts": 8,
+      "triggered": 2
+    },
+    "ORCL": {
+      "symbol": "ORCL",
+      "bars": 846,
+      "breakouts": 7,
+      "triggered": 4
+    },
+    "PEP": {
+      "symbol": "PEP",
+      "bars": 847,
+      "breakouts": 6,
+      "triggered": 4
+    },
+    "PG": {
+      "symbol": "PG",
+      "bars": 846,
+      "breakouts": 3,
+      "triggered": 1
+    },
+    "PM": {
+      "symbol": "PM",
+      "bars": 846,
+      "breakouts": 2,
+      "triggered": 1
+    },
+    "QCOM": {
+      "symbol": "QCOM",
+      "bars": 847,
+      "breakouts": 6,
+      "triggered": 3
+    },
+    "RTX": {
+      "symbol": "RTX",
+      "bars": 846,
+      "breakouts": 5,
+      "triggered": 2
+    },
+    "TMO": {
+      "symbol": "TMO",
+      "bars": 846,
+      "breakouts": 8,
+      "triggered": 5
+    },
+    "TSLA": {
+      "symbol": "TSLA",
+      "bars": 847,
+      "breakouts": 3,
+      "triggered": 2
+    },
+    "TXN": {
+      "symbol": "TXN",
+      "bars": 847,
+      "breakouts": 8,
+      "triggered": 4
+    },
+    "UNH": {
+      "symbol": "UNH",
+      "bars": 846,
+      "breakouts": 4,
+      "triggered": 3
+    },
+    "UNP": {
+      "symbol": "UNP",
+      "bars": 846,
+      "breakouts": 2,
+      "triggered": 1
+    },
+    "UPS": {
+      "symbol": "UPS",
+      "bars": 846,
+      "breakouts": 5,
+      "triggered": 1
+    },
+    "V": {
+      "symbol": "V",
+      "bars": 846,
+      "breakouts": 5,
+      "triggered": 2
+    },
+    "WMT": {
+      "symbol": "WMT",
+      "bars": 847,
+      "breakouts": 10,
+      "triggered": 1
+    },
+    "XOM": {
+      "symbol": "XOM",
+      "bars": 846,
+      "breakouts": 3,
+      "triggered": 0
+    }
+  },
+  "notes": [
+    "1H breakout-retest strategy applied to this page universe.",
+    "Entry allowed only on candle 5-6 after breakout.",
+    "Telegram alert is sent by backend daily notifier for new valid entries.",
+    "Hd: no valid entries this run",
+    "Jnj: no valid entries this run",
+    "Low: no valid entries this run",
+    "Xom: no valid entries this run"
+  ],
+  "items": [
+    {
+      "ticker": "ORCL",
+      "name": "Orcl",
+      "symbol": "ORCL",
+      "notify_key": "ORCL|ORCL|2026-03-11 13:30:00+00:00|2026-03-11 19:30:00+00:00|163.1",
+      "signal_time": "2026-03-11 19:00:00+05:30",
+      "entry_time": "2026-03-12 01:00:00+05:30",
+      "entry_price": 163.1,
+      "stop_price": 160.51,
+      "target_price": 172.9,
+      "rr_ratio": 3.78,
+      "vol_mult": 8.48,
+      "lines": [
+        "Orcl breakout 2026-03-11 19:00:00+05:30 | entry 2026-03-12 01:00:00+05:30 (candle 5-6)",
+        "Entry 163.10 | SL 160.51 | Target 172.90 | RR 3.78 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Avgo",
+      "symbol": "AVGO",
+      "notify_key": "AVGO|AVGO|2026-03-05 14:30:00+00:00|2026-03-05 19:30:00+00:00|328.12",
+      "signal_time": "2026-03-05 20:00:00+05:30",
+      "entry_time": "2026-03-06 01:00:00+05:30",
+      "entry_price": 328.12,
+      "stop_price": 324.3,
+      "target_price": 341.83,
+      "rr_ratio": 3.59,
+      "vol_mult": 8.61,
+      "lines": [
+        "Avgo breakout 2026-03-05 20:00:00+05:30 | entry 2026-03-06 01:00:00+05:30 (candle 5-6)",
+        "Entry 328.12 | SL 324.30 | Target 341.83 | RR 3.59 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amzn",
+      "symbol": "AMZN",
+      "notify_key": "AMZN|AMZN|2026-03-04 14:30:00+00:00|2026-03-04 19:30:00+00:00|216.69",
+      "signal_time": "2026-03-04 20:00:00+05:30",
+      "entry_time": "2026-03-05 01:00:00+05:30",
+      "entry_price": 216.69,
+      "stop_price": 214.0,
+      "target_price": 222.88,
+      "rr_ratio": 2.3,
+      "vol_mult": 3.47,
+      "lines": [
+        "Amzn breakout 2026-03-04 20:00:00+05:30 | entry 2026-03-05 01:00:00+05:30 (candle 5-6)",
+        "Entry 216.69 | SL 214.00 | Target 222.88 | RR 2.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tsla",
+      "symbol": "TSLA",
+      "notify_key": "TSLA|TSLA|2026-03-04 14:30:00+00:00|2026-03-04 19:30:00+00:00|406.95",
+      "signal_time": "2026-03-04 20:00:00+05:30",
+      "entry_time": "2026-03-05 01:00:00+05:30",
+      "entry_price": 406.95,
+      "stop_price": 402.67,
+      "target_price": 421.04,
+      "rr_ratio": 3.3,
+      "vol_mult": 3.29,
+      "lines": [
+        "Tsla breakout 2026-03-04 20:00:00+05:30 | entry 2026-03-05 01:00:00+05:30 (candle 5-6)",
+        "Entry 406.95 | SL 402.67 | Target 421.04 | RR 3.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "RTX",
+      "name": "Rtx",
+      "symbol": "RTX",
+      "notify_key": "RTX|RTX|2026-03-02 14:30:00+00:00|2026-03-02 19:30:00+00:00|211.81",
+      "signal_time": "2026-03-02 20:00:00+05:30",
+      "entry_time": "2026-03-03 01:00:00+05:30",
+      "entry_price": 211.81,
+      "stop_price": 208.21,
+      "target_price": 217.3,
+      "rr_ratio": 1.52,
+      "vol_mult": 4.48,
+      "lines": [
+        "Rtx breakout 2026-03-02 20:00:00+05:30 | entry 2026-03-03 01:00:00+05:30 (candle 5-6)",
+        "Entry 211.81 | SL 208.21 | Target 217.30 | RR 1.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRM",
+      "name": "Crm",
+      "symbol": "CRM",
+      "notify_key": "CRM|CRM|2026-02-26 14:30:00+00:00|2026-02-26 19:30:00+00:00|199.26",
+      "signal_time": "2026-02-26 20:00:00+05:30",
+      "entry_time": "2026-02-27 01:00:00+05:30",
+      "entry_price": 199.26,
+      "stop_price": 195.65,
+      "target_price": 206.47,
+      "rr_ratio": 2.0,
+      "vol_mult": 6.03,
+      "lines": [
+        "Crm breakout 2026-02-26 20:00:00+05:30 | entry 2026-02-27 01:00:00+05:30 (candle 5-6)",
+        "Entry 199.26 | SL 195.65 | Target 206.47 | RR 2.00 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Nflx",
+      "symbol": "NFLX",
+      "notify_key": "NFLX|NFLX|2026-02-25 14:30:00+00:00|2026-02-25 20:30:00+00:00|82.71",
+      "signal_time": "2026-02-25 20:00:00+05:30",
+      "entry_time": "2026-02-26 02:00:00+05:30",
+      "entry_price": 82.71,
+      "stop_price": 81.36,
+      "target_price": 85.26,
+      "rr_ratio": 1.88,
+      "vol_mult": 4.45,
+      "lines": [
+        "Nflx breakout 2026-02-25 20:00:00+05:30 | entry 2026-02-26 02:00:00+05:30 (candle 5-6)",
+        "Entry 82.71 | SL 81.36 | Target 85.26 | RR 1.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Msft",
+      "symbol": "MSFT",
+      "notify_key": "MSFT|MSFT|2026-02-25 14:30:00+00:00|2026-02-25 19:30:00+00:00|400.96",
+      "signal_time": "2026-02-25 20:00:00+05:30",
+      "entry_time": "2026-02-26 01:00:00+05:30",
+      "entry_price": 400.96,
+      "stop_price": 396.07,
+      "target_price": 408.5,
+      "rr_ratio": 1.54,
+      "vol_mult": 3.85,
+      "lines": [
+        "Msft breakout 2026-02-25 20:00:00+05:30 | entry 2026-02-26 01:00:00+05:30 (candle 5-6)",
+        "Entry 400.96 | SL 396.07 | Target 408.50 | RR 1.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Aapl",
+      "symbol": "AAPL",
+      "notify_key": "AAPL|AAPL|2026-02-24 15:30:00+00:00|2026-02-24 20:30:00+00:00|272.17",
+      "signal_time": "2026-02-24 21:00:00+05:30",
+      "entry_time": "2026-02-25 02:00:00+05:30",
+      "entry_price": 272.17,
+      "stop_price": 271.03,
+      "target_price": 277.97,
+      "rr_ratio": 5.08,
+      "vol_mult": 3.02,
+      "lines": [
+        "Aapl breakout 2026-02-24 21:00:00+05:30 | entry 2026-02-25 02:00:00+05:30 (candle 5-6)",
+        "Entry 272.17 | SL 271.03 | Target 277.97 | RR 5.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "DIS",
+      "name": "Dis",
+      "symbol": "DIS",
+      "notify_key": "DIS|DIS|2026-02-24 14:30:00+00:00|2026-02-24 20:30:00+00:00|106.07",
+      "signal_time": "2026-02-24 20:00:00+05:30",
+      "entry_time": "2026-02-25 02:00:00+05:30",
+      "entry_price": 106.07,
+      "stop_price": 105.76,
+      "target_price": 108.49,
+      "rr_ratio": 7.79,
+      "vol_mult": 3.72,
+      "lines": [
+        "Dis breakout 2026-02-24 20:00:00+05:30 | entry 2026-02-25 02:00:00+05:30 (candle 5-6)",
+        "Entry 106.07 | SL 105.76 | Target 108.49 | RR 7.79 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "name": "Nke",
+      "symbol": "NKE",
+      "notify_key": "NKE|NKE|2026-02-13 14:30:00+00:00|2026-02-13 20:30:00+00:00|63.1",
+      "signal_time": "2026-02-13 20:00:00+05:30",
+      "entry_time": "2026-02-14 02:00:00+05:30",
+      "entry_price": 63.1,
+      "stop_price": 62.68,
+      "target_price": 64.83,
+      "rr_ratio": 4.09,
+      "vol_mult": 3.93,
+      "lines": [
+        "Nke breakout 2026-02-13 20:00:00+05:30 | entry 2026-02-14 02:00:00+05:30 (candle 5-6)",
+        "Entry 63.10 | SL 62.68 | Target 64.83 | RR 4.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qcom",
+      "symbol": "QCOM",
+      "notify_key": "QCOM|QCOM|2026-02-13 14:30:00+00:00|2026-02-13 20:30:00+00:00|140.76",
+      "signal_time": "2026-02-13 20:00:00+05:30",
+      "entry_time": "2026-02-14 02:00:00+05:30",
+      "entry_price": 140.76,
+      "stop_price": 140.15,
+      "target_price": 144.59,
+      "rr_ratio": 6.29,
+      "vol_mult": 3.21,
+      "lines": [
+        "Qcom breakout 2026-02-13 20:00:00+05:30 | entry 2026-02-14 02:00:00+05:30 (candle 5-6)",
+        "Entry 140.76 | SL 140.15 | Target 144.59 | RR 6.29 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "MCD",
+      "name": "Mcd",
+      "symbol": "MCD",
+      "notify_key": "MCD|MCD|2026-02-12 14:30:00+00:00|2026-02-12 19:30:00+00:00|330.64",
+      "signal_time": "2026-02-12 20:00:00+05:30",
+      "entry_time": "2026-02-13 01:00:00+05:30",
+      "entry_price": 330.64,
+      "stop_price": 328.64,
+      "target_price": 338.86,
+      "rr_ratio": 4.12,
+      "vol_mult": 3.83,
+      "lines": [
+        "Mcd breakout 2026-02-12 20:00:00+05:30 | entry 2026-02-13 01:00:00+05:30 (candle 5-6)",
+        "Entry 330.64 | SL 328.64 | Target 338.86 | RR 4.12 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Aapl",
+      "symbol": "AAPL",
+      "notify_key": "AAPL|AAPL|2026-02-04 14:30:00+00:00|2026-02-04 19:30:00+00:00|277.61",
+      "signal_time": "2026-02-04 20:00:00+05:30",
+      "entry_time": "2026-02-05 01:00:00+05:30",
+      "entry_price": 277.61,
+      "stop_price": 274.07,
+      "target_price": 285.24,
+      "rr_ratio": 2.15,
+      "vol_mult": 3.18,
+      "lines": [
+        "Aapl breakout 2026-02-04 20:00:00+05:30 | entry 2026-02-05 01:00:00+05:30 (candle 5-6)",
+        "Entry 277.61 | SL 274.07 | Target 285.24 | RR 2.15 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "name": "Lly",
+      "symbol": "LLY",
+      "notify_key": "LLY|LLY|2026-02-04 14:30:00+00:00|2026-02-04 19:30:00+00:00|1107.55",
+      "signal_time": "2026-02-04 20:00:00+05:30",
+      "entry_time": "2026-02-05 01:00:00+05:30",
+      "entry_price": 1107.55,
+      "stop_price": 1075.03,
+      "target_price": 1163.35,
+      "rr_ratio": 1.72,
+      "vol_mult": 6.23,
+      "lines": [
+        "Lly breakout 2026-02-04 20:00:00+05:30 | entry 2026-02-05 01:00:00+05:30 (candle 5-6)",
+        "Entry 1107.55 | SL 1075.03 | Target 1163.35 | RR 1.72 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2026-02-03 14:30:00+00:00|2026-02-03 19:30:00+00:00|82.99",
+      "signal_time": "2026-02-03 20:00:00+05:30",
+      "entry_time": "2026-02-04 01:00:00+05:30",
+      "entry_price": 82.99,
+      "stop_price": 81.65,
+      "target_price": 85.38,
+      "rr_ratio": 1.8,
+      "vol_mult": 3.03,
+      "lines": [
+        "Csco breakout 2026-02-03 20:00:00+05:30 | entry 2026-02-04 01:00:00+05:30 (candle 5-6)",
+        "Entry 82.99 | SL 81.65 | Target 85.38 | RR 1.80 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "KO",
+      "name": "Ko",
+      "symbol": "KO",
+      "notify_key": "KO|KO|2026-02-03 14:30:00+00:00|2026-02-03 19:30:00+00:00|77.02",
+      "signal_time": "2026-02-03 20:00:00+05:30",
+      "entry_time": "2026-02-04 01:00:00+05:30",
+      "entry_price": 77.02,
+      "stop_price": 76.35,
+      "target_price": 78.61,
+      "rr_ratio": 2.38,
+      "vol_mult": 3.27,
+      "lines": [
+        "Ko breakout 2026-02-03 20:00:00+05:30 | entry 2026-02-04 01:00:00+05:30 (candle 5-6)",
+        "Entry 77.02 | SL 76.35 | Target 78.61 | RR 2.38 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PEP",
+      "name": "Pep",
+      "symbol": "PEP",
+      "notify_key": "PEP|PEP|2026-02-03 14:30:00+00:00|2026-02-03 19:30:00+00:00|163.27",
+      "signal_time": "2026-02-03 20:00:00+05:30",
+      "entry_time": "2026-02-04 01:00:00+05:30",
+      "entry_price": 163.27,
+      "stop_price": 159.52,
+      "target_price": 168.97,
+      "rr_ratio": 1.52,
+      "vol_mult": 4.26,
+      "lines": [
+        "Pep breakout 2026-02-03 20:00:00+05:30 | entry 2026-02-04 01:00:00+05:30 (candle 5-6)",
+        "Entry 163.27 | SL 159.52 | Target 168.97 | RR 1.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CAT",
+      "name": "Cat",
+      "symbol": "CAT",
+      "notify_key": "CAT|CAT|2026-02-02 20:30:00+00:00|2026-02-03 18:30:00+00:00|699.17",
+      "signal_time": "2026-02-03 02:00:00+05:30",
+      "entry_time": "2026-02-04 00:00:00+05:30",
+      "entry_price": 699.17,
+      "stop_price": 691.49,
+      "target_price": 723.71,
+      "rr_ratio": 3.19,
+      "vol_mult": 3.29,
+      "lines": [
+        "Cat breakout 2026-02-03 02:00:00+05:30 | entry 2026-02-04 00:00:00+05:30 (candle 5-6)",
+        "Entry 699.17 | SL 691.49 | Target 723.71 | RR 3.19 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ABBV",
+      "name": "Abbv",
+      "symbol": "ABBV",
+      "notify_key": "ABBV|ABBV|2026-02-02 18:30:00+00:00|2026-02-03 17:30:00+00:00|226.01",
+      "signal_time": "2026-02-03 00:00:00+05:30",
+      "entry_time": "2026-02-03 23:00:00+05:30",
+      "entry_price": 226.01,
+      "stop_price": 224.85,
+      "target_price": 231.21,
+      "rr_ratio": 4.51,
+      "vol_mult": 3.88,
+      "lines": [
+        "Abbv breakout 2026-02-03 00:00:00+05:30 | entry 2026-02-03 23:00:00+05:30 (candle 5-6)",
+        "Entry 226.01 | SL 224.85 | Target 231.21 | RR 4.51 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CAT",
+      "name": "Cat",
+      "symbol": "CAT",
+      "notify_key": "CAT|CAT|2026-01-29 14:30:00+00:00|2026-01-29 20:30:00+00:00|664.38",
+      "signal_time": "2026-01-29 20:00:00+05:30",
+      "entry_time": "2026-01-30 02:00:00+05:30",
+      "entry_price": 664.38,
+      "stop_price": 657.5,
+      "target_price": 689.69,
+      "rr_ratio": 3.68,
+      "vol_mult": 4.48,
+      "lines": [
+        "Cat breakout 2026-01-29 20:00:00+05:30 | entry 2026-01-30 02:00:00+05:30 (candle 5-6)",
+        "Entry 664.38 | SL 657.50 | Target 689.69 | RR 3.68 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "name": "Hon",
+      "symbol": "HON",
+      "notify_key": "HON|HON|2026-01-29 14:30:00+00:00|2026-01-29 20:30:00+00:00|227.17",
+      "signal_time": "2026-01-29 20:00:00+05:30",
+      "entry_time": "2026-01-30 02:00:00+05:30",
+      "entry_price": 227.17,
+      "stop_price": 224.89,
+      "target_price": 233.09,
+      "rr_ratio": 2.6,
+      "vol_mult": 3.79,
+      "lines": [
+        "Hon breakout 2026-01-29 20:00:00+05:30 | entry 2026-01-30 02:00:00+05:30 (candle 5-6)",
+        "Entry 227.17 | SL 224.89 | Target 233.09 | RR 2.60 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "Ibm",
+      "symbol": "IBM",
+      "notify_key": "IBM|IBM|2026-01-29 14:30:00+00:00|2026-01-29 20:30:00+00:00|308.83",
+      "signal_time": "2026-01-29 20:00:00+05:30",
+      "entry_time": "2026-01-30 02:00:00+05:30",
+      "entry_price": 308.83,
+      "stop_price": 304.0,
+      "target_price": 321.04,
+      "rr_ratio": 2.53,
+      "vol_mult": 7.68,
+      "lines": [
+        "Ibm breakout 2026-01-29 20:00:00+05:30 | entry 2026-01-30 02:00:00+05:30 (candle 5-6)",
+        "Entry 308.83 | SL 304.00 | Target 321.04 | RR 2.53 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "Ibm",
+      "symbol": "IBM",
+      "notify_key": "IBM|IBM|2026-01-29 15:30:00+00:00|2026-01-29 20:30:00+00:00|308.83",
+      "signal_time": "2026-01-29 21:00:00+05:30",
+      "entry_time": "2026-01-30 02:00:00+05:30",
+      "entry_price": 308.83,
+      "stop_price": 304.0,
+      "target_price": 321.04,
+      "rr_ratio": 2.53,
+      "vol_mult": 3.03,
+      "lines": [
+        "Ibm breakout 2026-01-29 21:00:00+05:30 | entry 2026-01-30 02:00:00+05:30 (candle 5-6)",
+        "Entry 308.83 | SL 304.00 | Target 321.04 | RR 2.53 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "symbol": "META",
+      "notify_key": "META|META|2026-01-29 14:30:00+00:00|2026-01-29 20:30:00+00:00|738.5",
+      "signal_time": "2026-01-29 20:00:00+05:30",
+      "entry_time": "2026-01-30 02:00:00+05:30",
+      "entry_price": 738.5,
+      "stop_price": 720.82,
+      "target_price": 766.33,
+      "rr_ratio": 1.57,
+      "vol_mult": 11.68,
+      "lines": [
+        "Meta breakout 2026-01-29 20:00:00+05:30 | entry 2026-01-30 02:00:00+05:30 (candle 5-6)",
+        "Entry 738.50 | SL 720.82 | Target 766.33 | RR 1.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "RTX",
+      "name": "Rtx",
+      "symbol": "RTX",
+      "notify_key": "RTX|RTX|2026-01-27 14:30:00+00:00|2026-01-27 19:30:00+00:00|201.56",
+      "signal_time": "2026-01-27 20:00:00+05:30",
+      "entry_time": "2026-01-28 01:00:00+05:30",
+      "entry_price": 201.56,
+      "stop_price": 198.71,
+      "target_price": 206.17,
+      "rr_ratio": 1.62,
+      "vol_mult": 4.98,
+      "lines": [
+        "Rtx breakout 2026-01-27 20:00:00+05:30 | entry 2026-01-28 01:00:00+05:30 (candle 5-6)",
+        "Entry 201.56 | SL 198.71 | Target 206.17 | RR 1.62 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TXN",
+      "name": "Txn",
+      "symbol": "TXN",
+      "notify_key": "TXN|TXN|2026-01-23 20:30:00+00:00|2026-01-26 18:30:00+00:00|196.59",
+      "signal_time": "2026-01-24 02:00:00+05:30",
+      "entry_time": "2026-01-27 00:00:00+05:30",
+      "entry_price": 196.59,
+      "stop_price": 194.92,
+      "target_price": 200.3,
+      "rr_ratio": 2.22,
+      "vol_mult": 4.08,
+      "lines": [
+        "Txn breakout 2026-01-24 02:00:00+05:30 | entry 2026-01-27 00:00:00+05:30 (candle 5-6)",
+        "Entry 196.59 | SL 194.92 | Target 200.30 | RR 2.22 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2026-01-23 14:30:00+00:00|2026-01-23 19:30:00+00:00|258.62",
+      "signal_time": "2026-01-23 20:00:00+05:30",
+      "entry_time": "2026-01-24 01:00:00+05:30",
+      "entry_price": 258.62,
+      "stop_price": 257.25,
+      "target_price": 267.42,
+      "rr_ratio": 6.43,
+      "vol_mult": 3.67,
+      "lines": [
+        "Amd breakout 2026-01-23 20:00:00+05:30 | entry 2026-01-24 01:00:00+05:30 (candle 5-6)",
+        "Entry 258.62 | SL 257.25 | Target 267.42 | RR 6.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "symbol": "META",
+      "notify_key": "META|META|2026-01-22 14:30:00+00:00|2026-01-22 20:30:00+00:00|647.8",
+      "signal_time": "2026-01-22 20:00:00+05:30",
+      "entry_time": "2026-01-23 02:00:00+05:30",
+      "entry_price": 647.8,
+      "stop_price": 638.13,
+      "target_price": 664.24,
+      "rr_ratio": 1.7,
+      "vol_mult": 3.18,
+      "lines": [
+        "Meta breakout 2026-01-22 20:00:00+05:30 | entry 2026-01-23 02:00:00+05:30 (candle 5-6)",
+        "Entry 647.80 | SL 638.13 | Target 664.24 | RR 1.70 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2026-01-21 14:30:00+00:00|2026-01-21 20:30:00+00:00|54.26",
+      "signal_time": "2026-01-21 20:00:00+05:30",
+      "entry_time": "2026-01-22 02:00:00+05:30",
+      "entry_price": 54.26,
+      "stop_price": 52.64,
+      "target_price": 57.4,
+      "rr_ratio": 1.94,
+      "vol_mult": 4.07,
+      "lines": [
+        "Intc breakout 2026-01-21 20:00:00+05:30 | entry 2026-01-22 02:00:00+05:30 (candle 5-6)",
+        "Entry 54.26 | SL 52.64 | Target 57.40 | RR 1.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2026-01-21 14:30:00+00:00|2026-01-21 19:30:00+00:00|249.2",
+      "signal_time": "2026-01-21 20:00:00+05:30",
+      "entry_time": "2026-01-22 01:00:00+05:30",
+      "entry_price": 249.2,
+      "stop_price": 243.96,
+      "target_price": 261.61,
+      "rr_ratio": 2.37,
+      "vol_mult": 3.31,
+      "lines": [
+        "Amd breakout 2026-01-21 20:00:00+05:30 | entry 2026-01-22 01:00:00+05:30 (candle 5-6)",
+        "Entry 249.20 | SL 243.96 | Target 261.61 | RR 2.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PG",
+      "name": "Pg",
+      "symbol": "PG",
+      "notify_key": "PG|PG|2026-01-14 14:30:00+00:00|2026-01-14 20:30:00+00:00|146.37",
+      "signal_time": "2026-01-14 20:00:00+05:30",
+      "entry_time": "2026-01-15 02:00:00+05:30",
+      "entry_price": 146.37,
+      "stop_price": 145.8,
+      "target_price": 148.23,
+      "rr_ratio": 3.3,
+      "vol_mult": 3.72,
+      "lines": [
+        "Pg breakout 2026-01-14 20:00:00+05:30 | entry 2026-01-15 02:00:00+05:30 (candle 5-6)",
+        "Entry 146.37 | SL 145.80 | Target 148.23 | RR 3.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2026-01-13 14:30:00+00:00|2026-01-13 20:30:00+00:00|336.43",
+      "signal_time": "2026-01-13 20:00:00+05:30",
+      "entry_time": "2026-01-14 02:00:00+05:30",
+      "entry_price": 336.43,
+      "stop_price": 335.13,
+      "target_price": 344.18,
+      "rr_ratio": 5.96,
+      "vol_mult": 3.24,
+      "lines": [
+        "Goog breakout 2026-01-13 20:00:00+05:30 | entry 2026-01-14 02:00:00+05:30 (candle 5-6)",
+        "Entry 336.43 | SL 335.13 | Target 344.18 | RR 5.96 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Orcl",
+      "symbol": "ORCL",
+      "notify_key": "ORCL|ORCL|2026-01-09 15:30:00+00:00|2026-01-12 14:30:00+00:00|198.53",
+      "signal_time": "2026-01-09 21:00:00+05:30",
+      "entry_time": "2026-01-12 20:00:00+05:30",
+      "entry_price": 198.53,
+      "stop_price": 196.75,
+      "target_price": 204.27,
+      "rr_ratio": 3.22,
+      "vol_mult": 3.1,
+      "lines": [
+        "Orcl breakout 2026-01-09 21:00:00+05:30 | entry 2026-01-12 20:00:00+05:30 (candle 5-6)",
+        "Entry 198.53 | SL 196.75 | Target 204.27 | RR 3.22 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2026-01-09 14:30:00+00:00|2026-01-09 19:30:00+00:00|45.58",
+      "signal_time": "2026-01-09 20:00:00+05:30",
+      "entry_time": "2026-01-10 01:00:00+05:30",
+      "entry_price": 45.58,
+      "stop_price": 44.08,
+      "target_price": 47.95,
+      "rr_ratio": 1.59,
+      "vol_mult": 4.58,
+      "lines": [
+        "Intc breakout 2026-01-09 20:00:00+05:30 | entry 2026-01-10 01:00:00+05:30 (candle 5-6)",
+        "Entry 45.58 | SL 44.08 | Target 47.95 | RR 1.59 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2026-01-08 14:30:00+00:00|2026-01-08 20:30:00+00:00|325.97",
+      "signal_time": "2026-01-08 20:00:00+05:30",
+      "entry_time": "2026-01-09 02:00:00+05:30",
+      "entry_price": 325.97,
+      "stop_price": 325.09,
+      "target_price": 333.26,
+      "rr_ratio": 8.3,
+      "vol_mult": 3.44,
+      "lines": [
+        "Goog breakout 2026-01-08 20:00:00+05:30 | entry 2026-01-09 02:00:00+05:30 (candle 5-6)",
+        "Entry 325.97 | SL 325.09 | Target 333.26 | RR 8.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2026-01-08 14:30:00+00:00|2026-01-08 20:30:00+00:00|325.36",
+      "signal_time": "2026-01-08 20:00:00+05:30",
+      "entry_time": "2026-01-09 02:00:00+05:30",
+      "entry_price": 325.36,
+      "stop_price": 324.57,
+      "target_price": 332.77,
+      "rr_ratio": 9.37,
+      "vol_mult": 3.01,
+      "lines": [
+        "Googl breakout 2026-01-08 20:00:00+05:30 | entry 2026-01-09 02:00:00+05:30 (candle 5-6)",
+        "Entry 325.36 | SL 324.57 | Target 332.77 | RR 9.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "name": "Lly",
+      "symbol": "LLY",
+      "notify_key": "LLY|LLY|2026-01-07 14:30:00+00:00|2026-01-07 19:30:00+00:00|1102.8",
+      "signal_time": "2026-01-07 20:00:00+05:30",
+      "entry_time": "2026-01-08 01:00:00+05:30",
+      "entry_price": 1102.8,
+      "stop_price": 1090.82,
+      "target_price": 1134.89,
+      "rr_ratio": 2.68,
+      "vol_mult": 5.79,
+      "lines": [
+        "Lly breakout 2026-01-07 20:00:00+05:30 | entry 2026-01-08 01:00:00+05:30 (candle 5-6)",
+        "Entry 1102.80 | SL 1090.82 | Target 1134.89 | RR 2.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TMO",
+      "name": "Tmo",
+      "symbol": "TMO",
+      "notify_key": "TMO|TMO|2026-01-06 15:30:00+00:00|2026-01-07 14:30:00+00:00|621.46",
+      "signal_time": "2026-01-06 21:00:00+05:30",
+      "entry_time": "2026-01-07 20:00:00+05:30",
+      "entry_price": 621.46,
+      "stop_price": 615.0,
+      "target_price": 636.86,
+      "rr_ratio": 2.38,
+      "vol_mult": 5.06,
+      "lines": [
+        "Tmo breakout 2026-01-06 21:00:00+05:30 | entry 2026-01-07 20:00:00+05:30 (candle 5-6)",
+        "Entry 621.46 | SL 615.00 | Target 636.86 | RR 2.38 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qcom",
+      "symbol": "QCOM",
+      "notify_key": "QCOM|QCOM|2026-01-06 14:30:00+00:00|2026-01-06 20:30:00+00:00|182.52",
+      "signal_time": "2026-01-06 20:00:00+05:30",
+      "entry_time": "2026-01-07 02:00:00+05:30",
+      "entry_price": 182.52,
+      "stop_price": 180.97,
+      "target_price": 187.17,
+      "rr_ratio": 3.0,
+      "vol_mult": 5.0,
+      "lines": [
+        "Qcom breakout 2026-01-06 20:00:00+05:30 | entry 2026-01-07 02:00:00+05:30 (candle 5-6)",
+        "Entry 182.52 | SL 180.97 | Target 187.17 | RR 3.00 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TXN",
+      "name": "Txn",
+      "symbol": "TXN",
+      "notify_key": "TXN|TXN|2026-01-06 15:30:00+00:00|2026-01-06 20:30:00+00:00|192.1",
+      "signal_time": "2026-01-06 21:00:00+05:30",
+      "entry_time": "2026-01-07 02:00:00+05:30",
+      "entry_price": 192.1,
+      "stop_price": 188.83,
+      "target_price": 198.23,
+      "rr_ratio": 1.88,
+      "vol_mult": 3.61,
+      "lines": [
+        "Txn breakout 2026-01-06 21:00:00+05:30 | entry 2026-01-07 02:00:00+05:30 (candle 5-6)",
+        "Entry 192.10 | SL 188.83 | Target 198.23 | RR 1.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ABBV",
+      "name": "Abbv",
+      "symbol": "ABBV",
+      "notify_key": "ABBV|ABBV|2026-01-06 14:30:00+00:00|2026-01-06 19:30:00+00:00|223.99",
+      "signal_time": "2026-01-06 20:00:00+05:30",
+      "entry_time": "2026-01-07 01:00:00+05:30",
+      "entry_price": 223.99,
+      "stop_price": 222.52,
+      "target_price": 229.49,
+      "rr_ratio": 3.75,
+      "vol_mult": 3.03,
+      "lines": [
+        "Abbv breakout 2026-01-06 20:00:00+05:30 | entry 2026-01-07 01:00:00+05:30 (candle 5-6)",
+        "Entry 223.99 | SL 222.52 | Target 229.49 | RR 3.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BMY",
+      "name": "Bmy",
+      "symbol": "BMY",
+      "notify_key": "BMY|BMY|2026-01-06 14:30:00+00:00|2026-01-06 19:30:00+00:00|54.69",
+      "signal_time": "2026-01-06 20:00:00+05:30",
+      "entry_time": "2026-01-07 01:00:00+05:30",
+      "entry_price": 54.69,
+      "stop_price": 54.15,
+      "target_price": 55.82,
+      "rr_ratio": 2.12,
+      "vol_mult": 3.24,
+      "lines": [
+        "Bmy breakout 2026-01-06 20:00:00+05:30 | entry 2026-01-07 01:00:00+05:30 (candle 5-6)",
+        "Entry 54.69 | SL 54.15 | Target 55.82 | RR 2.12 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TMO",
+      "name": "Tmo",
+      "symbol": "TMO",
+      "notify_key": "TMO|TMO|2026-01-06 14:30:00+00:00|2026-01-06 19:30:00+00:00|622.56",
+      "signal_time": "2026-01-06 20:00:00+05:30",
+      "entry_time": "2026-01-07 01:00:00+05:30",
+      "entry_price": 622.56,
+      "stop_price": 616.73,
+      "target_price": 638.35,
+      "rr_ratio": 2.71,
+      "vol_mult": 6.73,
+      "lines": [
+        "Tmo breakout 2026-01-06 20:00:00+05:30 | entry 2026-01-07 01:00:00+05:30 (candle 5-6)",
+        "Entry 622.56 | SL 616.73 | Target 638.35 | RR 2.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TXN",
+      "name": "Txn",
+      "symbol": "TXN",
+      "notify_key": "TXN|TXN|2026-01-06 14:30:00+00:00|2026-01-06 19:30:00+00:00|191.71",
+      "signal_time": "2026-01-06 20:00:00+05:30",
+      "entry_time": "2026-01-07 01:00:00+05:30",
+      "entry_price": 191.71,
+      "stop_price": 188.01,
+      "target_price": 197.91,
+      "rr_ratio": 1.68,
+      "vol_mult": 4.41,
+      "lines": [
+        "Txn breakout 2026-01-06 20:00:00+05:30 | entry 2026-01-07 01:00:00+05:30 (candle 5-6)",
+        "Entry 191.71 | SL 188.01 | Target 197.91 | RR 1.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amzn",
+      "symbol": "AMZN",
+      "notify_key": "AMZN|AMZN|2026-01-05 14:30:00+00:00|2026-01-05 20:30:00+00:00|233.05",
+      "signal_time": "2026-01-05 20:00:00+05:30",
+      "entry_time": "2026-01-06 02:00:00+05:30",
+      "entry_price": 233.05,
+      "stop_price": 231.71,
+      "target_price": 239.05,
+      "rr_ratio": 4.48,
+      "vol_mult": 4.64,
+      "lines": [
+        "Amzn breakout 2026-01-05 20:00:00+05:30 | entry 2026-01-06 02:00:00+05:30 (candle 5-6)",
+        "Entry 233.05 | SL 231.71 | Target 239.05 | RR 4.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qcom",
+      "symbol": "QCOM",
+      "notify_key": "QCOM|QCOM|2026-01-05 14:30:00+00:00|2026-01-05 20:30:00+00:00|176.31",
+      "signal_time": "2026-01-05 20:00:00+05:30",
+      "entry_time": "2026-01-06 02:00:00+05:30",
+      "entry_price": 176.31,
+      "stop_price": 175.66,
+      "target_price": 180.21,
+      "rr_ratio": 6.0,
+      "vol_mult": 3.82,
+      "lines": [
+        "Qcom breakout 2026-01-05 20:00:00+05:30 | entry 2026-01-06 02:00:00+05:30 (candle 5-6)",
+        "Entry 176.31 | SL 175.66 | Target 180.21 | RR 6.00 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2026-01-02 14:30:00+00:00|2026-01-02 19:30:00+00:00|39.67",
+      "signal_time": "2026-01-02 20:00:00+05:30",
+      "entry_time": "2026-01-03 01:00:00+05:30",
+      "entry_price": 39.67,
+      "stop_price": 38.88,
+      "target_price": 41.05,
+      "rr_ratio": 1.75,
+      "vol_mult": 5.74,
+      "lines": [
+        "Intc breakout 2026-01-02 20:00:00+05:30 | entry 2026-01-03 01:00:00+05:30 (candle 5-6)",
+        "Entry 39.67 | SL 38.88 | Target 41.05 | RR 1.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2025-12-29 20:30:00+00:00|2025-12-30 18:30:00+00:00|314.87",
+      "signal_time": "2025-12-30 02:00:00+05:30",
+      "entry_time": "2025-12-31 00:00:00+05:30",
+      "entry_price": 314.87,
+      "stop_price": 314.4,
+      "target_price": 318.32,
+      "rr_ratio": 7.3,
+      "vol_mult": 4.46,
+      "lines": [
+        "Goog breakout 2025-12-30 02:00:00+05:30 | entry 2025-12-31 00:00:00+05:30 (candle 5-6)",
+        "Entry 314.87 | SL 314.40 | Target 318.32 | RR 7.30 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Msft",
+      "symbol": "MSFT",
+      "notify_key": "MSFT|MSFT|2025-12-29 20:30:00+00:00|2025-12-30 18:30:00+00:00|488.55",
+      "signal_time": "2025-12-30 02:00:00+05:30",
+      "entry_time": "2025-12-31 00:00:00+05:30",
+      "entry_price": 488.55,
+      "stop_price": 487.72,
+      "target_price": 492.45,
+      "rr_ratio": 4.71,
+      "vol_mult": 3.08,
+      "lines": [
+        "Msft breakout 2025-12-30 02:00:00+05:30 | entry 2025-12-31 00:00:00+05:30 (candle 5-6)",
+        "Entry 488.55 | SL 487.72 | Target 492.45 | RR 4.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "name": "Nke",
+      "symbol": "NKE",
+      "notify_key": "NKE|NKE|2025-12-24 14:30:00+00:00|2025-12-26 16:30:00+00:00|60.37",
+      "signal_time": "2025-12-24 20:00:00+05:30",
+      "entry_time": "2025-12-26 22:00:00+05:30",
+      "entry_price": 60.37,
+      "stop_price": 59.55,
+      "target_price": 62.24,
+      "rr_ratio": 2.3,
+      "vol_mult": 3.58,
+      "lines": [
+        "Nke breakout 2025-12-24 20:00:00+05:30 | entry 2025-12-26 22:00:00+05:30 (candle 5-6)",
+        "Entry 60.37 | SL 59.55 | Target 62.24 | RR 2.30 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BAC",
+      "name": "Bac",
+      "symbol": "BAC",
+      "notify_key": "BAC|BAC|2025-12-19 14:30:00+00:00|2025-12-19 20:30:00+00:00|55.24",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 02:00:00+05:30",
+      "entry_price": 55.24,
+      "stop_price": 54.98,
+      "target_price": 56.22,
+      "rr_ratio": 3.73,
+      "vol_mult": 3.07,
+      "lines": [
+        "Bac breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 02:00:00+05:30 (candle 5-6)",
+        "Entry 55.24 | SL 54.98 | Target 56.22 | RR 3.73 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2025-12-19 14:30:00+00:00|2025-12-19 20:30:00+00:00|307.17",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 02:00:00+05:30",
+      "entry_price": 307.17,
+      "stop_price": 303.7,
+      "target_price": 312.63,
+      "rr_ratio": 1.57,
+      "vol_mult": 4.13,
+      "lines": [
+        "Googl breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 02:00:00+05:30 (candle 5-6)",
+        "Entry 307.17 | SL 303.70 | Target 312.63 | RR 1.57 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Nvda",
+      "symbol": "NVDA",
+      "notify_key": "NVDA|NVDA|2025-12-19 14:30:00+00:00|2025-12-19 20:30:00+00:00|180.99",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 02:00:00+05:30",
+      "entry_price": 180.99,
+      "stop_price": 179.03,
+      "target_price": 185.87,
+      "rr_ratio": 2.49,
+      "vol_mult": 3.92,
+      "lines": [
+        "Nvda breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 02:00:00+05:30 (candle 5-6)",
+        "Entry 180.99 | SL 179.03 | Target 185.87 | RR 2.49 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "V",
+      "name": "V",
+      "symbol": "V",
+      "notify_key": "V|V|2025-12-19 14:30:00+00:00|2025-12-19 20:30:00+00:00|349.2",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 02:00:00+05:30",
+      "entry_price": 349.2,
+      "stop_price": 347.68,
+      "target_price": 353.72,
+      "rr_ratio": 2.98,
+      "vol_mult": 3.49,
+      "lines": [
+        "V breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 02:00:00+05:30 (candle 5-6)",
+        "Entry 349.20 | SL 347.68 | Target 353.72 | RR 2.98 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ABBV",
+      "name": "Abbv",
+      "symbol": "ABBV",
+      "notify_key": "ABBV|ABBV|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|228.86",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 228.86,
+      "stop_price": 226.42,
+      "target_price": 233.11,
+      "rr_ratio": 1.74,
+      "vol_mult": 4.24,
+      "lines": [
+        "Abbv breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 228.86 | SL 226.42 | Target 233.11 | RR 1.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|214.68",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 214.68,
+      "stop_price": 210.46,
+      "target_price": 222.47,
+      "rr_ratio": 1.84,
+      "vol_mult": 3.82,
+      "lines": [
+        "Amd breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 214.68 | SL 210.46 | Target 222.47 | RR 1.84 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|78.86",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 78.86,
+      "stop_price": 78.22,
+      "target_price": 80.25,
+      "rr_ratio": 2.16,
+      "vol_mult": 6.41,
+      "lines": [
+        "Csco breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 78.86 | SL 78.22 | Target 80.25 | RR 2.16 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GE",
+      "name": "Ge",
+      "symbol": "GE",
+      "notify_key": "GE|GE|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|308.14",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 308.14,
+      "stop_price": 305.45,
+      "target_price": 314.47,
+      "rr_ratio": 2.36,
+      "vol_mult": 3.26,
+      "lines": [
+        "Ge breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 308.14 | SL 305.45 | Target 314.47 | RR 2.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|305.8",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 305.8,
+      "stop_price": 305.26,
+      "target_price": 310.82,
+      "rr_ratio": 9.22,
+      "vol_mult": 4.17,
+      "lines": [
+        "Goog breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 305.80 | SL 305.26 | Target 310.82 | RR 9.22 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MA",
+      "name": "Ma",
+      "symbol": "MA",
+      "notify_key": "MA|MA|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|569.41",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 569.41,
+      "stop_price": 568.46,
+      "target_price": 577.08,
+      "rr_ratio": 8.04,
+      "vol_mult": 3.31,
+      "lines": [
+        "Ma breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 569.41 | SL 568.46 | Target 577.08 | RR 8.04 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Orcl",
+      "symbol": "ORCL",
+      "notify_key": "ORCL|ORCL|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|194.38",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 194.38,
+      "stop_price": 190.03,
+      "target_price": 202.65,
+      "rr_ratio": 1.9,
+      "vol_mult": 4.1,
+      "lines": [
+        "Orcl breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 194.38 | SL 190.03 | Target 202.65 | RR 1.90 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PM",
+      "name": "Pm",
+      "symbol": "PM",
+      "notify_key": "PM|PM|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|159.64",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 159.64,
+      "stop_price": 158.86,
+      "target_price": 161.86,
+      "rr_ratio": 2.87,
+      "vol_mult": 3.66,
+      "lines": [
+        "Pm breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 159.64 | SL 158.86 | Target 161.86 | RR 2.87 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TXN",
+      "name": "Txn",
+      "symbol": "TXN",
+      "notify_key": "TXN|TXN|2025-12-19 14:30:00+00:00|2025-12-19 19:30:00+00:00|177.76",
+      "signal_time": "2025-12-19 20:00:00+05:30",
+      "entry_time": "2025-12-20 01:00:00+05:30",
+      "entry_price": 177.76,
+      "stop_price": 176.98,
+      "target_price": 181.37,
+      "rr_ratio": 4.67,
+      "vol_mult": 3.63,
+      "lines": [
+        "Txn breakout 2025-12-19 20:00:00+05:30 | entry 2025-12-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 177.76 | SL 176.98 | Target 181.37 | RR 4.67 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BMY",
+      "name": "Bmy",
+      "symbol": "BMY",
+      "notify_key": "BMY|BMY|2025-12-12 14:30:00+00:00|2025-12-12 19:30:00+00:00|52.53",
+      "signal_time": "2025-12-12 20:00:00+05:30",
+      "entry_time": "2025-12-13 01:00:00+05:30",
+      "entry_price": 52.53,
+      "stop_price": 52.18,
+      "target_price": 53.64,
+      "rr_ratio": 3.2,
+      "vol_mult": 3.04,
+      "lines": [
+        "Bmy breakout 2025-12-12 20:00:00+05:30 | entry 2025-12-13 01:00:00+05:30 (candle 5-6)",
+        "Entry 52.53 | SL 52.18 | Target 53.64 | RR 3.20 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UNH",
+      "name": "Unh",
+      "symbol": "UNH",
+      "notify_key": "UNH|UNH|2025-12-12 14:30:00+00:00|2025-12-12 19:30:00+00:00|341.29",
+      "signal_time": "2025-12-12 20:00:00+05:30",
+      "entry_time": "2025-12-13 01:00:00+05:30",
+      "entry_price": 341.29,
+      "stop_price": 339.89,
+      "target_price": 348.66,
+      "rr_ratio": 5.27,
+      "vol_mult": 3.64,
+      "lines": [
+        "Unh breakout 2025-12-12 20:00:00+05:30 | entry 2025-12-13 01:00:00+05:30 (candle 5-6)",
+        "Entry 341.29 | SL 339.89 | Target 348.66 | RR 5.27 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PEP",
+      "name": "Pep",
+      "symbol": "PEP",
+      "notify_key": "PEP|PEP|2025-12-10 14:30:00+00:00|2025-12-10 20:30:00+00:00|149.69",
+      "signal_time": "2025-12-10 20:00:00+05:30",
+      "entry_time": "2025-12-11 02:00:00+05:30",
+      "entry_price": 149.69,
+      "stop_price": 148.27,
+      "target_price": 152.64,
+      "rr_ratio": 2.08,
+      "vol_mult": 4.15,
+      "lines": [
+        "Pep breakout 2025-12-10 20:00:00+05:30 | entry 2025-12-11 02:00:00+05:30 (candle 5-6)",
+        "Entry 149.69 | SL 148.27 | Target 152.64 | RR 2.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2025-12-08 15:30:00+00:00|2025-12-08 20:30:00+00:00|78.88",
+      "signal_time": "2025-12-08 21:00:00+05:30",
+      "entry_time": "2025-12-09 02:00:00+05:30",
+      "entry_price": 78.88,
+      "stop_price": 78.69,
+      "target_price": 79.98,
+      "rr_ratio": 5.7,
+      "vol_mult": 3.1,
+      "lines": [
+        "Csco breakout 2025-12-08 21:00:00+05:30 | entry 2025-12-09 02:00:00+05:30 (candle 5-6)",
+        "Entry 78.88 | SL 78.69 | Target 79.98 | RR 5.70 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Avgo",
+      "symbol": "AVGO",
+      "notify_key": "AVGO|AVGO|2025-12-05 20:30:00+00:00|2025-12-08 19:30:00+00:00|399.35",
+      "signal_time": "2025-12-06 02:00:00+05:30",
+      "entry_time": "2025-12-09 01:00:00+05:30",
+      "entry_price": 399.35,
+      "stop_price": 396.75,
+      "target_price": 411.07,
+      "rr_ratio": 4.51,
+      "vol_mult": 5.34,
+      "lines": [
+        "Avgo breakout 2025-12-06 02:00:00+05:30 | entry 2025-12-09 01:00:00+05:30 (candle 5-6)",
+        "Entry 399.35 | SL 396.75 | Target 411.07 | RR 4.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ADBE",
+      "name": "Adbe",
+      "symbol": "ADBE",
+      "notify_key": "ADBE|ADBE|2025-12-05 14:30:00+00:00|2025-12-05 19:30:00+00:00|347.43",
+      "signal_time": "2025-12-05 20:00:00+05:30",
+      "entry_time": "2025-12-06 01:00:00+05:30",
+      "entry_price": 347.43,
+      "stop_price": 341.44,
+      "target_price": 356.84,
+      "rr_ratio": 1.57,
+      "vol_mult": 5.09,
+      "lines": [
+        "Adbe breakout 2025-12-05 20:00:00+05:30 | entry 2025-12-06 01:00:00+05:30 (candle 5-6)",
+        "Entry 347.43 | SL 341.44 | Target 356.84 | RR 1.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CRM",
+      "name": "Crm",
+      "symbol": "CRM",
+      "notify_key": "CRM|CRM|2025-12-05 14:30:00+00:00|2025-12-05 19:30:00+00:00|261.0",
+      "signal_time": "2025-12-05 20:00:00+05:30",
+      "entry_time": "2025-12-06 01:00:00+05:30",
+      "entry_price": 261.0,
+      "stop_price": 256.54,
+      "target_price": 269.82,
+      "rr_ratio": 1.97,
+      "vol_mult": 3.26,
+      "lines": [
+        "Crm breakout 2025-12-05 20:00:00+05:30 | entry 2025-12-06 01:00:00+05:30 (candle 5-6)",
+        "Entry 261.00 | SL 256.54 | Target 269.82 | RR 1.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Orcl",
+      "symbol": "ORCL",
+      "notify_key": "ORCL|ORCL|2025-12-05 14:30:00+00:00|2025-12-05 19:30:00+00:00|216.74",
+      "signal_time": "2025-12-05 20:00:00+05:30",
+      "entry_time": "2025-12-06 01:00:00+05:30",
+      "entry_price": 216.74,
+      "stop_price": 214.97,
+      "target_price": 223.25,
+      "rr_ratio": 3.67,
+      "vol_mult": 3.34,
+      "lines": [
+        "Orcl breakout 2025-12-05 20:00:00+05:30 | entry 2025-12-06 01:00:00+05:30 (candle 5-6)",
+        "Entry 216.74 | SL 214.97 | Target 223.25 | RR 3.67 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "symbol": "META",
+      "notify_key": "META|META|2025-12-04 20:30:00+00:00|2025-12-05 18:30:00+00:00|672.54",
+      "signal_time": "2025-12-05 02:00:00+05:30",
+      "entry_time": "2025-12-06 00:00:00+05:30",
+      "entry_price": 672.54,
+      "stop_price": 667.67,
+      "target_price": 690.66,
+      "rr_ratio": 3.72,
+      "vol_mult": 7.84,
+      "lines": [
+        "Meta breakout 2025-12-05 02:00:00+05:30 | entry 2025-12-06 00:00:00+05:30 (candle 5-6)",
+        "Entry 672.54 | SL 667.67 | Target 690.66 | RR 3.72 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "JPM",
+      "name": "Jpm",
+      "symbol": "JPM",
+      "notify_key": "JPM|JPM|2025-12-04 14:30:00+00:00|2025-12-04 20:30:00+00:00|316.13",
+      "signal_time": "2025-12-04 20:00:00+05:30",
+      "entry_time": "2025-12-05 02:00:00+05:30",
+      "entry_price": 316.13,
+      "stop_price": 314.81,
+      "target_price": 320.65,
+      "rr_ratio": 3.42,
+      "vol_mult": 3.82,
+      "lines": [
+        "Jpm breakout 2025-12-04 20:00:00+05:30 | entry 2025-12-05 02:00:00+05:30 (candle 5-6)",
+        "Entry 316.13 | SL 314.81 | Target 320.65 | RR 3.42 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "symbol": "META",
+      "notify_key": "META|META|2025-12-04 14:30:00+00:00|2025-12-04 20:30:00+00:00|661.73",
+      "signal_time": "2025-12-04 20:00:00+05:30",
+      "entry_time": "2025-12-05 02:00:00+05:30",
+      "entry_price": 661.73,
+      "stop_price": 659.11,
+      "target_price": 677.45,
+      "rr_ratio": 6.0,
+      "vol_mult": 10.64,
+      "lines": [
+        "Meta breakout 2025-12-04 20:00:00+05:30 | entry 2025-12-05 02:00:00+05:30 (candle 5-6)",
+        "Entry 661.73 | SL 659.11 | Target 677.45 | RR 6.00 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tsla",
+      "symbol": "TSLA",
+      "notify_key": "TSLA|TSLA|2025-12-03 14:30:00+00:00|2025-12-03 20:30:00+00:00|446.88",
+      "signal_time": "2025-12-03 20:00:00+05:30",
+      "entry_time": "2025-12-04 02:00:00+05:30",
+      "entry_price": 446.88,
+      "stop_price": 441.21,
+      "target_price": 459.37,
+      "rr_ratio": 2.2,
+      "vol_mult": 3.21,
+      "lines": [
+        "Tsla breakout 2025-12-03 20:00:00+05:30 | entry 2025-12-04 02:00:00+05:30 (candle 5-6)",
+        "Entry 446.88 | SL 441.21 | Target 459.37 | RR 2.20 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COST",
+      "name": "Cost",
+      "symbol": "COST",
+      "notify_key": "COST|COST|2025-12-02 20:30:00+00:00|2025-12-03 18:30:00+00:00|922.47",
+      "signal_time": "2025-12-03 02:00:00+05:30",
+      "entry_time": "2025-12-04 00:00:00+05:30",
+      "entry_price": 922.47,
+      "stop_price": 919.06,
+      "target_price": 934.09,
+      "rr_ratio": 3.41,
+      "vol_mult": 4.46,
+      "lines": [
+        "Cost breakout 2025-12-03 02:00:00+05:30 | entry 2025-12-04 00:00:00+05:30 (candle 5-6)",
+        "Entry 922.47 | SL 919.06 | Target 934.09 | RR 3.41 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2025-12-02 15:30:00+00:00|2025-12-03 14:30:00+00:00|43.44",
+      "signal_time": "2025-12-02 21:00:00+05:30",
+      "entry_time": "2025-12-03 20:00:00+05:30",
+      "entry_price": 43.44,
+      "stop_price": 42.61,
+      "target_price": 45.19,
+      "rr_ratio": 2.09,
+      "vol_mult": 3.41,
+      "lines": [
+        "Intc breakout 2025-12-02 21:00:00+05:30 | entry 2025-12-03 20:00:00+05:30 (candle 5-6)",
+        "Entry 43.44 | SL 42.61 | Target 45.19 | RR 2.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2025-11-25 14:30:00+00:00|2025-11-25 20:30:00+00:00|323.65",
+      "signal_time": "2025-11-25 20:00:00+05:30",
+      "entry_time": "2025-11-26 02:00:00+05:30",
+      "entry_price": 323.65,
+      "stop_price": 320.95,
+      "target_price": 336.55,
+      "rr_ratio": 4.78,
+      "vol_mult": 3.43,
+      "lines": [
+        "Goog breakout 2025-11-25 20:00:00+05:30 | entry 2025-11-26 02:00:00+05:30 (candle 5-6)",
+        "Entry 323.65 | SL 320.95 | Target 336.55 | RR 4.78 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2025-11-25 14:30:00+00:00|2025-11-25 20:30:00+00:00|323.39",
+      "signal_time": "2025-11-25 20:00:00+05:30",
+      "entry_time": "2025-11-26 02:00:00+05:30",
+      "entry_price": 323.39,
+      "stop_price": 320.74,
+      "target_price": 336.4,
+      "rr_ratio": 4.91,
+      "vol_mult": 3.95,
+      "lines": [
+        "Googl breakout 2025-11-25 20:00:00+05:30 | entry 2025-11-26 02:00:00+05:30 (candle 5-6)",
+        "Entry 323.39 | SL 320.74 | Target 336.40 | RR 4.91 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Avgo",
+      "symbol": "AVGO",
+      "notify_key": "AVGO|AVGO|2025-11-25 14:30:00+00:00|2025-11-25 19:30:00+00:00|384.52",
+      "signal_time": "2025-11-25 20:00:00+05:30",
+      "entry_time": "2025-11-26 01:00:00+05:30",
+      "entry_price": 384.52,
+      "stop_price": 378.14,
+      "target_price": 402.53,
+      "rr_ratio": 2.82,
+      "vol_mult": 3.51,
+      "lines": [
+        "Avgo breakout 2025-11-25 20:00:00+05:30 | entry 2025-11-26 01:00:00+05:30 (candle 5-6)",
+        "Entry 384.52 | SL 378.14 | Target 402.53 | RR 2.82 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRK-B",
+      "name": "Brk-B",
+      "symbol": "BRK-B",
+      "notify_key": "BRK-B|BRK-B|2025-11-24 20:30:00+00:00|2025-11-25 18:30:00+00:00|508.17",
+      "signal_time": "2025-11-25 02:00:00+05:30",
+      "entry_time": "2025-11-26 00:00:00+05:30",
+      "entry_price": 508.17,
+      "stop_price": 506.28,
+      "target_price": 515.64,
+      "rr_ratio": 3.95,
+      "vol_mult": 3.8,
+      "lines": [
+        "Brk-B breakout 2025-11-25 02:00:00+05:30 | entry 2025-11-26 00:00:00+05:30 (candle 5-6)",
+        "Entry 508.17 | SL 506.28 | Target 515.64 | RR 3.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UNP",
+      "name": "Unp",
+      "symbol": "UNP",
+      "notify_key": "UNP|UNP|2025-11-24 20:30:00+00:00|2025-11-25 18:30:00+00:00|228.61",
+      "signal_time": "2025-11-25 02:00:00+05:30",
+      "entry_time": "2025-11-26 00:00:00+05:30",
+      "entry_price": 228.61,
+      "stop_price": 226.85,
+      "target_price": 232.0,
+      "rr_ratio": 1.93,
+      "vol_mult": 3.16,
+      "lines": [
+        "Unp breakout 2025-11-25 02:00:00+05:30 | entry 2025-11-26 00:00:00+05:30 (candle 5-6)",
+        "Entry 228.61 | SL 226.85 | Target 232.00 | RR 1.93 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Avgo",
+      "symbol": "AVGO",
+      "notify_key": "AVGO|AVGO|2025-11-24 14:30:00+00:00|2025-11-24 19:30:00+00:00|378.08",
+      "signal_time": "2025-11-24 20:00:00+05:30",
+      "entry_time": "2025-11-25 01:00:00+05:30",
+      "entry_price": 378.08,
+      "stop_price": 366.61,
+      "target_price": 396.79,
+      "rr_ratio": 1.63,
+      "vol_mult": 3.05,
+      "lines": [
+        "Avgo breakout 2025-11-24 20:00:00+05:30 | entry 2025-11-25 01:00:00+05:30 (candle 5-6)",
+        "Entry 378.08 | SL 366.61 | Target 396.79 | RR 1.63 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2025-11-24 14:30:00+00:00|2025-11-24 19:30:00+00:00|317.89",
+      "signal_time": "2025-11-24 20:00:00+05:30",
+      "entry_time": "2025-11-25 01:00:00+05:30",
+      "entry_price": 317.89,
+      "stop_price": 311.84,
+      "target_price": 331.63,
+      "rr_ratio": 2.27,
+      "vol_mult": 3.19,
+      "lines": [
+        "Googl breakout 2025-11-24 20:00:00+05:30 | entry 2025-11-25 01:00:00+05:30 (candle 5-6)",
+        "Entry 317.89 | SL 311.84 | Target 331.63 | RR 2.27 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "WMT",
+      "name": "Wmt",
+      "symbol": "WMT",
+      "notify_key": "WMT|WMT|2025-11-20 14:30:00+00:00|2025-11-20 19:30:00+00:00|107.51",
+      "signal_time": "2025-11-20 20:00:00+05:30",
+      "entry_time": "2025-11-21 01:00:00+05:30",
+      "entry_price": 107.51,
+      "stop_price": 105.42,
+      "target_price": 110.79,
+      "rr_ratio": 1.57,
+      "vol_mult": 8.67,
+      "lines": [
+        "Wmt breakout 2025-11-20 20:00:00+05:30 | entry 2025-11-21 01:00:00+05:30 (candle 5-6)",
+        "Entry 107.51 | SL 105.42 | Target 110.79 | RR 1.57 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2025-11-19 14:30:00+00:00|2025-11-19 19:30:00+00:00|295.72",
+      "signal_time": "2025-11-19 20:00:00+05:30",
+      "entry_time": "2025-11-20 01:00:00+05:30",
+      "entry_price": 295.72,
+      "stop_price": 292.95,
+      "target_price": 308.22,
+      "rr_ratio": 4.51,
+      "vol_mult": 5.63,
+      "lines": [
+        "Goog breakout 2025-11-19 20:00:00+05:30 | entry 2025-11-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 295.72 | SL 292.95 | Target 308.22 | RR 4.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2025-11-19 14:30:00+00:00|2025-11-19 19:30:00+00:00|295.28",
+      "signal_time": "2025-11-19 20:00:00+05:30",
+      "entry_time": "2025-11-20 01:00:00+05:30",
+      "entry_price": 295.28,
+      "stop_price": 292.42,
+      "target_price": 307.9,
+      "rr_ratio": 4.41,
+      "vol_mult": 5.62,
+      "lines": [
+        "Googl breakout 2025-11-19 20:00:00+05:30 | entry 2025-11-20 01:00:00+05:30 (candle 5-6)",
+        "Entry 295.28 | SL 292.42 | Target 307.90 | RR 4.41 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Nflx",
+      "symbol": "NFLX",
+      "notify_key": "NFLX|NFLX|2025-11-18 14:30:00+00:00|2025-11-18 19:30:00+00:00|114.45",
+      "signal_time": "2025-11-18 20:00:00+05:30",
+      "entry_time": "2025-11-19 01:00:00+05:30",
+      "entry_price": 114.45,
+      "stop_price": 113.01,
+      "target_price": 118.08,
+      "rr_ratio": 2.51,
+      "vol_mult": 8.44,
+      "lines": [
+        "Nflx breakout 2025-11-18 20:00:00+05:30 | entry 2025-11-19 01:00:00+05:30 (candle 5-6)",
+        "Entry 114.45 | SL 113.01 | Target 118.08 | RR 2.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2025-11-17 14:30:00+00:00|2025-11-17 20:30:00+00:00|285.6",
+      "signal_time": "2025-11-17 20:00:00+05:30",
+      "entry_time": "2025-11-18 02:00:00+05:30",
+      "entry_price": 285.6,
+      "stop_price": 284.88,
+      "target_price": 294.48,
+      "rr_ratio": 12.36,
+      "vol_mult": 6.97,
+      "lines": [
+        "Goog breakout 2025-11-17 20:00:00+05:30 | entry 2025-11-18 02:00:00+05:30 (candle 5-6)",
+        "Entry 285.60 | SL 284.88 | Target 294.48 | RR 12.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2025-11-17 14:30:00+00:00|2025-11-17 20:30:00+00:00|285.02",
+      "signal_time": "2025-11-17 20:00:00+05:30",
+      "entry_time": "2025-11-18 02:00:00+05:30",
+      "entry_price": 285.02,
+      "stop_price": 284.28,
+      "target_price": 293.98,
+      "rr_ratio": 12.08,
+      "vol_mult": 7.07,
+      "lines": [
+        "Googl breakout 2025-11-17 20:00:00+05:30 | entry 2025-11-18 02:00:00+05:30 (candle 5-6)",
+        "Entry 285.02 | SL 284.28 | Target 293.98 | RR 12.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "name": "Mrk",
+      "symbol": "MRK",
+      "notify_key": "MRK|MRK|2025-11-14 14:30:00+00:00|2025-11-14 19:30:00+00:00|94.09",
+      "signal_time": "2025-11-14 20:00:00+05:30",
+      "entry_time": "2025-11-15 01:00:00+05:30",
+      "entry_price": 94.09,
+      "stop_price": 93.72,
+      "target_price": 96.6,
+      "rr_ratio": 6.8,
+      "vol_mult": 3.63,
+      "lines": [
+        "Mrk breakout 2025-11-14 20:00:00+05:30 | entry 2025-11-15 01:00:00+05:30 (candle 5-6)",
+        "Entry 94.09 | SL 93.72 | Target 96.60 | RR 6.80 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2025-11-13 14:30:00+00:00|2025-11-13 20:30:00+00:00|77.4",
+      "signal_time": "2025-11-13 20:00:00+05:30",
+      "entry_time": "2025-11-14 02:00:00+05:30",
+      "entry_price": 77.4,
+      "stop_price": 76.4,
+      "target_price": 79.95,
+      "rr_ratio": 2.54,
+      "vol_mult": 6.92,
+      "lines": [
+        "Csco breakout 2025-11-13 20:00:00+05:30 | entry 2025-11-14 02:00:00+05:30 (candle 5-6)",
+        "Entry 77.40 | SL 76.40 | Target 79.95 | RR 2.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2025-11-12 14:30:00+00:00|2025-11-12 20:30:00+00:00|73.99",
+      "signal_time": "2025-11-12 20:00:00+05:30",
+      "entry_time": "2025-11-13 02:00:00+05:30",
+      "entry_price": 73.99,
+      "stop_price": 73.15,
+      "target_price": 75.4,
+      "rr_ratio": 1.68,
+      "vol_mult": 3.5,
+      "lines": [
+        "Csco breakout 2025-11-12 20:00:00+05:30 | entry 2025-11-13 02:00:00+05:30 (candle 5-6)",
+        "Entry 73.99 | SL 73.15 | Target 75.40 | RR 1.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2025-11-12 14:30:00+00:00|2025-11-12 19:30:00+00:00|256.2",
+      "signal_time": "2025-11-12 20:00:00+05:30",
+      "entry_time": "2025-11-13 01:00:00+05:30",
+      "entry_price": 256.2,
+      "stop_price": 252.37,
+      "target_price": 271.66,
+      "rr_ratio": 4.03,
+      "vol_mult": 6.33,
+      "lines": [
+        "Amd breakout 2025-11-12 20:00:00+05:30 | entry 2025-11-13 01:00:00+05:30 (candle 5-6)",
+        "Entry 256.20 | SL 252.37 | Target 271.66 | RR 4.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UNH",
+      "name": "Unh",
+      "symbol": "UNH",
+      "notify_key": "UNH|UNH|2025-11-12 14:30:00+00:00|2025-11-12 19:30:00+00:00|340.45",
+      "signal_time": "2025-11-12 20:00:00+05:30",
+      "entry_time": "2025-11-13 01:00:00+05:30",
+      "entry_price": 340.45,
+      "stop_price": 335.75,
+      "target_price": 350.48,
+      "rr_ratio": 2.14,
+      "vol_mult": 3.54,
+      "lines": [
+        "Unh breakout 2025-11-12 20:00:00+05:30 | entry 2025-11-13 01:00:00+05:30 (candle 5-6)",
+        "Entry 340.45 | SL 335.75 | Target 350.48 | RR 2.14 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Msft",
+      "symbol": "MSFT",
+      "notify_key": "MSFT|MSFT|2025-11-10 20:30:00+00:00|2025-11-11 18:30:00+00:00|509.16",
+      "signal_time": "2025-11-11 02:00:00+05:30",
+      "entry_time": "2025-11-12 00:00:00+05:30",
+      "entry_price": 509.16,
+      "stop_price": 505.24,
+      "target_price": 516.76,
+      "rr_ratio": 1.94,
+      "vol_mult": 5.72,
+      "lines": [
+        "Msft breakout 2025-11-11 02:00:00+05:30 | entry 2025-11-12 00:00:00+05:30 (candle 5-6)",
+        "Entry 509.16 | SL 505.24 | Target 516.76 | RR 1.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "name": "Lly",
+      "symbol": "LLY",
+      "notify_key": "LLY|LLY|2025-11-10 14:30:00+00:00|2025-11-10 19:30:00+00:00|968.22",
+      "signal_time": "2025-11-10 20:00:00+05:30",
+      "entry_time": "2025-11-11 01:00:00+05:30",
+      "entry_price": 968.22,
+      "stop_price": 955.8,
+      "target_price": 1000.32,
+      "rr_ratio": 2.58,
+      "vol_mult": 3.26,
+      "lines": [
+        "Lly breakout 2025-11-10 20:00:00+05:30 | entry 2025-11-11 01:00:00+05:30 (candle 5-6)",
+        "Entry 968.22 | SL 955.80 | Target 1000.32 | RR 2.58 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "KO",
+      "name": "Ko",
+      "symbol": "KO",
+      "notify_key": "KO|KO|2025-11-07 14:30:00+00:00|2025-11-07 19:30:00+00:00|70.61",
+      "signal_time": "2025-11-07 20:00:00+05:30",
+      "entry_time": "2025-11-08 01:00:00+05:30",
+      "entry_price": 70.61,
+      "stop_price": 70.05,
+      "target_price": 71.73,
+      "rr_ratio": 2.03,
+      "vol_mult": 3.62,
+      "lines": [
+        "Ko breakout 2025-11-07 20:00:00+05:30 | entry 2025-11-08 01:00:00+05:30 (candle 5-6)",
+        "Entry 70.61 | SL 70.05 | Target 71.73 | RR 2.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MCD",
+      "name": "Mcd",
+      "symbol": "MCD",
+      "notify_key": "MCD|MCD|2025-11-05 14:30:00+00:00|2025-11-05 19:30:00+00:00|307.05",
+      "signal_time": "2025-11-05 20:00:00+05:30",
+      "entry_time": "2025-11-06 01:00:00+05:30",
+      "entry_price": 307.05,
+      "stop_price": 303.99,
+      "target_price": 313.59,
+      "rr_ratio": 2.14,
+      "vol_mult": 4.47,
+      "lines": [
+        "Mcd breakout 2025-11-05 20:00:00+05:30 | entry 2025-11-06 01:00:00+05:30 (candle 5-6)",
+        "Entry 307.05 | SL 303.99 | Target 313.59 | RR 2.14 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Nflx",
+      "symbol": "NFLX",
+      "notify_key": "NFLX|NFLX|2025-10-31 13:30:00+00:00|2025-10-31 18:30:00+00:00|1124.03",
+      "signal_time": "2025-10-31 19:00:00+05:30",
+      "entry_time": "2025-11-01 00:00:00+05:30",
+      "entry_price": 1124.03,
+      "stop_price": 1116.45,
+      "target_price": 1149.59,
+      "rr_ratio": 3.37,
+      "vol_mult": 3.23,
+      "lines": [
+        "Nflx breakout 2025-10-31 19:00:00+05:30 | entry 2025-11-01 00:00:00+05:30 (candle 5-6)",
+        "Entry 1124.03 | SL 1116.45 | Target 1149.59 | RR 3.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Goog",
+      "symbol": "GOOG",
+      "notify_key": "GOOG|GOOG|2025-10-30 13:30:00+00:00|2025-10-30 18:30:00+00:00|284.14",
+      "signal_time": "2025-10-30 19:00:00+05:30",
+      "entry_time": "2025-10-31 00:00:00+05:30",
+      "entry_price": 284.14,
+      "stop_price": 282.34,
+      "target_price": 292.12,
+      "rr_ratio": 4.44,
+      "vol_mult": 5.74,
+      "lines": [
+        "Goog breakout 2025-10-30 19:00:00+05:30 | entry 2025-10-31 00:00:00+05:30 (candle 5-6)",
+        "Entry 284.14 | SL 282.34 | Target 292.12 | RR 4.44 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Googl",
+      "symbol": "GOOGL",
+      "notify_key": "GOOGL|GOOGL|2025-10-30 13:30:00+00:00|2025-10-30 18:30:00+00:00|283.41",
+      "signal_time": "2025-10-30 19:00:00+05:30",
+      "entry_time": "2025-10-31 00:00:00+05:30",
+      "entry_price": 283.41,
+      "stop_price": 281.64,
+      "target_price": 291.64,
+      "rr_ratio": 4.64,
+      "vol_mult": 5.69,
+      "lines": [
+        "Googl breakout 2025-10-30 19:00:00+05:30 | entry 2025-10-31 00:00:00+05:30 (candle 5-6)",
+        "Entry 283.41 | SL 281.64 | Target 291.64 | RR 4.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CAT",
+      "name": "Cat",
+      "symbol": "CAT",
+      "notify_key": "CAT|CAT|2025-10-29 13:30:00+00:00|2025-10-29 19:30:00+00:00|585.69",
+      "signal_time": "2025-10-29 19:00:00+05:30",
+      "entry_time": "2025-10-30 01:00:00+05:30",
+      "entry_price": 585.69,
+      "stop_price": 574.98,
+      "target_price": 609.48,
+      "rr_ratio": 2.22,
+      "vol_mult": 8.74,
+      "lines": [
+        "Cat breakout 2025-10-29 19:00:00+05:30 | entry 2025-10-30 01:00:00+05:30 (candle 5-6)",
+        "Entry 585.69 | SL 574.98 | Target 609.48 | RR 2.22 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Nvda",
+      "symbol": "NVDA",
+      "notify_key": "NVDA|NVDA|2025-10-29 13:30:00+00:00|2025-10-29 18:30:00+00:00|207.04",
+      "signal_time": "2025-10-29 19:00:00+05:30",
+      "entry_time": "2025-10-30 00:00:00+05:30",
+      "entry_price": 207.04,
+      "stop_price": 204.52,
+      "target_price": 215.65,
+      "rr_ratio": 3.42,
+      "vol_mult": 5.28,
+      "lines": [
+        "Nvda breakout 2025-10-29 19:00:00+05:30 | entry 2025-10-30 00:00:00+05:30 (candle 5-6)",
+        "Entry 207.04 | SL 204.52 | Target 215.65 | RR 3.42 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Msft",
+      "symbol": "MSFT",
+      "notify_key": "MSFT|MSFT|2025-10-28 13:30:00+00:00|2025-10-28 18:30:00+00:00|544.61",
+      "signal_time": "2025-10-28 19:00:00+05:30",
+      "entry_time": "2025-10-29 00:00:00+05:30",
+      "entry_price": 544.61,
+      "stop_price": 540.26,
+      "target_price": 555.4,
+      "rr_ratio": 2.48,
+      "vol_mult": 6.02,
+      "lines": [
+        "Msft breakout 2025-10-28 19:00:00+05:30 | entry 2025-10-29 00:00:00+05:30 (candle 5-6)",
+        "Entry 544.61 | SL 540.26 | Target 555.40 | RR 2.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UPS",
+      "name": "Ups",
+      "symbol": "UPS",
+      "notify_key": "UPS|UPS|2025-10-27 13:30:00+00:00|2025-10-27 19:30:00+00:00|89.21",
+      "signal_time": "2025-10-27 19:00:00+05:30",
+      "entry_time": "2025-10-28 01:00:00+05:30",
+      "entry_price": 89.21,
+      "stop_price": 88.72,
+      "target_price": 90.74,
+      "rr_ratio": 3.09,
+      "vol_mult": 3.27,
+      "lines": [
+        "Ups breakout 2025-10-27 19:00:00+05:30 | entry 2025-10-28 01:00:00+05:30 (candle 5-6)",
+        "Entry 89.21 | SL 88.72 | Target 90.74 | RR 3.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2025-10-27 13:30:00+00:00|2025-10-27 18:30:00+00:00|39.62",
+      "signal_time": "2025-10-27 19:00:00+05:30",
+      "entry_time": "2025-10-28 00:00:00+05:30",
+      "entry_price": 39.62,
+      "stop_price": 39.23,
+      "target_price": 41.97,
+      "rr_ratio": 5.91,
+      "vol_mult": 3.7,
+      "lines": [
+        "Intc breakout 2025-10-27 19:00:00+05:30 | entry 2025-10-28 00:00:00+05:30 (candle 5-6)",
+        "Entry 39.62 | SL 39.23 | Target 41.97 | RR 5.91 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "Ibm",
+      "symbol": "IBM",
+      "notify_key": "IBM|IBM|2025-10-24 15:30:00+00:00|2025-10-27 14:30:00+00:00|309.83",
+      "signal_time": "2025-10-24 21:00:00+05:30",
+      "entry_time": "2025-10-27 20:00:00+05:30",
+      "entry_price": 309.83,
+      "stop_price": 303.98,
+      "target_price": 323.8,
+      "rr_ratio": 2.39,
+      "vol_mult": 3.35,
+      "lines": [
+        "Ibm breakout 2025-10-24 21:00:00+05:30 | entry 2025-10-27 20:00:00+05:30 (candle 5-6)",
+        "Entry 309.83 | SL 303.98 | Target 323.80 | RR 2.39 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2025-10-24 13:30:00+00:00|2025-10-24 18:30:00+00:00|251.65",
+      "signal_time": "2025-10-24 19:00:00+05:30",
+      "entry_time": "2025-10-25 00:00:00+05:30",
+      "entry_price": 251.65,
+      "stop_price": 246.25,
+      "target_price": 260.53,
+      "rr_ratio": 1.65,
+      "vol_mult": 4.03,
+      "lines": [
+        "Amd breakout 2025-10-24 19:00:00+05:30 | entry 2025-10-25 00:00:00+05:30 (candle 5-6)",
+        "Entry 251.65 | SL 246.25 | Target 260.53 | RR 1.65 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "Ibm",
+      "symbol": "IBM",
+      "notify_key": "IBM|IBM|2025-10-22 13:30:00+00:00|2025-10-22 18:30:00+00:00|287.08",
+      "signal_time": "2025-10-22 19:00:00+05:30",
+      "entry_time": "2025-10-23 00:00:00+05:30",
+      "entry_price": 287.08,
+      "stop_price": 285.58,
+      "target_price": 292.24,
+      "rr_ratio": 3.44,
+      "vol_mult": 3.64,
+      "lines": [
+        "Ibm breakout 2025-10-22 19:00:00+05:30 | entry 2025-10-23 00:00:00+05:30 (candle 5-6)",
+        "Entry 287.08 | SL 285.58 | Target 292.24 | RR 3.44 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "KO",
+      "name": "Ko",
+      "symbol": "KO",
+      "notify_key": "KO|KO|2025-10-21 13:30:00+00:00|2025-10-21 19:30:00+00:00|71.24",
+      "signal_time": "2025-10-21 19:00:00+05:30",
+      "entry_time": "2025-10-22 01:00:00+05:30",
+      "entry_price": 71.24,
+      "stop_price": 70.48,
+      "target_price": 72.63,
+      "rr_ratio": 1.83,
+      "vol_mult": 7.94,
+      "lines": [
+        "Ko breakout 2025-10-21 19:00:00+05:30 | entry 2025-10-22 01:00:00+05:30 (candle 5-6)",
+        "Entry 71.24 | SL 70.48 | Target 72.63 | RR 1.83 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TMO",
+      "name": "Tmo",
+      "symbol": "TMO",
+      "notify_key": "TMO|TMO|2025-10-21 13:30:00+00:00|2025-10-21 19:30:00+00:00|558.29",
+      "signal_time": "2025-10-21 19:00:00+05:30",
+      "entry_time": "2025-10-22 01:00:00+05:30",
+      "entry_price": 558.29,
+      "stop_price": 555.12,
+      "target_price": 570.53,
+      "rr_ratio": 3.86,
+      "vol_mult": 4.42,
+      "lines": [
+        "Tmo breakout 2025-10-21 19:00:00+05:30 | entry 2025-10-22 01:00:00+05:30 (candle 5-6)",
+        "Entry 558.29 | SL 555.12 | Target 570.53 | RR 3.86 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TMO",
+      "name": "Tmo",
+      "symbol": "TMO",
+      "notify_key": "TMO|TMO|2025-10-21 14:30:00+00:00|2025-10-21 19:30:00+00:00|558.29",
+      "signal_time": "2025-10-21 20:00:00+05:30",
+      "entry_time": "2025-10-22 01:00:00+05:30",
+      "entry_price": 558.29,
+      "stop_price": 555.12,
+      "target_price": 570.53,
+      "rr_ratio": 3.86,
+      "vol_mult": 3.23,
+      "lines": [
+        "Tmo breakout 2025-10-21 20:00:00+05:30 | entry 2025-10-22 01:00:00+05:30 (candle 5-6)",
+        "Entry 558.29 | SL 555.12 | Target 570.53 | RR 3.86 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Aapl",
+      "symbol": "AAPL",
+      "notify_key": "AAPL|AAPL|2025-10-20 14:30:00+00:00|2025-10-21 13:30:00+00:00|263.5",
+      "signal_time": "2025-10-20 20:00:00+05:30",
+      "entry_time": "2025-10-21 19:00:00+05:30",
+      "entry_price": 263.5,
+      "stop_price": 260.91,
+      "target_price": 269.28,
+      "rr_ratio": 2.23,
+      "vol_mult": 4.22,
+      "lines": [
+        "Aapl breakout 2025-10-20 20:00:00+05:30 | entry 2025-10-21 19:00:00+05:30 (candle 5-6)",
+        "Entry 263.50 | SL 260.91 | Target 269.28 | RR 2.23 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TMO",
+      "name": "Tmo",
+      "symbol": "TMO",
+      "notify_key": "TMO|TMO|2025-10-16 13:30:00+00:00|2025-10-16 19:30:00+00:00|536.78",
+      "signal_time": "2025-10-16 19:00:00+05:30",
+      "entry_time": "2025-10-17 01:00:00+05:30",
+      "entry_price": 536.78,
+      "stop_price": 535.64,
+      "target_price": 549.96,
+      "rr_ratio": 11.56,
+      "vol_mult": 3.2,
+      "lines": [
+        "Tmo breakout 2025-10-16 19:00:00+05:30 | entry 2025-10-17 01:00:00+05:30 (candle 5-6)",
+        "Entry 536.78 | SL 535.64 | Target 549.96 | RR 11.56 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BAC",
+      "name": "Bac",
+      "symbol": "BAC",
+      "notify_key": "BAC|BAC|2025-10-15 13:30:00+00:00|2025-10-15 18:30:00+00:00|52.38",
+      "signal_time": "2025-10-15 19:00:00+05:30",
+      "entry_time": "2025-10-16 00:00:00+05:30",
+      "entry_price": 52.38,
+      "stop_price": 51.65,
+      "target_price": 53.91,
+      "rr_ratio": 2.11,
+      "vol_mult": 6.0,
+      "lines": [
+        "Bac breakout 2025-10-15 19:00:00+05:30 | entry 2025-10-16 00:00:00+05:30 (candle 5-6)",
+        "Entry 52.38 | SL 51.65 | Target 53.91 | RR 2.11 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Avgo",
+      "symbol": "AVGO",
+      "notify_key": "AVGO|AVGO|2025-10-13 13:30:00+00:00|2025-10-13 19:30:00+00:00|356.68",
+      "signal_time": "2025-10-13 19:00:00+05:30",
+      "entry_time": "2025-10-14 01:00:00+05:30",
+      "entry_price": 356.68,
+      "stop_price": 351.1,
+      "target_price": 374.97,
+      "rr_ratio": 3.28,
+      "vol_mult": 8.25,
+      "lines": [
+        "Avgo breakout 2025-10-13 19:00:00+05:30 | entry 2025-10-14 01:00:00+05:30 (candle 5-6)",
+        "Entry 356.68 | SL 351.10 | Target 374.97 | RR 3.28 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PEP",
+      "name": "Pep",
+      "symbol": "PEP",
+      "notify_key": "PEP|PEP|2025-10-10 13:30:00+00:00|2025-10-10 18:30:00+00:00|149.89",
+      "signal_time": "2025-10-10 19:00:00+05:30",
+      "entry_time": "2025-10-11 00:00:00+05:30",
+      "entry_price": 149.89,
+      "stop_price": 147.95,
+      "target_price": 153.6,
+      "rr_ratio": 1.91,
+      "vol_mult": 4.32,
+      "lines": [
+        "Pep breakout 2025-10-10 19:00:00+05:30 | entry 2025-10-11 00:00:00+05:30 (candle 5-6)",
+        "Entry 149.89 | SL 147.95 | Target 153.60 | RR 1.91 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COST",
+      "name": "Cost",
+      "symbol": "COST",
+      "notify_key": "COST|COST|2025-10-09 13:30:00+00:00|2025-10-09 18:30:00+00:00|938.65",
+      "signal_time": "2025-10-09 19:00:00+05:30",
+      "entry_time": "2025-10-10 00:00:00+05:30",
+      "entry_price": 938.65,
+      "stop_price": 932.31,
+      "target_price": 952.08,
+      "rr_ratio": 2.12,
+      "vol_mult": 4.1,
+      "lines": [
+        "Cost breakout 2025-10-09 19:00:00+05:30 | entry 2025-10-10 00:00:00+05:30 (candle 5-6)",
+        "Entry 938.65 | SL 932.31 | Target 952.08 | RR 2.12 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "PEP",
+      "name": "Pep",
+      "symbol": "PEP",
+      "notify_key": "PEP|PEP|2025-10-09 13:30:00+00:00|2025-10-09 18:30:00+00:00|143.82",
+      "signal_time": "2025-10-09 19:00:00+05:30",
+      "entry_time": "2025-10-10 00:00:00+05:30",
+      "entry_price": 143.82,
+      "stop_price": 142.27,
+      "target_price": 146.29,
+      "rr_ratio": 1.6,
+      "vol_mult": 5.99,
+      "lines": [
+        "Pep breakout 2025-10-09 19:00:00+05:30 | entry 2025-10-10 00:00:00+05:30 (candle 5-6)",
+        "Entry 143.82 | SL 142.27 | Target 146.29 | RR 1.60 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2025-10-08 13:30:00+00:00|2025-10-08 18:30:00+00:00|70.53",
+      "signal_time": "2025-10-08 19:00:00+05:30",
+      "entry_time": "2025-10-09 00:00:00+05:30",
+      "entry_price": 70.53,
+      "stop_price": 69.91,
+      "target_price": 71.57,
+      "rr_ratio": 1.67,
+      "vol_mult": 5.07,
+      "lines": [
+        "Csco breakout 2025-10-08 19:00:00+05:30 | entry 2025-10-09 00:00:00+05:30 (candle 5-6)",
+        "Entry 70.53 | SL 69.91 | Target 71.57 | RR 1.67 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2025-10-07 13:30:00+00:00|2025-10-07 18:30:00+00:00|211.08",
+      "signal_time": "2025-10-07 19:00:00+05:30",
+      "entry_time": "2025-10-08 00:00:00+05:30",
+      "entry_price": 211.08,
+      "stop_price": 208.03,
+      "target_price": 232.85,
+      "rr_ratio": 7.14,
+      "vol_mult": 3.73,
+      "lines": [
+        "Amd breakout 2025-10-07 19:00:00+05:30 | entry 2025-10-08 00:00:00+05:30 (candle 5-6)",
+        "Entry 211.08 | SL 208.03 | Target 232.85 | RR 7.14 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Aapl",
+      "symbol": "AAPL",
+      "notify_key": "AAPL|AAPL|2025-10-03 13:30:00+00:00|2025-10-03 19:30:00+00:00|258.02",
+      "signal_time": "2025-10-03 19:00:00+05:30",
+      "entry_time": "2025-10-04 01:00:00+05:30",
+      "entry_price": 258.02,
+      "stop_price": 257.4,
+      "target_price": 261.75,
+      "rr_ratio": 6.1,
+      "vol_mult": 4.35,
+      "lines": [
+        "Aapl breakout 2025-10-03 19:00:00+05:30 | entry 2025-10-04 01:00:00+05:30 (candle 5-6)",
+        "Entry 258.02 | SL 257.40 | Target 261.75 | RR 6.10 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "UNH",
+      "name": "Unh",
+      "symbol": "UNH",
+      "notify_key": "UNH|UNH|2025-10-03 13:30:00+00:00|2025-10-03 19:30:00+00:00|360.16",
+      "signal_time": "2025-10-03 19:00:00+05:30",
+      "entry_time": "2025-10-04 01:00:00+05:30",
+      "entry_price": 360.16,
+      "stop_price": 359.13,
+      "target_price": 370.51,
+      "rr_ratio": 10.09,
+      "vol_mult": 4.19,
+      "lines": [
+        "Unh breakout 2025-10-03 19:00:00+05:30 | entry 2025-10-04 01:00:00+05:30 (candle 5-6)",
+        "Entry 360.16 | SL 359.13 | Target 370.51 | RR 10.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Amd",
+      "symbol": "AMD",
+      "notify_key": "AMD|AMD|2025-10-02 13:30:00+00:00|2025-10-02 18:30:00+00:00|170.57",
+      "signal_time": "2025-10-02 19:00:00+05:30",
+      "entry_time": "2025-10-03 00:00:00+05:30",
+      "entry_price": 170.57,
+      "stop_price": 167.93,
+      "target_price": 175.61,
+      "rr_ratio": 1.91,
+      "vol_mult": 5.45,
+      "lines": [
+        "Amd breakout 2025-10-02 19:00:00+05:30 | entry 2025-10-03 00:00:00+05:30 (candle 5-6)",
+        "Entry 170.57 | SL 167.93 | Target 175.61 | RR 1.91 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MA",
+      "name": "Ma",
+      "symbol": "MA",
+      "notify_key": "MA|MA|2025-10-01 13:30:00+00:00|2025-10-01 19:30:00+00:00|574.0",
+      "signal_time": "2025-10-01 19:00:00+05:30",
+      "entry_time": "2025-10-02 01:00:00+05:30",
+      "entry_price": 574.0,
+      "stop_price": 572.23,
+      "target_price": 583.27,
+      "rr_ratio": 5.23,
+      "vol_mult": 5.32,
+      "lines": [
+        "Ma breakout 2025-10-01 19:00:00+05:30 | entry 2025-10-02 01:00:00+05:30 (candle 5-6)",
+        "Entry 574.00 | SL 572.23 | Target 583.27 | RR 5.23 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "name": "Nke",
+      "symbol": "NKE",
+      "notify_key": "NKE|NKE|2025-10-01 14:30:00+00:00|2025-10-01 19:30:00+00:00|74.24",
+      "signal_time": "2025-10-01 20:00:00+05:30",
+      "entry_time": "2025-10-02 01:00:00+05:30",
+      "entry_price": 74.24,
+      "stop_price": 72.73,
+      "target_price": 76.73,
+      "rr_ratio": 1.65,
+      "vol_mult": 3.52,
+      "lines": [
+        "Nke breakout 2025-10-01 20:00:00+05:30 | entry 2025-10-02 01:00:00+05:30 (candle 5-6)",
+        "Entry 74.24 | SL 72.73 | Target 76.73 | RR 1.65 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "name": "Nke",
+      "symbol": "NKE",
+      "notify_key": "NKE|NKE|2025-10-01 13:30:00+00:00|2025-10-01 18:30:00+00:00|73.83",
+      "signal_time": "2025-10-01 19:00:00+05:30",
+      "entry_time": "2025-10-02 00:00:00+05:30",
+      "entry_price": 73.83,
+      "stop_price": 72.35,
+      "target_price": 76.27,
+      "rr_ratio": 1.65,
+      "vol_mult": 9.52,
+      "lines": [
+        "Nke breakout 2025-10-01 19:00:00+05:30 | entry 2025-10-02 00:00:00+05:30 (candle 5-6)",
+        "Entry 73.83 | SL 72.35 | Target 76.27 | RR 1.65 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "V",
+      "name": "V",
+      "symbol": "V",
+      "notify_key": "V|V|2025-10-01 13:30:00+00:00|2025-10-01 18:30:00+00:00|348.17",
+      "signal_time": "2025-10-01 19:00:00+05:30",
+      "entry_time": "2025-10-02 00:00:00+05:30",
+      "entry_price": 348.17,
+      "stop_price": 345.99,
+      "target_price": 354.79,
+      "rr_ratio": 3.03,
+      "vol_mult": 3.06,
+      "lines": [
+        "V breakout 2025-10-01 19:00:00+05:30 | entry 2025-10-02 00:00:00+05:30 (candle 5-6)",
+        "Entry 348.17 | SL 345.99 | Target 354.79 | RR 3.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "LIN",
+      "name": "Lin",
+      "symbol": "LIN",
+      "notify_key": "LIN|LIN|2025-09-29 19:30:00+00:00|2025-09-30 17:30:00+00:00|477.04",
+      "signal_time": "2025-09-30 01:00:00+05:30",
+      "entry_time": "2025-09-30 23:00:00+05:30",
+      "entry_price": 477.04,
+      "stop_price": 475.13,
+      "target_price": 482.73,
+      "rr_ratio": 2.99,
+      "vol_mult": 4.94,
+      "lines": [
+        "Lin breakout 2025-09-30 01:00:00+05:30 | entry 2025-09-30 23:00:00+05:30 (candle 5-6)",
+        "Entry 477.04 | SL 475.13 | Target 482.73 | RR 2.99 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2025-09-26 17:30:00+00:00|2025-09-29 15:30:00+00:00|34.94",
+      "signal_time": "2025-09-26 23:00:00+05:30",
+      "entry_time": "2025-09-29 21:00:00+05:30",
+      "entry_price": 34.94,
+      "stop_price": 34.52,
+      "target_price": 36.82,
+      "rr_ratio": 4.48,
+      "vol_mult": 4.35,
+      "lines": [
+        "Intc breakout 2025-09-26 23:00:00+05:30 | entry 2025-09-29 21:00:00+05:30 (candle 5-6)",
+        "Entry 34.94 | SL 34.52 | Target 36.82 | RR 4.48 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "Ibm",
+      "symbol": "IBM",
+      "notify_key": "IBM|IBM|2025-09-25 13:30:00+00:00|2025-09-25 19:30:00+00:00|281.45",
+      "signal_time": "2025-09-25 19:00:00+05:30",
+      "entry_time": "2025-09-26 01:00:00+05:30",
+      "entry_price": 281.45,
+      "stop_price": 278.18,
+      "target_price": 288.86,
+      "rr_ratio": 2.27,
+      "vol_mult": 5.4,
+      "lines": [
+        "Ibm breakout 2025-09-25 19:00:00+05:30 | entry 2025-09-26 01:00:00+05:30 (candle 5-6)",
+        "Entry 281.45 | SL 278.18 | Target 288.86 | RR 2.27 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "name": "Ibm",
+      "symbol": "IBM",
+      "notify_key": "IBM|IBM|2025-09-25 14:30:00+00:00|2025-09-25 19:30:00+00:00|281.45",
+      "signal_time": "2025-09-25 20:00:00+05:30",
+      "entry_time": "2025-09-26 01:00:00+05:30",
+      "entry_price": 281.45,
+      "stop_price": 278.18,
+      "target_price": 288.86,
+      "rr_ratio": 2.27,
+      "vol_mult": 4.15,
+      "lines": [
+        "Ibm breakout 2025-09-25 20:00:00+05:30 | entry 2025-09-26 01:00:00+05:30 (candle 5-6)",
+        "Entry 281.45 | SL 278.18 | Target 288.86 | RR 2.27 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Csco",
+      "symbol": "CSCO",
+      "notify_key": "CSCO|CSCO|2025-09-25 13:30:00+00:00|2025-09-25 18:30:00+00:00|67.75",
+      "signal_time": "2025-09-25 19:00:00+05:30",
+      "entry_time": "2025-09-26 00:00:00+05:30",
+      "entry_price": 67.75,
+      "stop_price": 67.61,
+      "target_price": 68.64,
+      "rr_ratio": 5.9,
+      "vol_mult": 3.19,
+      "lines": [
+        "Csco breakout 2025-09-25 19:00:00+05:30 | entry 2025-09-26 00:00:00+05:30 (candle 5-6)",
+        "Entry 67.75 | SL 67.61 | Target 68.64 | RR 5.90 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intc",
+      "symbol": "INTC",
+      "notify_key": "INTC|INTC|2025-09-25 13:30:00+00:00|2025-09-25 18:30:00+00:00|33.8",
+      "signal_time": "2025-09-25 19:00:00+05:30",
+      "entry_time": "2025-09-26 00:00:00+05:30",
+      "entry_price": 33.8,
+      "stop_price": 32.64,
+      "target_price": 35.74,
+      "rr_ratio": 1.68,
+      "vol_mult": 3.4,
+      "lines": [
+        "Intc breakout 2025-09-25 19:00:00+05:30 | entry 2025-09-26 00:00:00+05:30 (candle 5-6)",
+        "Entry 33.80 | SL 32.64 | Target 35.74 | RR 1.68 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Aapl",
+      "symbol": "AAPL",
+      "notify_key": "AAPL|AAPL|2025-09-22 13:30:00+00:00|2025-09-22 18:30:00+00:00|255.79",
+      "signal_time": "2025-09-22 19:00:00+05:30",
+      "entry_time": "2025-09-23 00:00:00+05:30",
+      "entry_price": 255.79,
+      "stop_price": 251.88,
+      "target_price": 261.91,
+      "rr_ratio": 1.56,
+      "vol_mult": 3.85,
+      "lines": [
+        "Aapl breakout 2025-09-22 19:00:00+05:30 | entry 2025-09-23 00:00:00+05:30 (candle 5-6)",
+        "Entry 255.79 | SL 251.88 | Target 261.91 | RR 1.56 | Touch VWAP"
+      ]
+    }
+  ]
+}

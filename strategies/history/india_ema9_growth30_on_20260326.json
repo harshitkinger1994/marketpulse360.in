@@ -1,0 +1,268 @@
+{
+  "strategy_id": "india_ema9_growth30_on",
+  "title": "India F&O + Index Radar (EMA9 Growth 30)",
+  "owner": "HARSHIT",
+  "trade_type": "SWING",
+  "market": "india",
+  "generated_at": "2026-03-26T17:45:43.241273+00:00",
+  "as_of_date": "2026-03-25",
+  "counts": {
+    "assets": 210,
+    "assets_with_data": 210,
+    "window_days": 30,
+    "signals_total": 15,
+    "universe_breakdown": {
+      "fno_stocks": 207,
+      "index_companions": 3
+    }
+  },
+  "rules": {
+    "breakout_condition": "Daily range > ATR(14) x 1.4, with daily and weekly EMA9 side alignment",
+    "entry_trigger": "BUY: low < EMA9 and close > EMA9 with bullish candle near high | SELL: high > EMA9 and close < EMA9 with bearish candle near low",
+    "volume_multiple": "Daily volume > SMA(14)",
+    "lookback_volume": 14,
+    "rsi_range": [
+      30.0,
+      60.0
+    ],
+    "min_atr_pct": 0.0,
+    "require_ema9_slope": false,
+    "ema9_slope_lookback_days": 5,
+    "filter_mode": "RSI(14) in 30.0-60.0, volume > SMA(14); market gate disabled"
+  },
+  "notes": [
+    "Daily+Weekly EMA9 strategy with ATR range expansion, volume, RSI and candle-body confirmation.",
+    "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
+    "Market benchmark gate is disabled for this strategy.",
+    "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures.",
+    "Curated live-supported index companions are appended to this India universe with the same strategy filters.",
+    "Tracked universe: 210 instruments (fno stocks: 207, index companions: 3)."
+  ],
+  "items": [
+    {
+      "ticker": "DMART",
+      "name": "DMART",
+      "symbol": "DMART.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "DMART|2026-03-25|BUY|3910.80",
+      "signal_time": "2026-03-25",
+      "entry_time": "2026-03-25",
+      "entry_price": 3910.800048828125,
+      "lines": [
+        "BUY | Date 2026-03-25 | Close 3910.80 vs EMA9 3812.66 | Weekly close 3910.80 vs EMA9 3847.68",
+        "Range 178.00 > ATR14x1.4 (125.21) | Vol 1335663 vs SMA14 497088 | RSI14 54.49 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING",
+      "name": "PNBHOUSING",
+      "symbol": "PNBHOUSING.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "PNBHOUSING|2026-03-23|SELL|750.75",
+      "signal_time": "2026-03-23",
+      "entry_time": "2026-03-23",
+      "entry_price": 750.75,
+      "lines": [
+        "SELL | Date 2026-03-23 | Close 750.75 vs EMA9 780.41 | Weekly close 802.85 vs EMA9 817.64",
+        "Range 50.90 > ATR14x1.4 (31.53) | Vol 1251948 vs SMA14 955108 | RSI14 37.57 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "DELHIVERY",
+      "name": "DELHIVERY",
+      "symbol": "DELHIVERY.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "DELHIVERY|2026-03-18|BUY|422.55",
+      "signal_time": "2026-03-18",
+      "entry_time": "2026-03-18",
+      "entry_price": 422.54998779296875,
+      "lines": [
+        "BUY | Date 2026-03-18 | Close 422.55 vs EMA9 413.96 | Weekly close 422.85 vs EMA9 419.39",
+        "Range 23.05 > ATR14x1.4 (14.83) | Vol 3826912 vs SMA14 1603172 | RSI14 42.11 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "ONGC",
+      "name": "ONGC",
+      "symbol": "ONGC.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "ONGC|2026-03-09|SELL|270.80",
+      "signal_time": "2026-03-09",
+      "entry_time": "2026-03-09",
+      "entry_price": 270.79998779296875,
+      "lines": [
+        "SELL | Date 2026-03-09 | Close 270.80 vs EMA9 276.14 | Weekly close 264.10 vs EMA9 266.12",
+        "Range 21.40 > ATR14x1.4 (9.50) | Vol 56512457 vs SMA14 29917305 | RSI14 49.23 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "UNITDSPR",
+      "name": "UNITDSPR",
+      "symbol": "UNITDSPR.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "UNITDSPR|2026-03-06|BUY|1389.80",
+      "signal_time": "2026-03-06",
+      "entry_time": "2026-03-06",
+      "entry_price": 1389.800048828125,
+      "lines": [
+        "BUY | Date 2026-03-06 | Close 1389.80 vs EMA9 1371.63 | Weekly close 1389.80 vs EMA9 1381.89",
+        "Range 111.10 > ATR14x1.4 (35.24) | Vol 5578937 vs SMA14 952126 | RSI14 47.83 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "SHREECEM",
+      "name": "SHREECEM",
+      "symbol": "SHREECEM.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "SHREECEM|2026-02-27|SELL|26075.00",
+      "signal_time": "2026-02-27",
+      "entry_time": "2026-02-27",
+      "entry_price": 26075.0,
+      "lines": [
+        "SELL | Date 2026-02-27 | Close 26075.00 vs EMA9 26513.74 | Weekly close 26075.00 vs EMA9 26669.54",
+        "Range 900.00 > ATR14x1.4 (598.93) | Vol 45243 vs SMA14 24607 | RSI14 36.59 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "INDIGO",
+      "name": "INDIGO",
+      "symbol": "INDIGO.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "INDIGO|2026-02-27|SELL|4827.20",
+      "signal_time": "2026-02-27",
+      "entry_time": "2026-02-27",
+      "entry_price": 4827.2001953125,
+      "lines": [
+        "SELL | Date 2026-02-27 | Close 4827.20 vs EMA9 4891.28 | Weekly close 4827.20 vs EMA9 4905.98",
+        "Range 128.00 > ATR14x1.4 (90.46) | Vol 1199332 vs SMA14 666406 | RSI14 39.21 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "name": "HDFCLIFE",
+      "symbol": "HDFCLIFE.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "HDFCLIFE|2026-02-27|SELL|715.30",
+      "signal_time": "2026-02-27",
+      "entry_time": "2026-02-27",
+      "entry_price": 715.2999877929688,
+      "lines": [
+        "SELL | Date 2026-02-27 | Close 715.30 vs EMA9 726.01 | Weekly close 715.30 vs EMA9 724.77",
+        "Range 22.55 > ATR14x1.4 (13.73) | Vol 3416009 vs SMA14 2629638 | RSI14 53.81 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO",
+      "name": "HEROMOTOCO",
+      "symbol": "HEROMOTOCO.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "HEROMOTOCO|2026-02-25|BUY|5737.50",
+      "signal_time": "2026-02-25",
+      "entry_time": "2026-02-25",
+      "entry_price": 5737.5,
+      "lines": [
+        "BUY | Date 2026-02-25 | Close 5737.50 vs EMA9 5578.25 | Weekly close 5710.00 vs EMA9 5639.93",
+        "Range 339.50 > ATR14x1.4 (156.00) | Vol 898486 vs SMA14 501139 | RSI14 48.55 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN",
+      "name": "CHOLAFIN",
+      "symbol": "CHOLAFIN.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "CHOLAFIN|2026-02-24|BUY|1735.10",
+      "signal_time": "2026-02-24",
+      "entry_time": "2026-02-24",
+      "entry_price": 1735.0999755859375,
+      "lines": [
+        "BUY | Date 2026-02-24 | Close 1735.10 vs EMA9 1706.69 | Weekly close 1730.80 vs EMA9 1699.16",
+        "Range 76.60 > ATR14x1.4 (39.56) | Vol 2032442 vs SMA14 1026394 | RSI14 49.25 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "ADANIENSOL",
+      "name": "ADANIENSOL",
+      "symbol": "ADANIENSOL.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "ADANIENSOL|2026-02-24|BUY|1037.10",
+      "signal_time": "2026-02-24",
+      "entry_time": "2026-02-24",
+      "entry_price": 1037.0999755859375,
+      "lines": [
+        "BUY | Date 2026-02-24 | Close 1037.10 vs EMA9 1012.79 | Weekly close 1011.55 vs EMA9 974.58",
+        "Range 51.30 > ATR14x1.4 (30.30) | Vol 1356273 vs SMA14 1288289 | RSI14 59.90 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "IRCTC",
+      "name": "IRCTC",
+      "symbol": "IRCTC.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "IRCTC|2026-02-24|SELL|614.45",
+      "signal_time": "2026-02-24",
+      "entry_time": "2026-02-24",
+      "entry_price": 614.4500122070312,
+      "lines": [
+        "SELL | Date 2026-02-24 | Close 614.45 vs EMA9 626.57 | Weekly close 569.55 vs EMA9 627.18",
+        "Range 25.75 > ATR14x1.4 (15.89) | Vol 4217676 vs SMA14 2248192 | RSI14 46.20 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "name": "HDFCLIFE",
+      "symbol": "HDFCLIFE.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "HDFCLIFE|2026-02-18|BUY|729.60",
+      "signal_time": "2026-02-18",
+      "entry_time": "2026-02-18",
+      "entry_price": 729.5999755859375,
+      "lines": [
+        "BUY | Date 2026-02-18 | Close 729.60 vs EMA9 711.20 | Weekly close 728.65 vs EMA9 727.14",
+        "Range 25.85 > ATR14x1.4 (14.81) | Vol 4974855 vs SMA14 3113315 | RSI14 51.35 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "PNB",
+      "name": "PNB",
+      "symbol": "PNB.NS",
+      "instrument_type": "fno_stock",
+      "side": "BUY",
+      "notify_key": "PNB|2026-02-17|BUY|124.82",
+      "signal_time": "2026-02-17",
+      "entry_time": "2026-02-17",
+      "entry_price": 124.81999969482422,
+      "lines": [
+        "BUY | Date 2026-02-17 | Close 124.82 vs EMA9 122.41 | Weekly close 129.59 vs EMA9 123.77",
+        "Range 5.79 > ATR14x1.4 (3.28) | Vol 39934490 vs SMA14 16860806 | RSI14 50.84 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "ALKEM",
+      "name": "ALKEM",
+      "symbol": "ALKEM.NS",
+      "instrument_type": "fno_stock",
+      "side": "SELL",
+      "notify_key": "ALKEM|2026-02-13|SELL|5402.50",
+      "signal_time": "2026-02-13",
+      "entry_time": "2026-02-13",
+      "entry_price": 5402.5,
+      "lines": [
+        "SELL | Date 2026-02-13 | Close 5402.50 vs EMA9 5700.62 | Weekly close 5402.50 vs EMA9 5628.99",
+        "Range 518.50 > ATR14x1.4 (169.11) | Vol 605115 vs SMA14 150332 | RSI14 35.38 | Market gate disabled"
+      ]
+    }
+  ]
+}

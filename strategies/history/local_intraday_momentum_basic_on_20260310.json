@@ -1,0 +1,1199 @@
+{
+  "strategy_id": "local_intraday_momentum_basic_on",
+  "title": "Intraday Momentum Basic \u2014 Trade ON (VWAP + Green Close)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "all",
+  "filter_mode": "basic",
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-10",
+  "runtime_sec": 52.44,
+  "notes": [
+    "Entry only after VWAP retouch and a green 5m close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP.",
+    "Basic mode: breakout + volume + VWAP only.",
+    "Exit shown at day close and +15m from entry."
+  ],
+  "items": [
+    {
+      "ticker": "RELIANCE.NS",
+      "name": "RELIANCE.NS",
+      "notify_key": "RELIANCE.NS|2026-03-10 13:30|ON",
+      "lines": [
+        "Signal 2026-03-10 13:30 | VWAP touch 2026-03-10 14:00 | Trade ON 2026-03-10 14:05 | Entry 1413.70 | Exit@Close 1410.90 (-0.20%) | Exit@+15m 1410.80 (-0.21%)"
+      ]
+    },
+    {
+      "ticker": "HDFCBANK.NS",
+      "name": "HDFCBANK.NS",
+      "notify_key": "HDFCBANK.NS|2026-03-10 10:15|ON",
+      "lines": [
+        "Signal 2026-03-10 10:15 | VWAP touch 2026-03-10 12:10 | Trade ON 2026-03-10 12:15 | Entry 851.65 | Exit@Close 849.65 (-0.23%) | Exit@+15m 850.85 (-0.09%)"
+      ]
+    },
+    {
+      "ticker": "ICICIBANK.NS",
+      "name": "ICICIBANK.NS",
+      "notify_key": "ICICIBANK.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 10:00 | Entry 1297.60 | Exit@Close 1311.00 (+1.03%) | Exit@+15m 1301.90 (+0.33%)"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL.NS",
+      "name": "BHARTIARTL.NS",
+      "notify_key": "BHARTIARTL.NS|2026-03-10 10:35|ON",
+      "lines": [
+        "Signal 2026-03-10 10:35 | VWAP touch 2026-03-10 10:40 | Trade ON 2026-03-10 10:45 | Entry 1859.70 | Exit@Close 1855.50 (-0.23%) | Exit@+15m 1858.30 (-0.08%)"
+      ]
+    },
+    {
+      "ticker": "BPCL.NS",
+      "name": "BPCL.NS",
+      "notify_key": "BPCL.NS|2026-03-10 13:35|ON",
+      "lines": [
+        "Signal 2026-03-10 13:35 | VWAP touch 2026-03-10 13:40 | Trade ON 2026-03-10 15:25 | Entry 327.00 | Exit@Close 327.00 (+0.00%) | Exit@+15m 327.00 (+0.00%)"
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:40 | Entry 2842.30 | Exit@Close 2861.40 (+0.67%) | Exit@+15m 2836.30 (-0.21%)"
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-10 09:40|ON",
+      "lines": [
+        "Signal 2026-03-10 09:40 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 15:05 | Entry 2860.70 | Exit@Close 2861.40 (+0.02%) | Exit@+15m 2862.90 (+0.08%)"
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-10 09:45|ON",
+      "lines": [
+        "Signal 2026-03-10 09:45 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 15:05 | Entry 2860.70 | Exit@Close 2861.40 (+0.02%) | Exit@+15m 2862.90 (+0.08%)"
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-10 12:05|ON",
+      "lines": [
+        "Signal 2026-03-10 12:05 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 15:05 | Entry 2860.70 | Exit@Close 2861.40 (+0.02%) | Exit@+15m 2862.90 (+0.08%)"
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-10 12:50|ON",
+      "lines": [
+        "Signal 2026-03-10 12:50 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 15:05 | Entry 2860.70 | Exit@Close 2861.40 (+0.02%) | Exit@+15m 2862.90 (+0.08%)"
+      ]
+    },
+    {
+      "ticker": "MCX.NS",
+      "name": "MCX.NS",
+      "notify_key": "MCX.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 10:50 | Trade ON 2026-03-10 11:10 | Entry 2604.70 | Exit@Close 2578.20 (-1.02%) | Exit@+15m 2595.10 (-0.37%)"
+      ]
+    },
+    {
+      "ticker": "HINDPETRO.NS",
+      "name": "HINDPETRO.NS",
+      "notify_key": "HINDPETRO.NS|2026-03-10 13:35|ON",
+      "lines": [
+        "Signal 2026-03-10 13:35 | VWAP touch 2026-03-10 13:40 | Trade ON 2026-03-10 14:00 | Entry 385.50 | Exit@Close 388.70 (+0.83%) | Exit@+15m 385.60 (+0.03%)"
+      ]
+    },
+    {
+      "ticker": "SUNPHARMA.NS",
+      "name": "SUNPHARMA.NS",
+      "notify_key": "SUNPHARMA.NS|2026-03-10 12:00|ON",
+      "lines": [
+        "Signal 2026-03-10 12:00 | VWAP touch 2026-03-10 12:05 | Trade ON 2026-03-10 12:15 | Entry 1815.70 | Exit@Close 1812.80 (-0.16%) | Exit@+15m 1810.50 (-0.29%)"
+      ]
+    },
+    {
+      "ticker": "SUNPHARMA.NS",
+      "name": "SUNPHARMA.NS",
+      "notify_key": "SUNPHARMA.NS|2026-03-10 15:00|ON",
+      "lines": [
+        "Signal 2026-03-10 15:00 | VWAP touch 2026-03-10 15:05 | Trade ON 2026-03-10 15:10 | Entry 1813.60 | Exit@Close 1812.80 (-0.04%) | Exit@+15m 1812.80 (-0.04%)"
+      ]
+    },
+    {
+      "ticker": "NATIONALUM.NS",
+      "name": "NATIONALUM.NS",
+      "notify_key": "NATIONALUM.NS|2026-03-10 11:15|ON",
+      "lines": [
+        "Signal 2026-03-10 11:15 | VWAP touch 2026-03-10 13:55 | Trade ON 2026-03-10 14:05 | Entry 387.10 | Exit@Close 390.60 (+0.90%) | Exit@+15m 385.85 (-0.32%)"
+      ]
+    },
+    {
+      "ticker": "POWERGRID.NS",
+      "name": "POWERGRID.NS",
+      "notify_key": "POWERGRID.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 14:35 | Trade ON 2026-03-10 14:45 | Entry 298.55 | Exit@Close 299.20 (+0.22%) | Exit@+15m 298.35 (-0.07%)"
+      ]
+    },
+    {
+      "ticker": "POWERGRID.NS",
+      "name": "POWERGRID.NS",
+      "notify_key": "POWERGRID.NS|2026-03-10 11:00|ON",
+      "lines": [
+        "Signal 2026-03-10 11:00 | VWAP touch 2026-03-10 14:35 | Trade ON 2026-03-10 14:45 | Entry 298.55 | Exit@Close 299.20 (+0.22%) | Exit@+15m 298.35 (-0.07%)"
+      ]
+    },
+    {
+      "ticker": "PGEL.NS",
+      "name": "PGEL.NS",
+      "notify_key": "PGEL.NS|2026-03-10 10:25|ON",
+      "lines": [
+        "Signal 2026-03-10 10:25 | VWAP touch 2026-03-10 11:10 | Trade ON 2026-03-10 11:15 | Entry 532.25 | Exit@Close 551.95 (+3.70%) | Exit@+15m 534.95 (+0.51%)"
+      ]
+    },
+    {
+      "ticker": "WIPRO.NS",
+      "name": "WIPRO.NS",
+      "notify_key": "WIPRO.NS|2026-03-10 10:55|ON",
+      "lines": [
+        "Signal 2026-03-10 10:55 | VWAP touch 2026-03-10 11:20 | Trade ON 2026-03-10 11:30 | Entry 199.09 | Exit@Close 200.85 (+0.88%) | Exit@+15m 198.45 (-0.32%)"
+      ]
+    },
+    {
+      "ticker": "NTPC.NS",
+      "name": "NTPC.NS",
+      "notify_key": "NTPC.NS|2026-03-10 11:15|ON",
+      "lines": [
+        "Signal 2026-03-10 11:15 | VWAP touch 2026-03-10 11:50 | Trade ON 2026-03-10 15:20 | Entry 378.25 | Exit@Close 377.45 (-0.21%) | Exit@+15m 381.00 (+0.73%)"
+      ]
+    },
+    {
+      "ticker": "HINDZINC.NS",
+      "name": "HINDZINC.NS",
+      "notify_key": "HINDZINC.NS|2026-03-10 11:15|ON",
+      "lines": [
+        "Signal 2026-03-10 11:15 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:45 | Entry 585.70 | Exit@Close 590.00 (+0.73%) | Exit@+15m 585.80 (+0.02%)"
+      ]
+    },
+    {
+      "ticker": "POWERINDIA.NS",
+      "name": "POWERINDIA.NS",
+      "notify_key": "POWERINDIA.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 09:40 | Entry 26295.00 | Exit@Close 25395.00 (-3.42%) | Exit@+15m 25935.00 (-1.37%)"
+      ]
+    },
+    {
+      "ticker": "TRENT.NS",
+      "name": "TRENT.NS",
+      "notify_key": "TRENT.NS|2026-03-10 14:45|ON",
+      "lines": [
+        "Signal 2026-03-10 14:45 | VWAP touch 2026-03-10 15:00 | Trade ON 2026-03-10 15:05 | Entry 3721.00 | Exit@Close 3717.00 (-0.11%) | Exit@+15m 3718.20 (-0.08%)"
+      ]
+    },
+    {
+      "ticker": "FEDERALBNK.NS",
+      "name": "FEDERALBNK.NS",
+      "notify_key": "FEDERALBNK.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 11:00 | Trade ON 2026-03-10 11:05 | Entry 278.90 | Exit@Close 276.40 (-0.90%) | Exit@+15m 279.45 (+0.20%)"
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-10 14:10|ON",
+      "lines": [
+        "Signal 2026-03-10 14:10 | VWAP touch 2026-03-10 14:15 | Trade ON 2026-03-10 15:15 | Entry 2192.40 | Exit@Close 2192.00 (-0.02%) | Exit@+15m 2183.30 (-0.42%)"
+      ]
+    },
+    {
+      "ticker": "GAIL.NS",
+      "name": "GAIL.NS",
+      "notify_key": "GAIL.NS|2026-03-10 10:15|ON",
+      "lines": [
+        "Signal 2026-03-10 10:15 | VWAP touch 2026-03-10 12:35 | Trade ON 2026-03-10 12:40 | Entry 151.30 | Exit@Close 150.60 (-0.46%) | Exit@+15m 150.61 (-0.46%)"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK.NS",
+      "name": "INDUSINDBK.NS",
+      "notify_key": "INDUSINDBK.NS|2026-03-10 10:40|ON",
+      "lines": [
+        "Signal 2026-03-10 10:40 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:50 | Entry 894.80 | Exit@Close 898.70 (+0.44%) | Exit@+15m 894.95 (+0.02%)"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK.NS",
+      "name": "INDUSINDBK.NS",
+      "notify_key": "INDUSINDBK.NS|2026-03-10 11:15|ON",
+      "lines": [
+        "Signal 2026-03-10 11:15 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:50 | Entry 894.80 | Exit@Close 898.70 (+0.44%) | Exit@+15m 894.95 (+0.02%)"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK.NS",
+      "name": "INDUSINDBK.NS",
+      "notify_key": "INDUSINDBK.NS|2026-03-10 14:10|ON",
+      "lines": [
+        "Signal 2026-03-10 14:10 | VWAP touch 2026-03-10 14:30 | Trade ON 2026-03-10 14:40 | Entry 896.50 | Exit@Close 898.70 (+0.25%) | Exit@+15m 898.80 (+0.26%)"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE.NS",
+      "name": "HDFCLIFE.NS",
+      "notify_key": "HDFCLIFE.NS|2026-03-10 12:50|ON",
+      "lines": [
+        "Signal 2026-03-10 12:50 | VWAP touch 2026-03-10 13:25 | Trade ON 2026-03-10 13:30 | Entry 657.90 | Exit@Close 656.90 (-0.15%) | Exit@+15m 658.80 (+0.14%)"
+      ]
+    },
+    {
+      "ticker": "PAYTM.NS",
+      "name": "PAYTM.NS",
+      "notify_key": "PAYTM.NS|2026-03-10 13:50|ON",
+      "lines": [
+        "Signal 2026-03-10 13:50 | VWAP touch 2026-03-10 14:00 | Trade ON 2026-03-10 14:45 | Entry 1041.50 | Exit@Close 1040.60 (-0.09%) | Exit@+15m 1039.00 (-0.24%)"
+      ]
+    },
+    {
+      "ticker": "PETRONET.NS",
+      "name": "PETRONET.NS",
+      "notify_key": "PETRONET.NS|2026-03-10 09:30|ON",
+      "lines": [
+        "Signal 2026-03-10 09:30 | VWAP touch 2026-03-10 09:40 | Trade ON 2026-03-10 09:45 | Entry 290.80 | Exit@Close 290.10 (-0.24%) | Exit@+15m 290.40 (-0.14%)"
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "name": "CHOLAFIN.NS",
+      "notify_key": "CHOLAFIN.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 14:55 | Entry 1621.30 | Exit@Close 1621.90 (+0.04%) | Exit@+15m 1620.00 (-0.08%)"
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "name": "CHOLAFIN.NS",
+      "notify_key": "CHOLAFIN.NS|2026-03-10 11:05|ON",
+      "lines": [
+        "Signal 2026-03-10 11:05 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 14:55 | Entry 1621.30 | Exit@Close 1621.90 (+0.04%) | Exit@+15m 1620.00 (-0.08%)"
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "name": "CHOLAFIN.NS",
+      "notify_key": "CHOLAFIN.NS|2026-03-10 12:35|ON",
+      "lines": [
+        "Signal 2026-03-10 12:35 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 14:55 | Entry 1621.30 | Exit@Close 1621.90 (+0.04%) | Exit@+15m 1620.00 (-0.08%)"
+      ]
+    },
+    {
+      "ticker": "GRASIM.NS",
+      "name": "GRASIM.NS",
+      "notify_key": "GRASIM.NS|2026-03-10 10:40|ON",
+      "lines": [
+        "Signal 2026-03-10 10:40 | VWAP touch 2026-03-10 11:15 | Trade ON 2026-03-10 11:20 | Entry 2720.00 | Exit@Close 2753.00 (+1.21%) | Exit@+15m 2734.40 (+0.53%)"
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 10:55 | Entry 1261.90 | Exit@Close 1289.00 (+2.15%) | Exit@+15m 1267.40 (+0.44%)"
+      ]
+    },
+    {
+      "ticker": "ADANIENT.NS",
+      "name": "ADANIENT.NS",
+      "notify_key": "ADANIENT.NS|2026-03-10 13:40|ON",
+      "lines": [
+        "Signal 2026-03-10 13:40 | VWAP touch 2026-03-10 13:45 | Trade ON 2026-03-10 14:05 | Entry 1996.40 | Exit@Close 2001.00 (+0.23%) | Exit@+15m 2003.00 (+0.33%)"
+      ]
+    },
+    {
+      "ticker": "ADANIENT.NS",
+      "name": "ADANIENT.NS",
+      "notify_key": "ADANIENT.NS|2026-03-10 14:10|ON",
+      "lines": [
+        "Signal 2026-03-10 14:10 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 15:05 | Entry 1997.00 | Exit@Close 2001.00 (+0.20%) | Exit@+15m 1997.00 (+0.00%)"
+      ]
+    },
+    {
+      "ticker": "MAXHEALTH.NS",
+      "name": "MAXHEALTH.NS",
+      "notify_key": "MAXHEALTH.NS|2026-03-10 11:10|ON",
+      "lines": [
+        "Signal 2026-03-10 11:10 | VWAP touch 2026-03-10 11:25 | Trade ON 2026-03-10 11:30 | Entry 1042.50 | Exit@Close 1041.00 (-0.14%) | Exit@+15m 1041.40 (-0.11%)"
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-10 12:15|ON",
+      "lines": [
+        "Signal 2026-03-10 12:15 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 150.46 | Exit@Close 150.30 (-0.11%) | Exit@+15m 150.27 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-10 12:35|ON",
+      "lines": [
+        "Signal 2026-03-10 12:35 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 150.46 | Exit@Close 150.30 (-0.11%) | Exit@+15m 150.27 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-10 13:00|ON",
+      "lines": [
+        "Signal 2026-03-10 13:00 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 150.46 | Exit@Close 150.30 (-0.11%) | Exit@+15m 150.27 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "DLF.NS",
+      "name": "DLF.NS",
+      "notify_key": "DLF.NS|2026-03-10 12:05|ON",
+      "lines": [
+        "Signal 2026-03-10 12:05 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:25 | Entry 581.05 | Exit@Close 585.30 (+0.73%) | Exit@+15m 582.55 (+0.26%)"
+      ]
+    },
+    {
+      "ticker": "CDSL.NS",
+      "name": "CDSL.NS",
+      "notify_key": "CDSL.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:40 | Entry 1232.10 | Exit@Close 1253.00 (+1.70%) | Exit@+15m 1227.60 (-0.37%)"
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-10 11:50|ON",
+      "lines": [
+        "Signal 2026-03-10 11:50 | VWAP touch 2026-03-10 11:55 | Trade ON 2026-03-10 12:05 | Entry 4210.60 | Exit@Close 4216.00 (+0.13%) | Exit@+15m 4204.40 (-0.15%)"
+      ]
+    },
+    {
+      "ticker": "CIPLA.NS",
+      "name": "CIPLA.NS",
+      "notify_key": "CIPLA.NS|2026-03-10 11:15|ON",
+      "lines": [
+        "Signal 2026-03-10 11:15 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:25 | Entry 1329.30 | Exit@Close 1333.50 (+0.32%) | Exit@+15m 1333.00 (+0.28%)"
+      ]
+    },
+    {
+      "ticker": "CIPLA.NS",
+      "name": "CIPLA.NS",
+      "notify_key": "CIPLA.NS|2026-03-10 11:35|ON",
+      "lines": [
+        "Signal 2026-03-10 11:35 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:25 | Entry 1329.30 | Exit@Close 1333.50 (+0.32%) | Exit@+15m 1333.00 (+0.28%)"
+      ]
+    },
+    {
+      "ticker": "NMDC.NS",
+      "name": "NMDC.NS",
+      "notify_key": "NMDC.NS|2026-03-10 15:05|ON",
+      "lines": [
+        "Signal 2026-03-10 15:05 | VWAP touch 2026-03-10 15:15 | Trade ON 2026-03-10 15:25 | Entry 79.81 | Exit@Close 79.81 (+0.00%) | Exit@+15m 80.64 (+1.04%)"
+      ]
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "name": "YESBANK.NS",
+      "notify_key": "YESBANK.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 11:50 | Trade ON 2026-03-10 12:45 | Entry 19.89 | Exit@Close 19.93 (+0.20%) | Exit@+15m 19.93 (+0.20%)"
+      ]
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "name": "YESBANK.NS",
+      "notify_key": "YESBANK.NS|2026-03-10 12:55|ON",
+      "lines": [
+        "Signal 2026-03-10 12:55 | VWAP touch 2026-03-10 15:00 | Trade ON 2026-03-10 15:05 | Entry 19.90 | Exit@Close 19.93 (+0.15%) | Exit@+15m 19.96 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "name": "YESBANK.NS",
+      "notify_key": "YESBANK.NS|2026-03-10 13:00|ON",
+      "lines": [
+        "Signal 2026-03-10 13:00 | VWAP touch 2026-03-10 15:00 | Trade ON 2026-03-10 15:05 | Entry 19.90 | Exit@Close 19.93 (+0.15%) | Exit@+15m 19.96 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "name": "YESBANK.NS",
+      "notify_key": "YESBANK.NS|2026-03-10 13:35|ON",
+      "lines": [
+        "Signal 2026-03-10 13:35 | VWAP touch 2026-03-10 15:00 | Trade ON 2026-03-10 15:05 | Entry 19.90 | Exit@Close 19.93 (+0.15%) | Exit@+15m 19.96 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "name": "YESBANK.NS",
+      "notify_key": "YESBANK.NS|2026-03-10 14:05|ON",
+      "lines": [
+        "Signal 2026-03-10 14:05 | VWAP touch 2026-03-10 15:00 | Trade ON 2026-03-10 15:05 | Entry 19.90 | Exit@Close 19.93 (+0.15%) | Exit@+15m 19.96 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-10 12:40|ON",
+      "lines": [
+        "Signal 2026-03-10 12:40 | VWAP touch 2026-03-10 13:25 | Trade ON 2026-03-10 13:30 | Entry 1319.40 | Exit@Close 1313.70 (-0.43%) | Exit@+15m 1314.60 (-0.36%)"
+      ]
+    },
+    {
+      "ticker": "LAURUSLABS.NS",
+      "name": "LAURUSLABS.NS",
+      "notify_key": "LAURUSLABS.NS|2026-03-10 11:10|ON",
+      "lines": [
+        "Signal 2026-03-10 11:10 | VWAP touch 2026-03-10 11:20 | Trade ON 2026-03-10 11:25 | Entry 1040.30 | Exit@Close 1041.00 (+0.07%) | Exit@+15m 1042.30 (+0.19%)"
+      ]
+    },
+    {
+      "ticker": "LUPIN.NS",
+      "name": "LUPIN.NS",
+      "notify_key": "LUPIN.NS|2026-03-10 14:45|ON",
+      "lines": [
+        "Signal 2026-03-10 14:45 | VWAP touch 2026-03-10 14:50 | Trade ON 2026-03-10 15:20 | Entry 2340.00 | Exit@Close 2337.40 (-0.11%) | Exit@+15m 2347.60 (+0.32%)"
+      ]
+    },
+    {
+      "ticker": "AMBUJACEM.NS",
+      "name": "AMBUJACEM.NS",
+      "notify_key": "AMBUJACEM.NS|2026-03-10 14:10|ON",
+      "lines": [
+        "Signal 2026-03-10 14:10 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 15:05 | Entry 462.00 | Exit@Close 463.05 (+0.23%) | Exit@+15m 463.15 (+0.25%)"
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-10 10:30|ON",
+      "lines": [
+        "Signal 2026-03-10 10:30 | VWAP touch 2026-03-10 11:45 | Trade ON 2026-03-10 11:55 | Entry 381.25 | Exit@Close 380.80 (-0.12%) | Exit@+15m 381.35 (+0.03%)"
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-10 14:20|ON",
+      "lines": [
+        "Signal 2026-03-10 14:20 | VWAP touch 2026-03-10 14:30 | Trade ON 2026-03-10 14:35 | Entry 380.85 | Exit@Close 380.80 (-0.01%) | Exit@+15m 381.30 (+0.12%)"
+      ]
+    },
+    {
+      "ticker": "ANGELONE.NS",
+      "name": "ANGELONE.NS",
+      "notify_key": "ANGELONE.NS|2026-03-10 12:35|ON",
+      "lines": [
+        "Signal 2026-03-10 12:35 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 222.65 | Exit@Close 226.00 (+1.50%) | Exit@+15m 224.14 (+0.67%)"
+      ]
+    },
+    {
+      "ticker": "ANGELONE.NS",
+      "name": "ANGELONE.NS",
+      "notify_key": "ANGELONE.NS|2026-03-10 12:45|ON",
+      "lines": [
+        "Signal 2026-03-10 12:45 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 222.65 | Exit@Close 226.00 (+1.50%) | Exit@+15m 224.14 (+0.67%)"
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-10 09:40|ON",
+      "lines": [
+        "Signal 2026-03-10 09:40 | VWAP touch 2026-03-10 09:50 | Trade ON 2026-03-10 10:15 | Entry 713.60 | Exit@Close 728.20 (+2.05%) | Exit@+15m 717.05 (+0.48%)"
+      ]
+    },
+    {
+      "ticker": "BAJAJFINSV.NS",
+      "name": "BAJAJFINSV.NS",
+      "notify_key": "BAJAJFINSV.NS|2026-03-10 11:10|ON",
+      "lines": [
+        "Signal 2026-03-10 11:10 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 14:50 | Entry 1868.60 | Exit@Close 1871.40 (+0.15%) | Exit@+15m 1868.20 (-0.02%)"
+      ]
+    },
+    {
+      "ticker": "BAJAJFINSV.NS",
+      "name": "BAJAJFINSV.NS",
+      "notify_key": "BAJAJFINSV.NS|2026-03-10 11:30|ON",
+      "lines": [
+        "Signal 2026-03-10 11:30 | VWAP touch 2026-03-10 14:45 | Trade ON 2026-03-10 14:50 | Entry 1868.60 | Exit@Close 1871.40 (+0.15%) | Exit@+15m 1868.20 (-0.02%)"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO.NS",
+      "name": "HEROMOTOCO.NS",
+      "notify_key": "HEROMOTOCO.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 12:40 | Trade ON 2026-03-10 12:45 | Entry 5654.00 | Exit@Close 5716.00 (+1.10%) | Exit@+15m 5628.00 (-0.46%)"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO.NS",
+      "name": "HEROMOTOCO.NS",
+      "notify_key": "HEROMOTOCO.NS|2026-03-10 10:55|ON",
+      "lines": [
+        "Signal 2026-03-10 10:55 | VWAP touch 2026-03-10 12:40 | Trade ON 2026-03-10 12:45 | Entry 5654.00 | Exit@Close 5716.00 (+1.10%) | Exit@+15m 5628.00 (-0.46%)"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO.NS",
+      "name": "HEROMOTOCO.NS",
+      "notify_key": "HEROMOTOCO.NS|2026-03-10 11:00|ON",
+      "lines": [
+        "Signal 2026-03-10 11:00 | VWAP touch 2026-03-10 12:40 | Trade ON 2026-03-10 12:45 | Entry 5654.00 | Exit@Close 5716.00 (+1.10%) | Exit@+15m 5628.00 (-0.46%)"
+      ]
+    },
+    {
+      "ticker": "NHPC.NS",
+      "name": "NHPC.NS",
+      "notify_key": "NHPC.NS|2026-03-10 13:40|ON",
+      "lines": [
+        "Signal 2026-03-10 13:40 | VWAP touch 2026-03-10 14:00 | Trade ON 2026-03-10 15:15 | Entry 73.09 | Exit@Close 73.10 (+0.01%) | Exit@+15m 73.56 (+0.64%)"
+      ]
+    },
+    {
+      "ticker": "NHPC.NS",
+      "name": "NHPC.NS",
+      "notify_key": "NHPC.NS|2026-03-10 13:50|ON",
+      "lines": [
+        "Signal 2026-03-10 13:50 | VWAP touch 2026-03-10 14:00 | Trade ON 2026-03-10 15:15 | Entry 73.09 | Exit@Close 73.10 (+0.01%) | Exit@+15m 73.56 (+0.64%)"
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-10 10:40|ON",
+      "lines": [
+        "Signal 2026-03-10 10:40 | VWAP touch 2026-03-10 11:50 | Trade ON 2026-03-10 11:55 | Entry 853.90 | Exit@Close 858.50 (+0.54%) | Exit@+15m 853.35 (-0.06%)"
+      ]
+    },
+    {
+      "ticker": "SAMMAANCAP.NS",
+      "name": "SAMMAANCAP.NS",
+      "notify_key": "SAMMAANCAP.NS|2026-03-10 11:30|ON",
+      "lines": [
+        "Signal 2026-03-10 11:30 | VWAP touch 2026-03-10 13:25 | Trade ON 2026-03-10 13:30 | Entry 143.34 | Exit@Close 144.60 (+0.88%) | Exit@+15m 143.40 (+0.04%)"
+      ]
+    },
+    {
+      "ticker": "SAMMAANCAP.NS",
+      "name": "SAMMAANCAP.NS",
+      "notify_key": "SAMMAANCAP.NS|2026-03-10 11:35|ON",
+      "lines": [
+        "Signal 2026-03-10 11:35 | VWAP touch 2026-03-10 13:25 | Trade ON 2026-03-10 13:30 | Entry 143.34 | Exit@Close 144.60 (+0.88%) | Exit@+15m 143.40 (+0.04%)"
+      ]
+    },
+    {
+      "ticker": "HDFCAMC.NS",
+      "name": "HDFCAMC.NS",
+      "notify_key": "HDFCAMC.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 10:50 | Trade ON 2026-03-10 11:05 | Entry 2494.40 | Exit@Close 2531.40 (+1.48%) | Exit@+15m 2488.10 (-0.25%)"
+      ]
+    },
+    {
+      "ticker": "360ONE.NS",
+      "name": "360ONE.NS",
+      "notify_key": "360ONE.NS|2026-03-10 12:20|ON",
+      "lines": [
+        "Signal 2026-03-10 12:20 | VWAP touch 2026-03-10 12:55 | Trade ON 2026-03-10 13:00 | Entry 1044.30 | Exit@Close 1058.90 (+1.40%) | Exit@+15m 1049.50 (+0.50%)"
+      ]
+    },
+    {
+      "ticker": "360ONE.NS",
+      "name": "360ONE.NS",
+      "notify_key": "360ONE.NS|2026-03-10 12:30|ON",
+      "lines": [
+        "Signal 2026-03-10 12:30 | VWAP touch 2026-03-10 12:55 | Trade ON 2026-03-10 13:00 | Entry 1044.30 | Exit@Close 1058.90 (+1.40%) | Exit@+15m 1049.50 (+0.50%)"
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 09:30 | Entry 6204.00 | Exit@Close 6230.00 (+0.42%) | Exit@+15m 6185.00 (-0.31%)"
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:35 | Entry 6212.50 | Exit@Close 6230.00 (+0.28%) | Exit@+15m 6176.50 (-0.58%)"
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-10 09:30|ON",
+      "lines": [
+        "Signal 2026-03-10 09:30 | VWAP touch 2026-03-10 09:35 | Trade ON 2026-03-10 10:40 | Entry 6181.00 | Exit@Close 6230.00 (+0.79%) | Exit@+15m 6168.00 (-0.21%)"
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-10 14:10|ON",
+      "lines": [
+        "Signal 2026-03-10 14:10 | VWAP touch 2026-03-10 14:20 | Trade ON 2026-03-10 14:35 | Entry 6187.00 | Exit@Close 6230.00 (+0.70%) | Exit@+15m 6200.00 (+0.21%)"
+      ]
+    },
+    {
+      "ticker": "MANAPPURAM.NS",
+      "name": "MANAPPURAM.NS",
+      "notify_key": "MANAPPURAM.NS|2026-03-10 09:45|ON",
+      "lines": [
+        "Signal 2026-03-10 09:45 | VWAP touch 2026-03-10 10:00 | Trade ON 2026-03-10 10:05 | Entry 262.90 | Exit@Close 264.00 (+0.42%) | Exit@+15m 262.15 (-0.29%)"
+      ]
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "name": "KPITTECH.NS",
+      "notify_key": "KPITTECH.NS|2026-03-10 14:55|ON",
+      "lines": [
+        "Signal 2026-03-10 14:55 | VWAP touch 2026-03-10 15:10 | Trade ON 2026-03-10 15:15 | Entry 694.05 | Exit@Close 693.25 (-0.12%) | Exit@+15m 703.45 (+1.35%)"
+      ]
+    },
+    {
+      "ticker": "MARICO.NS",
+      "name": "MARICO.NS",
+      "notify_key": "MARICO.NS|2026-03-10 12:55|ON",
+      "lines": [
+        "Signal 2026-03-10 12:55 | VWAP touch 2026-03-10 13:20 | Trade ON 2026-03-10 13:35 | Entry 787.20 | Exit@Close 788.95 (+0.22%) | Exit@+15m 786.90 (-0.04%)"
+      ]
+    },
+    {
+      "ticker": "UNOMINDA.NS",
+      "name": "UNOMINDA.NS",
+      "notify_key": "UNOMINDA.NS|2026-03-10 10:25|ON",
+      "lines": [
+        "Signal 2026-03-10 10:25 | VWAP touch 2026-03-10 10:30 | Trade ON 2026-03-10 10:35 | Entry 1116.40 | Exit@Close 1114.50 (-0.17%) | Exit@+15m 1113.90 (-0.22%)"
+      ]
+    },
+    {
+      "ticker": "UNOMINDA.NS",
+      "name": "UNOMINDA.NS",
+      "notify_key": "UNOMINDA.NS|2026-03-10 14:50|ON",
+      "lines": [
+        "Signal 2026-03-10 14:50 | VWAP touch 2026-03-10 14:55 | Trade ON 2026-03-10 15:15 | Entry 1117.30 | Exit@Close 1114.50 (-0.25%) | Exit@+15m 1105.60 (-1.05%)"
+      ]
+    },
+    {
+      "ticker": "UNOMINDA.NS",
+      "name": "UNOMINDA.NS",
+      "notify_key": "UNOMINDA.NS|2026-03-10 14:55|ON",
+      "lines": [
+        "Signal 2026-03-10 14:55 | VWAP touch 2026-03-10 15:10 | Trade ON 2026-03-10 15:15 | Entry 1117.30 | Exit@Close 1114.50 (-0.25%) | Exit@+15m 1105.60 (-1.05%)"
+      ]
+    },
+    {
+      "ticker": "PHOENIXLTD.NS",
+      "name": "PHOENIXLTD.NS",
+      "notify_key": "PHOENIXLTD.NS|2026-03-10 12:10|ON",
+      "lines": [
+        "Signal 2026-03-10 12:10 | VWAP touch 2026-03-10 13:25 | Trade ON 2026-03-10 13:30 | Entry 1605.20 | Exit@Close 1605.80 (+0.04%) | Exit@+15m 1609.00 (+0.24%)"
+      ]
+    },
+    {
+      "ticker": "LICHSGFIN.NS",
+      "name": "LICHSGFIN.NS",
+      "notify_key": "LICHSGFIN.NS|2026-03-10 11:30|ON",
+      "lines": [
+        "Signal 2026-03-10 11:30 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:25 | Entry 509.75 | Exit@Close 512.50 (+0.54%) | Exit@+15m 510.90 (+0.23%)"
+      ]
+    },
+    {
+      "ticker": "MFSL.NS",
+      "name": "MFSL.NS",
+      "notify_key": "MFSL.NS|2026-03-10 12:50|ON",
+      "lines": [
+        "Signal 2026-03-10 12:50 | VWAP touch 2026-03-10 13:00 | Trade ON 2026-03-10 13:15 | Entry 1724.90 | Exit@Close 1733.20 (+0.48%) | Exit@+15m 1726.00 (+0.06%)"
+      ]
+    },
+    {
+      "ticker": "FORTIS.NS",
+      "name": "FORTIS.NS",
+      "notify_key": "FORTIS.NS|2026-03-10 12:50|ON",
+      "lines": [
+        "Signal 2026-03-10 12:50 | VWAP touch 2026-03-10 14:00 | Trade ON 2026-03-10 14:10 | Entry 883.55 | Exit@Close 885.00 (+0.16%) | Exit@+15m 882.00 (-0.18%)"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 09:45 | Entry 775.15 | Exit@Close 797.00 (+2.82%) | Exit@+15m 775.05 (-0.01%)"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:45 | Entry 775.15 | Exit@Close 797.00 (+2.82%) | Exit@+15m 775.05 (-0.01%)"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-10 11:30|ON",
+      "lines": [
+        "Signal 2026-03-10 11:30 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:30 | Entry 776.65 | Exit@Close 797.00 (+2.62%) | Exit@+15m 780.45 (+0.49%)"
+      ]
+    },
+    {
+      "ticker": "GMRAIRPORT.NS",
+      "name": "GMRAIRPORT.NS",
+      "notify_key": "GMRAIRPORT.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 10:10 | Entry 94.16 | Exit@Close 96.35 (+2.33%) | Exit@+15m 94.24 (+0.08%)"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-10 13:40|ON",
+      "lines": [
+        "Signal 2026-03-10 13:40 | VWAP touch 2026-03-10 14:40 | Trade ON 2026-03-10 14:45 | Entry 487.70 | Exit@Close 488.70 (+0.21%) | Exit@+15m 486.45 (-0.26%)"
+      ]
+    },
+    {
+      "ticker": "TATACONSUM.NS",
+      "name": "TATACONSUM.NS",
+      "notify_key": "TATACONSUM.NS|2026-03-10 13:10|ON",
+      "lines": [
+        "Signal 2026-03-10 13:10 | VWAP touch 2026-03-10 14:20 | Trade ON 2026-03-10 14:25 | Entry 1105.10 | Exit@Close 1100.00 (-0.46%) | Exit@+15m 1101.20 (-0.35%)"
+      ]
+    },
+    {
+      "ticker": "TATACONSUM.NS",
+      "name": "TATACONSUM.NS",
+      "notify_key": "TATACONSUM.NS|2026-03-10 13:20|ON",
+      "lines": [
+        "Signal 2026-03-10 13:20 | VWAP touch 2026-03-10 14:20 | Trade ON 2026-03-10 14:25 | Entry 1105.10 | Exit@Close 1100.00 (-0.46%) | Exit@+15m 1101.20 (-0.35%)"
+      ]
+    },
+    {
+      "ticker": "LTF.NS",
+      "name": "LTF.NS",
+      "notify_key": "LTF.NS|2026-03-10 11:05|ON",
+      "lines": [
+        "Signal 2026-03-10 11:05 | VWAP touch 2026-03-10 11:50 | Trade ON 2026-03-10 11:55 | Entry 271.95 | Exit@Close 274.90 (+1.08%) | Exit@+15m 271.50 (-0.17%)"
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-10 13:35|ON",
+      "lines": [
+        "Signal 2026-03-10 13:35 | VWAP touch 2026-03-10 13:55 | Trade ON 2026-03-10 14:10 | Entry 2622.70 | Exit@Close 2652.50 (+1.14%) | Exit@+15m 2619.80 (-0.11%)"
+      ]
+    },
+    {
+      "ticker": "IEX.NS",
+      "name": "IEX.NS",
+      "notify_key": "IEX.NS|2026-03-10 14:50|ON",
+      "lines": [
+        "Signal 2026-03-10 14:50 | VWAP touch 2026-03-10 14:55 | Trade ON 2026-03-10 15:00 | Entry 120.70 | Exit@Close 121.61 (+0.75%) | Exit@+15m 121.25 (+0.46%)"
+      ]
+    },
+    {
+      "ticker": "PATANJALI.NS",
+      "name": "PATANJALI.NS",
+      "notify_key": "PATANJALI.NS|2026-03-10 11:55|ON",
+      "lines": [
+        "Signal 2026-03-10 11:55 | VWAP touch 2026-03-10 13:20 | Trade ON 2026-03-10 13:35 | Entry 498.20 | Exit@Close 500.00 (+0.36%) | Exit@+15m 498.50 (+0.06%)"
+      ]
+    },
+    {
+      "ticker": "SHREECEM.NS",
+      "name": "SHREECEM.NS",
+      "notify_key": "SHREECEM.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 10:15 | Entry 24130.00 | Exit@Close 23960.00 (-0.70%) | Exit@+15m 24185.00 (+0.23%)"
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-10 12:45|ON",
+      "lines": [
+        "Signal 2026-03-10 12:45 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 115.62 | Exit@Close 117.31 (+1.46%) | Exit@+15m 115.82 (+0.17%)"
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-10 10:05|ON",
+      "lines": [
+        "Signal 2026-03-10 10:05 | VWAP touch 2026-03-10 12:05 | Trade ON 2026-03-10 14:30 | Entry 82.26 | Exit@Close 83.15 (+1.08%) | Exit@+15m 82.90 (+0.78%)"
+      ]
+    },
+    {
+      "ticker": "JUBLFOOD.NS",
+      "name": "JUBLFOOD.NS",
+      "notify_key": "JUBLFOOD.NS|2026-03-10 10:30|ON",
+      "lines": [
+        "Signal 2026-03-10 10:30 | VWAP touch 2026-03-10 11:25 | Trade ON 2026-03-10 11:35 | Entry 485.85 | Exit@Close 483.50 (-0.48%) | Exit@+15m 485.20 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "ASTRAL.NS",
+      "name": "ASTRAL.NS",
+      "notify_key": "ASTRAL.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 10:10 | Entry 1653.00 | Exit@Close 1660.70 (+0.47%) | Exit@+15m 1650.80 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "ASTRAL.NS",
+      "name": "ASTRAL.NS",
+      "notify_key": "ASTRAL.NS|2026-03-10 10:10|ON",
+      "lines": [
+        "Signal 2026-03-10 10:10 | VWAP touch 2026-03-10 10:20 | Trade ON 2026-03-10 10:30 | Entry 1651.00 | Exit@Close 1660.70 (+0.59%) | Exit@+15m 1657.10 (+0.37%)"
+      ]
+    },
+    {
+      "ticker": "LODHA.NS",
+      "name": "LODHA.NS",
+      "notify_key": "LODHA.NS|2026-03-10 14:45|ON",
+      "lines": [
+        "Signal 2026-03-10 14:45 | VWAP touch 2026-03-10 15:15 | Trade ON 2026-03-10 15:20 | Entry 902.20 | Exit@Close 903.75 (+0.17%) | Exit@+15m 910.55 (+0.93%)"
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-10 10:45|ON",
+      "lines": [
+        "Signal 2026-03-10 10:45 | VWAP touch 2026-03-10 11:25 | Trade ON 2026-03-10 11:35 | Entry 732.55 | Exit@Close 749.00 (+2.25%) | Exit@+15m 731.60 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-10 11:05|ON",
+      "lines": [
+        "Signal 2026-03-10 11:05 | VWAP touch 2026-03-10 11:25 | Trade ON 2026-03-10 11:35 | Entry 732.55 | Exit@Close 749.00 (+2.25%) | Exit@+15m 731.60 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "OBEROIRLTY.NS",
+      "name": "OBEROIRLTY.NS",
+      "notify_key": "OBEROIRLTY.NS|2026-03-10 11:35|ON",
+      "lines": [
+        "Signal 2026-03-10 11:35 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 1480.10 | Exit@Close 1494.00 (+0.94%) | Exit@+15m 1482.60 (+0.17%)"
+      ]
+    },
+    {
+      "ticker": "ICICIPRULI.NS",
+      "name": "ICICIPRULI.NS",
+      "notify_key": "ICICIPRULI.NS|2026-03-10 12:00|ON",
+      "lines": [
+        "Signal 2026-03-10 12:00 | VWAP touch 2026-03-10 12:05 | Trade ON 2026-03-10 12:35 | Entry 605.00 | Exit@Close 601.65 (-0.55%) | Exit@+15m 604.60 (-0.07%)"
+      ]
+    },
+    {
+      "ticker": "TORNTPOWER.NS",
+      "name": "TORNTPOWER.NS",
+      "notify_key": "TORNTPOWER.NS|2026-03-10 11:05|ON",
+      "lines": [
+        "Signal 2026-03-10 11:05 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:25 | Entry 1456.70 | Exit@Close 1456.30 (-0.03%) | Exit@+15m 1458.00 (+0.09%)"
+      ]
+    },
+    {
+      "ticker": "TORNTPOWER.NS",
+      "name": "TORNTPOWER.NS",
+      "notify_key": "TORNTPOWER.NS|2026-03-10 11:30|ON",
+      "lines": [
+        "Signal 2026-03-10 11:30 | VWAP touch 2026-03-10 12:20 | Trade ON 2026-03-10 12:25 | Entry 1456.70 | Exit@Close 1456.30 (-0.03%) | Exit@+15m 1458.00 (+0.09%)"
+      ]
+    },
+    {
+      "ticker": "TORNTPOWER.NS",
+      "name": "TORNTPOWER.NS",
+      "notify_key": "TORNTPOWER.NS|2026-03-10 13:40|ON",
+      "lines": [
+        "Signal 2026-03-10 13:40 | VWAP touch 2026-03-10 14:30 | Trade ON 2026-03-10 14:45 | Entry 1455.00 | Exit@Close 1456.30 (+0.09%) | Exit@+15m 1447.60 (-0.51%)"
+      ]
+    },
+    {
+      "ticker": "MPHASIS.NS",
+      "name": "MPHASIS.NS",
+      "notify_key": "MPHASIS.NS|2026-03-10 15:00|ON",
+      "lines": [
+        "Signal 2026-03-10 15:00 | VWAP touch 2026-03-10 15:10 | Trade ON 2026-03-10 15:15 | Entry 2199.90 | Exit@Close 2202.20 (+0.10%) | Exit@+15m 2217.00 (+0.78%)"
+      ]
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "name": "KALYANKJIL.NS",
+      "notify_key": "KALYANKJIL.NS|2026-03-10 14:15|ON",
+      "lines": [
+        "Signal 2026-03-10 14:15 | VWAP touch 2026-03-10 14:20 | Trade ON 2026-03-10 14:35 | Entry 390.25 | Exit@Close 395.00 (+1.22%) | Exit@+15m 392.10 (+0.47%)"
+      ]
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "name": "KALYANKJIL.NS",
+      "notify_key": "KALYANKJIL.NS|2026-03-10 14:50|ON",
+      "lines": [
+        "Signal 2026-03-10 14:50 | VWAP touch 2026-03-10 15:00 | Trade ON 2026-03-10 15:05 | Entry 391.95 | Exit@Close 395.00 (+0.78%) | Exit@+15m 394.00 (+0.52%)"
+      ]
+    },
+    {
+      "ticker": "NYKAA.NS",
+      "name": "NYKAA.NS",
+      "notify_key": "NYKAA.NS|2026-03-10 10:15|ON",
+      "lines": [
+        "Signal 2026-03-10 10:15 | VWAP touch 2026-03-10 10:20 | Trade ON 2026-03-10 10:25 | Entry 252.80 | Exit@Close 256.80 (+1.58%) | Exit@+15m 253.10 (+0.12%)"
+      ]
+    },
+    {
+      "ticker": "BOSCHLTD.NS",
+      "name": "BOSCHLTD.NS",
+      "notify_key": "BOSCHLTD.NS|2026-03-10 14:00|ON",
+      "lines": [
+        "Signal 2026-03-10 14:00 | VWAP touch 2026-03-10 14:05 | Trade ON 2026-03-10 14:10 | Entry 31970.00 | Exit@Close 32080.00 (+0.34%) | Exit@+15m 31930.00 (-0.13%)"
+      ]
+    },
+    {
+      "ticker": "APLAPOLLO.NS",
+      "name": "APLAPOLLO.NS",
+      "notify_key": "APLAPOLLO.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 09:45 | Entry 2162.90 | Exit@Close 2100.60 (-2.88%) | Exit@+15m 2140.80 (-1.02%)"
+      ]
+    },
+    {
+      "ticker": "KFINTECH.NS",
+      "name": "KFINTECH.NS",
+      "notify_key": "KFINTECH.NS|2026-03-10 10:25|ON",
+      "lines": [
+        "Signal 2026-03-10 10:25 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 940.80 | Exit@Close 948.90 (+0.86%) | Exit@+15m 943.60 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "KFINTECH.NS",
+      "name": "KFINTECH.NS",
+      "notify_key": "KFINTECH.NS|2026-03-10 10:30|ON",
+      "lines": [
+        "Signal 2026-03-10 10:30 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 940.80 | Exit@Close 948.90 (+0.86%) | Exit@+15m 943.60 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "KFINTECH.NS",
+      "name": "KFINTECH.NS",
+      "notify_key": "KFINTECH.NS|2026-03-10 10:50|ON",
+      "lines": [
+        "Signal 2026-03-10 10:50 | VWAP touch 2026-03-10 13:10 | Trade ON 2026-03-10 13:15 | Entry 940.80 | Exit@Close 948.90 (+0.86%) | Exit@+15m 943.60 (+0.30%)"
+      ]
+    },
+    {
+      "ticker": "CONCOR.NS",
+      "name": "CONCOR.NS",
+      "notify_key": "CONCOR.NS|2026-03-10 11:55|ON",
+      "lines": [
+        "Signal 2026-03-10 11:55 | VWAP touch 2026-03-10 12:15 | Trade ON 2026-03-10 12:20 | Entry 473.75 | Exit@Close 474.20 (+0.09%) | Exit@+15m 475.45 (+0.36%)"
+      ]
+    },
+    {
+      "ticker": "COLPAL.NS",
+      "name": "COLPAL.NS",
+      "notify_key": "COLPAL.NS|2026-03-10 11:35|ON",
+      "lines": [
+        "Signal 2026-03-10 11:35 | VWAP touch 2026-03-10 12:00 | Trade ON 2026-03-10 12:50 | Entry 2194.20 | Exit@Close 2210.40 (+0.74%) | Exit@+15m 2193.00 (-0.05%)"
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-10 13:10|ON",
+      "lines": [
+        "Signal 2026-03-10 13:10 | VWAP touch 2026-03-10 13:30 | Trade ON 2026-03-10 13:35 | Entry 1896.30 | Exit@Close 1886.00 (-0.54%) | Exit@+15m 1897.40 (+0.06%)"
+      ]
+    },
+    {
+      "ticker": "GLENMARK.NS",
+      "name": "GLENMARK.NS",
+      "notify_key": "GLENMARK.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:40 | Entry 2176.60 | Exit@Close 2240.00 (+2.91%) | Exit@+15m 2163.70 (-0.59%)"
+      ]
+    },
+    {
+      "ticker": "GLENMARK.NS",
+      "name": "GLENMARK.NS",
+      "notify_key": "GLENMARK.NS|2026-03-10 11:35|ON",
+      "lines": [
+        "Signal 2026-03-10 11:35 | VWAP touch 2026-03-10 11:50 | Trade ON 2026-03-10 12:00 | Entry 2189.30 | Exit@Close 2240.00 (+2.32%) | Exit@+15m 2211.00 (+0.99%)"
+      ]
+    },
+    {
+      "ticker": "BAJAJHLDNG.NS",
+      "name": "BAJAJHLDNG.NS",
+      "notify_key": "BAJAJHLDNG.NS|2026-03-10 11:30|ON",
+      "lines": [
+        "Signal 2026-03-10 11:30 | VWAP touch 2026-03-10 11:40 | Trade ON 2026-03-10 11:45 | Entry 10172.00 | Exit@Close 10289.00 (+1.15%) | Exit@+15m 10140.00 (-0.31%)"
+      ]
+    },
+    {
+      "ticker": "TATATECH.NS",
+      "name": "TATATECH.NS",
+      "notify_key": "TATATECH.NS|2026-03-10 13:35|ON",
+      "lines": [
+        "Signal 2026-03-10 13:35 | VWAP touch 2026-03-10 13:40 | Trade ON 2026-03-10 13:50 | Entry 564.15 | Exit@Close 570.00 (+1.04%) | Exit@+15m 563.75 (-0.07%)"
+      ]
+    },
+    {
+      "ticker": "DELHIVERY.NS",
+      "name": "DELHIVERY.NS",
+      "notify_key": "DELHIVERY.NS|2026-03-10 13:20|ON",
+      "lines": [
+        "Signal 2026-03-10 13:20 | VWAP touch 2026-03-10 14:00 | Trade ON 2026-03-10 14:05 | Entry 423.80 | Exit@Close 425.85 (+0.48%) | Exit@+15m 423.95 (+0.04%)"
+      ]
+    },
+    {
+      "ticker": "ZYDUSLIFE.NS",
+      "name": "ZYDUSLIFE.NS",
+      "notify_key": "ZYDUSLIFE.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:40 | Entry 921.45 | Exit@Close 921.25 (-0.02%) | Exit@+15m 917.70 (-0.41%)"
+      ]
+    },
+    {
+      "ticker": "ZYDUSLIFE.NS",
+      "name": "ZYDUSLIFE.NS",
+      "notify_key": "ZYDUSLIFE.NS|2026-03-10 13:10|ON",
+      "lines": [
+        "Signal 2026-03-10 13:10 | VWAP touch 2026-03-10 15:15 | Trade ON 2026-03-10 15:20 | Entry 924.75 | Exit@Close 921.25 (-0.38%) | Exit@+15m 931.40 (+0.72%)"
+      ]
+    },
+    {
+      "ticker": "ZYDUSLIFE.NS",
+      "name": "ZYDUSLIFE.NS",
+      "notify_key": "ZYDUSLIFE.NS|2026-03-10 14:45|ON",
+      "lines": [
+        "Signal 2026-03-10 14:45 | VWAP touch 2026-03-10 15:15 | Trade ON 2026-03-10 15:20 | Entry 924.75 | Exit@Close 921.25 (-0.38%) | Exit@+15m 931.40 (+0.72%)"
+      ]
+    },
+    {
+      "ticker": "SONACOMS.NS",
+      "name": "SONACOMS.NS",
+      "notify_key": "SONACOMS.NS|2026-03-10 10:40|ON",
+      "lines": [
+        "Signal 2026-03-10 10:40 | VWAP touch 2026-03-10 12:05 | Trade ON 2026-03-10 14:30 | Entry 510.80 | Exit@Close 515.00 (+0.82%) | Exit@+15m 511.25 (+0.09%)"
+      ]
+    },
+    {
+      "ticker": "CROMPTON.NS",
+      "name": "CROMPTON.NS",
+      "notify_key": "CROMPTON.NS|2026-03-10 11:00|ON",
+      "lines": [
+        "Signal 2026-03-10 11:00 | VWAP touch 2026-03-10 13:15 | Trade ON 2026-03-10 13:35 | Entry 245.20 | Exit@Close 245.60 (+0.16%) | Exit@+15m 245.20 (+0.00%)"
+      ]
+    },
+    {
+      "ticker": "PAGEIND.NS",
+      "name": "PAGEIND.NS",
+      "notify_key": "PAGEIND.NS|2026-03-10 11:50|ON",
+      "lines": [
+        "Signal 2026-03-10 11:50 | VWAP touch 2026-03-10 12:10 | Trade ON 2026-03-10 12:25 | Entry 31225.00 | Exit@Close 31535.00 (+0.99%) | Exit@+15m 31205.00 (-0.06%)"
+      ]
+    },
+    {
+      "ticker": "PAGEIND.NS",
+      "name": "PAGEIND.NS",
+      "notify_key": "PAGEIND.NS|2026-03-10 11:55|ON",
+      "lines": [
+        "Signal 2026-03-10 11:55 | VWAP touch 2026-03-10 12:10 | Trade ON 2026-03-10 12:25 | Entry 31225.00 | Exit@Close 31535.00 (+0.99%) | Exit@+15m 31205.00 (-0.06%)"
+      ]
+    },
+    {
+      "ticker": "NUVAMA.NS",
+      "name": "NUVAMA.NS",
+      "notify_key": "NUVAMA.NS|2026-03-10 11:40|ON",
+      "lines": [
+        "Signal 2026-03-10 11:40 | VWAP touch 2026-03-10 11:50 | Trade ON 2026-03-10 11:55 | Entry 1229.50 | Exit@Close 1235.00 (+0.45%) | Exit@+15m 1225.90 (-0.29%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 09:20|ON",
+      "lines": [
+        "Signal 2026-03-10 09:20 | VWAP touch 2026-03-10 09:25 | Trade ON 2026-03-10 09:40 | Entry 5582.00 | Exit@Close 5616.50 (+0.62%) | Exit@+15m 5580.00 (-0.04%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 09:25|ON",
+      "lines": [
+        "Signal 2026-03-10 09:25 | VWAP touch 2026-03-10 09:30 | Trade ON 2026-03-10 09:40 | Entry 5582.00 | Exit@Close 5616.50 (+0.62%) | Exit@+15m 5580.00 (-0.04%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 09:45|ON",
+      "lines": [
+        "Signal 2026-03-10 09:45 | VWAP touch 2026-03-10 09:55 | Trade ON 2026-03-10 10:00 | Entry 5581.50 | Exit@Close 5616.50 (+0.63%) | Exit@+15m 5575.00 (-0.12%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 09:50|ON",
+      "lines": [
+        "Signal 2026-03-10 09:50 | VWAP touch 2026-03-10 09:55 | Trade ON 2026-03-10 10:00 | Entry 5581.50 | Exit@Close 5616.50 (+0.63%) | Exit@+15m 5575.00 (-0.12%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 10:35|ON",
+      "lines": [
+        "Signal 2026-03-10 10:35 | VWAP touch 2026-03-10 12:30 | Trade ON 2026-03-10 12:45 | Entry 5604.00 | Exit@Close 5616.50 (+0.22%) | Exit@+15m 5606.50 (+0.04%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 14:20|ON",
+      "lines": [
+        "Signal 2026-03-10 14:20 | VWAP touch 2026-03-10 15:10 | Trade ON 2026-03-10 15:15 | Entry 5617.50 | Exit@Close 5616.50 (-0.02%) | Exit@+15m 5638.50 (+0.37%)"
+      ]
+    },
+    {
+      "ticker": "ALKEM.NS",
+      "name": "ALKEM.NS",
+      "notify_key": "ALKEM.NS|2026-03-10 14:30|ON",
+      "lines": [
+        "Signal 2026-03-10 14:30 | VWAP touch 2026-03-10 15:10 | Trade ON 2026-03-10 15:15 | Entry 5617.50 | Exit@Close 5616.50 (-0.02%) | Exit@+15m 5638.50 (+0.37%)"
+      ]
+    }
+  ]
+}

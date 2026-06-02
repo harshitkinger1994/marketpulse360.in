@@ -1,0 +1,73 @@
+{
+  "strategy_id": "commodities_quant_trend_breakout_on",
+  "title": "Commodities 1-Week Breakout Strategy",
+  "owner": "HARSHIT",
+  "trade_type": "SWING",
+  "market": "commodities",
+  "generated_at": "2026-03-16T18:11:36.954841+00:00",
+  "as_of_date": "",
+  "counts": {
+    "assets": 7,
+    "assets_with_data": 0,
+    "window_days": 1,
+    "signals_total": 0
+  },
+  "rules": {
+    "regime": "BUY: close>SMA50>SMA200 | SELL: close<SMA50<SMA200",
+    "breakout_condition": "Close breaks 10D high (BUY) / low (SELL), max overshoot 3.00%",
+    "volume_multiple": "Daily volume > SMA(20) x 1.50",
+    "rsi_buy_range": [
+      55.0,
+      75.0
+    ],
+    "rsi_sell_range": [
+      25.0,
+      45.0
+    ],
+    "atr_pct_range": [
+      1.0,
+      6.0
+    ],
+    "stop_atr_multiple": 1.8,
+    "target_atr_multiple": 3.6,
+    "slope_filter": {
+      "enabled": false,
+      "lookback_bars": 5
+    },
+    "relative_strength_filter": {
+      "enabled": false,
+      "lookback_days": 20,
+      "buy_min_spread": 0.0,
+      "sell_max_spread": -0.02
+    },
+    "candle_position_filter": {
+      "enabled": false,
+      "buy_min": 0.7,
+      "sell_max": 0.3
+    },
+    "range_atr_filter": {
+      "enabled": true,
+      "min_value": 1.1
+    },
+    "squeeze_filter": {
+      "enabled": true,
+      "short_window": 10,
+      "long_window": 50,
+      "max_ratio": 0.9
+    },
+    "breadth_filter": {
+      "enabled": true,
+      "breadth_sma": 50,
+      "buy_min": 0.45,
+      "sell_max": 0.45
+    },
+    "filter_mode": "Trend regime: BUY close>SMA50>SMA200, SELL close<SMA50<SMA200 | Breakout: 10D high/low with max overshoot 3.00% | Volume: volume > SMA(20) x 1.50 | RSI: BUY 55.0-75.0, SELL 25.0-45.0 | ATR%: 1.00 to 6.00 | Market gate: disabled | Slope filter: disabled | Relative strength filter: disabled | Candle position filter: disabled | Range expansion filter: (high-low)/ATR14 >= 1.10 | Squeeze filter: STD10/STD50 <= 0.90 | Breadth filter (>%SMA50): BUY >= 0.45, SELL <= 0.45"
+  },
+  "notes": [
+    "Non-EMA momentum strategy with extended quality gates for range expansion, squeeze, slope and breadth.",
+    "Designed to improve 1-week move quality by reducing weak breakout entries.",
+    "Benchmark market gate disabled.",
+    "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures."
+  ],
+  "items": []
+}

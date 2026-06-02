@@ -1,0 +1,107 @@
+{
+  "strategy_id": "india_ema9_growth30_on",
+  "title": "India EMA9 Growth 30",
+  "owner": "HARSHIT",
+  "trade_type": "SWING",
+  "market": "india",
+  "generated_at": "2026-03-19T06:49:59.303113+00:00",
+  "as_of_date": "2026-03-19",
+  "counts": {
+    "assets": 50,
+    "assets_with_data": 49,
+    "window_days": 30,
+    "signals_total": 5
+  },
+  "rules": {
+    "breakout_condition": "Daily range > ATR(14) x 1.4, with daily and weekly EMA9 side alignment",
+    "entry_trigger": "BUY: low < EMA9 and close > EMA9 with bullish candle near high | SELL: high > EMA9 and close < EMA9 with bearish candle near low",
+    "volume_multiple": "Daily volume > SMA(14)",
+    "lookback_volume": 14,
+    "rsi_range": [
+      30.0,
+      60.0
+    ],
+    "min_atr_pct": 0.0,
+    "require_ema9_slope": false,
+    "ema9_slope_lookback_days": 5,
+    "filter_mode": "RSI(14) in 30.0-60.0, volume > SMA(14); market gate disabled"
+  },
+  "notes": [
+    "Daily+Weekly EMA9 strategy with ATR range expansion, volume, RSI and candle-body confirmation.",
+    "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
+    "Market benchmark gate is disabled for this strategy.",
+    "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures."
+  ],
+  "items": [
+    {
+      "ticker": "ONGC",
+      "name": "ONGC",
+      "symbol": "ONGC.NS",
+      "side": "SELL",
+      "notify_key": "ONGC|2026-03-09|SELL|270.80",
+      "signal_time": "2026-03-09",
+      "entry_time": "2026-03-09",
+      "entry_price": 270.79998779296875,
+      "lines": [
+        "SELL | Date 2026-03-09 | Close 270.80 vs EMA9 276.14 | Weekly close 264.10 vs EMA9 266.12",
+        "Range 21.40 > ATR14x1.4 (9.50) | Vol 56512457 vs SMA14 29917305 | RSI14 49.23 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "name": "HDFCLIFE",
+      "symbol": "HDFCLIFE.NS",
+      "side": "SELL",
+      "notify_key": "HDFCLIFE|2026-02-27|SELL|715.30",
+      "signal_time": "2026-02-27",
+      "entry_time": "2026-02-27",
+      "entry_price": 715.2999877929688,
+      "lines": [
+        "SELL | Date 2026-02-27 | Close 715.30 vs EMA9 726.01 | Weekly close 715.30 vs EMA9 724.77",
+        "Range 22.55 > ATR14x1.4 (13.73) | Vol 3416009 vs SMA14 2629638 | RSI14 53.81 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "SHREECEM",
+      "name": "SHREECEM",
+      "symbol": "SHREECEM.NS",
+      "side": "SELL",
+      "notify_key": "SHREECEM|2026-02-27|SELL|26075.00",
+      "signal_time": "2026-02-27",
+      "entry_time": "2026-02-27",
+      "entry_price": 26075.0,
+      "lines": [
+        "SELL | Date 2026-02-27 | Close 26075.00 vs EMA9 26513.74 | Weekly close 26075.00 vs EMA9 26669.54",
+        "Range 900.00 > ATR14x1.4 (598.93) | Vol 45243 vs SMA14 24607 | RSI14 36.59 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO",
+      "name": "HEROMOTOCO",
+      "symbol": "HEROMOTOCO.NS",
+      "side": "BUY",
+      "notify_key": "HEROMOTOCO|2026-02-25|BUY|5737.50",
+      "signal_time": "2026-02-25",
+      "entry_time": "2026-02-25",
+      "entry_price": 5737.5,
+      "lines": [
+        "BUY | Date 2026-02-25 | Close 5737.50 vs EMA9 5578.25 | Weekly close 5710.00 vs EMA9 5639.93",
+        "Range 339.50 > ATR14x1.4 (156.00) | Vol 898486 vs SMA14 501139 | RSI14 48.55 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "name": "HDFCLIFE",
+      "symbol": "HDFCLIFE.NS",
+      "side": "BUY",
+      "notify_key": "HDFCLIFE|2026-02-18|BUY|729.60",
+      "signal_time": "2026-02-18",
+      "entry_time": "2026-02-18",
+      "entry_price": 729.5999755859375,
+      "lines": [
+        "BUY | Date 2026-02-18 | Close 729.60 vs EMA9 711.20 | Weekly close 728.65 vs EMA9 727.14",
+        "Range 25.85 > ATR14x1.4 (14.81) | Vol 4974855 vs SMA14 3113315 | RSI14 51.35 | Market gate disabled"
+      ]
+    }
+  ]
+}

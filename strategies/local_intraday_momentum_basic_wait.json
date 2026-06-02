@@ -1,0 +1,2826 @@
+{
+  "strategy_id": "local_intraday_momentum_basic_wait",
+  "title": "Intraday Momentum Basic \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "all",
+  "filter_mode": "basic",
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-12T10:43:01.711506+00:00",
+  "runtime_sec": 52.44,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP."
+  ],
+  "items": [
+    {
+      "ticker": "ICICIBANK.NS",
+      "name": "ICICIBANK.NS",
+      "notify_key": "ICICIBANK.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.04,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 0.47,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:05 | Trade ON NA",
+        "Grade B | RVOL 2.04x | Breakout +0.11% | Close-VWAP +0.47% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INDIGO.NS",
+      "name": "INDIGO.NS",
+      "notify_key": "INDIGO.NS|2026-03-12 15:20|WAIT",
+      "signal_time": "2026-03-12 15:20",
+      "rvol": 2.5,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.08,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 2.50x | Breakout +0.09% | Close-VWAP +0.08% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SHRIRAMFIN.NS",
+      "name": "SHRIRAMFIN.NS",
+      "notify_key": "SHRIRAMFIN.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.19,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 1.91,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 2.19x | Breakout +0.05% | Close-VWAP +1.91% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BPCL.NS",
+      "name": "BPCL.NS",
+      "notify_key": "BPCL.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.28,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 1.73,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.28x | Breakout +0.12% | Close-VWAP +1.73% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BPCL.NS",
+      "name": "BPCL.NS",
+      "notify_key": "BPCL.NS|2026-03-12 15:20|WAIT",
+      "signal_time": "2026-03-12 15:20",
+      "rvol": 2.53,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.49,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.53x | Breakout +0.03% | Close-VWAP +0.49% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-12 12:55|WAIT",
+      "signal_time": "2026-03-12 12:55",
+      "rvol": 2.07,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 1.23,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:55 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.07x | Breakout +0.13% | Close-VWAP +1.23% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MCX.NS",
+      "name": "MCX.NS",
+      "notify_key": "MCX.NS|2026-03-12 11:55|WAIT",
+      "signal_time": "2026-03-12 11:55",
+      "rvol": 2.01,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.49,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.01x | Breakout +0.01% | Close-VWAP +0.49% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BEL.NS",
+      "name": "BEL.NS",
+      "notify_key": "BEL.NS|2026-03-12 15:10|WAIT",
+      "signal_time": "2026-03-12 15:10",
+      "rvol": 2.44,
+      "breakout_gap_pct": 0.24,
+      "close_vs_vwap_pct": 0.54,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.44x | Breakout +0.24% | Close-VWAP +0.54% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MARUTI.NS",
+      "name": "MARUTI.NS",
+      "notify_key": "MARUTI.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.29,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 0.03,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:35 | Trade ON NA",
+        "Grade B | RVOL 2.29x | Breakout +0.23% | Close-VWAP +0.03% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BAJFINANCE.NS",
+      "name": "BAJFINANCE.NS",
+      "notify_key": "BAJFINANCE.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.2,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 0.48,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:55 | Trade ON NA",
+        "Grade B | RVOL 2.20x | Breakout +0.18% | Close-VWAP +0.48% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:00|WAIT",
+      "signal_time": "2026-03-12 15:00",
+      "rvol": 2.82,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 0.56,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.82x | Breakout +0.21% | Close-VWAP +0.56% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:05|WAIT",
+      "signal_time": "2026-03-12 15:05",
+      "rvol": 8.72,
+      "breakout_gap_pct": 0.44,
+      "close_vs_vwap_pct": 0.92,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 8.72x | Breakout +0.44% | Close-VWAP +0.92% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:10|WAIT",
+      "signal_time": "2026-03-12 15:10",
+      "rvol": 9.65,
+      "breakout_gap_pct": 0.62,
+      "close_vs_vwap_pct": 1.33,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 9.65x | Breakout +0.62% | Close-VWAP +1.33% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:15|WAIT",
+      "signal_time": "2026-03-12 15:15",
+      "rvol": 2.55,
+      "breakout_gap_pct": 0.45,
+      "close_vs_vwap_pct": 1.73,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.55x | Breakout +0.45% | Close-VWAP +1.73% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NATIONALUM.NS",
+      "name": "NATIONALUM.NS",
+      "notify_key": "NATIONALUM.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 3.88,
+      "breakout_gap_pct": 0.62,
+      "close_vs_vwap_pct": 2.49,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.88x | Breakout +0.62% | Close-VWAP +2.49% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NATIONALUM.NS",
+      "name": "NATIONALUM.NS",
+      "notify_key": "NATIONALUM.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 5.47,
+      "breakout_gap_pct": 0.69,
+      "close_vs_vwap_pct": 3.05,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 5.47x | Breakout +0.69% | Close-VWAP +3.05% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.94,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 1.03,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.94x | Breakout +0.26% | Close-VWAP +1.03% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.91,
+      "breakout_gap_pct": 0.2,
+      "close_vs_vwap_pct": 1.19,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.91x | Breakout +0.20% | Close-VWAP +1.19% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.77,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 1.32,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.77x | Breakout +0.09% | Close-VWAP +1.32% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:40|WAIT",
+      "signal_time": "2026-03-12 13:40",
+      "rvol": 2.36,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 1.37,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.36x | Breakout +0.01% | Close-VWAP +1.37% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:45|WAIT",
+      "signal_time": "2026-03-12 13:45",
+      "rvol": 2.98,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 1.62,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.98x | Breakout +0.09% | Close-VWAP +1.62% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 10:25|WAIT",
+      "signal_time": "2026-03-12 10:25",
+      "rvol": 2.11,
+      "breakout_gap_pct": 0.59,
+      "close_vs_vwap_pct": 0.93,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.11x | Breakout +0.59% | Close-VWAP +0.93% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 10:55|WAIT",
+      "signal_time": "2026-03-12 10:55",
+      "rvol": 2.88,
+      "breakout_gap_pct": 0.76,
+      "close_vs_vwap_pct": 1.91,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.88x | Breakout +0.76% | Close-VWAP +1.91% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 3.12,
+      "breakout_gap_pct": 0.59,
+      "close_vs_vwap_pct": 2.19,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.12x | Breakout +0.59% | Close-VWAP +2.19% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 11:05|WAIT",
+      "signal_time": "2026-03-12 11:05",
+      "rvol": 2.57,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 2.1,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:05 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.57x | Breakout +0.12% | Close-VWAP +2.10% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.41,
+      "breakout_gap_pct": 0.32,
+      "close_vs_vwap_pct": 1.62,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.41x | Breakout +0.32% | Close-VWAP +1.62% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.84,
+      "breakout_gap_pct": 0.3,
+      "close_vs_vwap_pct": 1.97,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.84x | Breakout +0.30% | Close-VWAP +1.97% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 13:40|WAIT",
+      "signal_time": "2026-03-12 13:40",
+      "rvol": 2.08,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 2.09,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.08x | Breakout +0.18% | Close-VWAP +2.09% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDALCO.NS",
+      "name": "HINDALCO.NS",
+      "notify_key": "HINDALCO.NS|2026-03-12 15:00|WAIT",
+      "signal_time": "2026-03-12 15:00",
+      "rvol": 2.38,
+      "breakout_gap_pct": 0.27,
+      "close_vs_vwap_pct": 1.93,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.38x | Breakout +0.27% | Close-VWAP +1.93% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IOC.NS",
+      "name": "IOC.NS",
+      "notify_key": "IOC.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.57,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 1.99,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.57x | Breakout +0.09% | Close-VWAP +1.99% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "OIL.NS",
+      "name": "OIL.NS",
+      "notify_key": "OIL.NS|2026-03-12 09:40|WAIT",
+      "signal_time": "2026-03-12 09:40",
+      "rvol": 2.17,
+      "breakout_gap_pct": 0.4,
+      "close_vs_vwap_pct": 0.74,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:40 | VWAP touch 2026-03-12 11:40 | Trade ON NA",
+        "Grade A | RVOL 2.17x | Breakout +0.40% | Close-VWAP +0.74% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HAL.NS",
+      "name": "HAL.NS",
+      "notify_key": "HAL.NS|2026-03-12 11:35|WAIT",
+      "signal_time": "2026-03-12 11:35",
+      "rvol": 8.64,
+      "breakout_gap_pct": 0.38,
+      "close_vs_vwap_pct": 0.76,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 8.64x | Breakout +0.38% | Close-VWAP +0.76% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WIPRO.NS",
+      "name": "WIPRO.NS",
+      "notify_key": "WIPRO.NS|2026-03-12 15:15|WAIT",
+      "signal_time": "2026-03-12 15:15",
+      "rvol": 2.45,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.32,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade C | RVOL 2.45x | Breakout +0.01% | Close-VWAP +0.32% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 10:50|WAIT",
+      "signal_time": "2026-03-12 10:50",
+      "rvol": 2.86,
+      "breakout_gap_pct": 1.2,
+      "close_vs_vwap_pct": 1.82,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:50 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.86x | Breakout +1.20% | Close-VWAP +1.82% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 12:55|WAIT",
+      "signal_time": "2026-03-12 12:55",
+      "rvol": 2.12,
+      "breakout_gap_pct": 0.28,
+      "close_vs_vwap_pct": 2.17,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:55 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.12x | Breakout +0.28% | Close-VWAP +2.17% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 14:55|WAIT",
+      "signal_time": "2026-03-12 14:55",
+      "rvol": 2.85,
+      "breakout_gap_pct": 0.34,
+      "close_vs_vwap_pct": 1.8,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.85x | Breakout +0.34% | Close-VWAP +1.80% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 15:05|WAIT",
+      "signal_time": "2026-03-12 15:05",
+      "rvol": 2.31,
+      "breakout_gap_pct": 0.25,
+      "close_vs_vwap_pct": 2.12,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.31x | Breakout +0.25% | Close-VWAP +2.12% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "name": "GODREJPROP.NS",
+      "notify_key": "GODREJPROP.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.06,
+      "breakout_gap_pct": 0.28,
+      "close_vs_vwap_pct": 1.08,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade A | RVOL 2.06x | Breakout +0.28% | Close-VWAP +1.08% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "name": "GODREJPROP.NS",
+      "notify_key": "GODREJPROP.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.84,
+      "breakout_gap_pct": 0.33,
+      "close_vs_vwap_pct": 1.37,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade A | RVOL 2.84x | Breakout +0.33% | Close-VWAP +1.37% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 12:40|WAIT",
+      "signal_time": "2026-03-12 12:40",
+      "rvol": 4.84,
+      "breakout_gap_pct": 0.38,
+      "close_vs_vwap_pct": 1.17,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:40 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 4.84x | Breakout +0.38% | Close-VWAP +1.17% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 13:10|WAIT",
+      "signal_time": "2026-03-12 13:10",
+      "rvol": 2.38,
+      "breakout_gap_pct": 0.25,
+      "close_vs_vwap_pct": 1.54,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:10 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.38x | Breakout +0.25% | Close-VWAP +1.54% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.6,
+      "close_vs_vwap_pct": 2.07,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.09x | Breakout +0.60% | Close-VWAP +2.07% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 3.74,
+      "breakout_gap_pct": 0.8,
+      "close_vs_vwap_pct": 2.67,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.74x | Breakout +0.80% | Close-VWAP +2.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NTPC.NS",
+      "name": "NTPC.NS",
+      "notify_key": "NTPC.NS|2026-03-12 13:45|WAIT",
+      "signal_time": "2026-03-12 13:45",
+      "rvol": 3.75,
+      "breakout_gap_pct": 0.4,
+      "close_vs_vwap_pct": 1.15,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.75x | Breakout +0.40% | Close-VWAP +1.15% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NTPC.NS",
+      "name": "NTPC.NS",
+      "notify_key": "NTPC.NS|2026-03-12 13:50|WAIT",
+      "signal_time": "2026-03-12 13:50",
+      "rvol": 4.46,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 1.16,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 4.46x | Breakout +0.12% | Close-VWAP +1.16% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 2.12,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 1.06,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.12x | Breakout +0.23% | Close-VWAP +1.06% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 12:20|WAIT",
+      "signal_time": "2026-03-12 12:20",
+      "rvol": 4.5,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 0.95,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 4.50x | Breakout +0.26% | Close-VWAP +0.95% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.26,
+      "breakout_gap_pct": 0.4,
+      "close_vs_vwap_pct": 1.25,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.26x | Breakout +0.40% | Close-VWAP +1.25% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 13:40|WAIT",
+      "signal_time": "2026-03-12 13:40",
+      "rvol": 3.41,
+      "breakout_gap_pct": 0.72,
+      "close_vs_vwap_pct": 2.27,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.41x | Breakout +0.72% | Close-VWAP +2.27% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "KAYNES.NS",
+      "name": "KAYNES.NS",
+      "notify_key": "KAYNES.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.14,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 2.26,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.14x | Breakout +0.06% | Close-VWAP +2.26% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "KAYNES.NS",
+      "name": "KAYNES.NS",
+      "notify_key": "KAYNES.NS|2026-03-12 13:50|WAIT",
+      "signal_time": "2026-03-12 13:50",
+      "rvol": 5.47,
+      "breakout_gap_pct": 1.45,
+      "close_vs_vwap_pct": 3.6,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 5.47x | Breakout +1.45% | Close-VWAP +3.60% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DMART.NS",
+      "name": "DMART.NS",
+      "notify_key": "DMART.NS|2026-03-12 14:55|WAIT",
+      "signal_time": "2026-03-12 14:55",
+      "rvol": 3.03,
+      "breakout_gap_pct": 0.39,
+      "close_vs_vwap_pct": 1.0,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 3.03x | Breakout +0.39% | Close-VWAP +1.00% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDZINC.NS",
+      "name": "HINDZINC.NS",
+      "notify_key": "HINDZINC.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 3.49,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 0.72,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.49x | Breakout +0.17% | Close-VWAP +0.72% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PFC.NS",
+      "name": "PFC.NS",
+      "notify_key": "PFC.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.22,
+      "breakout_gap_pct": 0.3,
+      "close_vs_vwap_pct": 2.57,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.22x | Breakout +0.30% | Close-VWAP +2.57% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PFC.NS",
+      "name": "PFC.NS",
+      "notify_key": "PFC.NS|2026-03-12 13:40|WAIT",
+      "signal_time": "2026-03-12 13:40",
+      "rvol": 3.13,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 2.36,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.13x | Breakout +0.04% | Close-VWAP +2.36% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 10:55|WAIT",
+      "signal_time": "2026-03-12 10:55",
+      "rvol": 2.76,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.18,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.76x | Breakout +0.03% | Close-VWAP +0.18% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.29,
+      "breakout_gap_pct": 0.42,
+      "close_vs_vwap_pct": 1.3,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.29x | Breakout +0.42% | Close-VWAP +1.30% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.17,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 1.52,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.17x | Breakout +0.21% | Close-VWAP +1.52% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.23,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 1.67,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.23x | Breakout +0.09% | Close-VWAP +1.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-12 14:35|WAIT",
+      "signal_time": "2026-03-12 14:35",
+      "rvol": 5.7,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 0.22,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:35 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 5.70x | Breakout +0.21% | Close-VWAP +0.22% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-12 15:00|WAIT",
+      "signal_time": "2026-03-12 15:00",
+      "rvol": 2.65,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 0.45,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 2.65x | Breakout +0.05% | Close-VWAP +0.45% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-12 15:10|WAIT",
+      "signal_time": "2026-03-12 15:10",
+      "rvol": 2.16,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.54,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 2.16x | Breakout +0.09% | Close-VWAP +0.54% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBILIFE.NS",
+      "name": "SBILIFE.NS",
+      "notify_key": "SBILIFE.NS|2026-03-12 12:25|WAIT",
+      "signal_time": "2026-03-12 12:25",
+      "rvol": 2.77,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 0.68,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.77x | Breakout +0.26% | Close-VWAP +0.68% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBILIFE.NS",
+      "name": "SBILIFE.NS",
+      "notify_key": "SBILIFE.NS|2026-03-12 13:00|WAIT",
+      "signal_time": "2026-03-12 13:00",
+      "rvol": 4.08,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 0.67,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 4.08x | Breakout +0.02% | Close-VWAP +0.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBILIFE.NS",
+      "name": "SBILIFE.NS",
+      "notify_key": "SBILIFE.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.02,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 0.82,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.02x | Breakout +0.18% | Close-VWAP +0.82% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE.NS",
+      "name": "HDFCLIFE.NS",
+      "notify_key": "HDFCLIFE.NS|2026-03-12 12:15|WAIT",
+      "signal_time": "2026-03-12 12:15",
+      "rvol": 3.3,
+      "breakout_gap_pct": 0.15,
+      "close_vs_vwap_pct": 0.84,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 3.30x | Breakout +0.15% | Close-VWAP +0.84% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PAYTM.NS",
+      "name": "PAYTM.NS",
+      "notify_key": "PAYTM.NS|2026-03-12 15:00|WAIT",
+      "signal_time": "2026-03-12 15:00",
+      "rvol": 2.94,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.19,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch 2026-03-12 15:05 | Trade ON NA",
+        "Grade C | RVOL 2.94x | Breakout +0.03% | Close-VWAP +0.19% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BDL.NS",
+      "name": "BDL.NS",
+      "notify_key": "BDL.NS|2026-03-12 15:05|WAIT",
+      "signal_time": "2026-03-12 15:05",
+      "rvol": 2.24,
+      "breakout_gap_pct": 0.15,
+      "close_vs_vwap_pct": 0.68,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.24x | Breakout +0.15% | Close-VWAP +0.68% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "name": "CHOLAFIN.NS",
+      "notify_key": "CHOLAFIN.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.22,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 1.26,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade C | RVOL 2.22x | Breakout +0.06% | Close-VWAP +1.26% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 13:15|WAIT",
+      "signal_time": "2026-03-12 13:15",
+      "rvol": 2.56,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 0.63,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.56x | Breakout +0.11% | Close-VWAP +0.63% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.13,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.95,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.13x | Breakout +0.09% | Close-VWAP +0.95% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 15:25|WAIT",
+      "signal_time": "2026-03-12 15:25",
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 0.6,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.09x | Breakout +0.18% | Close-VWAP +0.60% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "RECLTD.NS",
+      "name": "RECLTD.NS",
+      "notify_key": "RECLTD.NS|2026-03-12 11:40|WAIT",
+      "signal_time": "2026-03-12 11:40",
+      "rvol": 2.2,
+      "breakout_gap_pct": 0.61,
+      "close_vs_vwap_pct": 2.79,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.20x | Breakout +0.61% | Close-VWAP +2.79% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "RECLTD.NS",
+      "name": "RECLTD.NS",
+      "notify_key": "RECLTD.NS|2026-03-12 12:20|WAIT",
+      "signal_time": "2026-03-12 12:20",
+      "rvol": 3.43,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 2.21,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.43x | Breakout +0.01% | Close-VWAP +2.21% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 10:35|WAIT",
+      "signal_time": "2026-03-12 10:35",
+      "rvol": 2.08,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.47,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.08x | Breakout +0.09% | Close-VWAP +0.47% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 11:55|WAIT",
+      "signal_time": "2026-03-12 11:55",
+      "rvol": 2.02,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.93,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.02x | Breakout +0.10% | Close-VWAP +0.93% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.16,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.89,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.16x | Breakout +0.09% | Close-VWAP +0.89% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 14:30|WAIT",
+      "signal_time": "2026-03-12 14:30",
+      "rvol": 4.61,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 0.85,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 4.61x | Breakout +0.08% | Close-VWAP +0.85% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 3.09,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 1.1,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.09x | Breakout +0.05% | Close-VWAP +1.10% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.5,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 1.37,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.50x | Breakout +0.23% | Close-VWAP +1.37% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 13:40|WAIT",
+      "signal_time": "2026-03-12 13:40",
+      "rvol": 2.32,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 1.45,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.32x | Breakout +0.03% | Close-VWAP +1.45% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 15:00|WAIT",
+      "signal_time": "2026-03-12 15:00",
+      "rvol": 2.11,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 1.16,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.11x | Breakout +0.05% | Close-VWAP +1.16% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 10:35|WAIT",
+      "signal_time": "2026-03-12 10:35",
+      "rvol": 2.33,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.24,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.33x | Breakout +0.18% | Close-VWAP +1.24% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 11:10|WAIT",
+      "signal_time": "2026-03-12 11:10",
+      "rvol": 2.45,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.28,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.45x | Breakout +0.18% | Close-VWAP +1.28% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 11:40|WAIT",
+      "signal_time": "2026-03-12 11:40",
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.29,
+      "close_vs_vwap_pct": 1.8,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.09x | Breakout +0.29% | Close-VWAP +1.80% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 12:00|WAIT",
+      "signal_time": "2026-03-12 12:00",
+      "rvol": 2.47,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 1.85,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.47x | Breakout +0.17% | Close-VWAP +1.85% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 12:25|WAIT",
+      "signal_time": "2026-03-12 12:25",
+      "rvol": 3.01,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 1.85,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.01x | Breakout +0.21% | Close-VWAP +1.85% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 14:45|WAIT",
+      "signal_time": "2026-03-12 14:45",
+      "rvol": 5.84,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 1.67,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:45 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 5.84x | Breakout +0.02% | Close-VWAP +1.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 2.33,
+      "breakout_gap_pct": 0.4,
+      "close_vs_vwap_pct": 0.91,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.33x | Breakout +0.40% | Close-VWAP +0.91% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 3.17,
+      "breakout_gap_pct": 0.4,
+      "close_vs_vwap_pct": 1.69,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.17x | Breakout +0.40% | Close-VWAP +1.69% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:25|WAIT",
+      "signal_time": "2026-03-12 14:25",
+      "rvol": 2.47,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 1.59,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:25 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.47x | Breakout +0.13% | Close-VWAP +1.59% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:30|WAIT",
+      "signal_time": "2026-03-12 14:30",
+      "rvol": 4.33,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 1.88,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 4.33x | Breakout +0.21% | Close-VWAP +1.88% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:35|WAIT",
+      "signal_time": "2026-03-12 14:35",
+      "rvol": 2.84,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 2.09,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:35 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.84x | Breakout +0.12% | Close-VWAP +2.09% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:50|WAIT",
+      "signal_time": "2026-03-12 14:50",
+      "rvol": 4.38,
+      "breakout_gap_pct": 0.59,
+      "close_vs_vwap_pct": 2.48,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:50 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 4.38x | Breakout +0.59% | Close-VWAP +2.48% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 10:40|WAIT",
+      "signal_time": "2026-03-12 10:40",
+      "rvol": 2.67,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.23,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:40 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.67x | Breakout +0.10% | Close-VWAP +0.23% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 2.88,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 0.53,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.88x | Breakout +0.02% | Close-VWAP +0.53% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 11:10|WAIT",
+      "signal_time": "2026-03-12 11:10",
+      "rvol": 2.63,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.64,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.63x | Breakout +0.10% | Close-VWAP +0.64% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 13:00|WAIT",
+      "signal_time": "2026-03-12 13:00",
+      "rvol": 4.62,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 1.46,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 4.62x | Breakout +0.04% | Close-VWAP +1.46% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUBANK.NS",
+      "name": "AUBANK.NS",
+      "notify_key": "AUBANK.NS|2026-03-12 14:20|WAIT",
+      "signal_time": "2026-03-12 14:20",
+      "rvol": 2.14,
+      "breakout_gap_pct": 0.24,
+      "close_vs_vwap_pct": 0.26,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade B | RVOL 2.14x | Breakout +0.24% | Close-VWAP +0.26% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INDHOTEL.NS",
+      "name": "INDHOTEL.NS",
+      "notify_key": "INDHOTEL.NS|2026-03-12 10:15|WAIT",
+      "signal_time": "2026-03-12 10:15",
+      "rvol": 2.69,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 0.61,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:15 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.69x | Breakout +0.11% | Close-VWAP +0.61% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 13:05|WAIT",
+      "signal_time": "2026-03-12 13:05",
+      "rvol": 2.0,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 1.06,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:05 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.00x | Breakout +0.08% | Close-VWAP +1.06% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.19,
+      "breakout_gap_pct": 0.37,
+      "close_vs_vwap_pct": 1.88,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.19x | Breakout +0.37% | Close-VWAP +1.88% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.08,
+      "breakout_gap_pct": 0.29,
+      "close_vs_vwap_pct": 2.19,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.08x | Breakout +0.29% | Close-VWAP +2.19% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NMDC.NS",
+      "name": "NMDC.NS",
+      "notify_key": "NMDC.NS|2026-03-12 12:25|WAIT",
+      "signal_time": "2026-03-12 12:25",
+      "rvol": 2.84,
+      "breakout_gap_pct": 0.22,
+      "close_vs_vwap_pct": 2.18,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.84x | Breakout +0.22% | Close-VWAP +2.18% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHARATFORG.NS",
+      "name": "BHARATFORG.NS",
+      "notify_key": "BHARATFORG.NS|2026-03-12 15:00|WAIT",
+      "signal_time": "2026-03-12 15:00",
+      "rvol": 2.34,
+      "breakout_gap_pct": 0.15,
+      "close_vs_vwap_pct": 1.94,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.34x | Breakout +0.15% | Close-VWAP +1.94% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-12 12:15|WAIT",
+      "signal_time": "2026-03-12 12:15",
+      "rvol": 2.55,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 0.65,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade A | RVOL 2.55x | Breakout +0.18% | Close-VWAP +0.65% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-12 12:20|WAIT",
+      "signal_time": "2026-03-12 12:20",
+      "rvol": 3.72,
+      "breakout_gap_pct": 0.2,
+      "close_vs_vwap_pct": 0.81,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade A | RVOL 3.72x | Breakout +0.20% | Close-VWAP +0.81% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 5.26,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 0.85,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade B | RVOL 5.26x | Breakout +0.05% | Close-VWAP +0.85% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANKINDIA.NS",
+      "name": "BANKINDIA.NS",
+      "notify_key": "BANKINDIA.NS|2026-03-12 13:15|WAIT",
+      "signal_time": "2026-03-12 13:15",
+      "rvol": 2.01,
+      "breakout_gap_pct": 0.34,
+      "close_vs_vwap_pct": 1.3,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.01x | Breakout +0.34% | Close-VWAP +1.30% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANKINDIA.NS",
+      "name": "BANKINDIA.NS",
+      "notify_key": "BANKINDIA.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.8,
+      "breakout_gap_pct": 0.54,
+      "close_vs_vwap_pct": 1.79,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.80x | Breakout +0.54% | Close-VWAP +1.79% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LAURUSLABS.NS",
+      "name": "LAURUSLABS.NS",
+      "notify_key": "LAURUSLABS.NS|2026-03-12 13:10|WAIT",
+      "signal_time": "2026-03-12 13:10",
+      "rvol": 2.45,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 1.52,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:10 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.45x | Breakout +0.14% | Close-VWAP +1.52% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LUPIN.NS",
+      "name": "LUPIN.NS",
+      "notify_key": "LUPIN.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.37,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 0.65,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.37x | Breakout +0.04% | Close-VWAP +0.65% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-12 09:30|WAIT",
+      "signal_time": "2026-03-12 09:30",
+      "rvol": 3.32,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 0.51,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.32x | Breakout +0.14% | Close-VWAP +0.51% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-12 09:55|WAIT",
+      "signal_time": "2026-03-12 09:55",
+      "rvol": 3.26,
+      "breakout_gap_pct": 0.33,
+      "close_vs_vwap_pct": 0.72,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:55 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.26x | Breakout +0.33% | Close-VWAP +0.72% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-12 10:25|WAIT",
+      "signal_time": "2026-03-12 10:25",
+      "rvol": 2.08,
+      "breakout_gap_pct": 0.34,
+      "close_vs_vwap_pct": 1.13,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.08x | Breakout +0.34% | Close-VWAP +1.13% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-12 13:50|WAIT",
+      "signal_time": "2026-03-12 13:50",
+      "rvol": 6.04,
+      "breakout_gap_pct": 0.84,
+      "close_vs_vwap_pct": 2.54,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 6.04x | Breakout +0.84% | Close-VWAP +2.54% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-12 14:55|WAIT",
+      "signal_time": "2026-03-12 14:55",
+      "rvol": 2.05,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 1.75,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.05x | Breakout +0.08% | Close-VWAP +1.75% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-12 15:25|WAIT",
+      "signal_time": "2026-03-12 15:25",
+      "rvol": 2.95,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 2.08,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.95x | Breakout +0.13% | Close-VWAP +2.08% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BAJAJFINSV.NS",
+      "name": "BAJAJFINSV.NS",
+      "notify_key": "BAJAJFINSV.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.89,
+      "breakout_gap_pct": 0.36,
+      "close_vs_vwap_pct": 0.67,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade A | RVOL 2.89x | Breakout +0.36% | Close-VWAP +0.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHEL.NS",
+      "name": "BHEL.NS",
+      "notify_key": "BHEL.NS|2026-03-12 10:55|WAIT",
+      "signal_time": "2026-03-12 10:55",
+      "rvol": 3.2,
+      "breakout_gap_pct": 0.9,
+      "close_vs_vwap_pct": 2.34,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.20x | Breakout +0.90% | Close-VWAP +2.34% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHEL.NS",
+      "name": "BHEL.NS",
+      "notify_key": "BHEL.NS|2026-03-12 11:35|WAIT",
+      "signal_time": "2026-03-12 11:35",
+      "rvol": 2.48,
+      "breakout_gap_pct": 0.66,
+      "close_vs_vwap_pct": 2.53,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.48x | Breakout +0.66% | Close-VWAP +2.53% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHEL.NS",
+      "name": "BHEL.NS",
+      "notify_key": "BHEL.NS|2026-03-12 11:40|WAIT",
+      "signal_time": "2026-03-12 11:40",
+      "rvol": 3.39,
+      "breakout_gap_pct": 0.39,
+      "close_vs_vwap_pct": 2.57,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.39x | Breakout +0.39% | Close-VWAP +2.57% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "RVNL.NS",
+      "name": "RVNL.NS",
+      "notify_key": "RVNL.NS|2026-03-12 11:10|WAIT",
+      "signal_time": "2026-03-12 11:10",
+      "rvol": 2.17,
+      "breakout_gap_pct": 0.57,
+      "close_vs_vwap_pct": 2.08,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.17x | Breakout +0.57% | Close-VWAP +2.08% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "name": "BANDHANBNK.NS",
+      "notify_key": "BANDHANBNK.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 2.68,
+      "breakout_gap_pct": 0.52,
+      "close_vs_vwap_pct": 0.52,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:35 | Trade ON NA",
+        "Grade A | RVOL 2.68x | Breakout +0.52% | Close-VWAP +0.52% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "name": "BANDHANBNK.NS",
+      "notify_key": "BANDHANBNK.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.19,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 0.64,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:35 | Trade ON NA",
+        "Grade C | RVOL 2.19x | Breakout +0.14% | Close-VWAP +0.64% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "name": "BANDHANBNK.NS",
+      "notify_key": "BANDHANBNK.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.03,
+      "breakout_gap_pct": 0.16,
+      "close_vs_vwap_pct": 0.85,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:35 | Trade ON NA",
+        "Grade B | RVOL 2.03x | Breakout +0.16% | Close-VWAP +0.85% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MOTHERSON.NS",
+      "name": "MOTHERSON.NS",
+      "notify_key": "MOTHERSON.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.21,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 1.25,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.21x | Breakout +0.10% | Close-VWAP +1.25% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MOTHERSON.NS",
+      "name": "MOTHERSON.NS",
+      "notify_key": "MOTHERSON.NS|2026-03-12 15:25|WAIT",
+      "signal_time": "2026-03-12 15:25",
+      "rvol": 2.01,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 1.1,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.01x | Breakout +0.14% | Close-VWAP +1.10% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CUMMINSIND.NS",
+      "name": "CUMMINSIND.NS",
+      "notify_key": "CUMMINSIND.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 2.02,
+      "breakout_gap_pct": 0.61,
+      "close_vs_vwap_pct": 1.45,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.02x | Breakout +0.61% | Close-VWAP +1.45% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 10:25|WAIT",
+      "signal_time": "2026-03-12 10:25",
+      "rvol": 3.86,
+      "breakout_gap_pct": 0.29,
+      "close_vs_vwap_pct": 0.8,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.86x | Breakout +0.29% | Close-VWAP +0.80% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 10:35|WAIT",
+      "signal_time": "2026-03-12 10:35",
+      "rvol": 3.27,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 0.88,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.27x | Breakout +0.23% | Close-VWAP +0.88% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 12:00|WAIT",
+      "signal_time": "2026-03-12 12:00",
+      "rvol": 2.41,
+      "breakout_gap_pct": 0.28,
+      "close_vs_vwap_pct": 1.53,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.41x | Breakout +0.28% | Close-VWAP +1.53% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 12:30|WAIT",
+      "signal_time": "2026-03-12 12:30",
+      "rvol": 2.15,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.73,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:30 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.15x | Breakout +0.18% | Close-VWAP +1.73% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IRFC.NS",
+      "name": "IRFC.NS",
+      "notify_key": "IRFC.NS|2026-03-12 11:40|WAIT",
+      "signal_time": "2026-03-12 11:40",
+      "rvol": 2.26,
+      "breakout_gap_pct": 0.24,
+      "close_vs_vwap_pct": 1.47,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.26x | Breakout +0.24% | Close-VWAP +1.47% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAMMAANCAP.NS",
+      "name": "SAMMAANCAP.NS",
+      "notify_key": "SAMMAANCAP.NS|2026-03-12 15:15|WAIT",
+      "signal_time": "2026-03-12 15:15",
+      "rvol": 2.55,
+      "breakout_gap_pct": 0.3,
+      "close_vs_vwap_pct": 0.15,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch 2026-03-12 15:20 | Trade ON NA",
+        "Grade A | RVOL 2.55x | Breakout +0.30% | Close-VWAP +0.15% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "360ONE.NS",
+      "name": "360ONE.NS",
+      "notify_key": "360ONE.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.82,
+      "breakout_gap_pct": 0.32,
+      "close_vs_vwap_pct": 1.28,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.82x | Breakout +0.32% | Close-VWAP +1.28% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "360ONE.NS",
+      "name": "360ONE.NS",
+      "notify_key": "360ONE.NS|2026-03-12 14:45|WAIT",
+      "signal_time": "2026-03-12 14:45",
+      "rvol": 2.48,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 1.15,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:45 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.48x | Breakout +0.02% | Close-VWAP +1.15% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-12 11:25|WAIT",
+      "signal_time": "2026-03-12 11:25",
+      "rvol": 2.21,
+      "breakout_gap_pct": 0.52,
+      "close_vs_vwap_pct": 1.4,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.21x | Breakout +0.52% | Close-VWAP +1.40% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-12 11:30|WAIT",
+      "signal_time": "2026-03-12 11:30",
+      "rvol": 3.85,
+      "breakout_gap_pct": 1.01,
+      "close_vs_vwap_pct": 2.1,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.85x | Breakout +1.01% | Close-VWAP +2.10% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-12 14:15|WAIT",
+      "signal_time": "2026-03-12 14:15",
+      "rvol": 3.57,
+      "breakout_gap_pct": 0.49,
+      "close_vs_vwap_pct": 1.51,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:15 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.57x | Breakout +0.49% | Close-VWAP +1.51% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BLUESTARCO.NS",
+      "name": "BLUESTARCO.NS",
+      "notify_key": "BLUESTARCO.NS|2026-03-12 13:15|WAIT",
+      "signal_time": "2026-03-12 13:15",
+      "rvol": 2.56,
+      "breakout_gap_pct": 0.2,
+      "close_vs_vwap_pct": 1.3,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 2.56x | Breakout +0.20% | Close-VWAP +1.30% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BLUESTARCO.NS",
+      "name": "BLUESTARCO.NS",
+      "notify_key": "BLUESTARCO.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 3.1,
+      "breakout_gap_pct": 0.39,
+      "close_vs_vwap_pct": 1.63,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 3.10x | Breakout +0.39% | Close-VWAP +1.63% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BLUESTARCO.NS",
+      "name": "BLUESTARCO.NS",
+      "notify_key": "BLUESTARCO.NS|2026-03-12 13:45|WAIT",
+      "signal_time": "2026-03-12 13:45",
+      "rvol": 2.32,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 1.69,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade C | RVOL 2.32x | Breakout +0.12% | Close-VWAP +1.69% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MFSL.NS",
+      "name": "MFSL.NS",
+      "notify_key": "MFSL.NS|2026-03-12 15:20|WAIT",
+      "signal_time": "2026-03-12 15:20",
+      "rvol": 3.74,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.27,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.74x | Breakout +0.01% | Close-VWAP +0.27% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBICARD.NS",
+      "name": "SBICARD.NS",
+      "notify_key": "SBICARD.NS|2026-03-12 11:15|WAIT",
+      "signal_time": "2026-03-12 11:15",
+      "rvol": 7.74,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 0.66,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:15 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 7.74x | Breakout +0.11% | Close-VWAP +0.66% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIENSOL.NS",
+      "name": "ADANIENSOL.NS",
+      "notify_key": "ADANIENSOL.NS|2026-03-12 15:25|WAIT",
+      "signal_time": "2026-03-12 15:25",
+      "rvol": 3.04,
+      "breakout_gap_pct": 0.15,
+      "close_vs_vwap_pct": 0.45,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.04x | Breakout +0.15% | Close-VWAP +0.45% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LICI.NS",
+      "name": "LICI.NS",
+      "notify_key": "LICI.NS|2026-03-12 12:20|WAIT",
+      "signal_time": "2026-03-12 12:20",
+      "rvol": 2.39,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 1.0,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade A | RVOL 2.39x | Breakout +0.21% | Close-VWAP +1.00% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNITDSPR.NS",
+      "name": "UNITDSPR.NS",
+      "notify_key": "UNITDSPR.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 4.3,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 0.65,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 4.30x | Breakout +0.23% | Close-VWAP +0.65% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.58,
+      "breakout_gap_pct": 0.66,
+      "close_vs_vwap_pct": 1.27,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 2.58x | Breakout +0.66% | Close-VWAP +1.27% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 13:50|WAIT",
+      "signal_time": "2026-03-12 13:50",
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 1.41,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 2.09x | Breakout +0.14% | Close-VWAP +1.41% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 15:10|WAIT",
+      "signal_time": "2026-03-12 15:10",
+      "rvol": 4.75,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 1.44,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 4.75x | Breakout +0.17% | Close-VWAP +1.44% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NBCC.NS",
+      "name": "NBCC.NS",
+      "notify_key": "NBCC.NS|2026-03-12 10:35|WAIT",
+      "signal_time": "2026-03-12 10:35",
+      "rvol": 2.48,
+      "breakout_gap_pct": 0.7,
+      "close_vs_vwap_pct": 1.1,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.48x | Breakout +0.70% | Close-VWAP +1.10% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NBCC.NS",
+      "name": "NBCC.NS",
+      "notify_key": "NBCC.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.37,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 1.8,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 2.37x | Breakout +0.17% | Close-VWAP +1.80% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-12 12:00|WAIT",
+      "signal_time": "2026-03-12 12:00",
+      "rvol": 2.41,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 1.92,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.41x | Breakout +0.03% | Close-VWAP +1.92% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-12 12:20|WAIT",
+      "signal_time": "2026-03-12 12:20",
+      "rvol": 4.01,
+      "breakout_gap_pct": 0.68,
+      "close_vs_vwap_pct": 2.36,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 4.01x | Breakout +0.68% | Close-VWAP +2.36% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-12 12:25|WAIT",
+      "signal_time": "2026-03-12 12:25",
+      "rvol": 2.94,
+      "breakout_gap_pct": 0.5,
+      "close_vs_vwap_pct": 2.67,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.94x | Breakout +0.50% | Close-VWAP +2.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 10:55|WAIT",
+      "signal_time": "2026-03-12 10:55",
+      "rvol": 2.28,
+      "breakout_gap_pct": 0.94,
+      "close_vs_vwap_pct": 2.06,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade A | RVOL 2.28x | Breakout +0.94% | Close-VWAP +2.06% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 3.42,
+      "breakout_gap_pct": 0.89,
+      "close_vs_vwap_pct": 2.63,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade A | RVOL 3.42x | Breakout +0.89% | Close-VWAP +2.63% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 11:10|WAIT",
+      "signal_time": "2026-03-12 11:10",
+      "rvol": 4.14,
+      "breakout_gap_pct": 1.03,
+      "close_vs_vwap_pct": 3.07,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade A | RVOL 4.14x | Breakout +1.03% | Close-VWAP +3.07% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 12:25|WAIT",
+      "signal_time": "2026-03-12 12:25",
+      "rvol": 2.03,
+      "breakout_gap_pct": 0.19,
+      "close_vs_vwap_pct": 2.67,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade B | RVOL 2.03x | Breakout +0.19% | Close-VWAP +2.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 13:20|WAIT",
+      "signal_time": "2026-03-12 13:20",
+      "rvol": 3.89,
+      "breakout_gap_pct": 0.93,
+      "close_vs_vwap_pct": 2.94,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade A | RVOL 3.89x | Breakout +0.93% | Close-VWAP +2.94% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SUPREMEIND.NS",
+      "name": "SUPREMEIND.NS",
+      "notify_key": "SUPREMEIND.NS|2026-03-12 11:10|WAIT",
+      "signal_time": "2026-03-12 11:10",
+      "rvol": 3.85,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 1.16,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 3.85x | Breakout +0.17% | Close-VWAP +1.16% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SUPREMEIND.NS",
+      "name": "SUPREMEIND.NS",
+      "notify_key": "SUPREMEIND.NS|2026-03-12 12:00|WAIT",
+      "signal_time": "2026-03-12 12:00",
+      "rvol": 2.99,
+      "breakout_gap_pct": 0.57,
+      "close_vs_vwap_pct": 1.94,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 2.99x | Breakout +0.57% | Close-VWAP +1.94% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SUPREMEIND.NS",
+      "name": "SUPREMEIND.NS",
+      "notify_key": "SUPREMEIND.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.1,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.78,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade B | RVOL 2.10x | Breakout +0.09% | Close-VWAP +0.78% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ASTRAL.NS",
+      "name": "ASTRAL.NS",
+      "notify_key": "ASTRAL.NS|2026-03-12 15:20|WAIT",
+      "signal_time": "2026-03-12 15:20",
+      "rvol": 4.08,
+      "breakout_gap_pct": 0.58,
+      "close_vs_vwap_pct": 1.46,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch 2026-03-12 15:25 | Trade ON NA",
+        "Grade A | RVOL 4.08x | Breakout +0.58% | Close-VWAP +1.46% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LODHA.NS",
+      "name": "LODHA.NS",
+      "notify_key": "LODHA.NS|2026-03-12 13:35|WAIT",
+      "signal_time": "2026-03-12 13:35",
+      "rvol": 2.24,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 1.29,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:40 | Trade ON NA",
+        "Grade C | RVOL 2.24x | Breakout +0.02% | Close-VWAP +1.29% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-12 11:00|WAIT",
+      "signal_time": "2026-03-12 11:00",
+      "rvol": 2.15,
+      "breakout_gap_pct": 0.38,
+      "close_vs_vwap_pct": 1.24,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.15x | Breakout +0.38% | Close-VWAP +1.24% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-12 13:30|WAIT",
+      "signal_time": "2026-03-12 13:30",
+      "rvol": 2.22,
+      "breakout_gap_pct": 0.46,
+      "close_vs_vwap_pct": 1.03,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.22x | Breakout +0.46% | Close-VWAP +1.03% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-12 14:50|WAIT",
+      "signal_time": "2026-03-12 14:50",
+      "rvol": 3.05,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 1.1,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:50 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.05x | Breakout +0.21% | Close-VWAP +1.10% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TORNTPOWER.NS",
+      "name": "TORNTPOWER.NS",
+      "notify_key": "TORNTPOWER.NS|2026-03-12 12:10|WAIT",
+      "signal_time": "2026-03-12 12:10",
+      "rvol": 3.19,
+      "breakout_gap_pct": 0.42,
+      "close_vs_vwap_pct": 2.3,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:10 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.19x | Breakout +0.42% | Close-VWAP +2.30% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "name": "KALYANKJIL.NS",
+      "notify_key": "KALYANKJIL.NS|2026-03-12 10:50|WAIT",
+      "signal_time": "2026-03-12 10:50",
+      "rvol": 2.84,
+      "breakout_gap_pct": 0.25,
+      "close_vs_vwap_pct": 0.88,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:50 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.84x | Breakout +0.25% | Close-VWAP +0.88% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SRF.NS",
+      "name": "SRF.NS",
+      "notify_key": "SRF.NS|2026-03-12 09:25|WAIT",
+      "signal_time": "2026-03-12 09:25",
+      "rvol": 2.76,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 0.67,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.76x | Breakout +0.18% | Close-VWAP +0.67% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SRF.NS",
+      "name": "SRF.NS",
+      "notify_key": "SRF.NS|2026-03-12 12:35|WAIT",
+      "signal_time": "2026-03-12 12:35",
+      "rvol": 5.28,
+      "breakout_gap_pct": 0.36,
+      "close_vs_vwap_pct": 2.48,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:35 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 5.28x | Breakout +0.36% | Close-VWAP +2.48% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:05|WAIT",
+      "signal_time": "2026-03-12 15:05",
+      "rvol": 2.54,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.08,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.54x | Breakout +0.01% | Close-VWAP +0.08% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:10|WAIT",
+      "signal_time": "2026-03-12 15:10",
+      "rvol": 3.75,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 0.32,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 3.75x | Breakout +0.21% | Close-VWAP +0.32% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:15|WAIT",
+      "signal_time": "2026-03-12 15:15",
+      "rvol": 3.08,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.4,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.08x | Breakout +0.03% | Close-VWAP +0.40% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:20|WAIT",
+      "signal_time": "2026-03-12 15:20",
+      "rvol": 3.03,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.49,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.03x | Breakout +0.09% | Close-VWAP +0.49% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "name": "SYNGENE.NS",
+      "notify_key": "SYNGENE.NS|2026-03-12 10:30|WAIT",
+      "signal_time": "2026-03-12 10:30",
+      "rvol": 2.66,
+      "breakout_gap_pct": 0.15,
+      "close_vs_vwap_pct": 0.42,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:30 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.66x | Breakout +0.15% | Close-VWAP +0.42% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "name": "SYNGENE.NS",
+      "notify_key": "SYNGENE.NS|2026-03-12 11:10|WAIT",
+      "signal_time": "2026-03-12 11:10",
+      "rvol": 3.95,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 0.95,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.95x | Breakout +0.06% | Close-VWAP +0.95% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "name": "SYNGENE.NS",
+      "notify_key": "SYNGENE.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 12.81,
+      "breakout_gap_pct": 0.25,
+      "close_vs_vwap_pct": 0.93,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 12.81x | Breakout +0.25% | Close-VWAP +0.93% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NUVAMA.NS",
+      "name": "NUVAMA.NS",
+      "notify_key": "NUVAMA.NS|2026-03-12 13:25|WAIT",
+      "signal_time": "2026-03-12 13:25",
+      "rvol": 2.07,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.87,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade C | RVOL 2.07x | Breakout +0.10% | Close-VWAP +0.87% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NUVAMA.NS",
+      "name": "NUVAMA.NS",
+      "notify_key": "NUVAMA.NS|2026-03-12 13:40|WAIT",
+      "signal_time": "2026-03-12 13:40",
+      "rvol": 5.22,
+      "breakout_gap_pct": 0.07,
+      "close_vs_vwap_pct": 1.25,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 14:45 | Trade ON NA",
+        "Grade B | RVOL 5.22x | Breakout +0.07% | Close-VWAP +1.25% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 09:45|WAIT",
+      "signal_time": "2026-03-12 09:45",
+      "rvol": 2.4,
+      "breakout_gap_pct": 0.36,
+      "close_vs_vwap_pct": 0.95,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:45 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.40x | Breakout +0.36% | Close-VWAP +0.95% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 11:40|WAIT",
+      "signal_time": "2026-03-12 11:40",
+      "rvol": 2.15,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.88,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA",
+        "Grade C | RVOL 2.15x | Breakout +0.09% | Close-VWAP +0.88% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 12:25|WAIT",
+      "signal_time": "2026-03-12 12:25",
+      "rvol": 3.44,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.89,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA",
+        "Grade B | RVOL 3.44x | Breakout +0.10% | Close-VWAP +0.89% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 12:45|WAIT",
+      "signal_time": "2026-03-12 12:45",
+      "rvol": 2.01,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.03,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:45 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.01x | Breakout +0.18% | Close-VWAP +1.03% | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 13:00|WAIT",
+      "signal_time": "2026-03-12 13:00",
+      "rvol": 2.38,
+      "breakout_gap_pct": 0.22,
+      "close_vs_vwap_pct": 1.37,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch NA | Trade ON NA",
+        "Grade A | RVOL 2.38x | Breakout +0.22% | Close-VWAP +1.37% | Waiting for green 5m close above VWAP."
+      ]
+    }
+  ]
+}

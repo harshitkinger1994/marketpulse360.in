@@ -1,0 +1,3650 @@
+{
+  "strategy_id": "india_breakout_retest_on",
+  "title": "India 1H Breakout Retest \u2014 Entry Valid",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "india",
+  "generated_at": "2026-03-15T17:14:09.709595+00:00",
+  "interval": "60m",
+  "rules": {
+    "volume_multiple": 3.0,
+    "lookback_volume": 30,
+    "adx_min": 20.0,
+    "breakout_condition": "BUY: close > EMA9 > VWAP and > Daily EMA9 | SELL: close < EMA9 < VWAP and < Daily EMA9",
+    "daily_ema_filter": "daily close must align with trade side vs Daily EMA9",
+    "entry_window_candles": "5-6",
+    "entry_trigger": "retest touch + side-confirm candle (green above EMA9/VWAP for BUY, red below EMA9/VWAP for SELL)",
+    "min_rr": 1.5,
+    "target_atr_multiple": 2.5
+  },
+  "counts": {
+    "assets": 50,
+    "assets_with_data": 49,
+    "breakouts": 798,
+    "triggered": 184
+  },
+  "asset_summary": {
+    "ADANIPORTS": {
+      "symbol": "ADANIPORTS.NS",
+      "bars": 836,
+      "breakouts": 14,
+      "triggered": 5
+    },
+    "APOLLOHOSP": {
+      "symbol": "APOLLOHOSP.NS",
+      "bars": 836,
+      "breakouts": 18,
+      "triggered": 6
+    },
+    "ASIANPAINT": {
+      "symbol": "ASIANPAINT.NS",
+      "bars": 837,
+      "breakouts": 28,
+      "triggered": 8
+    },
+    "AXISBANK": {
+      "symbol": "AXISBANK.NS",
+      "bars": 837,
+      "breakouts": 12,
+      "triggered": 4
+    },
+    "BAJAJ-AUTO": {
+      "symbol": "BAJAJ-AUTO.NS",
+      "bars": 836,
+      "breakouts": 10,
+      "triggered": 4
+    },
+    "BAJAJFINSV": {
+      "symbol": "BAJAJFINSV.NS",
+      "bars": 836,
+      "breakouts": 22,
+      "triggered": 2
+    },
+    "BAJFINANCE": {
+      "symbol": "BAJFINANCE.NS",
+      "bars": 836,
+      "breakouts": 19,
+      "triggered": 2
+    },
+    "BHARTIARTL": {
+      "symbol": "BHARTIARTL.NS",
+      "bars": 836,
+      "breakouts": 16,
+      "triggered": 4
+    },
+    "BPCL": {
+      "symbol": "BPCL.NS",
+      "bars": 836,
+      "breakouts": 15,
+      "triggered": 7
+    },
+    "BRITANNIA": {
+      "symbol": "BRITANNIA.NS",
+      "bars": 836,
+      "breakouts": 16,
+      "triggered": 4
+    },
+    "CIPLA": {
+      "symbol": "CIPLA.NS",
+      "bars": 837,
+      "breakouts": 20,
+      "triggered": 7
+    },
+    "COALINDIA": {
+      "symbol": "COALINDIA.NS",
+      "bars": 836,
+      "breakouts": 23,
+      "triggered": 6
+    },
+    "DIVISLAB": {
+      "symbol": "DIVISLAB.NS",
+      "bars": 837,
+      "breakouts": 26,
+      "triggered": 1
+    },
+    "DRREDDY": {
+      "symbol": "DRREDDY.NS",
+      "bars": 836,
+      "breakouts": 19,
+      "triggered": 4
+    },
+    "EICHERMOT": {
+      "symbol": "EICHERMOT.NS",
+      "bars": 836,
+      "breakouts": 15,
+      "triggered": 0
+    },
+    "GRASIM": {
+      "symbol": "GRASIM.NS",
+      "bars": 836,
+      "breakouts": 15,
+      "triggered": 3
+    },
+    "HCLTECH": {
+      "symbol": "HCLTECH.NS",
+      "bars": 836,
+      "breakouts": 14,
+      "triggered": 2
+    },
+    "HDFCBANK": {
+      "symbol": "HDFCBANK.NS",
+      "bars": 836,
+      "breakouts": 15,
+      "triggered": 5
+    },
+    "HDFCLIFE": {
+      "symbol": "HDFCLIFE.NS",
+      "bars": 836,
+      "breakouts": 13,
+      "triggered": 2
+    },
+    "HEROMOTOCO": {
+      "symbol": "HEROMOTOCO.NS",
+      "bars": 836,
+      "breakouts": 14,
+      "triggered": 3
+    },
+    "HINDALCO": {
+      "symbol": "HINDALCO.NS",
+      "bars": 837,
+      "breakouts": 13,
+      "triggered": 2
+    },
+    "HINDUNILVR": {
+      "symbol": "HINDUNILVR.NS",
+      "bars": 837,
+      "breakouts": 10,
+      "triggered": 1
+    },
+    "ICICIBANK": {
+      "symbol": "ICICIBANK.NS",
+      "bars": 837,
+      "breakouts": 14,
+      "triggered": 5
+    },
+    "INDUSINDBK": {
+      "symbol": "INDUSINDBK.NS",
+      "bars": 836,
+      "breakouts": 21,
+      "triggered": 6
+    },
+    "INFY": {
+      "symbol": "INFY.NS",
+      "bars": 837,
+      "breakouts": 17,
+      "triggered": 3
+    },
+    "ITC": {
+      "symbol": "ITC.NS",
+      "bars": 836,
+      "breakouts": 18,
+      "triggered": 2
+    },
+    "JSWSTEEL": {
+      "symbol": "JSWSTEEL.NS",
+      "bars": 836,
+      "breakouts": 22,
+      "triggered": 7
+    },
+    "KOTAKBANK": {
+      "symbol": "KOTAKBANK.NS",
+      "bars": 837,
+      "breakouts": 22,
+      "triggered": 5
+    },
+    "LT": {
+      "symbol": "LT.NS",
+      "bars": 837,
+      "breakouts": 12,
+      "triggered": 2
+    },
+    "M&M": {
+      "symbol": "M&M.NS",
+      "bars": 836,
+      "breakouts": 18,
+      "triggered": 9
+    },
+    "MARUTI": {
+      "symbol": "MARUTI.NS",
+      "bars": 837,
+      "breakouts": 10,
+      "triggered": 3
+    },
+    "NESTLEIND": {
+      "symbol": "NESTLEIND.NS",
+      "bars": 837,
+      "breakouts": 12,
+      "triggered": 4
+    },
+    "NTPC": {
+      "symbol": "NTPC.NS",
+      "bars": 836,
+      "breakouts": 15,
+      "triggered": 4
+    },
+    "ONGC": {
+      "symbol": "ONGC.NS",
+      "bars": 836,
+      "breakouts": 18,
+      "triggered": 1
+    },
+    "POWERGRID": {
+      "symbol": "POWERGRID.NS",
+      "bars": 836,
+      "breakouts": 11,
+      "triggered": 0
+    },
+    "RELIANCE": {
+      "symbol": "RELIANCE.NS",
+      "bars": 836,
+      "breakouts": 11,
+      "triggered": 3
+    },
+    "SBILIFE": {
+      "symbol": "SBILIFE.NS",
+      "bars": 837,
+      "breakouts": 15,
+      "triggered": 4
+    },
+    "SBIN": {
+      "symbol": "SBIN.NS",
+      "bars": 836,
+      "breakouts": 14,
+      "triggered": 3
+    },
+    "SHREECEM": {
+      "symbol": "SHREECEM.NS",
+      "bars": 837,
+      "breakouts": 18,
+      "triggered": 3
+    },
+    "SHRIRAMFIN": {
+      "symbol": "SHRIRAMFIN.NS",
+      "bars": 837,
+      "breakouts": 10,
+      "triggered": 3
+    },
+    "SUNPHARMA": {
+      "symbol": "SUNPHARMA.NS",
+      "bars": 836,
+      "breakouts": 18,
+      "triggered": 3
+    },
+    "TATACONSUM": {
+      "symbol": "TATACONSUM.NS",
+      "bars": 836,
+      "breakouts": 11,
+      "triggered": 4
+    },
+    "TATAMOTORS": {
+      "symbol": null,
+      "bars": 0,
+      "breakouts": 0,
+      "triggered": 0
+    },
+    "TATASTEEL": {
+      "symbol": "TATASTEEL.NS",
+      "bars": 836,
+      "breakouts": 17,
+      "triggered": 4
+    },
+    "TCS": {
+      "symbol": "TCS.NS",
+      "bars": 837,
+      "breakouts": 17,
+      "triggered": 4
+    },
+    "TECHM": {
+      "symbol": "TECHM.NS",
+      "bars": 836,
+      "breakouts": 27,
+      "triggered": 4
+    },
+    "TITAN": {
+      "symbol": "TITAN.NS",
+      "bars": 836,
+      "breakouts": 12,
+      "triggered": 2
+    },
+    "ULTRACEMCO": {
+      "symbol": "ULTRACEMCO.NS",
+      "bars": 836,
+      "breakouts": 12,
+      "triggered": 1
+    },
+    "UPL": {
+      "symbol": "UPL.NS",
+      "bars": 836,
+      "breakouts": 22,
+      "triggered": 8
+    },
+    "WIPRO": {
+      "symbol": "WIPRO.NS",
+      "bars": 837,
+      "breakouts": 17,
+      "triggered": 5
+    }
+  },
+  "notes": [
+    "1H breakout-retest strategy applied to this page universe.",
+    "Entry allowed only on candle 5-6 after breakout.",
+    "Telegram alert is sent by backend daily notifier for new valid entries.",
+    "Eichermot: no valid entries this run",
+    "Powergrid: no valid entries this run",
+    "Tatamotors: data unavailable"
+  ],
+  "items": [
+    {
+      "ticker": "ICICIBANK",
+      "name": "Icicibank",
+      "symbol": "ICICIBANK.NS",
+      "side": "SELL",
+      "notify_key": "ICICIBANK|ICICIBANK.NS|SELL|2026-03-12 08:45:00+00:00|2026-03-13 06:45:00+00:00|1252.1",
+      "signal_time": "2026-03-12 14:15:00+05:30",
+      "entry_time": "2026-03-13 12:15:00+05:30",
+      "entry_price": 1252.1,
+      "stop_price": 1262.49,
+      "target_price": 1225.94,
+      "rr_ratio": 2.52,
+      "vol_mult": 3.03,
+      "lines": [
+        "SELL | Icicibank breakout 2026-03-12 14:15:00+05:30 | entry 2026-03-13 12:15:00+05:30 (candle 5-6)",
+        "Entry 1252.10 | SL 1262.49 | Target 1225.94 | RR 2.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AXISBANK",
+      "name": "Axisbank",
+      "symbol": "AXISBANK.NS",
+      "side": "SELL",
+      "notify_key": "AXISBANK|AXISBANK.NS|SELL|2026-03-12 08:45:00+00:00|2026-03-13 05:45:00+00:00|1202.8",
+      "signal_time": "2026-03-12 14:15:00+05:30",
+      "entry_time": "2026-03-13 11:15:00+05:30",
+      "entry_price": 1202.8,
+      "stop_price": 1222.63,
+      "target_price": 1168.32,
+      "rr_ratio": 1.74,
+      "vol_mult": 3.31,
+      "lines": [
+        "SELL | Axisbank breakout 2026-03-12 14:15:00+05:30 | entry 2026-03-13 11:15:00+05:30 (candle 5-6)",
+        "Entry 1202.80 | SL 1222.63 | Target 1168.32 | RR 1.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COALINDIA",
+      "name": "Coalindia",
+      "symbol": "COALINDIA.NS",
+      "side": "BUY",
+      "notify_key": "COALINDIA|COALINDIA.NS|BUY|2026-03-12 07:45:00+00:00|2026-03-13 05:45:00+00:00|469.7",
+      "signal_time": "2026-03-12 13:15:00+05:30",
+      "entry_time": "2026-03-13 11:15:00+05:30",
+      "entry_price": 469.7,
+      "stop_price": 464.86,
+      "target_price": 484.66,
+      "rr_ratio": 3.09,
+      "vol_mult": 4.52,
+      "lines": [
+        "BUY | Coalindia breakout 2026-03-12 13:15:00+05:30 | entry 2026-03-13 11:15:00+05:30 (candle 5-6)",
+        "Entry 469.70 | SL 464.86 | Target 484.66 | RR 3.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NTPC",
+      "name": "Ntpc",
+      "symbol": "NTPC.NS",
+      "side": "BUY",
+      "notify_key": "NTPC|NTPC.NS|BUY|2026-03-12 07:45:00+00:00|2026-03-13 05:45:00+00:00|392.95",
+      "signal_time": "2026-03-12 13:15:00+05:30",
+      "entry_time": "2026-03-13 11:15:00+05:30",
+      "entry_price": 392.95,
+      "stop_price": 388.65,
+      "target_price": 402.69,
+      "rr_ratio": 2.27,
+      "vol_mult": 3.57,
+      "lines": [
+        "BUY | Ntpc breakout 2026-03-12 13:15:00+05:30 | entry 2026-03-13 11:15:00+05:30 (candle 5-6)",
+        "Entry 392.95 | SL 388.65 | Target 402.69 | RR 2.27 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "COALINDIA",
+      "name": "Coalindia",
+      "symbol": "COALINDIA.NS",
+      "side": "BUY",
+      "notify_key": "COALINDIA|COALINDIA.NS|BUY|2026-03-12 05:45:00+00:00|2026-03-13 04:45:00+00:00|466.25",
+      "signal_time": "2026-03-12 11:15:00+05:30",
+      "entry_time": "2026-03-13 10:15:00+05:30",
+      "entry_price": 466.25,
+      "stop_price": 462.75,
+      "target_price": 480.77,
+      "rr_ratio": 4.15,
+      "vol_mult": 3.33,
+      "lines": [
+        "BUY | Coalindia breakout 2026-03-12 11:15:00+05:30 | entry 2026-03-13 10:15:00+05:30 (candle 5-6)",
+        "Entry 466.25 | SL 462.75 | Target 480.77 | RR 4.15 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "KOTAKBANK",
+      "name": "Kotakbank",
+      "symbol": "KOTAKBANK.NS",
+      "side": "SELL",
+      "notify_key": "KOTAKBANK|KOTAKBANK.NS|SELL|2026-03-11 09:45:00+00:00|2026-03-12 08:45:00+00:00|375.55",
+      "signal_time": "2026-03-11 15:15:00+05:30",
+      "entry_time": "2026-03-12 14:15:00+05:30",
+      "entry_price": 375.55,
+      "stop_price": 379.51,
+      "target_price": 367.14,
+      "rr_ratio": 2.12,
+      "vol_mult": 4.17,
+      "lines": [
+        "SELL | Kotakbank breakout 2026-03-11 15:15:00+05:30 | entry 2026-03-12 14:15:00+05:30 (candle 5-6)",
+        "Entry 375.55 | SL 379.51 | Target 367.14 | RR 2.12 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SHREECEM",
+      "name": "Shreecem",
+      "symbol": "SHREECEM.NS",
+      "side": "SELL",
+      "notify_key": "SHREECEM|SHREECEM.NS|SELL|2026-03-10 07:45:00+00:00|2026-03-11 06:45:00+00:00|23820.0",
+      "signal_time": "2026-03-10 13:15:00+05:30",
+      "entry_time": "2026-03-11 12:15:00+05:30",
+      "entry_price": 23820.0,
+      "stop_price": 23897.91,
+      "target_price": 23399.46,
+      "rr_ratio": 5.4,
+      "vol_mult": 3.26,
+      "lines": [
+        "SELL | Shreecem breakout 2026-03-10 13:15:00+05:30 | entry 2026-03-11 12:15:00+05:30 (candle 5-6)",
+        "Entry 23820.00 | SL 23897.91 | Target 23399.46 | RR 5.40 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "SELL",
+      "notify_key": "BPCL|BPCL.NS|SELL|2026-03-09 08:45:00+00:00|2026-03-10 06:45:00+00:00|325.15",
+      "signal_time": "2026-03-09 14:15:00+05:30",
+      "entry_time": "2026-03-10 12:15:00+05:30",
+      "entry_price": 325.15,
+      "stop_price": 330.19,
+      "target_price": 309.32,
+      "rr_ratio": 3.14,
+      "vol_mult": 4.53,
+      "lines": [
+        "SELL | Bpcl breakout 2026-03-09 14:15:00+05:30 | entry 2026-03-10 12:15:00+05:30 (candle 5-6)",
+        "Entry 325.15 | SL 330.19 | Target 309.32 | RR 3.14 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SUNPHARMA",
+      "name": "Sunpharma",
+      "symbol": "SUNPHARMA.NS",
+      "side": "BUY",
+      "notify_key": "SUNPHARMA|SUNPHARMA.NS|BUY|2026-03-06 08:45:00+00:00|2026-03-09 06:45:00+00:00|1803.9",
+      "signal_time": "2026-03-06 14:15:00+05:30",
+      "entry_time": "2026-03-09 12:15:00+05:30",
+      "entry_price": 1803.9,
+      "stop_price": 1790.3,
+      "target_price": 1837.56,
+      "rr_ratio": 2.48,
+      "vol_mult": 3.28,
+      "lines": [
+        "BUY | Sunpharma breakout 2026-03-06 14:15:00+05:30 | entry 2026-03-09 12:15:00+05:30 (candle 5-6)",
+        "Entry 1803.90 | SL 1790.30 | Target 1837.56 | RR 2.48 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "WIPRO",
+      "name": "Wipro",
+      "symbol": "WIPRO.NS",
+      "side": "SELL",
+      "notify_key": "WIPRO|WIPRO.NS|SELL|2026-03-04 08:45:00+00:00|2026-03-05 07:45:00+00:00|193.81",
+      "signal_time": "2026-03-04 14:15:00+05:30",
+      "entry_time": "2026-03-05 13:15:00+05:30",
+      "entry_price": 193.81,
+      "stop_price": 194.93,
+      "target_price": 190.31,
+      "rr_ratio": 3.13,
+      "vol_mult": 3.29,
+      "lines": [
+        "SELL | Wipro breakout 2026-03-04 14:15:00+05:30 | entry 2026-03-05 13:15:00+05:30 (candle 5-6)",
+        "Entry 193.81 | SL 194.93 | Target 190.31 | RR 3.13 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TATASTEEL",
+      "name": "Tatasteel",
+      "symbol": "TATASTEEL.NS",
+      "side": "SELL",
+      "notify_key": "TATASTEEL|TATASTEEL.NS|SELL|2026-03-04 04:45:00+00:00|2026-03-04 09:45:00+00:00|196.06",
+      "signal_time": "2026-03-04 10:15:00+05:30",
+      "entry_time": "2026-03-04 15:15:00+05:30",
+      "entry_price": 196.06,
+      "stop_price": 199.75,
+      "target_price": 187.73,
+      "rr_ratio": 2.25,
+      "vol_mult": 4.92,
+      "lines": [
+        "SELL | Tatasteel breakout 2026-03-04 10:15:00+05:30 | entry 2026-03-04 15:15:00+05:30 (candle 5-6)",
+        "Entry 196.06 | SL 199.75 | Target 187.73 | RR 2.25 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "SELL",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|SELL|2026-03-02 06:45:00+00:00|2026-03-04 05:45:00+00:00|2264.6",
+      "signal_time": "2026-03-02 12:15:00+05:30",
+      "entry_time": "2026-03-04 11:15:00+05:30",
+      "entry_price": 2264.6,
+      "stop_price": 2293.81,
+      "target_price": 2198.31,
+      "rr_ratio": 2.27,
+      "vol_mult": 3.34,
+      "lines": [
+        "SELL | Asianpaint breakout 2026-03-02 12:15:00+05:30 | entry 2026-03-04 11:15:00+05:30 (candle 5-6)",
+        "Entry 2264.60 | SL 2293.81 | Target 2198.31 | RR 2.27 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRITANNIA",
+      "name": "Britannia",
+      "symbol": "BRITANNIA.NS",
+      "side": "SELL",
+      "notify_key": "BRITANNIA|BRITANNIA.NS|SELL|2026-02-27 09:45:00+00:00|2026-03-02 08:45:00+00:00|5968.5",
+      "signal_time": "2026-02-27 15:15:00+05:30",
+      "entry_time": "2026-03-02 14:15:00+05:30",
+      "entry_price": 5968.5,
+      "stop_price": 5990.05,
+      "target_price": 5865.02,
+      "rr_ratio": 4.8,
+      "vol_mult": 3.12,
+      "lines": [
+        "SELL | Britannia breakout 2026-02-27 15:15:00+05:30 | entry 2026-03-02 14:15:00+05:30 (candle 5-6)",
+        "Entry 5968.50 | SL 5990.05 | Target 5865.02 | RR 4.80 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL",
+      "name": "Bhartiartl",
+      "symbol": "BHARTIARTL.NS",
+      "side": "SELL",
+      "notify_key": "BHARTIARTL|BHARTIARTL.NS|SELL|2026-02-27 08:45:00+00:00|2026-03-02 07:45:00+00:00|1878.0",
+      "signal_time": "2026-02-27 14:15:00+05:30",
+      "entry_time": "2026-03-02 13:15:00+05:30",
+      "entry_price": 1878.0,
+      "stop_price": 1885.9,
+      "target_price": 1837.07,
+      "rr_ratio": 5.18,
+      "vol_mult": 4.44,
+      "lines": [
+        "SELL | Bhartiartl breakout 2026-02-27 14:15:00+05:30 | entry 2026-03-02 13:15:00+05:30 (candle 5-6)",
+        "Entry 1878.00 | SL 1885.90 | Target 1837.07 | RR 5.18 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "BUY",
+      "notify_key": "CIPLA|CIPLA.NS|BUY|2026-02-27 08:45:00+00:00|2026-03-02 07:45:00+00:00|1347.3",
+      "signal_time": "2026-02-27 14:15:00+05:30",
+      "entry_time": "2026-03-02 13:15:00+05:30",
+      "entry_price": 1347.3,
+      "stop_price": 1335.7,
+      "target_price": 1370.62,
+      "rr_ratio": 2.01,
+      "vol_mult": 3.93,
+      "lines": [
+        "BUY | Cipla breakout 2026-02-27 14:15:00+05:30 | entry 2026-03-02 13:15:00+05:30 (candle 5-6)",
+        "Entry 1347.30 | SL 1335.70 | Target 1370.62 | RR 2.01 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCBANK",
+      "name": "Hdfcbank",
+      "symbol": "HDFCBANK.NS",
+      "side": "SELL",
+      "notify_key": "HDFCBANK|HDFCBANK.NS|SELL|2026-02-27 08:45:00+00:00|2026-03-02 06:45:00+00:00|877.25",
+      "signal_time": "2026-02-27 14:15:00+05:30",
+      "entry_time": "2026-03-02 12:15:00+05:30",
+      "entry_price": 877.25,
+      "stop_price": 884.65,
+      "target_price": 865.9,
+      "rr_ratio": 1.53,
+      "vol_mult": 3.04,
+      "lines": [
+        "SELL | Hdfcbank breakout 2026-02-27 14:15:00+05:30 | entry 2026-03-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 877.25 | SL 884.65 | Target 865.90 | RR 1.53 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NESTLEIND",
+      "name": "Nestleind",
+      "symbol": "NESTLEIND.NS",
+      "side": "SELL",
+      "notify_key": "NESTLEIND|NESTLEIND.NS|SELL|2026-02-27 08:45:00+00:00|2026-03-02 06:45:00+00:00|1264.0",
+      "signal_time": "2026-02-27 14:15:00+05:30",
+      "entry_time": "2026-03-02 12:15:00+05:30",
+      "entry_price": 1264.0,
+      "stop_price": 1281.18,
+      "target_price": 1237.93,
+      "rr_ratio": 1.52,
+      "vol_mult": 6.15,
+      "lines": [
+        "SELL | Nestleind breakout 2026-02-27 14:15:00+05:30 | entry 2026-03-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 1264.00 | SL 1281.18 | Target 1237.93 | RR 1.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK",
+      "name": "Indusindbk",
+      "symbol": "INDUSINDBK.NS",
+      "side": "BUY",
+      "notify_key": "INDUSINDBK|INDUSINDBK.NS|BUY|2026-02-26 08:45:00+00:00|2026-02-27 07:45:00+00:00|960.65",
+      "signal_time": "2026-02-26 14:15:00+05:30",
+      "entry_time": "2026-02-27 13:15:00+05:30",
+      "entry_price": 960.65,
+      "stop_price": 956.46,
+      "target_price": 984.57,
+      "rr_ratio": 5.71,
+      "vol_mult": 3.4,
+      "lines": [
+        "BUY | Indusindbk breakout 2026-02-26 14:15:00+05:30 | entry 2026-02-27 13:15:00+05:30 (candle 5-6)",
+        "Entry 960.65 | SL 956.46 | Target 984.57 | RR 5.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK",
+      "name": "Indusindbk",
+      "symbol": "INDUSINDBK.NS",
+      "side": "BUY",
+      "notify_key": "INDUSINDBK|INDUSINDBK.NS|BUY|2026-02-26 09:45:00+00:00|2026-02-27 07:45:00+00:00|960.65",
+      "signal_time": "2026-02-26 15:15:00+05:30",
+      "entry_time": "2026-02-27 13:15:00+05:30",
+      "entry_price": 960.65,
+      "stop_price": 956.46,
+      "target_price": 984.57,
+      "rr_ratio": 5.71,
+      "vol_mult": 3.88,
+      "lines": [
+        "BUY | Indusindbk breakout 2026-02-26 15:15:00+05:30 | entry 2026-02-27 13:15:00+05:30 (candle 5-6)",
+        "Entry 960.65 | SL 956.46 | Target 984.57 | RR 5.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCBANK",
+      "name": "Hdfcbank",
+      "symbol": "HDFCBANK.NS",
+      "side": "SELL",
+      "notify_key": "HDFCBANK|HDFCBANK.NS|SELL|2026-02-26 08:45:00+00:00|2026-02-27 06:45:00+00:00|889.45",
+      "signal_time": "2026-02-26 14:15:00+05:30",
+      "entry_time": "2026-02-27 12:15:00+05:30",
+      "entry_price": 889.45,
+      "stop_price": 895.31,
+      "target_price": 879.16,
+      "rr_ratio": 1.76,
+      "vol_mult": 3.17,
+      "lines": [
+        "SELL | Hdfcbank breakout 2026-02-26 14:15:00+05:30 | entry 2026-02-27 12:15:00+05:30 (candle 5-6)",
+        "Entry 889.45 | SL 895.31 | Target 879.16 | RR 1.76 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCBANK",
+      "name": "Hdfcbank",
+      "symbol": "HDFCBANK.NS",
+      "side": "SELL",
+      "notify_key": "HDFCBANK|HDFCBANK.NS|SELL|2026-02-26 06:45:00+00:00|2026-02-27 05:45:00+00:00|890.3",
+      "signal_time": "2026-02-26 12:15:00+05:30",
+      "entry_time": "2026-02-27 11:15:00+05:30",
+      "entry_price": 890.3,
+      "stop_price": 896.78,
+      "target_price": 879.68,
+      "rr_ratio": 1.64,
+      "vol_mult": 3.21,
+      "lines": [
+        "SELL | Hdfcbank breakout 2026-02-26 12:15:00+05:30 | entry 2026-02-27 11:15:00+05:30 (candle 5-6)",
+        "Entry 890.30 | SL 896.78 | Target 879.68 | RR 1.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SBIN",
+      "name": "Sbin",
+      "symbol": "SBIN.NS",
+      "side": "SELL",
+      "notify_key": "SBIN|SBIN.NS|SELL|2026-02-25 07:45:00+00:00|2026-02-26 05:45:00+00:00|1191.0",
+      "signal_time": "2026-02-25 13:15:00+05:30",
+      "entry_time": "2026-02-26 11:15:00+05:30",
+      "entry_price": 1191.0,
+      "stop_price": 1200.86,
+      "target_price": 1173.43,
+      "rr_ratio": 1.78,
+      "vol_mult": 4.14,
+      "lines": [
+        "SELL | Sbin breakout 2026-02-25 13:15:00+05:30 | entry 2026-02-26 11:15:00+05:30 (candle 5-6)",
+        "Entry 1191.00 | SL 1200.86 | Target 1173.43 | RR 1.78 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJAJ-AUTO",
+      "name": "Bajaj-Auto",
+      "symbol": "BAJAJ-AUTO.NS",
+      "side": "BUY",
+      "notify_key": "BAJAJ-AUTO|BAJAJ-AUTO.NS|BUY|2026-02-25 04:45:00+00:00|2026-02-25 09:45:00+00:00|10097.0",
+      "signal_time": "2026-02-25 10:15:00+05:30",
+      "entry_time": "2026-02-25 15:15:00+05:30",
+      "entry_price": 10097.0,
+      "stop_price": 10022.71,
+      "target_price": 10316.82,
+      "rr_ratio": 2.96,
+      "vol_mult": 3.55,
+      "lines": [
+        "BUY | Bajaj-Auto breakout 2026-02-25 10:15:00+05:30 | entry 2026-02-25 15:15:00+05:30 (candle 5-6)",
+        "Entry 10097.00 | SL 10022.71 | Target 10316.82 | RR 2.96 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COALINDIA",
+      "name": "Coalindia",
+      "symbol": "COALINDIA.NS",
+      "side": "BUY",
+      "notify_key": "COALINDIA|COALINDIA.NS|BUY|2026-02-24 08:45:00+00:00|2026-02-25 07:45:00+00:00|436.65",
+      "signal_time": "2026-02-24 14:15:00+05:30",
+      "entry_time": "2026-02-25 13:15:00+05:30",
+      "entry_price": 436.65,
+      "stop_price": 433.19,
+      "target_price": 445.61,
+      "rr_ratio": 2.58,
+      "vol_mult": 4.61,
+      "lines": [
+        "BUY | Coalindia breakout 2026-02-24 14:15:00+05:30 | entry 2026-02-25 13:15:00+05:30 (candle 5-6)",
+        "Entry 436.65 | SL 433.19 | Target 445.61 | RR 2.58 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NTPC",
+      "name": "Ntpc",
+      "symbol": "NTPC.NS",
+      "side": "BUY",
+      "notify_key": "NTPC|NTPC.NS|BUY|2026-02-24 08:45:00+00:00|2026-02-25 07:45:00+00:00|386.2",
+      "signal_time": "2026-02-24 14:15:00+05:30",
+      "entry_time": "2026-02-25 13:15:00+05:30",
+      "entry_price": 386.2,
+      "stop_price": 382.93,
+      "target_price": 393.67,
+      "rr_ratio": 2.29,
+      "vol_mult": 3.49,
+      "lines": [
+        "BUY | Ntpc breakout 2026-02-24 14:15:00+05:30 | entry 2026-02-25 13:15:00+05:30 (candle 5-6)",
+        "Entry 386.20 | SL 382.93 | Target 393.67 | RR 2.29 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ADANIPORTS",
+      "name": "Adaniports",
+      "symbol": "ADANIPORTS.NS",
+      "side": "BUY",
+      "notify_key": "ADANIPORTS|ADANIPORTS.NS|BUY|2026-02-23 08:45:00+00:00|2026-02-24 07:45:00+00:00|1548.6",
+      "signal_time": "2026-02-23 14:15:00+05:30",
+      "entry_time": "2026-02-24 13:15:00+05:30",
+      "entry_price": 1548.6,
+      "stop_price": 1537.2,
+      "target_price": 1581.48,
+      "rr_ratio": 2.88,
+      "vol_mult": 3.05,
+      "lines": [
+        "BUY | Adaniports breakout 2026-02-23 14:15:00+05:30 | entry 2026-02-24 13:15:00+05:30 (candle 5-6)",
+        "Entry 1548.60 | SL 1537.20 | Target 1581.48 | RR 2.88 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "SELL",
+      "notify_key": "UPL|UPL.NS|SELL|2026-02-23 06:45:00+00:00|2026-02-24 05:45:00+00:00|632.55",
+      "signal_time": "2026-02-23 12:15:00+05:30",
+      "entry_time": "2026-02-24 11:15:00+05:30",
+      "entry_price": 632.55,
+      "stop_price": 652.4,
+      "target_price": 592.44,
+      "rr_ratio": 2.02,
+      "vol_mult": 3.0,
+      "lines": [
+        "SELL | Upl breakout 2026-02-23 12:15:00+05:30 | entry 2026-02-24 11:15:00+05:30 (candle 5-6)",
+        "Entry 632.55 | SL 652.40 | Target 592.44 | RR 2.02 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SBILIFE",
+      "name": "Sbilife",
+      "symbol": "SBILIFE.NS",
+      "side": "BUY",
+      "notify_key": "SBILIFE|SBILIFE.NS|BUY|2026-02-20 09:45:00+00:00|2026-02-23 07:45:00+00:00|2114.9",
+      "signal_time": "2026-02-20 15:15:00+05:30",
+      "entry_time": "2026-02-23 13:15:00+05:30",
+      "entry_price": 2114.9,
+      "stop_price": 2099.72,
+      "target_price": 2150.65,
+      "rr_ratio": 2.36,
+      "vol_mult": 3.44,
+      "lines": [
+        "BUY | Sbilife breakout 2026-02-20 15:15:00+05:30 | entry 2026-02-23 13:15:00+05:30 (candle 5-6)",
+        "Entry 2114.90 | SL 2099.72 | Target 2150.65 | RR 2.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2026-02-20 08:45:00+00:00|2026-02-23 06:45:00+00:00|2436.8",
+      "signal_time": "2026-02-20 14:15:00+05:30",
+      "entry_time": "2026-02-23 12:15:00+05:30",
+      "entry_price": 2436.8,
+      "stop_price": 2427.77,
+      "target_price": 2471.82,
+      "rr_ratio": 3.88,
+      "vol_mult": 3.17,
+      "lines": [
+        "BUY | Asianpaint breakout 2026-02-20 14:15:00+05:30 | entry 2026-02-23 12:15:00+05:30 (candle 5-6)",
+        "Entry 2436.80 | SL 2427.77 | Target 2471.82 | RR 3.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "LT",
+      "name": "Lt",
+      "symbol": "LT.NS",
+      "side": "BUY",
+      "notify_key": "LT|LT.NS|BUY|2026-02-20 08:45:00+00:00|2026-02-23 06:45:00+00:00|4402.8",
+      "signal_time": "2026-02-20 14:15:00+05:30",
+      "entry_time": "2026-02-23 12:15:00+05:30",
+      "entry_price": 4402.8,
+      "stop_price": 4379.75,
+      "target_price": 4464.19,
+      "rr_ratio": 2.66,
+      "vol_mult": 3.72,
+      "lines": [
+        "BUY | Lt breakout 2026-02-20 14:15:00+05:30 | entry 2026-02-23 12:15:00+05:30 (candle 5-6)",
+        "Entry 4402.80 | SL 4379.75 | Target 4464.19 | RR 2.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NTPC",
+      "name": "Ntpc",
+      "symbol": "NTPC.NS",
+      "side": "BUY",
+      "notify_key": "NTPC|NTPC.NS|BUY|2026-02-20 08:45:00+00:00|2026-02-23 06:45:00+00:00|376.05",
+      "signal_time": "2026-02-20 14:15:00+05:30",
+      "entry_time": "2026-02-23 12:15:00+05:30",
+      "entry_price": 376.05,
+      "stop_price": 372.98,
+      "target_price": 381.42,
+      "rr_ratio": 1.75,
+      "vol_mult": 7.52,
+      "lines": [
+        "BUY | Ntpc breakout 2026-02-20 14:15:00+05:30 | entry 2026-02-23 12:15:00+05:30 (candle 5-6)",
+        "Entry 376.05 | SL 372.98 | Target 381.42 | RR 1.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "SELL",
+      "notify_key": "BPCL|BPCL.NS|SELL|2026-02-19 08:45:00+00:00|2026-02-20 06:45:00+00:00|363.55",
+      "signal_time": "2026-02-19 14:15:00+05:30",
+      "entry_time": "2026-02-20 12:15:00+05:30",
+      "entry_price": 363.55,
+      "stop_price": 366.78,
+      "target_price": 356.54,
+      "rr_ratio": 2.17,
+      "vol_mult": 4.64,
+      "lines": [
+        "SELL | Bpcl breakout 2026-02-19 14:15:00+05:30 | entry 2026-02-20 12:15:00+05:30 (candle 5-6)",
+        "Entry 363.55 | SL 366.78 | Target 356.54 | RR 2.17 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ICICIBANK",
+      "name": "Icicibank",
+      "symbol": "ICICIBANK.NS",
+      "side": "SELL",
+      "notify_key": "ICICIBANK|ICICIBANK.NS|SELL|2026-02-19 08:45:00+00:00|2026-02-20 06:45:00+00:00|1394.9",
+      "signal_time": "2026-02-19 14:15:00+05:30",
+      "entry_time": "2026-02-20 12:15:00+05:30",
+      "entry_price": 1394.9,
+      "stop_price": 1399.1,
+      "target_price": 1379.2,
+      "rr_ratio": 3.74,
+      "vol_mult": 4.65,
+      "lines": [
+        "SELL | Icicibank breakout 2026-02-19 14:15:00+05:30 | entry 2026-02-20 12:15:00+05:30 (candle 5-6)",
+        "Entry 1394.90 | SL 1399.10 | Target 1379.20 | RR 3.74 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TATACONSUM",
+      "name": "Tataconsum",
+      "symbol": "TATACONSUM.NS",
+      "side": "BUY",
+      "notify_key": "TATACONSUM|TATACONSUM.NS|BUY|2026-02-18 08:45:00+00:00|2026-02-19 06:45:00+00:00|1162.7",
+      "signal_time": "2026-02-18 14:15:00+05:30",
+      "entry_time": "2026-02-19 12:15:00+05:30",
+      "entry_price": 1162.7,
+      "stop_price": 1158.1,
+      "target_price": 1179.43,
+      "rr_ratio": 3.64,
+      "vol_mult": 3.53,
+      "lines": [
+        "BUY | Tataconsum breakout 2026-02-18 14:15:00+05:30 | entry 2026-02-19 12:15:00+05:30 (candle 5-6)",
+        "Entry 1162.70 | SL 1158.10 | Target 1179.43 | RR 3.64 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "BUY",
+      "notify_key": "UPL|UPL.NS|BUY|2026-02-18 08:45:00+00:00|2026-02-19 06:45:00+00:00|759.9",
+      "signal_time": "2026-02-18 14:15:00+05:30",
+      "entry_time": "2026-02-19 12:15:00+05:30",
+      "entry_price": 759.9,
+      "stop_price": 751.75,
+      "target_price": 774.12,
+      "rr_ratio": 1.74,
+      "vol_mult": 9.23,
+      "lines": [
+        "BUY | Upl breakout 2026-02-18 14:15:00+05:30 | entry 2026-02-19 12:15:00+05:30 (candle 5-6)",
+        "Entry 759.90 | SL 751.75 | Target 774.12 | RR 1.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJFINANCE",
+      "name": "Bajfinance",
+      "symbol": "BAJFINANCE.NS",
+      "side": "BUY",
+      "notify_key": "BAJFINANCE|BAJFINANCE.NS|BUY|2026-02-13 04:45:00+00:00|2026-02-13 09:45:00+00:00|1024.75",
+      "signal_time": "2026-02-13 10:15:00+05:30",
+      "entry_time": "2026-02-13 15:15:00+05:30",
+      "entry_price": 1024.75,
+      "stop_price": 1011.43,
+      "target_price": 1049.9,
+      "rr_ratio": 1.89,
+      "vol_mult": 5.77,
+      "lines": [
+        "BUY | Bajfinance breakout 2026-02-13 10:15:00+05:30 | entry 2026-02-13 15:15:00+05:30 (candle 5-6)",
+        "Entry 1024.75 | SL 1011.43 | Target 1049.90 | RR 1.89 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJAJ-AUTO",
+      "name": "Bajaj-Auto",
+      "symbol": "BAJAJ-AUTO.NS",
+      "side": "BUY",
+      "notify_key": "BAJAJ-AUTO|BAJAJ-AUTO.NS|BUY|2026-02-10 06:45:00+00:00|2026-02-11 05:45:00+00:00|9870.0",
+      "signal_time": "2026-02-10 12:15:00+05:30",
+      "entry_time": "2026-02-11 11:15:00+05:30",
+      "entry_price": 9870.0,
+      "stop_price": 9787.91,
+      "target_price": 10015.36,
+      "rr_ratio": 1.77,
+      "vol_mult": 3.7,
+      "lines": [
+        "BUY | Bajaj-Auto breakout 2026-02-10 12:15:00+05:30 | entry 2026-02-11 11:15:00+05:30 (candle 5-6)",
+        "Entry 9870.00 | SL 9787.91 | Target 10015.36 | RR 1.77 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK",
+      "name": "Indusindbk",
+      "symbol": "INDUSINDBK.NS",
+      "side": "BUY",
+      "notify_key": "INDUSINDBK|INDUSINDBK.NS|BUY|2026-02-09 08:45:00+00:00|2026-02-10 06:45:00+00:00|924.95",
+      "signal_time": "2026-02-09 14:15:00+05:30",
+      "entry_time": "2026-02-10 12:15:00+05:30",
+      "entry_price": 924.95,
+      "stop_price": 921.0,
+      "target_price": 946.37,
+      "rr_ratio": 5.42,
+      "vol_mult": 4.9,
+      "lines": [
+        "BUY | Indusindbk breakout 2026-02-09 14:15:00+05:30 | entry 2026-02-10 12:15:00+05:30 (candle 5-6)",
+        "Entry 924.95 | SL 921.00 | Target 946.37 | RR 5.42 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SBIN",
+      "name": "Sbin",
+      "symbol": "SBIN.NS",
+      "side": "BUY",
+      "notify_key": "SBIN|SBIN.NS|BUY|2026-02-09 08:45:00+00:00|2026-02-10 06:45:00+00:00|1144.9",
+      "signal_time": "2026-02-09 14:15:00+05:30",
+      "entry_time": "2026-02-10 12:15:00+05:30",
+      "entry_price": 1144.9,
+      "stop_price": 1136.23,
+      "target_price": 1172.67,
+      "rr_ratio": 3.2,
+      "vol_mult": 3.81,
+      "lines": [
+        "BUY | Sbin breakout 2026-02-09 14:15:00+05:30 | entry 2026-02-10 12:15:00+05:30 (candle 5-6)",
+        "Entry 1144.90 | SL 1136.23 | Target 1172.67 | RR 3.20 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "APOLLOHOSP",
+      "name": "Apollohosp",
+      "symbol": "APOLLOHOSP.NS",
+      "side": "BUY",
+      "notify_key": "APOLLOHOSP|APOLLOHOSP.NS|BUY|2026-02-09 06:45:00+00:00|2026-02-10 04:45:00+00:00|7227.0",
+      "signal_time": "2026-02-09 12:15:00+05:30",
+      "entry_time": "2026-02-10 10:15:00+05:30",
+      "entry_price": 7227.0,
+      "stop_price": 7194.5,
+      "target_price": 7370.12,
+      "rr_ratio": 4.4,
+      "vol_mult": 3.23,
+      "lines": [
+        "BUY | Apollohosp breakout 2026-02-09 12:15:00+05:30 | entry 2026-02-10 10:15:00+05:30 (candle 5-6)",
+        "Entry 7227.00 | SL 7194.50 | Target 7370.12 | RR 4.40 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TCS",
+      "name": "Tcs",
+      "symbol": "TCS.NS",
+      "side": "SELL",
+      "notify_key": "TCS|TCS.NS|SELL|2026-02-04 07:45:00+00:00|2026-02-05 05:45:00+00:00|2997.0",
+      "signal_time": "2026-02-04 13:15:00+05:30",
+      "entry_time": "2026-02-05 11:15:00+05:30",
+      "entry_price": 2997.0,
+      "stop_price": 3028.7,
+      "target_price": 2917.0,
+      "rr_ratio": 2.52,
+      "vol_mult": 3.09,
+      "lines": [
+        "SELL | Tcs breakout 2026-02-04 13:15:00+05:30 | entry 2026-02-05 11:15:00+05:30 (candle 5-6)",
+        "Entry 2997.00 | SL 3028.70 | Target 2917.00 | RR 2.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HCLTECH",
+      "name": "Hcltech",
+      "symbol": "HCLTECH.NS",
+      "side": "SELL",
+      "notify_key": "HCLTECH|HCLTECH.NS|SELL|2026-02-04 05:45:00+00:00|2026-02-05 04:45:00+00:00|1621.5",
+      "signal_time": "2026-02-04 11:15:00+05:30",
+      "entry_time": "2026-02-05 10:15:00+05:30",
+      "entry_price": 1621.5,
+      "stop_price": 1631.8,
+      "target_price": 1572.37,
+      "rr_ratio": 4.77,
+      "vol_mult": 3.17,
+      "lines": [
+        "SELL | Hcltech breakout 2026-02-04 11:15:00+05:30 | entry 2026-02-05 10:15:00+05:30 (candle 5-6)",
+        "Entry 1621.50 | SL 1631.80 | Target 1572.37 | RR 4.77 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "INFY",
+      "name": "Infy",
+      "symbol": "INFY.NS",
+      "side": "SELL",
+      "notify_key": "INFY|INFY.NS|SELL|2026-02-04 05:45:00+00:00|2026-02-05 04:45:00+00:00|1535.6",
+      "signal_time": "2026-02-04 11:15:00+05:30",
+      "entry_time": "2026-02-05 10:15:00+05:30",
+      "entry_price": 1535.6,
+      "stop_price": 1551.14,
+      "target_price": 1486.76,
+      "rr_ratio": 3.14,
+      "vol_mult": 3.58,
+      "lines": [
+        "SELL | Infy breakout 2026-02-04 11:15:00+05:30 | entry 2026-02-05 10:15:00+05:30 (candle 5-6)",
+        "Entry 1535.60 | SL 1551.14 | Target 1486.76 | RR 3.14 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ADANIPORTS",
+      "name": "Adaniports",
+      "symbol": "ADANIPORTS.NS",
+      "side": "BUY",
+      "notify_key": "ADANIPORTS|ADANIPORTS.NS|BUY|2026-02-03 07:45:00+00:00|2026-02-04 05:45:00+00:00|1544.7",
+      "signal_time": "2026-02-03 13:15:00+05:30",
+      "entry_time": "2026-02-04 11:15:00+05:30",
+      "entry_price": 1544.7,
+      "stop_price": 1517.37,
+      "target_price": 1598.43,
+      "rr_ratio": 1.97,
+      "vol_mult": 3.63,
+      "lines": [
+        "BUY | Adaniports breakout 2026-02-03 13:15:00+05:30 | entry 2026-02-04 11:15:00+05:30 (candle 5-6)",
+        "Entry 1544.70 | SL 1517.37 | Target 1598.43 | RR 1.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRITANNIA",
+      "name": "Britannia",
+      "symbol": "BRITANNIA.NS",
+      "side": "BUY",
+      "notify_key": "BRITANNIA|BRITANNIA.NS|BUY|2026-01-30 08:45:00+00:00|2026-02-03 06:45:00+00:00|5874.0",
+      "signal_time": "2026-01-30 14:15:00+05:30",
+      "entry_time": "2026-02-03 12:15:00+05:30",
+      "entry_price": 5874.0,
+      "stop_price": 5832.5,
+      "target_price": 6012.84,
+      "rr_ratio": 3.35,
+      "vol_mult": 4.27,
+      "lines": [
+        "BUY | Britannia breakout 2026-01-30 14:15:00+05:30 | entry 2026-02-03 12:15:00+05:30 (candle 5-6)",
+        "Entry 5874.00 | SL 5832.50 | Target 6012.84 | RR 3.35 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BRITANNIA",
+      "name": "Britannia",
+      "symbol": "BRITANNIA.NS",
+      "side": "BUY",
+      "notify_key": "BRITANNIA|BRITANNIA.NS|BUY|2026-01-30 03:45:00+00:00|2026-01-30 08:45:00+00:00|5863.0",
+      "signal_time": "2026-01-30 09:15:00+05:30",
+      "entry_time": "2026-01-30 14:15:00+05:30",
+      "entry_price": 5863.0,
+      "stop_price": 5815.98,
+      "target_price": 5978.54,
+      "rr_ratio": 2.46,
+      "vol_mult": 3.01,
+      "lines": [
+        "BUY | Britannia breakout 2026-01-30 09:15:00+05:30 | entry 2026-01-30 14:15:00+05:30 (candle 5-6)",
+        "Entry 5863.00 | SL 5815.98 | Target 5978.54 | RR 2.46 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MARUTI",
+      "name": "Maruti",
+      "symbol": "MARUTI.NS",
+      "side": "SELL",
+      "notify_key": "MARUTI|MARUTI.NS|SELL|2026-01-29 03:45:00+00:00|2026-01-29 08:45:00+00:00|14496.0",
+      "signal_time": "2026-01-29 09:15:00+05:30",
+      "entry_time": "2026-01-29 14:15:00+05:30",
+      "entry_price": 14496.0,
+      "stop_price": 14612.39,
+      "target_price": 13898.32,
+      "rr_ratio": 5.14,
+      "vol_mult": 3.78,
+      "lines": [
+        "SELL | Maruti breakout 2026-01-29 09:15:00+05:30 | entry 2026-01-29 14:15:00+05:30 (candle 5-6)",
+        "Entry 14496.00 | SL 14612.39 | Target 13898.32 | RR 5.14 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HINDALCO",
+      "name": "Hindalco",
+      "symbol": "HINDALCO.NS",
+      "side": "BUY",
+      "notify_key": "HINDALCO|HINDALCO.NS|BUY|2026-01-28 08:45:00+00:00|2026-01-29 07:45:00+00:00|1026.85",
+      "signal_time": "2026-01-28 14:15:00+05:30",
+      "entry_time": "2026-01-29 13:15:00+05:30",
+      "entry_price": 1026.85,
+      "stop_price": 1012.78,
+      "target_price": 1058.01,
+      "rr_ratio": 2.21,
+      "vol_mult": 3.45,
+      "lines": [
+        "BUY | Hindalco breakout 2026-01-28 14:15:00+05:30 | entry 2026-01-29 13:15:00+05:30 (candle 5-6)",
+        "Entry 1026.85 | SL 1012.78 | Target 1058.01 | RR 2.21 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ONGC",
+      "name": "Ongc",
+      "symbol": "ONGC.NS",
+      "side": "BUY",
+      "notify_key": "ONGC|ONGC.NS|BUY|2026-01-28 06:45:00+00:00|2026-01-29 05:45:00+00:00|274.29",
+      "signal_time": "2026-01-28 12:15:00+05:30",
+      "entry_time": "2026-01-29 11:15:00+05:30",
+      "entry_price": 274.29,
+      "stop_price": 267.65,
+      "target_price": 284.27,
+      "rr_ratio": 1.5,
+      "vol_mult": 4.33,
+      "lines": [
+        "BUY | Ongc breakout 2026-01-28 12:15:00+05:30 | entry 2026-01-29 11:15:00+05:30 (candle 5-6)",
+        "Entry 274.29 | SL 267.65 | Target 284.27 | RR 1.50 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "BUY",
+      "notify_key": "BPCL|BPCL.NS|BUY|2026-01-28 04:45:00+00:00|2026-01-28 09:45:00+00:00|363.4",
+      "signal_time": "2026-01-28 10:15:00+05:30",
+      "entry_time": "2026-01-28 15:15:00+05:30",
+      "entry_price": 363.4,
+      "stop_price": 360.89,
+      "target_price": 371.99,
+      "rr_ratio": 3.42,
+      "vol_mult": 3.15,
+      "lines": [
+        "BUY | Bpcl breakout 2026-01-28 10:15:00+05:30 | entry 2026-01-28 15:15:00+05:30 (candle 5-6)",
+        "Entry 363.40 | SL 360.89 | Target 371.99 | RR 3.42 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "BUY",
+      "notify_key": "BPCL|BPCL.NS|BUY|2026-01-28 03:45:00+00:00|2026-01-28 08:45:00+00:00|362.3",
+      "signal_time": "2026-01-28 09:15:00+05:30",
+      "entry_time": "2026-01-28 14:15:00+05:30",
+      "entry_price": 362.3,
+      "stop_price": 360.25,
+      "target_price": 370.9,
+      "rr_ratio": 4.19,
+      "vol_mult": 4.72,
+      "lines": [
+        "BUY | Bpcl breakout 2026-01-28 09:15:00+05:30 | entry 2026-01-28 14:15:00+05:30 (candle 5-6)",
+        "Entry 362.30 | SL 360.25 | Target 370.90 | RR 4.19 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TITAN",
+      "name": "Titan",
+      "symbol": "TITAN.NS",
+      "side": "SELL",
+      "notify_key": "TITAN|TITAN.NS|SELL|2026-01-27 07:45:00+00:00|2026-01-28 05:45:00+00:00|3976.3",
+      "signal_time": "2026-01-27 13:15:00+05:30",
+      "entry_time": "2026-01-28 11:15:00+05:30",
+      "entry_price": 3976.3,
+      "stop_price": 3993.9,
+      "target_price": 3902.75,
+      "rr_ratio": 4.18,
+      "vol_mult": 3.4,
+      "lines": [
+        "SELL | Titan breakout 2026-01-27 13:15:00+05:30 | entry 2026-01-28 11:15:00+05:30 (candle 5-6)",
+        "Entry 3976.30 | SL 3993.90 | Target 3902.75 | RR 4.18 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "SELL",
+      "notify_key": "M&M|M&M.NS|SELL|2026-01-27 04:45:00+00:00|2026-01-27 09:45:00+00:00|3392.3",
+      "signal_time": "2026-01-27 10:15:00+05:30",
+      "entry_time": "2026-01-27 15:15:00+05:30",
+      "entry_price": 3392.3,
+      "stop_price": 3428.51,
+      "target_price": 3294.55,
+      "rr_ratio": 2.7,
+      "vol_mult": 4.12,
+      "lines": [
+        "SELL | M&M breakout 2026-01-27 10:15:00+05:30 | entry 2026-01-27 15:15:00+05:30 (candle 5-6)",
+        "Entry 3392.30 | SL 3428.51 | Target 3294.55 | RR 2.70 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ADANIPORTS",
+      "name": "Adaniports",
+      "symbol": "ADANIPORTS.NS",
+      "side": "SELL",
+      "notify_key": "ADANIPORTS|ADANIPORTS.NS|SELL|2026-01-23 08:45:00+00:00|2026-01-27 07:45:00+00:00|1345.0",
+      "signal_time": "2026-01-23 14:15:00+05:30",
+      "entry_time": "2026-01-27 13:15:00+05:30",
+      "entry_price": 1345.0,
+      "stop_price": 1351.4,
+      "target_price": 1287.71,
+      "rr_ratio": 8.95,
+      "vol_mult": 8.78,
+      "lines": [
+        "SELL | Adaniports breakout 2026-01-23 14:15:00+05:30 | entry 2026-01-27 13:15:00+05:30 (candle 5-6)",
+        "Entry 1345.00 | SL 1351.40 | Target 1287.71 | RR 8.95 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TITAN",
+      "name": "Titan",
+      "symbol": "TITAN.NS",
+      "side": "SELL",
+      "notify_key": "TITAN|TITAN.NS|SELL|2026-01-23 08:45:00+00:00|2026-01-27 06:45:00+00:00|3989.9",
+      "signal_time": "2026-01-23 14:15:00+05:30",
+      "entry_time": "2026-01-27 12:15:00+05:30",
+      "entry_price": 3989.9,
+      "stop_price": 4013.57,
+      "target_price": 3920.35,
+      "rr_ratio": 2.94,
+      "vol_mult": 3.62,
+      "lines": [
+        "SELL | Titan breakout 2026-01-23 14:15:00+05:30 | entry 2026-01-27 12:15:00+05:30 (candle 5-6)",
+        "Entry 3989.90 | SL 4013.57 | Target 3920.35 | RR 2.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ADANIPORTS",
+      "name": "Adaniports",
+      "symbol": "ADANIPORTS.NS",
+      "side": "SELL",
+      "notify_key": "ADANIPORTS|ADANIPORTS.NS|SELL|2026-01-23 06:45:00+00:00|2026-01-27 04:45:00+00:00|1344.1",
+      "signal_time": "2026-01-23 12:15:00+05:30",
+      "entry_time": "2026-01-27 10:15:00+05:30",
+      "entry_price": 1344.1,
+      "stop_price": 1368.3,
+      "target_price": 1288.49,
+      "rr_ratio": 2.3,
+      "vol_mult": 5.29,
+      "lines": [
+        "SELL | Adaniports breakout 2026-01-23 12:15:00+05:30 | entry 2026-01-27 10:15:00+05:30 (candle 5-6)",
+        "Entry 1344.10 | SL 1368.30 | Target 1288.49 | RR 2.30 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "SELL",
+      "notify_key": "M&M|M&M.NS|SELL|2026-01-20 08:45:00+00:00|2026-01-21 07:45:00+00:00|3542.6",
+      "signal_time": "2026-01-20 14:15:00+05:30",
+      "entry_time": "2026-01-21 13:15:00+05:30",
+      "entry_price": 3542.6,
+      "stop_price": 3570.0,
+      "target_price": 3470.14,
+      "rr_ratio": 2.64,
+      "vol_mult": 3.0,
+      "lines": [
+        "SELL | M&M breakout 2026-01-20 14:15:00+05:30 | entry 2026-01-21 13:15:00+05:30 (candle 5-6)",
+        "Entry 3542.60 | SL 3570.00 | Target 3470.14 | RR 2.64 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJAJ-AUTO",
+      "name": "Bajaj-Auto",
+      "symbol": "BAJAJ-AUTO.NS",
+      "side": "SELL",
+      "notify_key": "BAJAJ-AUTO|BAJAJ-AUTO.NS|SELL|2026-01-20 05:45:00+00:00|2026-01-21 04:45:00+00:00|9119.0",
+      "signal_time": "2026-01-20 11:15:00+05:30",
+      "entry_time": "2026-01-21 10:15:00+05:30",
+      "entry_price": 9119.0,
+      "stop_price": 9225.81,
+      "target_price": 8946.05,
+      "rr_ratio": 1.62,
+      "vol_mult": 3.34,
+      "lines": [
+        "SELL | Bajaj-Auto breakout 2026-01-20 11:15:00+05:30 | entry 2026-01-21 10:15:00+05:30 (candle 5-6)",
+        "Entry 9119.00 | SL 9225.81 | Target 8946.05 | RR 1.62 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SUNPHARMA",
+      "name": "Sunpharma",
+      "symbol": "SUNPHARMA.NS",
+      "side": "SELL",
+      "notify_key": "SUNPHARMA|SUNPHARMA.NS|SELL|2026-01-20 06:45:00+00:00|2026-01-21 04:45:00+00:00|1618.5",
+      "signal_time": "2026-01-20 12:15:00+05:30",
+      "entry_time": "2026-01-21 10:15:00+05:30",
+      "entry_price": 1618.5,
+      "stop_price": 1631.28,
+      "target_price": 1583.79,
+      "rr_ratio": 2.72,
+      "vol_mult": 4.07,
+      "lines": [
+        "SELL | Sunpharma breakout 2026-01-20 12:15:00+05:30 | entry 2026-01-21 10:15:00+05:30 (candle 5-6)",
+        "Entry 1618.50 | SL 1631.28 | Target 1583.79 | RR 2.72 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "WIPRO",
+      "name": "Wipro",
+      "symbol": "WIPRO.NS",
+      "side": "SELL",
+      "notify_key": "WIPRO|WIPRO.NS|SELL|2026-01-19 05:45:00+00:00|2026-01-20 04:45:00+00:00|241.9",
+      "signal_time": "2026-01-19 11:15:00+05:30",
+      "entry_time": "2026-01-20 10:15:00+05:30",
+      "entry_price": 241.9,
+      "stop_price": 247.8,
+      "target_price": 230.11,
+      "rr_ratio": 2.0,
+      "vol_mult": 3.06,
+      "lines": [
+        "SELL | Wipro breakout 2026-01-19 11:15:00+05:30 | entry 2026-01-20 10:15:00+05:30 (candle 5-6)",
+        "Entry 241.90 | SL 247.80 | Target 230.11 | RR 2.00 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "DRREDDY",
+      "name": "Drreddy",
+      "symbol": "DRREDDY.NS",
+      "side": "SELL",
+      "notify_key": "DRREDDY|DRREDDY.NS|SELL|2026-01-16 08:45:00+00:00|2026-01-19 07:45:00+00:00|1171.0",
+      "signal_time": "2026-01-16 14:15:00+05:30",
+      "entry_time": "2026-01-19 13:15:00+05:30",
+      "entry_price": 1171.0,
+      "stop_price": 1175.9,
+      "target_price": 1152.34,
+      "rr_ratio": 3.81,
+      "vol_mult": 4.47,
+      "lines": [
+        "SELL | Drreddy breakout 2026-01-16 14:15:00+05:30 | entry 2026-01-19 13:15:00+05:30 (candle 5-6)",
+        "Entry 1171.00 | SL 1175.90 | Target 1152.34 | RR 3.81 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "APOLLOHOSP",
+      "name": "Apollohosp",
+      "symbol": "APOLLOHOSP.NS",
+      "side": "SELL",
+      "notify_key": "APOLLOHOSP|APOLLOHOSP.NS|SELL|2026-01-16 08:45:00+00:00|2026-01-19 06:45:00+00:00|7161.0",
+      "signal_time": "2026-01-16 14:15:00+05:30",
+      "entry_time": "2026-01-19 12:15:00+05:30",
+      "entry_price": 7161.0,
+      "stop_price": 7208.1,
+      "target_price": 7041.36,
+      "rr_ratio": 2.54,
+      "vol_mult": 3.0,
+      "lines": [
+        "SELL | Apollohosp breakout 2026-01-16 14:15:00+05:30 | entry 2026-01-19 12:15:00+05:30 (candle 5-6)",
+        "Entry 7161.00 | SL 7208.10 | Target 7041.36 | RR 2.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "name": "Hdfclife",
+      "symbol": "HDFCLIFE.NS",
+      "side": "SELL",
+      "notify_key": "HDFCLIFE|HDFCLIFE.NS|SELL|2026-01-16 05:45:00+00:00|2026-01-19 04:45:00+00:00|734.6",
+      "signal_time": "2026-01-16 11:15:00+05:30",
+      "entry_time": "2026-01-19 10:15:00+05:30",
+      "entry_price": 734.6,
+      "stop_price": 737.1,
+      "target_price": 716.56,
+      "rr_ratio": 7.22,
+      "vol_mult": 6.27,
+      "lines": [
+        "SELL | Hdfclife breakout 2026-01-16 11:15:00+05:30 | entry 2026-01-19 10:15:00+05:30 (candle 5-6)",
+        "Entry 734.60 | SL 737.10 | Target 716.56 | RR 7.22 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK",
+      "name": "Indusindbk",
+      "symbol": "INDUSINDBK.NS",
+      "side": "BUY",
+      "notify_key": "INDUSINDBK|INDUSINDBK.NS|BUY|2026-01-14 07:45:00+00:00|2026-01-16 05:45:00+00:00|957.0",
+      "signal_time": "2026-01-14 13:15:00+05:30",
+      "entry_time": "2026-01-16 11:15:00+05:30",
+      "entry_price": 957.0,
+      "stop_price": 944.13,
+      "target_price": 982.03,
+      "rr_ratio": 1.94,
+      "vol_mult": 3.67,
+      "lines": [
+        "BUY | Indusindbk breakout 2026-01-14 13:15:00+05:30 | entry 2026-01-16 11:15:00+05:30 (candle 5-6)",
+        "Entry 957.00 | SL 944.13 | Target 982.03 | RR 1.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TATASTEEL",
+      "name": "Tatasteel",
+      "symbol": "TATASTEEL.NS",
+      "side": "BUY",
+      "notify_key": "TATASTEEL|TATASTEEL.NS|BUY|2026-01-14 04:45:00+00:00|2026-01-14 09:45:00+00:00|189.37",
+      "signal_time": "2026-01-14 10:15:00+05:30",
+      "entry_time": "2026-01-14 15:15:00+05:30",
+      "entry_price": 189.37,
+      "stop_price": 187.62,
+      "target_price": 193.76,
+      "rr_ratio": 2.51,
+      "vol_mult": 4.58,
+      "lines": [
+        "BUY | Tatasteel breakout 2026-01-14 10:15:00+05:30 | entry 2026-01-14 15:15:00+05:30 (candle 5-6)",
+        "Entry 189.37 | SL 187.62 | Target 193.76 | RR 2.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SHRIRAMFIN",
+      "name": "Shriramfin",
+      "symbol": "SHRIRAMFIN.NS",
+      "side": "SELL",
+      "notify_key": "SHRIRAMFIN|SHRIRAMFIN.NS|SELL|2026-01-09 08:45:00+00:00|2026-01-12 07:45:00+00:00|967.85",
+      "signal_time": "2026-01-09 14:15:00+05:30",
+      "entry_time": "2026-01-12 13:15:00+05:30",
+      "entry_price": 967.85,
+      "stop_price": 977.45,
+      "target_price": 945.89,
+      "rr_ratio": 2.29,
+      "vol_mult": 4.55,
+      "lines": [
+        "SELL | Shriramfin breakout 2026-01-09 14:15:00+05:30 | entry 2026-01-12 13:15:00+05:30 (candle 5-6)",
+        "Entry 967.85 | SL 977.45 | Target 945.89 | RR 2.29 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2026-01-09 06:45:00+00:00|2026-01-12 05:45:00+00:00|2859.9",
+      "signal_time": "2026-01-09 12:15:00+05:30",
+      "entry_time": "2026-01-12 11:15:00+05:30",
+      "entry_price": 2859.9,
+      "stop_price": 2832.3,
+      "target_price": 2914.27,
+      "rr_ratio": 1.97,
+      "vol_mult": 3.37,
+      "lines": [
+        "BUY | Asianpaint breakout 2026-01-09 12:15:00+05:30 | entry 2026-01-12 11:15:00+05:30 (candle 5-6)",
+        "Entry 2859.90 | SL 2832.30 | Target 2914.27 | RR 1.97 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "DRREDDY",
+      "name": "Drreddy",
+      "symbol": "DRREDDY.NS",
+      "side": "SELL",
+      "notify_key": "DRREDDY|DRREDDY.NS|SELL|2026-01-08 08:45:00+00:00|2026-01-09 07:45:00+00:00|1209.1",
+      "signal_time": "2026-01-08 14:15:00+05:30",
+      "entry_time": "2026-01-09 13:15:00+05:30",
+      "entry_price": 1209.1,
+      "stop_price": 1216.4,
+      "target_price": 1188.37,
+      "rr_ratio": 2.84,
+      "vol_mult": 3.68,
+      "lines": [
+        "SELL | Drreddy breakout 2026-01-08 14:15:00+05:30 | entry 2026-01-09 13:15:00+05:30 (candle 5-6)",
+        "Entry 1209.10 | SL 1216.40 | Target 1188.37 | RR 2.84 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TCS",
+      "name": "Tcs",
+      "symbol": "TCS.NS",
+      "side": "SELL",
+      "notify_key": "TCS|TCS.NS|SELL|2026-01-08 04:45:00+00:00|2026-01-08 09:45:00+00:00|3195.1",
+      "signal_time": "2026-01-08 10:15:00+05:30",
+      "entry_time": "2026-01-08 15:15:00+05:30",
+      "entry_price": 3195.1,
+      "stop_price": 3220.76,
+      "target_price": 3135.46,
+      "rr_ratio": 2.32,
+      "vol_mult": 4.37,
+      "lines": [
+        "SELL | Tcs breakout 2026-01-08 10:15:00+05:30 | entry 2026-01-08 15:15:00+05:30 (candle 5-6)",
+        "Entry 3195.10 | SL 3220.76 | Target 3135.46 | RR 2.32 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "MARUTI",
+      "name": "Maruti",
+      "symbol": "MARUTI.NS",
+      "side": "SELL",
+      "notify_key": "MARUTI|MARUTI.NS|SELL|2026-01-07 07:45:00+00:00|2026-01-08 06:45:00+00:00|16658.0",
+      "signal_time": "2026-01-07 13:15:00+05:30",
+      "entry_time": "2026-01-08 12:15:00+05:30",
+      "entry_price": 16658.0,
+      "stop_price": 16778.98,
+      "target_price": 16358.36,
+      "rr_ratio": 2.48,
+      "vol_mult": 3.93,
+      "lines": [
+        "SELL | Maruti breakout 2026-01-07 13:15:00+05:30 | entry 2026-01-08 12:15:00+05:30 (candle 5-6)",
+        "Entry 16658.00 | SL 16778.98 | Target 16358.36 | RR 2.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "SELL",
+      "notify_key": "CIPLA|CIPLA.NS|SELL|2026-01-07 05:45:00+00:00|2026-01-08 04:45:00+00:00|1465.5",
+      "signal_time": "2026-01-07 11:15:00+05:30",
+      "entry_time": "2026-01-08 10:15:00+05:30",
+      "entry_price": 1465.5,
+      "stop_price": 1476.84,
+      "target_price": 1432.82,
+      "rr_ratio": 2.88,
+      "vol_mult": 11.45,
+      "lines": [
+        "SELL | Cipla breakout 2026-01-07 11:15:00+05:30 | entry 2026-01-08 10:15:00+05:30 (candle 5-6)",
+        "Entry 1465.50 | SL 1476.84 | Target 1432.82 | RR 2.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "SELL",
+      "notify_key": "CIPLA|CIPLA.NS|SELL|2026-01-07 06:45:00+00:00|2026-01-08 04:45:00+00:00|1465.5",
+      "signal_time": "2026-01-07 12:15:00+05:30",
+      "entry_time": "2026-01-08 10:15:00+05:30",
+      "entry_price": 1465.5,
+      "stop_price": 1476.84,
+      "target_price": 1432.82,
+      "rr_ratio": 2.88,
+      "vol_mult": 4.72,
+      "lines": [
+        "SELL | Cipla breakout 2026-01-07 12:15:00+05:30 | entry 2026-01-08 10:15:00+05:30 (candle 5-6)",
+        "Entry 1465.50 | SL 1476.84 | Target 1432.82 | RR 2.88 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "SELL",
+      "notify_key": "CIPLA|CIPLA.NS|SELL|2026-01-07 04:45:00+00:00|2026-01-07 09:45:00+00:00|1467.9",
+      "signal_time": "2026-01-07 10:15:00+05:30",
+      "entry_time": "2026-01-07 15:15:00+05:30",
+      "entry_price": 1467.9,
+      "stop_price": 1483.07,
+      "target_price": 1434.95,
+      "rr_ratio": 2.17,
+      "vol_mult": 4.87,
+      "lines": [
+        "SELL | Cipla breakout 2026-01-07 10:15:00+05:30 | entry 2026-01-07 15:15:00+05:30 (candle 5-6)",
+        "Entry 1467.90 | SL 1483.07 | Target 1434.95 | RR 2.17 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TCS",
+      "name": "Tcs",
+      "symbol": "TCS.NS",
+      "side": "BUY",
+      "notify_key": "TCS|TCS.NS|BUY|2026-01-06 08:45:00+00:00|2026-01-07 06:45:00+00:00|3286.0",
+      "signal_time": "2026-01-06 14:15:00+05:30",
+      "entry_time": "2026-01-07 12:15:00+05:30",
+      "entry_price": 3286.0,
+      "stop_price": 3265.34,
+      "target_price": 3325.36,
+      "rr_ratio": 1.9,
+      "vol_mult": 3.6,
+      "lines": [
+        "BUY | Tcs breakout 2026-01-06 14:15:00+05:30 | entry 2026-01-07 12:15:00+05:30 (candle 5-6)",
+        "Entry 3286.00 | SL 3265.34 | Target 3325.36 | RR 1.90 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "RELIANCE",
+      "name": "Reliance",
+      "symbol": "RELIANCE.NS",
+      "side": "SELL",
+      "notify_key": "RELIANCE|RELIANCE.NS|SELL|2026-01-06 05:45:00+00:00|2026-01-07 04:45:00+00:00|1506.2",
+      "signal_time": "2026-01-06 11:15:00+05:30",
+      "entry_time": "2026-01-07 10:15:00+05:30",
+      "entry_price": 1506.2,
+      "stop_price": 1518.74,
+      "target_price": 1474.06,
+      "rr_ratio": 2.56,
+      "vol_mult": 6.62,
+      "lines": [
+        "SELL | Reliance breakout 2026-01-06 11:15:00+05:30 | entry 2026-01-07 10:15:00+05:30 (candle 5-6)",
+        "Entry 1506.20 | SL 1518.74 | Target 1474.06 | RR 2.56 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ICICIBANK",
+      "name": "Icicibank",
+      "symbol": "ICICIBANK.NS",
+      "side": "BUY",
+      "notify_key": "ICICIBANK|ICICIBANK.NS|BUY|2026-01-06 04:45:00+00:00|2026-01-06 09:45:00+00:00|1411.2",
+      "signal_time": "2026-01-06 10:15:00+05:30",
+      "entry_time": "2026-01-06 15:15:00+05:30",
+      "entry_price": 1411.2,
+      "stop_price": 1400.82,
+      "target_price": 1434.09,
+      "rr_ratio": 2.2,
+      "vol_mult": 3.03,
+      "lines": [
+        "BUY | Icicibank breakout 2026-01-06 10:15:00+05:30 | entry 2026-01-06 15:15:00+05:30 (candle 5-6)",
+        "Entry 1411.20 | SL 1400.82 | Target 1434.09 | RR 2.20 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "DRREDDY",
+      "name": "Drreddy",
+      "symbol": "DRREDDY.NS",
+      "side": "SELL",
+      "notify_key": "DRREDDY|DRREDDY.NS|SELL|2026-01-05 08:45:00+00:00|2026-01-06 07:45:00+00:00|1250.6",
+      "signal_time": "2026-01-05 14:15:00+05:30",
+      "entry_time": "2026-01-06 13:15:00+05:30",
+      "entry_price": 1250.6,
+      "stop_price": 1253.5,
+      "target_price": 1234.96,
+      "rr_ratio": 5.39,
+      "vol_mult": 3.31,
+      "lines": [
+        "SELL | Drreddy breakout 2026-01-05 14:15:00+05:30 | entry 2026-01-06 13:15:00+05:30 (candle 5-6)",
+        "Entry 1250.60 | SL 1253.50 | Target 1234.96 | RR 5.39 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "DRREDDY",
+      "name": "Drreddy",
+      "symbol": "DRREDDY.NS",
+      "side": "SELL",
+      "notify_key": "DRREDDY|DRREDDY.NS|SELL|2026-01-05 07:45:00+00:00|2026-01-06 05:45:00+00:00|1248.2",
+      "signal_time": "2026-01-05 13:15:00+05:30",
+      "entry_time": "2026-01-06 11:15:00+05:30",
+      "entry_price": 1248.2,
+      "stop_price": 1255.7,
+      "target_price": 1232.61,
+      "rr_ratio": 2.08,
+      "vol_mult": 3.51,
+      "lines": [
+        "SELL | Drreddy breakout 2026-01-05 13:15:00+05:30 | entry 2026-01-06 11:15:00+05:30 (candle 5-6)",
+        "Entry 1248.20 | SL 1255.70 | Target 1232.61 | RR 2.08 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ITC",
+      "name": "Itc",
+      "symbol": "ITC.NS",
+      "side": "SELL",
+      "notify_key": "ITC|ITC.NS|SELL|2026-01-01 07:45:00+00:00|2026-01-02 06:45:00+00:00|349.25",
+      "signal_time": "2026-01-01 13:15:00+05:30",
+      "entry_time": "2026-01-02 12:15:00+05:30",
+      "entry_price": 349.25,
+      "stop_price": 359.51,
+      "target_price": 332.45,
+      "rr_ratio": 1.64,
+      "vol_mult": 4.04,
+      "lines": [
+        "SELL | Itc breakout 2026-01-01 13:15:00+05:30 | entry 2026-01-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 349.25 | SL 359.51 | Target 332.45 | RR 1.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ITC",
+      "name": "Itc",
+      "symbol": "ITC.NS",
+      "side": "SELL",
+      "notify_key": "ITC|ITC.NS|SELL|2026-01-01 08:45:00+00:00|2026-01-02 06:45:00+00:00|349.25",
+      "signal_time": "2026-01-01 14:15:00+05:30",
+      "entry_time": "2026-01-02 12:15:00+05:30",
+      "entry_price": 349.25,
+      "stop_price": 359.51,
+      "target_price": 332.45,
+      "rr_ratio": 1.64,
+      "vol_mult": 3.52,
+      "lines": [
+        "SELL | Itc breakout 2026-01-01 14:15:00+05:30 | entry 2026-01-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 349.25 | SL 359.51 | Target 332.45 | RR 1.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "KOTAKBANK",
+      "name": "Kotakbank",
+      "symbol": "KOTAKBANK.NS",
+      "side": "BUY",
+      "notify_key": "KOTAKBANK|KOTAKBANK.NS|BUY|2025-12-31 08:45:00+00:00|2026-01-01 06:45:00+00:00|2210.0",
+      "signal_time": "2025-12-31 14:15:00+05:30",
+      "entry_time": "2026-01-01 12:15:00+05:30",
+      "entry_price": 2210.0,
+      "stop_price": 2194.35,
+      "target_price": 2241.34,
+      "rr_ratio": 2.0,
+      "vol_mult": 4.05,
+      "lines": [
+        "BUY | Kotakbank breakout 2025-12-31 14:15:00+05:30 | entry 2026-01-01 12:15:00+05:30 (candle 5-6)",
+        "Entry 2210.00 | SL 2194.35 | Target 2241.34 | RR 2.00 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INFY",
+      "name": "Infy",
+      "symbol": "INFY.NS",
+      "side": "SELL",
+      "notify_key": "INFY|INFY.NS|SELL|2025-12-30 09:45:00+00:00|2025-12-31 08:45:00+00:00|1614.4",
+      "signal_time": "2025-12-30 15:15:00+05:30",
+      "entry_time": "2025-12-31 14:15:00+05:30",
+      "entry_price": 1614.4,
+      "stop_price": 1623.6,
+      "target_price": 1594.47,
+      "rr_ratio": 2.17,
+      "vol_mult": 4.89,
+      "lines": [
+        "SELL | Infy breakout 2025-12-30 15:15:00+05:30 | entry 2025-12-31 14:15:00+05:30 (candle 5-6)",
+        "Entry 1614.40 | SL 1623.60 | Target 1594.47 | RR 2.17 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "BUY",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|BUY|2025-12-31 03:45:00+00:00|2025-12-31 08:45:00+00:00|1163.8",
+      "signal_time": "2025-12-31 09:15:00+05:30",
+      "entry_time": "2025-12-31 14:15:00+05:30",
+      "entry_price": 1163.8,
+      "stop_price": 1148.22,
+      "target_price": 1187.6,
+      "rr_ratio": 1.53,
+      "vol_mult": 6.27,
+      "lines": [
+        "BUY | Jswsteel breakout 2025-12-31 09:15:00+05:30 | entry 2025-12-31 14:15:00+05:30 (candle 5-6)",
+        "Entry 1163.80 | SL 1148.22 | Target 1187.60 | RR 1.53 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "BUY",
+      "notify_key": "UPL|UPL.NS|BUY|2025-12-30 09:45:00+00:00|2025-12-31 07:45:00+00:00|797.75",
+      "signal_time": "2025-12-30 15:15:00+05:30",
+      "entry_time": "2025-12-31 13:15:00+05:30",
+      "entry_price": 797.75,
+      "stop_price": 791.66,
+      "target_price": 812.43,
+      "rr_ratio": 2.41,
+      "vol_mult": 3.99,
+      "lines": [
+        "BUY | Upl breakout 2025-12-30 15:15:00+05:30 | entry 2025-12-31 13:15:00+05:30 (candle 5-6)",
+        "Entry 797.75 | SL 791.66 | Target 812.43 | RR 2.41 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HINDALCO",
+      "name": "Hindalco",
+      "symbol": "HINDALCO.NS",
+      "side": "BUY",
+      "notify_key": "HINDALCO|HINDALCO.NS|BUY|2025-12-30 08:45:00+00:00|2025-12-31 06:45:00+00:00|887.95",
+      "signal_time": "2025-12-30 14:15:00+05:30",
+      "entry_time": "2025-12-31 12:15:00+05:30",
+      "entry_price": 887.95,
+      "stop_price": 882.95,
+      "target_price": 900.42,
+      "rr_ratio": 2.5,
+      "vol_mult": 9.53,
+      "lines": [
+        "BUY | Hindalco breakout 2025-12-30 14:15:00+05:30 | entry 2025-12-31 12:15:00+05:30 (candle 5-6)",
+        "Entry 887.95 | SL 882.95 | Target 900.42 | RR 2.50 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "BUY",
+      "notify_key": "M&M|M&M.NS|BUY|2025-12-30 08:45:00+00:00|2025-12-31 06:45:00+00:00|3698.2",
+      "signal_time": "2025-12-30 14:15:00+05:30",
+      "entry_time": "2025-12-31 12:15:00+05:30",
+      "entry_price": 3698.2,
+      "stop_price": 3660.1,
+      "target_price": 3755.74,
+      "rr_ratio": 1.51,
+      "vol_mult": 5.22,
+      "lines": [
+        "BUY | M&M breakout 2025-12-30 14:15:00+05:30 | entry 2025-12-31 12:15:00+05:30 (candle 5-6)",
+        "Entry 3698.20 | SL 3660.10 | Target 3755.74 | RR 1.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SHRIRAMFIN",
+      "name": "Shriramfin",
+      "symbol": "SHRIRAMFIN.NS",
+      "side": "BUY",
+      "notify_key": "SHRIRAMFIN|SHRIRAMFIN.NS|BUY|2025-12-30 08:45:00+00:00|2025-12-31 06:45:00+00:00|994.75",
+      "signal_time": "2025-12-30 14:15:00+05:30",
+      "entry_time": "2025-12-31 12:15:00+05:30",
+      "entry_price": 994.75,
+      "stop_price": 983.7,
+      "target_price": 1014.51,
+      "rr_ratio": 1.79,
+      "vol_mult": 7.13,
+      "lines": [
+        "BUY | Shriramfin breakout 2025-12-30 14:15:00+05:30 | entry 2025-12-31 12:15:00+05:30 (candle 5-6)",
+        "Entry 994.75 | SL 983.70 | Target 1014.51 | RR 1.79 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK",
+      "name": "Indusindbk",
+      "symbol": "INDUSINDBK.NS",
+      "side": "BUY",
+      "notify_key": "INDUSINDBK|INDUSINDBK.NS|BUY|2025-12-19 08:45:00+00:00|2025-12-22 06:45:00+00:00|859.0",
+      "signal_time": "2025-12-19 14:15:00+05:30",
+      "entry_time": "2025-12-22 12:15:00+05:30",
+      "entry_price": 859.0,
+      "stop_price": 849.88,
+      "target_price": 874.39,
+      "rr_ratio": 1.69,
+      "vol_mult": 12.27,
+      "lines": [
+        "BUY | Indusindbk breakout 2025-12-19 14:15:00+05:30 | entry 2025-12-22 12:15:00+05:30 (candle 5-6)",
+        "Entry 859.00 | SL 849.88 | Target 874.39 | RR 1.69 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "WIPRO",
+      "name": "Wipro",
+      "symbol": "WIPRO.NS",
+      "side": "BUY",
+      "notify_key": "WIPRO|WIPRO.NS|BUY|2025-12-18 08:45:00+00:00|2025-12-19 07:45:00+00:00|264.51",
+      "signal_time": "2025-12-18 14:15:00+05:30",
+      "entry_time": "2025-12-19 13:15:00+05:30",
+      "entry_price": 264.51,
+      "stop_price": 263.8,
+      "target_price": 268.04,
+      "rr_ratio": 4.98,
+      "vol_mult": 3.08,
+      "lines": [
+        "BUY | Wipro breakout 2025-12-18 14:15:00+05:30 | entry 2025-12-19 13:15:00+05:30 (candle 5-6)",
+        "Entry 264.51 | SL 263.80 | Target 268.04 | RR 4.98 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TECHM",
+      "name": "Techm",
+      "symbol": "TECHM.NS",
+      "side": "BUY",
+      "notify_key": "TECHM|TECHM.NS|BUY|2025-12-18 08:45:00+00:00|2025-12-19 06:45:00+00:00|1609.1",
+      "signal_time": "2025-12-18 14:15:00+05:30",
+      "entry_time": "2025-12-19 12:15:00+05:30",
+      "entry_price": 1609.1,
+      "stop_price": 1599.47,
+      "target_price": 1631.69,
+      "rr_ratio": 2.35,
+      "vol_mult": 4.02,
+      "lines": [
+        "BUY | Techm breakout 2025-12-18 14:15:00+05:30 | entry 2025-12-19 12:15:00+05:30 (candle 5-6)",
+        "Entry 1609.10 | SL 1599.47 | Target 1631.69 | RR 2.35 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCBANK",
+      "name": "Hdfcbank",
+      "symbol": "HDFCBANK.NS",
+      "side": "SELL",
+      "notify_key": "HDFCBANK|HDFCBANK.NS|SELL|2025-12-17 08:45:00+00:00|2025-12-18 06:45:00+00:00|983.1",
+      "signal_time": "2025-12-17 14:15:00+05:30",
+      "entry_time": "2025-12-18 12:15:00+05:30",
+      "entry_price": 983.1,
+      "stop_price": 984.8,
+      "target_price": 973.92,
+      "rr_ratio": 5.4,
+      "vol_mult": 3.36,
+      "lines": [
+        "SELL | Hdfcbank breakout 2025-12-17 14:15:00+05:30 | entry 2025-12-18 12:15:00+05:30 (candle 5-6)",
+        "Entry 983.10 | SL 984.80 | Target 973.92 | RR 5.40 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL",
+      "name": "Bhartiartl",
+      "symbol": "BHARTIARTL.NS",
+      "side": "BUY",
+      "notify_key": "BHARTIARTL|BHARTIARTL.NS|BUY|2025-12-16 08:45:00+00:00|2025-12-17 06:45:00+00:00|2103.6",
+      "signal_time": "2025-12-16 14:15:00+05:30",
+      "entry_time": "2025-12-17 12:15:00+05:30",
+      "entry_price": 2103.6,
+      "stop_price": 2099.19,
+      "target_price": 2130.42,
+      "rr_ratio": 6.08,
+      "vol_mult": 3.45,
+      "lines": [
+        "BUY | Bhartiartl breakout 2025-12-16 14:15:00+05:30 | entry 2025-12-17 12:15:00+05:30 (candle 5-6)",
+        "Entry 2103.60 | SL 2099.19 | Target 2130.42 | RR 6.08 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "SELL",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|SELL|2025-12-16 08:45:00+00:00|2025-12-17 06:45:00+00:00|1078.5",
+      "signal_time": "2025-12-16 14:15:00+05:30",
+      "entry_time": "2025-12-17 12:15:00+05:30",
+      "entry_price": 1078.5,
+      "stop_price": 1088.14,
+      "target_price": 1061.91,
+      "rr_ratio": 1.72,
+      "vol_mult": 4.94,
+      "lines": [
+        "SELL | Jswsteel breakout 2025-12-16 14:15:00+05:30 | entry 2025-12-17 12:15:00+05:30 (candle 5-6)",
+        "Entry 1078.50 | SL 1088.14 | Target 1061.91 | RR 1.72 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AXISBANK",
+      "name": "Axisbank",
+      "symbol": "AXISBANK.NS",
+      "side": "SELL",
+      "notify_key": "AXISBANK|AXISBANK.NS|SELL|2025-12-16 07:45:00+00:00|2025-12-17 05:45:00+00:00|1229.7",
+      "signal_time": "2025-12-16 13:15:00+05:30",
+      "entry_time": "2025-12-17 11:15:00+05:30",
+      "entry_price": 1229.7,
+      "stop_price": 1235.9,
+      "target_price": 1204.97,
+      "rr_ratio": 3.99,
+      "vol_mult": 3.13,
+      "lines": [
+        "SELL | Axisbank breakout 2025-12-16 13:15:00+05:30 | entry 2025-12-17 11:15:00+05:30 (candle 5-6)",
+        "Entry 1229.70 | SL 1235.90 | Target 1204.97 | RR 3.99 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "SELL",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|SELL|2025-12-16 07:45:00+00:00|2025-12-17 05:45:00+00:00|1084.5",
+      "signal_time": "2025-12-16 13:15:00+05:30",
+      "entry_time": "2025-12-17 11:15:00+05:30",
+      "entry_price": 1084.5,
+      "stop_price": 1090.55,
+      "target_price": 1068.87,
+      "rr_ratio": 2.58,
+      "vol_mult": 3.64,
+      "lines": [
+        "SELL | Jswsteel breakout 2025-12-16 13:15:00+05:30 | entry 2025-12-17 11:15:00+05:30 (candle 5-6)",
+        "Entry 1084.50 | SL 1090.55 | Target 1068.87 | RR 2.58 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR",
+      "name": "Hindunilvr",
+      "symbol": "HINDUNILVR.NS",
+      "side": "SELL",
+      "notify_key": "HINDUNILVR|HINDUNILVR.NS|SELL|2025-12-10 05:45:00+00:00|2025-12-11 04:45:00+00:00|2303.8",
+      "signal_time": "2025-12-10 11:15:00+05:30",
+      "entry_time": "2025-12-11 10:15:00+05:30",
+      "entry_price": 2303.8,
+      "stop_price": 2310.0,
+      "target_price": 2278.75,
+      "rr_ratio": 4.04,
+      "vol_mult": 4.09,
+      "lines": [
+        "SELL | Hindunilvr breakout 2025-12-10 11:15:00+05:30 | entry 2025-12-11 10:15:00+05:30 (candle 5-6)",
+        "Entry 2303.80 | SL 2310.00 | Target 2278.75 | RR 4.04 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "SELL",
+      "notify_key": "CIPLA|CIPLA.NS|SELL|2025-12-09 08:45:00+00:00|2025-12-10 07:45:00+00:00|1491.2",
+      "signal_time": "2025-12-09 14:15:00+05:30",
+      "entry_time": "2025-12-10 13:15:00+05:30",
+      "entry_price": 1491.2,
+      "stop_price": 1496.0,
+      "target_price": 1472.77,
+      "rr_ratio": 3.84,
+      "vol_mult": 3.11,
+      "lines": [
+        "SELL | Cipla breakout 2025-12-09 14:15:00+05:30 | entry 2025-12-10 13:15:00+05:30 (candle 5-6)",
+        "Entry 1491.20 | SL 1496.00 | Target 1472.77 | RR 3.84 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "SELL",
+      "notify_key": "M&M|M&M.NS|SELL|2025-12-09 08:45:00+00:00|2025-12-10 07:45:00+00:00|3635.2",
+      "signal_time": "2025-12-09 14:15:00+05:30",
+      "entry_time": "2025-12-10 13:15:00+05:30",
+      "entry_price": 3635.2,
+      "stop_price": 3673.3,
+      "target_price": 3560.25,
+      "rr_ratio": 1.97,
+      "vol_mult": 6.32,
+      "lines": [
+        "SELL | M&M breakout 2025-12-09 14:15:00+05:30 | entry 2025-12-10 13:15:00+05:30 (candle 5-6)",
+        "Entry 3635.20 | SL 3673.30 | Target 3560.25 | RR 1.97 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ULTRACEMCO",
+      "name": "Ultracemco",
+      "symbol": "ULTRACEMCO.NS",
+      "side": "SELL",
+      "notify_key": "ULTRACEMCO|ULTRACEMCO.NS|SELL|2025-12-09 08:45:00+00:00|2025-12-10 07:45:00+00:00|11360.0",
+      "signal_time": "2025-12-09 14:15:00+05:30",
+      "entry_time": "2025-12-10 13:15:00+05:30",
+      "entry_price": 11360.0,
+      "stop_price": 11419.55,
+      "target_price": 11201.79,
+      "rr_ratio": 2.66,
+      "vol_mult": 5.18,
+      "lines": [
+        "SELL | Ultracemco breakout 2025-12-09 14:15:00+05:30 | entry 2025-12-10 13:15:00+05:30 (candle 5-6)",
+        "Entry 11360.00 | SL 11419.55 | Target 11201.79 | RR 2.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "SELL",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|SELL|2025-12-03 08:45:00+00:00|2025-12-04 07:45:00+00:00|1149.2",
+      "signal_time": "2025-12-03 14:15:00+05:30",
+      "entry_time": "2025-12-04 13:15:00+05:30",
+      "entry_price": 1149.2,
+      "stop_price": 1150.89,
+      "target_price": 1117.61,
+      "rr_ratio": 18.67,
+      "vol_mult": 8.76,
+      "lines": [
+        "SELL | Jswsteel breakout 2025-12-03 14:15:00+05:30 | entry 2025-12-04 13:15:00+05:30 (candle 5-6)",
+        "Entry 1149.20 | SL 1150.89 | Target 1117.61 | RR 18.67 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TECHM",
+      "name": "Techm",
+      "symbol": "TECHM.NS",
+      "side": "BUY",
+      "notify_key": "TECHM|TECHM.NS|BUY|2025-12-02 08:45:00+00:00|2025-12-03 07:45:00+00:00|1547.0",
+      "signal_time": "2025-12-02 14:15:00+05:30",
+      "entry_time": "2025-12-03 13:15:00+05:30",
+      "entry_price": 1547.0,
+      "stop_price": 1538.3,
+      "target_price": 1567.73,
+      "rr_ratio": 2.38,
+      "vol_mult": 5.29,
+      "lines": [
+        "BUY | Techm breakout 2025-12-02 14:15:00+05:30 | entry 2025-12-03 13:15:00+05:30 (candle 5-6)",
+        "Entry 1547.00 | SL 1538.30 | Target 1567.73 | RR 2.38 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2025-12-02 08:45:00+00:00|2025-12-03 06:45:00+00:00|2955.1",
+      "signal_time": "2025-12-02 14:15:00+05:30",
+      "entry_time": "2025-12-03 12:15:00+05:30",
+      "entry_price": 2955.1,
+      "stop_price": 2937.11,
+      "target_price": 3003.48,
+      "rr_ratio": 2.69,
+      "vol_mult": 5.34,
+      "lines": [
+        "BUY | Asianpaint breakout 2025-12-02 14:15:00+05:30 | entry 2025-12-03 12:15:00+05:30 (candle 5-6)",
+        "Entry 2955.10 | SL 2937.11 | Target 3003.48 | RR 2.69 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2025-12-02 06:45:00+00:00|2025-12-03 05:45:00+00:00|2945.9",
+      "signal_time": "2025-12-02 12:15:00+05:30",
+      "entry_time": "2025-12-03 11:15:00+05:30",
+      "entry_price": 2945.9,
+      "stop_price": 2932.61,
+      "target_price": 2993.79,
+      "rr_ratio": 3.6,
+      "vol_mult": 3.22,
+      "lines": [
+        "BUY | Asianpaint breakout 2025-12-02 12:15:00+05:30 | entry 2025-12-03 11:15:00+05:30 (candle 5-6)",
+        "Entry 2945.90 | SL 2932.61 | Target 2993.79 | RR 3.60 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2025-12-02 07:45:00+00:00|2025-12-03 05:45:00+00:00|2945.9",
+      "signal_time": "2025-12-02 13:15:00+05:30",
+      "entry_time": "2025-12-03 11:15:00+05:30",
+      "entry_price": 2945.9,
+      "stop_price": 2932.61,
+      "target_price": 2993.79,
+      "rr_ratio": 3.6,
+      "vol_mult": 3.66,
+      "lines": [
+        "BUY | Asianpaint breakout 2025-12-02 13:15:00+05:30 | entry 2025-12-03 11:15:00+05:30 (candle 5-6)",
+        "Entry 2945.90 | SL 2932.61 | Target 2993.79 | RR 3.60 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COALINDIA",
+      "name": "Coalindia",
+      "symbol": "COALINDIA.NS",
+      "side": "BUY",
+      "notify_key": "COALINDIA|COALINDIA.NS|BUY|2025-12-01 08:45:00+00:00|2025-12-02 06:45:00+00:00|378.9",
+      "signal_time": "2025-12-01 14:15:00+05:30",
+      "entry_time": "2025-12-02 12:15:00+05:30",
+      "entry_price": 378.9,
+      "stop_price": 377.8,
+      "target_price": 382.56,
+      "rr_ratio": 3.33,
+      "vol_mult": 3.85,
+      "lines": [
+        "BUY | Coalindia breakout 2025-12-01 14:15:00+05:30 | entry 2025-12-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 378.90 | SL 377.80 | Target 382.56 | RR 3.33 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "HCLTECH",
+      "name": "Hcltech",
+      "symbol": "HCLTECH.NS",
+      "side": "BUY",
+      "notify_key": "HCLTECH|HCLTECH.NS|BUY|2025-12-01 08:45:00+00:00|2025-12-02 06:45:00+00:00|1635.7",
+      "signal_time": "2025-12-01 14:15:00+05:30",
+      "entry_time": "2025-12-02 12:15:00+05:30",
+      "entry_price": 1635.7,
+      "stop_price": 1632.01,
+      "target_price": 1657.72,
+      "rr_ratio": 5.96,
+      "vol_mult": 3.47,
+      "lines": [
+        "BUY | Hcltech breakout 2025-12-01 14:15:00+05:30 | entry 2025-12-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 1635.70 | SL 1632.01 | Target 1657.72 | RR 5.96 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "TECHM",
+      "name": "Techm",
+      "symbol": "TECHM.NS",
+      "side": "BUY",
+      "notify_key": "TECHM|TECHM.NS|BUY|2025-12-01 08:45:00+00:00|2025-12-02 06:45:00+00:00|1526.3",
+      "signal_time": "2025-12-01 14:15:00+05:30",
+      "entry_time": "2025-12-02 12:15:00+05:30",
+      "entry_price": 1526.3,
+      "stop_price": 1524.31,
+      "target_price": 1545.07,
+      "rr_ratio": 9.45,
+      "vol_mult": 3.66,
+      "lines": [
+        "BUY | Techm breakout 2025-12-01 14:15:00+05:30 | entry 2025-12-02 12:15:00+05:30 (candle 5-6)",
+        "Entry 1526.30 | SL 1524.31 | Target 1545.07 | RR 9.45 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "APOLLOHOSP",
+      "name": "Apollohosp",
+      "symbol": "APOLLOHOSP.NS",
+      "side": "SELL",
+      "notify_key": "APOLLOHOSP|APOLLOHOSP.NS|SELL|2025-11-24 09:45:00+00:00|2025-11-25 08:45:00+00:00|7331.5",
+      "signal_time": "2025-11-24 15:15:00+05:30",
+      "entry_time": "2025-11-25 14:15:00+05:30",
+      "entry_price": 7331.5,
+      "stop_price": 7375.5,
+      "target_price": 7249.45,
+      "rr_ratio": 1.86,
+      "vol_mult": 7.01,
+      "lines": [
+        "SELL | Apollohosp breakout 2025-11-24 15:15:00+05:30 | entry 2025-11-25 14:15:00+05:30 (candle 5-6)",
+        "Entry 7331.50 | SL 7375.50 | Target 7249.45 | RR 1.86 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "APOLLOHOSP",
+      "name": "Apollohosp",
+      "symbol": "APOLLOHOSP.NS",
+      "side": "SELL",
+      "notify_key": "APOLLOHOSP|APOLLOHOSP.NS|SELL|2025-11-24 08:45:00+00:00|2025-11-25 06:45:00+00:00|7365.0",
+      "signal_time": "2025-11-24 14:15:00+05:30",
+      "entry_time": "2025-11-25 12:15:00+05:30",
+      "entry_price": 7365.0,
+      "stop_price": 7379.13,
+      "target_price": 7284.46,
+      "rr_ratio": 5.7,
+      "vol_mult": 11.49,
+      "lines": [
+        "SELL | Apollohosp breakout 2025-11-24 14:15:00+05:30 | entry 2025-11-25 12:15:00+05:30 (candle 5-6)",
+        "Entry 7365.00 | SL 7379.13 | Target 7284.46 | RR 5.70 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "SELL",
+      "notify_key": "BPCL|BPCL.NS|SELL|2025-11-24 08:45:00+00:00|2025-11-25 06:45:00+00:00|354.95",
+      "signal_time": "2025-11-24 14:15:00+05:30",
+      "entry_time": "2025-11-25 12:15:00+05:30",
+      "entry_price": 354.95,
+      "stop_price": 357.87,
+      "target_price": 348.93,
+      "rr_ratio": 2.06,
+      "vol_mult": 6.25,
+      "lines": [
+        "SELL | Bpcl breakout 2025-11-24 14:15:00+05:30 | entry 2025-11-25 12:15:00+05:30 (candle 5-6)",
+        "Entry 354.95 | SL 357.87 | Target 348.93 | RR 2.06 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TATASTEEL",
+      "name": "Tatasteel",
+      "symbol": "TATASTEEL.NS",
+      "side": "SELL",
+      "notify_key": "TATASTEEL|TATASTEEL.NS|SELL|2025-11-24 08:45:00+00:00|2025-11-25 06:45:00+00:00|165.96",
+      "signal_time": "2025-11-24 14:15:00+05:30",
+      "entry_time": "2025-11-25 12:15:00+05:30",
+      "entry_price": 165.96,
+      "stop_price": 166.47,
+      "target_price": 163.54,
+      "rr_ratio": 4.77,
+      "vol_mult": 4.62,
+      "lines": [
+        "SELL | Tatasteel breakout 2025-11-24 14:15:00+05:30 | entry 2025-11-25 12:15:00+05:30 (candle 5-6)",
+        "Entry 165.96 | SL 166.47 | Target 163.54 | RR 4.77 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJAJFINSV",
+      "name": "Bajajfinsv",
+      "symbol": "BAJAJFINSV.NS",
+      "side": "SELL",
+      "notify_key": "BAJAJFINSV|BAJAJFINSV.NS|SELL|2025-11-21 08:45:00+00:00|2025-11-24 07:45:00+00:00|2041.0",
+      "signal_time": "2025-11-21 14:15:00+05:30",
+      "entry_time": "2025-11-24 13:15:00+05:30",
+      "entry_price": 2041.0,
+      "stop_price": 2054.3,
+      "target_price": 2008.05,
+      "rr_ratio": 2.48,
+      "vol_mult": 3.78,
+      "lines": [
+        "SELL | Bajajfinsv breakout 2025-11-21 14:15:00+05:30 | entry 2025-11-24 13:15:00+05:30 (candle 5-6)",
+        "Entry 2041.00 | SL 2054.30 | Target 2008.05 | RR 2.48 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "RELIANCE",
+      "name": "Reliance",
+      "symbol": "RELIANCE.NS",
+      "side": "BUY",
+      "notify_key": "RELIANCE|RELIANCE.NS|BUY|2025-11-20 08:45:00+00:00|2025-11-21 06:45:00+00:00|1550.1",
+      "signal_time": "2025-11-20 14:15:00+05:30",
+      "entry_time": "2025-11-21 12:15:00+05:30",
+      "entry_price": 1550.1,
+      "stop_price": 1545.72,
+      "target_price": 1569.23,
+      "rr_ratio": 4.37,
+      "vol_mult": 5.05,
+      "lines": [
+        "BUY | Reliance breakout 2025-11-20 14:15:00+05:30 | entry 2025-11-21 12:15:00+05:30 (candle 5-6)",
+        "Entry 1550.10 | SL 1545.72 | Target 1569.23 | RR 4.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SBILIFE",
+      "name": "Sbilife",
+      "symbol": "SBILIFE.NS",
+      "side": "BUY",
+      "notify_key": "SBILIFE|SBILIFE.NS|BUY|2025-11-19 06:45:00+00:00|2025-11-20 04:45:00+00:00|2010.1",
+      "signal_time": "2025-11-19 12:15:00+05:30",
+      "entry_time": "2025-11-20 10:15:00+05:30",
+      "entry_price": 2010.1,
+      "stop_price": 2004.0,
+      "target_price": 2032.15,
+      "rr_ratio": 3.62,
+      "vol_mult": 5.06,
+      "lines": [
+        "BUY | Sbilife breakout 2025-11-19 12:15:00+05:30 | entry 2025-11-20 10:15:00+05:30 (candle 5-6)",
+        "Entry 2010.10 | SL 2004.00 | Target 2032.15 | RR 3.62 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "KOTAKBANK",
+      "name": "Kotakbank",
+      "symbol": "KOTAKBANK.NS",
+      "side": "BUY",
+      "notify_key": "KOTAKBANK|KOTAKBANK.NS|BUY|2025-11-17 08:45:00+00:00|2025-11-18 06:45:00+00:00|2095.3",
+      "signal_time": "2025-11-17 14:15:00+05:30",
+      "entry_time": "2025-11-18 12:15:00+05:30",
+      "entry_price": 2095.3,
+      "stop_price": 2090.62,
+      "target_price": 2123.3,
+      "rr_ratio": 5.98,
+      "vol_mult": 4.07,
+      "lines": [
+        "BUY | Kotakbank breakout 2025-11-17 14:15:00+05:30 | entry 2025-11-18 12:15:00+05:30 (candle 5-6)",
+        "Entry 2095.30 | SL 2090.62 | Target 2123.30 | RR 5.98 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "LT",
+      "name": "Lt",
+      "symbol": "LT.NS",
+      "side": "BUY",
+      "notify_key": "LT|LT.NS|BUY|2025-11-14 08:45:00+00:00|2025-11-17 06:45:00+00:00|4012.3",
+      "signal_time": "2025-11-14 14:15:00+05:30",
+      "entry_time": "2025-11-17 12:15:00+05:30",
+      "entry_price": 4012.3,
+      "stop_price": 4003.36,
+      "target_price": 4060.32,
+      "rr_ratio": 5.37,
+      "vol_mult": 3.61,
+      "lines": [
+        "BUY | Lt breakout 2025-11-14 14:15:00+05:30 | entry 2025-11-17 12:15:00+05:30 (candle 5-6)",
+        "Entry 4012.30 | SL 4003.36 | Target 4060.32 | RR 5.37 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2025-11-13 04:45:00+00:00|2025-11-13 09:45:00+00:00|2879.4",
+      "signal_time": "2025-11-13 10:15:00+05:30",
+      "entry_time": "2025-11-13 15:15:00+05:30",
+      "entry_price": 2879.4,
+      "stop_price": 2842.36,
+      "target_price": 2953.19,
+      "rr_ratio": 1.99,
+      "vol_mult": 3.49,
+      "lines": [
+        "BUY | Asianpaint breakout 2025-11-13 10:15:00+05:30 | entry 2025-11-13 15:15:00+05:30 (candle 5-6)",
+        "Entry 2879.40 | SL 2842.36 | Target 2953.19 | RR 1.99 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TATASTEEL",
+      "name": "Tatasteel",
+      "symbol": "TATASTEEL.NS",
+      "side": "BUY",
+      "notify_key": "TATASTEEL|TATASTEEL.NS|BUY|2025-11-10 08:45:00+00:00|2025-11-11 06:45:00+00:00|180.8",
+      "signal_time": "2025-11-10 14:15:00+05:30",
+      "entry_time": "2025-11-11 12:15:00+05:30",
+      "entry_price": 180.8,
+      "stop_price": 180.28,
+      "target_price": 183.87,
+      "rr_ratio": 5.85,
+      "vol_mult": 3.39,
+      "lines": [
+        "BUY | Tatasteel breakout 2025-11-10 14:15:00+05:30 | entry 2025-11-11 12:15:00+05:30 (candle 5-6)",
+        "Entry 180.80 | SL 180.28 | Target 183.87 | RR 5.85 | Touch EMA9"
+      ]
+    },
+    {
+      "ticker": "BAJFINANCE",
+      "name": "Bajfinance",
+      "symbol": "BAJFINANCE.NS",
+      "side": "BUY",
+      "notify_key": "BAJFINANCE|BAJFINANCE.NS|BUY|2025-11-07 06:45:00+00:00|2025-11-10 04:45:00+00:00|1081.5",
+      "signal_time": "2025-11-07 12:15:00+05:30",
+      "entry_time": "2025-11-10 10:15:00+05:30",
+      "entry_price": 1081.5,
+      "stop_price": 1066.08,
+      "target_price": 1104.86,
+      "rr_ratio": 1.52,
+      "vol_mult": 3.14,
+      "lines": [
+        "BUY | Bajfinance breakout 2025-11-07 12:15:00+05:30 | entry 2025-11-10 10:15:00+05:30 (candle 5-6)",
+        "Entry 1081.50 | SL 1066.08 | Target 1104.86 | RR 1.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "BUY",
+      "notify_key": "UPL|UPL.NS|BUY|2025-11-06 08:45:00+00:00|2025-11-07 06:45:00+00:00|738.5",
+      "signal_time": "2025-11-06 14:15:00+05:30",
+      "entry_time": "2025-11-07 12:15:00+05:30",
+      "entry_price": 738.5,
+      "stop_price": 727.0,
+      "target_price": 762.08,
+      "rr_ratio": 2.05,
+      "vol_mult": 9.14,
+      "lines": [
+        "BUY | Upl breakout 2025-11-06 14:15:00+05:30 | entry 2025-11-07 12:15:00+05:30 (candle 5-6)",
+        "Entry 738.50 | SL 727.00 | Target 762.08 | RR 2.05 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "BUY",
+      "notify_key": "UPL|UPL.NS|BUY|2025-11-06 07:45:00+00:00|2025-11-07 05:45:00+00:00|731.55",
+      "signal_time": "2025-11-06 13:15:00+05:30",
+      "entry_time": "2025-11-07 11:15:00+05:30",
+      "entry_price": 731.55,
+      "stop_price": 728.35,
+      "target_price": 753.92,
+      "rr_ratio": 6.99,
+      "vol_mult": 7.85,
+      "lines": [
+        "BUY | Upl breakout 2025-11-06 13:15:00+05:30 | entry 2025-11-07 11:15:00+05:30 (candle 5-6)",
+        "Entry 731.55 | SL 728.35 | Target 753.92 | RR 6.99 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "BUY",
+      "notify_key": "M&M|M&M.NS|BUY|2025-11-04 08:45:00+00:00|2025-11-06 06:45:00+00:00|3643.8",
+      "signal_time": "2025-11-04 14:15:00+05:30",
+      "entry_time": "2025-11-06 12:15:00+05:30",
+      "entry_price": 3643.8,
+      "stop_price": 3607.44,
+      "target_price": 3723.01,
+      "rr_ratio": 2.18,
+      "vol_mult": 3.8,
+      "lines": [
+        "BUY | M&M breakout 2025-11-04 14:15:00+05:30 | entry 2025-11-06 12:15:00+05:30 (candle 5-6)",
+        "Entry 3643.80 | SL 3607.44 | Target 3723.01 | RR 2.18 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO",
+      "name": "Heromotoco",
+      "symbol": "HEROMOTOCO.NS",
+      "side": "SELL",
+      "notify_key": "HEROMOTOCO|HEROMOTOCO.NS|SELL|2025-11-04 06:45:00+00:00|2025-11-06 05:45:00+00:00|5311.0",
+      "signal_time": "2025-11-04 12:15:00+05:30",
+      "entry_time": "2025-11-06 11:15:00+05:30",
+      "entry_price": 5311.0,
+      "stop_price": 5340.7,
+      "target_price": 5193.05,
+      "rr_ratio": 3.97,
+      "vol_mult": 6.86,
+      "lines": [
+        "SELL | Heromotoco breakout 2025-11-04 12:15:00+05:30 | entry 2025-11-06 11:15:00+05:30 (candle 5-6)",
+        "Entry 5311.00 | SL 5340.70 | Target 5193.05 | RR 3.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO",
+      "name": "Heromotoco",
+      "symbol": "HEROMOTOCO.NS",
+      "side": "SELL",
+      "notify_key": "HEROMOTOCO|HEROMOTOCO.NS|SELL|2025-11-04 07:45:00+00:00|2025-11-06 05:45:00+00:00|5311.0",
+      "signal_time": "2025-11-04 13:15:00+05:30",
+      "entry_time": "2025-11-06 11:15:00+05:30",
+      "entry_price": 5311.0,
+      "stop_price": 5340.7,
+      "target_price": 5193.05,
+      "rr_ratio": 3.97,
+      "vol_mult": 4.37,
+      "lines": [
+        "SELL | Heromotoco breakout 2025-11-04 13:15:00+05:30 | entry 2025-11-06 11:15:00+05:30 (candle 5-6)",
+        "Entry 5311.00 | SL 5340.70 | Target 5193.05 | RR 3.97 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "BUY",
+      "notify_key": "M&M|M&M.NS|BUY|2025-11-04 07:45:00+00:00|2025-11-06 05:45:00+00:00|3643.0",
+      "signal_time": "2025-11-04 13:15:00+05:30",
+      "entry_time": "2025-11-06 11:15:00+05:30",
+      "entry_price": 3643.0,
+      "stop_price": 3598.35,
+      "target_price": 3719.25,
+      "rr_ratio": 1.71,
+      "vol_mult": 6.4,
+      "lines": [
+        "BUY | M&M breakout 2025-11-04 13:15:00+05:30 | entry 2025-11-06 11:15:00+05:30 (candle 5-6)",
+        "Entry 3643.00 | SL 3598.35 | Target 3719.25 | RR 1.71 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HEROMOTOCO",
+      "name": "Heromotoco",
+      "symbol": "HEROMOTOCO.NS",
+      "side": "SELL",
+      "notify_key": "HEROMOTOCO|HEROMOTOCO.NS|SELL|2025-11-04 03:45:00+00:00|2025-11-04 08:45:00+00:00|5305.0",
+      "signal_time": "2025-11-04 09:15:00+05:30",
+      "entry_time": "2025-11-04 14:15:00+05:30",
+      "entry_price": 5305.0,
+      "stop_price": 5370.64,
+      "target_price": 5188.57,
+      "rr_ratio": 1.77,
+      "vol_mult": 4.84,
+      "lines": [
+        "SELL | Heromotoco breakout 2025-11-04 09:15:00+05:30 | entry 2025-11-04 14:15:00+05:30 (candle 5-6)",
+        "Entry 5305.00 | SL 5370.64 | Target 5188.57 | RR 1.77 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TATACONSUM",
+      "name": "Tataconsum",
+      "symbol": "TATACONSUM.NS",
+      "side": "BUY",
+      "notify_key": "TATACONSUM|TATACONSUM.NS|BUY|2025-11-03 08:45:00+00:00|2025-11-04 06:45:00+00:00|1176.9",
+      "signal_time": "2025-11-03 14:15:00+05:30",
+      "entry_time": "2025-11-04 12:15:00+05:30",
+      "entry_price": 1176.9,
+      "stop_price": 1169.3,
+      "target_price": 1211.74,
+      "rr_ratio": 4.58,
+      "vol_mult": 4.17,
+      "lines": [
+        "BUY | Tataconsum breakout 2025-11-03 14:15:00+05:30 | entry 2025-11-04 12:15:00+05:30 (candle 5-6)",
+        "Entry 1176.90 | SL 1169.30 | Target 1211.74 | RR 4.58 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "MARUTI",
+      "name": "Maruti",
+      "symbol": "MARUTI.NS",
+      "side": "SELL",
+      "notify_key": "MARUTI|MARUTI.NS|SELL|2025-11-03 05:45:00+00:00|2025-11-04 04:45:00+00:00|15502.0",
+      "signal_time": "2025-11-03 11:15:00+05:30",
+      "entry_time": "2025-11-04 10:15:00+05:30",
+      "entry_price": 15502.0,
+      "stop_price": 15676.14,
+      "target_price": 15146.64,
+      "rr_ratio": 2.04,
+      "vol_mult": 3.01,
+      "lines": [
+        "SELL | Maruti breakout 2025-11-03 11:15:00+05:30 | entry 2025-11-04 10:15:00+05:30 (candle 5-6)",
+        "Entry 15502.00 | SL 15676.14 | Target 15146.64 | RR 2.04 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "DIVISLAB",
+      "name": "Divislab",
+      "symbol": "DIVISLAB.NS",
+      "side": "BUY",
+      "notify_key": "DIVISLAB|DIVISLAB.NS|BUY|2025-10-31 08:45:00+00:00|2025-11-03 07:45:00+00:00|6822.0",
+      "signal_time": "2025-10-31 14:15:00+05:30",
+      "entry_time": "2025-11-03 13:15:00+05:30",
+      "entry_price": 6822.0,
+      "stop_price": 6773.81,
+      "target_price": 6945.12,
+      "rr_ratio": 2.56,
+      "vol_mult": 3.09,
+      "lines": [
+        "BUY | Divislab breakout 2025-10-31 14:15:00+05:30 | entry 2025-11-03 13:15:00+05:30 (candle 5-6)",
+        "Entry 6822.00 | SL 6773.81 | Target 6945.12 | RR 2.56 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NTPC",
+      "name": "Ntpc",
+      "symbol": "NTPC.NS",
+      "side": "SELL",
+      "notify_key": "NTPC|NTPC.NS|SELL|2025-10-31 08:45:00+00:00|2025-11-03 07:45:00+00:00|335.1",
+      "signal_time": "2025-10-31 14:15:00+05:30",
+      "entry_time": "2025-11-03 13:15:00+05:30",
+      "entry_price": 335.1,
+      "stop_price": 336.68,
+      "target_price": 329.78,
+      "rr_ratio": 3.36,
+      "vol_mult": 3.15,
+      "lines": [
+        "SELL | Ntpc breakout 2025-10-31 14:15:00+05:30 | entry 2025-11-03 13:15:00+05:30 (candle 5-6)",
+        "Entry 335.10 | SL 336.68 | Target 329.78 | RR 3.36 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TECHM",
+      "name": "Techm",
+      "symbol": "TECHM.NS",
+      "side": "SELL",
+      "notify_key": "TECHM|TECHM.NS|SELL|2025-10-30 08:45:00+00:00|2025-10-31 06:45:00+00:00|1425.5",
+      "signal_time": "2025-10-30 14:15:00+05:30",
+      "entry_time": "2025-10-31 12:15:00+05:30",
+      "entry_price": 1425.5,
+      "stop_price": 1432.69,
+      "target_price": 1407.23,
+      "rr_ratio": 2.54,
+      "vol_mult": 3.65,
+      "lines": [
+        "SELL | Techm breakout 2025-10-30 14:15:00+05:30 | entry 2025-10-31 12:15:00+05:30 (candle 5-6)",
+        "Entry 1425.50 | SL 1432.69 | Target 1407.23 | RR 2.54 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "SELL",
+      "notify_key": "CIPLA|CIPLA.NS|SELL|2025-10-30 07:45:00+00:00|2025-10-31 05:45:00+00:00|1506.8",
+      "signal_time": "2025-10-30 13:15:00+05:30",
+      "entry_time": "2025-10-31 11:15:00+05:30",
+      "entry_price": 1506.8,
+      "stop_price": 1535.36,
+      "target_price": 1460.73,
+      "rr_ratio": 1.61,
+      "vol_mult": 11.06,
+      "lines": [
+        "SELL | Cipla breakout 2025-10-30 13:15:00+05:30 | entry 2025-10-31 11:15:00+05:30 (candle 5-6)",
+        "Entry 1506.80 | SL 1535.36 | Target 1460.73 | RR 1.61 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "BUY",
+      "notify_key": "BPCL|BPCL.NS|BUY|2025-10-30 04:45:00+00:00|2025-10-30 09:45:00+00:00|357.6",
+      "signal_time": "2025-10-30 10:15:00+05:30",
+      "entry_time": "2025-10-30 15:15:00+05:30",
+      "entry_price": 357.6,
+      "stop_price": 354.93,
+      "target_price": 365.69,
+      "rr_ratio": 3.03,
+      "vol_mult": 4.43,
+      "lines": [
+        "BUY | Bpcl breakout 2025-10-30 10:15:00+05:30 | entry 2025-10-30 15:15:00+05:30 (candle 5-6)",
+        "Entry 357.60 | SL 354.93 | Target 365.69 | RR 3.03 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COALINDIA",
+      "name": "Coalindia",
+      "symbol": "COALINDIA.NS",
+      "side": "SELL",
+      "notify_key": "COALINDIA|COALINDIA.NS|SELL|2025-10-29 07:45:00+00:00|2025-10-30 05:45:00+00:00|385.35",
+      "signal_time": "2025-10-29 13:15:00+05:30",
+      "entry_time": "2025-10-30 11:15:00+05:30",
+      "entry_price": 385.35,
+      "stop_price": 387.36,
+      "target_price": 375.4,
+      "rr_ratio": 4.94,
+      "vol_mult": 12.28,
+      "lines": [
+        "SELL | Coalindia breakout 2025-10-29 13:15:00+05:30 | entry 2025-10-30 11:15:00+05:30 (candle 5-6)",
+        "Entry 385.35 | SL 387.36 | Target 375.40 | RR 4.94 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ADANIPORTS",
+      "name": "Adaniports",
+      "symbol": "ADANIPORTS.NS",
+      "side": "BUY",
+      "notify_key": "ADANIPORTS|ADANIPORTS.NS|BUY|2025-10-29 04:45:00+00:00|2025-10-29 09:45:00+00:00|1456.6",
+      "signal_time": "2025-10-29 10:15:00+05:30",
+      "entry_time": "2025-10-29 15:15:00+05:30",
+      "entry_price": 1456.6,
+      "stop_price": 1447.56,
+      "target_price": 1482.92,
+      "rr_ratio": 2.91,
+      "vol_mult": 3.28,
+      "lines": [
+        "BUY | Adaniports breakout 2025-10-29 10:15:00+05:30 | entry 2025-10-29 15:15:00+05:30 (candle 5-6)",
+        "Entry 1456.60 | SL 1447.56 | Target 1482.92 | RR 2.91 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SHREECEM",
+      "name": "Shreecem",
+      "symbol": "SHREECEM.NS",
+      "side": "BUY",
+      "notify_key": "SHREECEM|SHREECEM.NS|BUY|2025-10-29 04:45:00+00:00|2025-10-29 09:45:00+00:00|29210.0",
+      "signal_time": "2025-10-29 10:15:00+05:30",
+      "entry_time": "2025-10-29 15:15:00+05:30",
+      "entry_price": 29210.0,
+      "stop_price": 29005.0,
+      "target_price": 29982.32,
+      "rr_ratio": 3.77,
+      "vol_mult": 5.09,
+      "lines": [
+        "BUY | Shreecem breakout 2025-10-29 10:15:00+05:30 | entry 2025-10-29 15:15:00+05:30 (candle 5-6)",
+        "Entry 29210.00 | SL 29005.00 | Target 29982.32 | RR 3.77 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "name": "Asianpaint",
+      "symbol": "ASIANPAINT.NS",
+      "side": "BUY",
+      "notify_key": "ASIANPAINT|ASIANPAINT.NS|BUY|2025-10-28 08:45:00+00:00|2025-10-29 06:45:00+00:00|2542.8",
+      "signal_time": "2025-10-28 14:15:00+05:30",
+      "entry_time": "2025-10-29 12:15:00+05:30",
+      "entry_price": 2542.8,
+      "stop_price": 2522.41,
+      "target_price": 2581.59,
+      "rr_ratio": 1.9,
+      "vol_mult": 3.25,
+      "lines": [
+        "BUY | Asianpaint breakout 2025-10-28 14:15:00+05:30 | entry 2025-10-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 2542.80 | SL 2522.41 | Target 2581.59 | RR 1.90 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "SELL",
+      "notify_key": "M&M|M&M.NS|SELL|2025-10-28 08:45:00+00:00|2025-10-29 06:45:00+00:00|3540.2",
+      "signal_time": "2025-10-28 14:15:00+05:30",
+      "entry_time": "2025-10-29 12:15:00+05:30",
+      "entry_price": 3540.2,
+      "stop_price": 3562.16,
+      "target_price": 3488.49,
+      "rr_ratio": 2.35,
+      "vol_mult": 3.77,
+      "lines": [
+        "SELL | M&M breakout 2025-10-28 14:15:00+05:30 | entry 2025-10-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 3540.20 | SL 3562.16 | Target 3488.49 | RR 2.35 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "RELIANCE",
+      "name": "Reliance",
+      "symbol": "RELIANCE.NS",
+      "side": "BUY",
+      "notify_key": "RELIANCE|RELIANCE.NS|BUY|2025-10-28 08:45:00+00:00|2025-10-29 06:45:00+00:00|1505.7",
+      "signal_time": "2025-10-28 14:15:00+05:30",
+      "entry_time": "2025-10-29 12:15:00+05:30",
+      "entry_price": 1505.7,
+      "stop_price": 1495.74,
+      "target_price": 1524.79,
+      "rr_ratio": 1.92,
+      "vol_mult": 3.31,
+      "lines": [
+        "BUY | Reliance breakout 2025-10-28 14:15:00+05:30 | entry 2025-10-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 1505.70 | SL 1495.74 | Target 1524.79 | RR 1.92 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SBIN",
+      "name": "Sbin",
+      "symbol": "SBIN.NS",
+      "side": "BUY",
+      "notify_key": "SBIN|SBIN.NS|BUY|2025-10-28 08:45:00+00:00|2025-10-29 06:45:00+00:00|938.25",
+      "signal_time": "2025-10-28 14:15:00+05:30",
+      "entry_time": "2025-10-29 12:15:00+05:30",
+      "entry_price": 938.25,
+      "stop_price": 932.36,
+      "target_price": 953.8,
+      "rr_ratio": 2.64,
+      "vol_mult": 3.73,
+      "lines": [
+        "BUY | Sbin breakout 2025-10-28 14:15:00+05:30 | entry 2025-10-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 938.25 | SL 932.36 | Target 953.80 | RR 2.64 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "BUY",
+      "notify_key": "UPL|UPL.NS|BUY|2025-10-28 08:45:00+00:00|2025-10-29 06:45:00+00:00|714.95",
+      "signal_time": "2025-10-28 14:15:00+05:30",
+      "entry_time": "2025-10-29 12:15:00+05:30",
+      "entry_price": 714.95,
+      "stop_price": 705.13,
+      "target_price": 731.16,
+      "rr_ratio": 1.65,
+      "vol_mult": 3.42,
+      "lines": [
+        "BUY | Upl breakout 2025-10-28 14:15:00+05:30 | entry 2025-10-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 714.95 | SL 705.13 | Target 731.16 | RR 1.65 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BRITANNIA",
+      "name": "Britannia",
+      "symbol": "BRITANNIA.NS",
+      "side": "SELL",
+      "notify_key": "BRITANNIA|BRITANNIA.NS|SELL|2025-10-27 07:45:00+00:00|2025-10-28 06:45:00+00:00|5824.0",
+      "signal_time": "2025-10-27 13:15:00+05:30",
+      "entry_time": "2025-10-28 12:15:00+05:30",
+      "entry_price": 5824.0,
+      "stop_price": 5885.0,
+      "target_price": 5718.29,
+      "rr_ratio": 1.73,
+      "vol_mult": 6.73,
+      "lines": [
+        "SELL | Britannia breakout 2025-10-27 13:15:00+05:30 | entry 2025-10-28 12:15:00+05:30 (candle 5-6)",
+        "Entry 5824.00 | SL 5885.00 | Target 5718.29 | RR 1.73 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GRASIM",
+      "name": "Grasim",
+      "symbol": "GRASIM.NS",
+      "side": "BUY",
+      "notify_key": "GRASIM|GRASIM.NS|BUY|2025-10-27 08:45:00+00:00|2025-10-28 06:45:00+00:00|2951.0",
+      "signal_time": "2025-10-27 14:15:00+05:30",
+      "entry_time": "2025-10-28 12:15:00+05:30",
+      "entry_price": 2951.0,
+      "stop_price": 2916.9,
+      "target_price": 3010.75,
+      "rr_ratio": 1.75,
+      "vol_mult": 3.65,
+      "lines": [
+        "BUY | Grasim breakout 2025-10-27 14:15:00+05:30 | entry 2025-10-28 12:15:00+05:30 (candle 5-6)",
+        "Entry 2951.00 | SL 2916.90 | Target 3010.75 | RR 1.75 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "GRASIM",
+      "name": "Grasim",
+      "symbol": "GRASIM.NS",
+      "side": "BUY",
+      "notify_key": "GRASIM|GRASIM.NS|BUY|2025-10-27 06:45:00+00:00|2025-10-28 04:45:00+00:00|2924.1",
+      "signal_time": "2025-10-27 12:15:00+05:30",
+      "entry_time": "2025-10-28 10:15:00+05:30",
+      "entry_price": 2924.1,
+      "stop_price": 2905.18,
+      "target_price": 2979.85,
+      "rr_ratio": 2.95,
+      "vol_mult": 3.22,
+      "lines": [
+        "BUY | Grasim breakout 2025-10-27 12:15:00+05:30 | entry 2025-10-28 10:15:00+05:30 (candle 5-6)",
+        "Entry 2924.10 | SL 2905.18 | Target 2979.85 | RR 2.95 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "SELL",
+      "notify_key": "UPL|UPL.NS|SELL|2025-10-23 08:45:00+00:00|2025-10-24 07:45:00+00:00|671.65",
+      "signal_time": "2025-10-23 14:15:00+05:30",
+      "entry_time": "2025-10-24 13:15:00+05:30",
+      "entry_price": 671.65,
+      "stop_price": 674.66,
+      "target_price": 661.64,
+      "rr_ratio": 3.33,
+      "vol_mult": 3.6,
+      "lines": [
+        "SELL | Upl breakout 2025-10-23 14:15:00+05:30 | entry 2025-10-24 13:15:00+05:30 (candle 5-6)",
+        "Entry 671.65 | SL 674.66 | Target 661.64 | RR 3.33 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SHREECEM",
+      "name": "Shreecem",
+      "symbol": "SHREECEM.NS",
+      "side": "SELL",
+      "notify_key": "SHREECEM|SHREECEM.NS|SELL|2025-10-23 08:45:00+00:00|2025-10-24 06:45:00+00:00|28690.0",
+      "signal_time": "2025-10-23 14:15:00+05:30",
+      "entry_time": "2025-10-24 12:15:00+05:30",
+      "entry_price": 28690.0,
+      "stop_price": 28866.36,
+      "target_price": 28140.89,
+      "rr_ratio": 3.11,
+      "vol_mult": 3.68,
+      "lines": [
+        "SELL | Shreecem breakout 2025-10-23 14:15:00+05:30 | entry 2025-10-24 12:15:00+05:30 (candle 5-6)",
+        "Entry 28690.00 | SL 28866.36 | Target 28140.89 | RR 3.11 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "CIPLA",
+      "name": "Cipla",
+      "symbol": "CIPLA.NS",
+      "side": "BUY",
+      "notify_key": "CIPLA|CIPLA.NS|BUY|2025-10-20 08:45:00+00:00|2025-10-23 05:45:00+00:00|1654.0",
+      "signal_time": "2025-10-20 14:15:00+05:30",
+      "entry_time": "2025-10-23 11:15:00+05:30",
+      "entry_price": 1654.0,
+      "stop_price": 1642.07,
+      "target_price": 1694.93,
+      "rr_ratio": 3.43,
+      "vol_mult": 5.13,
+      "lines": [
+        "BUY | Cipla breakout 2025-10-20 14:15:00+05:30 | entry 2025-10-23 11:15:00+05:30 (candle 5-6)",
+        "Entry 1654.00 | SL 1642.07 | Target 1694.93 | RR 3.43 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "ICICIBANK",
+      "name": "Icicibank",
+      "symbol": "ICICIBANK.NS",
+      "side": "SELL",
+      "notify_key": "ICICIBANK|ICICIBANK.NS|SELL|2025-10-20 08:45:00+00:00|2025-10-23 04:45:00+00:00|1384.5",
+      "signal_time": "2025-10-20 14:15:00+05:30",
+      "entry_time": "2025-10-23 10:15:00+05:30",
+      "entry_price": 1384.5,
+      "stop_price": 1392.53,
+      "target_price": 1359.7,
+      "rr_ratio": 3.09,
+      "vol_mult": 3.97,
+      "lines": [
+        "SELL | Icicibank breakout 2025-10-20 14:15:00+05:30 | entry 2025-10-23 10:15:00+05:30 (candle 5-6)",
+        "Entry 1384.50 | SL 1392.53 | Target 1359.70 | RR 3.09 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TATACONSUM",
+      "name": "Tataconsum",
+      "symbol": "TATACONSUM.NS",
+      "side": "BUY",
+      "notify_key": "TATACONSUM|TATACONSUM.NS|BUY|2025-10-20 06:45:00+00:00|2025-10-23 03:45:00+00:00|1185.6",
+      "signal_time": "2025-10-20 12:15:00+05:30",
+      "entry_time": "2025-10-23 09:15:00+05:30",
+      "entry_price": 1185.6,
+      "stop_price": 1174.4,
+      "target_price": 1207.21,
+      "rr_ratio": 1.93,
+      "vol_mult": 3.27,
+      "lines": [
+        "BUY | Tataconsum breakout 2025-10-20 12:15:00+05:30 | entry 2025-10-23 09:15:00+05:30 (candle 5-6)",
+        "Entry 1185.60 | SL 1174.40 | Target 1207.21 | RR 1.93 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "WIPRO",
+      "name": "Wipro",
+      "symbol": "WIPRO.NS",
+      "side": "SELL",
+      "notify_key": "WIPRO|WIPRO.NS|SELL|2025-10-17 08:45:00+00:00|2025-10-20 07:45:00+00:00|241.09",
+      "signal_time": "2025-10-17 14:15:00+05:30",
+      "entry_time": "2025-10-20 13:15:00+05:30",
+      "entry_price": 241.09,
+      "stop_price": 241.87,
+      "target_price": 236.2,
+      "rr_ratio": 6.29,
+      "vol_mult": 4.03,
+      "lines": [
+        "SELL | Wipro breakout 2025-10-17 14:15:00+05:30 | entry 2025-10-20 13:15:00+05:30 (candle 5-6)",
+        "Entry 241.09 | SL 241.87 | Target 236.20 | RR 6.29 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK",
+      "name": "Indusindbk",
+      "symbol": "INDUSINDBK.NS",
+      "side": "BUY",
+      "notify_key": "INDUSINDBK|INDUSINDBK.NS|BUY|2025-10-17 05:45:00+00:00|2025-10-20 04:45:00+00:00|768.2",
+      "signal_time": "2025-10-17 11:15:00+05:30",
+      "entry_time": "2025-10-20 10:15:00+05:30",
+      "entry_price": 768.2,
+      "stop_price": 753.65,
+      "target_price": 790.24,
+      "rr_ratio": 1.52,
+      "vol_mult": 4.33,
+      "lines": [
+        "BUY | Indusindbk breakout 2025-10-17 11:15:00+05:30 | entry 2025-10-20 10:15:00+05:30 (candle 5-6)",
+        "Entry 768.20 | SL 753.65 | Target 790.24 | RR 1.52 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "WIPRO",
+      "name": "Wipro",
+      "symbol": "WIPRO.NS",
+      "side": "SELL",
+      "notify_key": "WIPRO|WIPRO.NS|SELL|2025-10-17 04:45:00+00:00|2025-10-17 09:45:00+00:00|240.68",
+      "signal_time": "2025-10-17 10:15:00+05:30",
+      "entry_time": "2025-10-17 15:15:00+05:30",
+      "entry_price": 240.68,
+      "stop_price": 243.22,
+      "target_price": 235.1,
+      "rr_ratio": 2.2,
+      "vol_mult": 3.86,
+      "lines": [
+        "SELL | Wipro breakout 2025-10-17 10:15:00+05:30 | entry 2025-10-17 15:15:00+05:30 (candle 5-6)",
+        "Entry 240.68 | SL 243.22 | Target 235.10 | RR 2.20 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "KOTAKBANK",
+      "name": "Kotakbank",
+      "symbol": "KOTAKBANK.NS",
+      "side": "BUY",
+      "notify_key": "KOTAKBANK|KOTAKBANK.NS|BUY|2025-10-16 08:45:00+00:00|2025-10-17 07:45:00+00:00|2201.9",
+      "signal_time": "2025-10-16 14:15:00+05:30",
+      "entry_time": "2025-10-17 13:15:00+05:30",
+      "entry_price": 2201.9,
+      "stop_price": 2190.9,
+      "target_price": 2239.6,
+      "rr_ratio": 3.43,
+      "vol_mult": 6.4,
+      "lines": [
+        "BUY | Kotakbank breakout 2025-10-16 14:15:00+05:30 | entry 2025-10-17 13:15:00+05:30 (candle 5-6)",
+        "Entry 2201.90 | SL 2190.90 | Target 2239.60 | RR 3.43 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "name": "Hdfclife",
+      "symbol": "HDFCLIFE.NS",
+      "side": "SELL",
+      "notify_key": "HDFCLIFE|HDFCLIFE.NS|SELL|2025-10-16 06:45:00+00:00|2025-10-17 05:45:00+00:00|743.5",
+      "signal_time": "2025-10-16 12:15:00+05:30",
+      "entry_time": "2025-10-17 11:15:00+05:30",
+      "entry_price": 743.5,
+      "stop_price": 745.35,
+      "target_price": 725.96,
+      "rr_ratio": 9.48,
+      "vol_mult": 5.36,
+      "lines": [
+        "SELL | Hdfclife breakout 2025-10-16 12:15:00+05:30 | entry 2025-10-17 11:15:00+05:30 (candle 5-6)",
+        "Entry 743.50 | SL 745.35 | Target 725.96 | RR 9.48 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "KOTAKBANK",
+      "name": "Kotakbank",
+      "symbol": "KOTAKBANK.NS",
+      "side": "BUY",
+      "notify_key": "KOTAKBANK|KOTAKBANK.NS|BUY|2025-10-16 07:45:00+00:00|2025-10-17 05:45:00+00:00|2201.9",
+      "signal_time": "2025-10-16 13:15:00+05:30",
+      "entry_time": "2025-10-17 11:15:00+05:30",
+      "entry_price": 2201.9,
+      "stop_price": 2193.29,
+      "target_price": 2237.2,
+      "rr_ratio": 4.1,
+      "vol_mult": 4.79,
+      "lines": [
+        "BUY | Kotakbank breakout 2025-10-16 13:15:00+05:30 | entry 2025-10-17 11:15:00+05:30 (candle 5-6)",
+        "Entry 2201.90 | SL 2193.29 | Target 2237.20 | RR 4.10 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NESTLEIND",
+      "name": "Nestleind",
+      "symbol": "NESTLEIND.NS",
+      "side": "BUY",
+      "notify_key": "NESTLEIND|NESTLEIND.NS|BUY|2025-10-16 05:45:00+00:00|2025-10-17 04:45:00+00:00|1294.8",
+      "signal_time": "2025-10-16 11:15:00+05:30",
+      "entry_time": "2025-10-17 10:15:00+05:30",
+      "entry_price": 1294.8,
+      "stop_price": 1267.72,
+      "target_price": 1335.73,
+      "rr_ratio": 1.51,
+      "vol_mult": 14.49,
+      "lines": [
+        "BUY | Nestleind breakout 2025-10-16 11:15:00+05:30 | entry 2025-10-17 10:15:00+05:30 (candle 5-6)",
+        "Entry 1294.80 | SL 1267.72 | Target 1335.73 | RR 1.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "NESTLEIND",
+      "name": "Nestleind",
+      "symbol": "NESTLEIND.NS",
+      "side": "BUY",
+      "notify_key": "NESTLEIND|NESTLEIND.NS|BUY|2025-10-16 06:45:00+00:00|2025-10-17 04:45:00+00:00|1294.8",
+      "signal_time": "2025-10-16 12:15:00+05:30",
+      "entry_time": "2025-10-17 10:15:00+05:30",
+      "entry_price": 1294.8,
+      "stop_price": 1267.72,
+      "target_price": 1335.73,
+      "rr_ratio": 1.51,
+      "vol_mult": 5.91,
+      "lines": [
+        "BUY | Nestleind breakout 2025-10-16 12:15:00+05:30 | entry 2025-10-17 10:15:00+05:30 (candle 5-6)",
+        "Entry 1294.80 | SL 1267.72 | Target 1335.73 | RR 1.51 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJAJFINSV",
+      "name": "Bajajfinsv",
+      "symbol": "BAJAJFINSV.NS",
+      "side": "BUY",
+      "notify_key": "BAJAJFINSV|BAJAJFINSV.NS|BUY|2025-10-15 08:45:00+00:00|2025-10-16 07:45:00+00:00|2091.0",
+      "signal_time": "2025-10-15 14:15:00+05:30",
+      "entry_time": "2025-10-16 13:15:00+05:30",
+      "entry_price": 2091.0,
+      "stop_price": 2079.44,
+      "target_price": 2123.11,
+      "rr_ratio": 2.78,
+      "vol_mult": 3.14,
+      "lines": [
+        "BUY | Bajajfinsv breakout 2025-10-15 14:15:00+05:30 | entry 2025-10-16 13:15:00+05:30 (candle 5-6)",
+        "Entry 2091.00 | SL 2079.44 | Target 2123.11 | RR 2.78 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "APOLLOHOSP",
+      "name": "Apollohosp",
+      "symbol": "APOLLOHOSP.NS",
+      "side": "BUY",
+      "notify_key": "APOLLOHOSP|APOLLOHOSP.NS|BUY|2025-10-14 08:45:00+00:00|2025-10-15 06:45:00+00:00|7824.5",
+      "signal_time": "2025-10-14 14:15:00+05:30",
+      "entry_time": "2025-10-15 12:15:00+05:30",
+      "entry_price": 7824.5,
+      "stop_price": 7779.66,
+      "target_price": 7921.55,
+      "rr_ratio": 2.16,
+      "vol_mult": 3.13,
+      "lines": [
+        "BUY | Apollohosp breakout 2025-10-14 14:15:00+05:30 | entry 2025-10-15 12:15:00+05:30 (candle 5-6)",
+        "Entry 7824.50 | SL 7779.66 | Target 7921.55 | RR 2.16 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "BUY",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|BUY|2025-10-09 08:45:00+00:00|2025-10-10 06:45:00+00:00|1167.0",
+      "signal_time": "2025-10-09 14:15:00+05:30",
+      "entry_time": "2025-10-10 12:15:00+05:30",
+      "entry_price": 1167.0,
+      "stop_price": 1160.5,
+      "target_price": 1188.45,
+      "rr_ratio": 3.3,
+      "vol_mult": 3.11,
+      "lines": [
+        "BUY | Jswsteel breakout 2025-10-09 14:15:00+05:30 | entry 2025-10-10 12:15:00+05:30 (candle 5-6)",
+        "Entry 1167.00 | SL 1160.50 | Target 1188.45 | RR 3.30 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BPCL",
+      "name": "Bpcl",
+      "symbol": "BPCL.NS",
+      "side": "BUY",
+      "notify_key": "BPCL|BPCL.NS|BUY|2025-10-06 08:45:00+00:00|2025-10-07 07:45:00+00:00|343.8",
+      "signal_time": "2025-10-06 14:15:00+05:30",
+      "entry_time": "2025-10-07 13:15:00+05:30",
+      "entry_price": 343.8,
+      "stop_price": 342.15,
+      "target_price": 350.68,
+      "rr_ratio": 4.17,
+      "vol_mult": 3.16,
+      "lines": [
+        "BUY | Bpcl breakout 2025-10-06 14:15:00+05:30 | entry 2025-10-07 13:15:00+05:30 (candle 5-6)",
+        "Entry 343.80 | SL 342.15 | Target 350.68 | RR 4.17 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "UPL",
+      "name": "Upl",
+      "symbol": "UPL.NS",
+      "side": "BUY",
+      "notify_key": "UPL|UPL.NS|BUY|2025-10-03 08:45:00+00:00|2025-10-06 07:45:00+00:00|680.4",
+      "signal_time": "2025-10-03 14:15:00+05:30",
+      "entry_time": "2025-10-06 13:15:00+05:30",
+      "entry_price": 680.4,
+      "stop_price": 675.43,
+      "target_price": 694.51,
+      "rr_ratio": 2.84,
+      "vol_mult": 4.32,
+      "lines": [
+        "BUY | Upl breakout 2025-10-03 14:15:00+05:30 | entry 2025-10-06 13:15:00+05:30 (candle 5-6)",
+        "Entry 680.40 | SL 675.43 | Target 694.51 | RR 2.84 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "COALINDIA",
+      "name": "Coalindia",
+      "symbol": "COALINDIA.NS",
+      "side": "SELL",
+      "notify_key": "COALINDIA|COALINDIA.NS|SELL|2025-10-01 08:45:00+00:00|2025-10-03 07:45:00+00:00|382.25",
+      "signal_time": "2025-10-01 14:15:00+05:30",
+      "entry_time": "2025-10-03 13:15:00+05:30",
+      "entry_price": 382.25,
+      "stop_price": 384.95,
+      "target_price": 376.38,
+      "rr_ratio": 2.17,
+      "vol_mult": 3.26,
+      "lines": [
+        "SELL | Coalindia breakout 2025-10-01 14:15:00+05:30 | entry 2025-10-03 13:15:00+05:30 (candle 5-6)",
+        "Entry 382.25 | SL 384.95 | Target 376.38 | RR 2.17 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SHRIRAMFIN",
+      "name": "Shriramfin",
+      "symbol": "SHRIRAMFIN.NS",
+      "side": "BUY",
+      "notify_key": "SHRIRAMFIN|SHRIRAMFIN.NS|BUY|2025-10-01 05:45:00+00:00|2025-10-03 04:45:00+00:00|640.7",
+      "signal_time": "2025-10-01 11:15:00+05:30",
+      "entry_time": "2025-10-03 10:15:00+05:30",
+      "entry_price": 640.7,
+      "stop_price": 636.25,
+      "target_price": 659.06,
+      "rr_ratio": 4.13,
+      "vol_mult": 6.22,
+      "lines": [
+        "BUY | Shriramfin breakout 2025-10-01 11:15:00+05:30 | entry 2025-10-03 10:15:00+05:30 (candle 5-6)",
+        "Entry 640.70 | SL 636.25 | Target 659.06 | RR 4.13 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "TATACONSUM",
+      "name": "Tataconsum",
+      "symbol": "TATACONSUM.NS",
+      "side": "BUY",
+      "notify_key": "TATACONSUM|TATACONSUM.NS|BUY|2025-09-30 08:45:00+00:00|2025-10-01 07:45:00+00:00|1141.9",
+      "signal_time": "2025-09-30 14:15:00+05:30",
+      "entry_time": "2025-10-01 13:15:00+05:30",
+      "entry_price": 1141.9,
+      "stop_price": 1134.84,
+      "target_price": 1160.31,
+      "rr_ratio": 2.61,
+      "vol_mult": 3.07,
+      "lines": [
+        "BUY | Tataconsum breakout 2025-09-30 14:15:00+05:30 | entry 2025-10-01 13:15:00+05:30 (candle 5-6)",
+        "Entry 1141.90 | SL 1134.84 | Target 1160.31 | RR 2.61 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL",
+      "name": "Bhartiartl",
+      "symbol": "BHARTIARTL.NS",
+      "side": "SELL",
+      "notify_key": "BHARTIARTL|BHARTIARTL.NS|SELL|2025-09-30 08:45:00+00:00|2025-10-01 06:45:00+00:00|1865.5",
+      "signal_time": "2025-09-30 14:15:00+05:30",
+      "entry_time": "2025-10-01 12:15:00+05:30",
+      "entry_price": 1865.5,
+      "stop_price": 1876.67,
+      "target_price": 1835.84,
+      "rr_ratio": 2.66,
+      "vol_mult": 3.67,
+      "lines": [
+        "SELL | Bhartiartl breakout 2025-09-30 14:15:00+05:30 | entry 2025-10-01 12:15:00+05:30 (candle 5-6)",
+        "Entry 1865.50 | SL 1876.67 | Target 1835.84 | RR 2.66 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "APOLLOHOSP",
+      "name": "Apollohosp",
+      "symbol": "APOLLOHOSP.NS",
+      "side": "SELL",
+      "notify_key": "APOLLOHOSP|APOLLOHOSP.NS|SELL|2025-09-29 08:45:00+00:00|2025-09-30 07:45:00+00:00|7427.0",
+      "signal_time": "2025-09-29 14:15:00+05:30",
+      "entry_time": "2025-09-30 13:15:00+05:30",
+      "entry_price": 7427.0,
+      "stop_price": 7471.0,
+      "target_price": 7311.02,
+      "rr_ratio": 2.64,
+      "vol_mult": 5.64,
+      "lines": [
+        "SELL | Apollohosp breakout 2025-09-29 14:15:00+05:30 | entry 2025-09-30 13:15:00+05:30 (candle 5-6)",
+        "Entry 7427.00 | SL 7471.00 | Target 7311.02 | RR 2.64 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "BAJAJ-AUTO",
+      "name": "Bajaj-Auto",
+      "symbol": "BAJAJ-AUTO.NS",
+      "side": "SELL",
+      "notify_key": "BAJAJ-AUTO|BAJAJ-AUTO.NS|SELL|2025-09-29 08:45:00+00:00|2025-09-30 07:45:00+00:00|8670.5",
+      "signal_time": "2025-09-29 14:15:00+05:30",
+      "entry_time": "2025-09-30 13:15:00+05:30",
+      "entry_price": 8670.5,
+      "stop_price": 8705.3,
+      "target_price": 8522.46,
+      "rr_ratio": 4.25,
+      "vol_mult": 3.91,
+      "lines": [
+        "SELL | Bajaj-Auto breakout 2025-09-29 14:15:00+05:30 | entry 2025-09-30 13:15:00+05:30 (candle 5-6)",
+        "Entry 8670.50 | SL 8705.30 | Target 8522.46 | RR 4.25 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL",
+      "name": "Bhartiartl",
+      "symbol": "BHARTIARTL.NS",
+      "side": "SELL",
+      "notify_key": "BHARTIARTL|BHARTIARTL.NS|SELL|2025-09-29 08:45:00+00:00|2025-09-30 07:45:00+00:00|1888.7",
+      "signal_time": "2025-09-29 14:15:00+05:30",
+      "entry_time": "2025-09-30 13:15:00+05:30",
+      "entry_price": 1888.7,
+      "stop_price": 1898.35,
+      "target_price": 1861.38,
+      "rr_ratio": 2.83,
+      "vol_mult": 3.17,
+      "lines": [
+        "SELL | Bhartiartl breakout 2025-09-29 14:15:00+05:30 | entry 2025-09-30 13:15:00+05:30 (candle 5-6)",
+        "Entry 1888.70 | SL 1898.35 | Target 1861.38 | RR 2.83 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "INFY",
+      "name": "Infy",
+      "symbol": "INFY.NS",
+      "side": "SELL",
+      "notify_key": "INFY|INFY.NS|SELL|2025-09-29 08:45:00+00:00|2025-09-30 07:45:00+00:00|1445.0",
+      "signal_time": "2025-09-29 14:15:00+05:30",
+      "entry_time": "2025-09-30 13:15:00+05:30",
+      "entry_price": 1445.0,
+      "stop_price": 1447.9,
+      "target_price": 1419.52,
+      "rr_ratio": 8.79,
+      "vol_mult": 5.02,
+      "lines": [
+        "SELL | Infy breakout 2025-09-29 14:15:00+05:30 | entry 2025-09-30 13:15:00+05:30 (candle 5-6)",
+        "Entry 1445.00 | SL 1447.90 | Target 1419.52 | RR 8.79 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "NESTLEIND",
+      "name": "Nestleind",
+      "symbol": "NESTLEIND.NS",
+      "side": "SELL",
+      "notify_key": "NESTLEIND|NESTLEIND.NS|SELL|2025-09-29 08:45:00+00:00|2025-09-30 06:45:00+00:00|1152.4",
+      "signal_time": "2025-09-29 14:15:00+05:30",
+      "entry_time": "2025-09-30 12:15:00+05:30",
+      "entry_price": 1152.4,
+      "stop_price": 1158.7,
+      "target_price": 1138.17,
+      "rr_ratio": 2.26,
+      "vol_mult": 3.22,
+      "lines": [
+        "SELL | Nestleind breakout 2025-09-29 14:15:00+05:30 | entry 2025-09-30 12:15:00+05:30 (candle 5-6)",
+        "Entry 1152.40 | SL 1158.70 | Target 1138.17 | RR 2.26 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "SELL",
+      "notify_key": "M&M|M&M.NS|SELL|2025-09-26 07:45:00+00:00|2025-09-29 06:45:00+00:00|3433.6",
+      "signal_time": "2025-09-26 13:15:00+05:30",
+      "entry_time": "2025-09-29 12:15:00+05:30",
+      "entry_price": 3433.6,
+      "stop_price": 3441.0,
+      "target_price": 3366.53,
+      "rr_ratio": 9.06,
+      "vol_mult": 3.31,
+      "lines": [
+        "SELL | M&M breakout 2025-09-26 13:15:00+05:30 | entry 2025-09-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 3433.60 | SL 3441.00 | Target 3366.53 | RR 9.06 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "M&M",
+      "name": "M&M",
+      "symbol": "M&M.NS",
+      "side": "SELL",
+      "notify_key": "M&M|M&M.NS|SELL|2025-09-26 08:45:00+00:00|2025-09-29 06:45:00+00:00|3433.6",
+      "signal_time": "2025-09-26 14:15:00+05:30",
+      "entry_time": "2025-09-29 12:15:00+05:30",
+      "entry_price": 3433.6,
+      "stop_price": 3441.0,
+      "target_price": 3366.53,
+      "rr_ratio": 9.06,
+      "vol_mult": 3.4,
+      "lines": [
+        "SELL | M&M breakout 2025-09-26 14:15:00+05:30 | entry 2025-09-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 3433.60 | SL 3441.00 | Target 3366.53 | RR 9.06 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SUNPHARMA",
+      "name": "Sunpharma",
+      "symbol": "SUNPHARMA.NS",
+      "side": "SELL",
+      "notify_key": "SUNPHARMA|SUNPHARMA.NS|SELL|2025-09-26 07:45:00+00:00|2025-09-29 06:45:00+00:00|1598.3",
+      "signal_time": "2025-09-26 13:15:00+05:30",
+      "entry_time": "2025-09-29 12:15:00+05:30",
+      "entry_price": 1598.3,
+      "stop_price": 1605.4,
+      "target_price": 1558.01,
+      "rr_ratio": 5.67,
+      "vol_mult": 3.13,
+      "lines": [
+        "SELL | Sunpharma breakout 2025-09-26 13:15:00+05:30 | entry 2025-09-29 12:15:00+05:30 (candle 5-6)",
+        "Entry 1598.30 | SL 1605.40 | Target 1558.01 | RR 5.67 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "SBILIFE",
+      "name": "Sbilife",
+      "symbol": "SBILIFE.NS",
+      "side": "SELL",
+      "notify_key": "SBILIFE|SBILIFE.NS|SELL|2025-09-26 05:45:00+00:00|2025-09-29 04:45:00+00:00|1790.8",
+      "signal_time": "2025-09-26 11:15:00+05:30",
+      "entry_time": "2025-09-29 10:15:00+05:30",
+      "entry_price": 1790.8,
+      "stop_price": 1804.2,
+      "target_price": 1765.62,
+      "rr_ratio": 1.88,
+      "vol_mult": 4.42,
+      "lines": [
+        "SELL | Sbilife breakout 2025-09-26 11:15:00+05:30 | entry 2025-09-29 10:15:00+05:30 (candle 5-6)",
+        "Entry 1790.80 | SL 1804.20 | Target 1765.62 | RR 1.88 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "GRASIM",
+      "name": "Grasim",
+      "symbol": "GRASIM.NS",
+      "side": "SELL",
+      "notify_key": "GRASIM|GRASIM.NS|SELL|2025-09-25 08:45:00+00:00|2025-09-26 07:45:00+00:00|2746.1",
+      "signal_time": "2025-09-25 14:15:00+05:30",
+      "entry_time": "2025-09-26 13:15:00+05:30",
+      "entry_price": 2746.1,
+      "stop_price": 2765.21,
+      "target_price": 2693.73,
+      "rr_ratio": 2.74,
+      "vol_mult": 4.65,
+      "lines": [
+        "SELL | Grasim breakout 2025-09-25 14:15:00+05:30 | entry 2025-09-26 13:15:00+05:30 (candle 5-6)",
+        "Entry 2746.10 | SL 2765.21 | Target 2693.73 | RR 2.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "HDFCBANK",
+      "name": "Hdfcbank",
+      "symbol": "HDFCBANK.NS",
+      "side": "SELL",
+      "notify_key": "HDFCBANK|HDFCBANK.NS|SELL|2025-09-25 08:45:00+00:00|2025-09-26 07:45:00+00:00|943.65",
+      "signal_time": "2025-09-25 14:15:00+05:30",
+      "entry_time": "2025-09-26 13:15:00+05:30",
+      "entry_price": 943.65,
+      "stop_price": 949.85,
+      "target_price": 931.64,
+      "rr_ratio": 1.94,
+      "vol_mult": 3.93,
+      "lines": [
+        "SELL | Hdfcbank breakout 2025-09-25 14:15:00+05:30 | entry 2025-09-26 13:15:00+05:30 (candle 5-6)",
+        "Entry 943.65 | SL 949.85 | Target 931.64 | RR 1.94 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "ICICIBANK",
+      "name": "Icicibank",
+      "symbol": "ICICIBANK.NS",
+      "side": "SELL",
+      "notify_key": "ICICIBANK|ICICIBANK.NS|SELL|2025-09-25 08:45:00+00:00|2025-09-26 07:45:00+00:00|1362.0",
+      "signal_time": "2025-09-25 14:15:00+05:30",
+      "entry_time": "2025-09-26 13:15:00+05:30",
+      "entry_price": 1362.0,
+      "stop_price": 1367.96,
+      "target_price": 1345.7,
+      "rr_ratio": 2.74,
+      "vol_mult": 3.73,
+      "lines": [
+        "SELL | Icicibank breakout 2025-09-25 14:15:00+05:30 | entry 2025-09-26 13:15:00+05:30 (candle 5-6)",
+        "Entry 1362.00 | SL 1367.96 | Target 1345.70 | RR 2.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "SBILIFE",
+      "name": "Sbilife",
+      "symbol": "SBILIFE.NS",
+      "side": "SELL",
+      "notify_key": "SBILIFE|SBILIFE.NS|SELL|2025-09-25 08:45:00+00:00|2025-09-26 06:45:00+00:00|1794.6",
+      "signal_time": "2025-09-25 14:15:00+05:30",
+      "entry_time": "2025-09-26 12:15:00+05:30",
+      "entry_price": 1794.6,
+      "stop_price": 1808.09,
+      "target_price": 1770.64,
+      "rr_ratio": 1.78,
+      "vol_mult": 3.54,
+      "lines": [
+        "SELL | Sbilife breakout 2025-09-25 14:15:00+05:30 | entry 2025-09-26 12:15:00+05:30 (candle 5-6)",
+        "Entry 1794.60 | SL 1808.09 | Target 1770.64 | RR 1.78 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "TCS",
+      "name": "Tcs",
+      "symbol": "TCS.NS",
+      "side": "SELL",
+      "notify_key": "TCS|TCS.NS|SELL|2025-09-23 08:45:00+00:00|2025-09-24 07:45:00+00:00|3044.3",
+      "signal_time": "2025-09-23 14:15:00+05:30",
+      "entry_time": "2025-09-24 13:15:00+05:30",
+      "entry_price": 3044.3,
+      "stop_price": 3054.02,
+      "target_price": 3014.1,
+      "rr_ratio": 3.11,
+      "vol_mult": 3.32,
+      "lines": [
+        "SELL | Tcs breakout 2025-09-23 14:15:00+05:30 | entry 2025-09-24 13:15:00+05:30 (candle 5-6)",
+        "Entry 3044.30 | SL 3054.02 | Target 3014.10 | RR 3.11 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "AXISBANK",
+      "name": "Axisbank",
+      "symbol": "AXISBANK.NS",
+      "side": "BUY",
+      "notify_key": "AXISBANK|AXISBANK.NS|BUY|2025-09-23 08:45:00+00:00|2025-09-24 06:45:00+00:00|1161.1",
+      "signal_time": "2025-09-23 14:15:00+05:30",
+      "entry_time": "2025-09-24 12:15:00+05:30",
+      "entry_price": 1161.1,
+      "stop_price": 1158.8,
+      "target_price": 1175.96,
+      "rr_ratio": 6.46,
+      "vol_mult": 4.25,
+      "lines": [
+        "BUY | Axisbank breakout 2025-09-23 14:15:00+05:30 | entry 2025-09-24 12:15:00+05:30 (candle 5-6)",
+        "Entry 1161.10 | SL 1158.80 | Target 1175.96 | RR 6.46 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "AXISBANK",
+      "name": "Axisbank",
+      "symbol": "AXISBANK.NS",
+      "side": "BUY",
+      "notify_key": "AXISBANK|AXISBANK.NS|BUY|2025-09-23 07:45:00+00:00|2025-09-24 05:45:00+00:00|1159.5",
+      "signal_time": "2025-09-23 13:15:00+05:30",
+      "entry_time": "2025-09-24 11:15:00+05:30",
+      "entry_price": 1159.5,
+      "stop_price": 1158.3,
+      "target_price": 1174.75,
+      "rr_ratio": 12.71,
+      "vol_mult": 3.56,
+      "lines": [
+        "BUY | Axisbank breakout 2025-09-23 13:15:00+05:30 | entry 2025-09-24 11:15:00+05:30 (candle 5-6)",
+        "Entry 1159.50 | SL 1158.30 | Target 1174.75 | RR 12.71 | Touch EMA9, VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "BUY",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|BUY|2025-09-23 06:45:00+00:00|2025-09-24 05:45:00+00:00|1144.0",
+      "signal_time": "2025-09-23 12:15:00+05:30",
+      "entry_time": "2025-09-24 11:15:00+05:30",
+      "entry_price": 1144.0,
+      "stop_price": 1138.35,
+      "target_price": 1165.11,
+      "rr_ratio": 3.74,
+      "vol_mult": 3.73,
+      "lines": [
+        "BUY | Jswsteel breakout 2025-09-23 12:15:00+05:30 | entry 2025-09-24 11:15:00+05:30 (candle 5-6)",
+        "Entry 1144.00 | SL 1138.35 | Target 1165.11 | RR 3.74 | Touch VWAP"
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "name": "Jswsteel",
+      "symbol": "JSWSTEEL.NS",
+      "side": "BUY",
+      "notify_key": "JSWSTEEL|JSWSTEEL.NS|BUY|2025-09-23 07:45:00+00:00|2025-09-24 05:45:00+00:00|1144.0",
+      "signal_time": "2025-09-23 13:15:00+05:30",
+      "entry_time": "2025-09-24 11:15:00+05:30",
+      "entry_price": 1144.0,
+      "stop_price": 1138.35,
+      "target_price": 1165.11,
+      "rr_ratio": 3.74,
+      "vol_mult": 3.47,
+      "lines": [
+        "BUY | Jswsteel breakout 2025-09-23 13:15:00+05:30 | entry 2025-09-24 11:15:00+05:30 (candle 5-6)",
+        "Entry 1144.00 | SL 1138.35 | Target 1165.11 | RR 3.74 | Touch VWAP"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Runtime / generated files
+backend/.env
+backend/logs/
+backend/cache/
+backend/reports/
+backend/data/india_morning_reeval_queue.json
+backend/data/india_morning_reeval_sent.json
+frontend/data.json
+frontend/_yesterday_snapshot.json
+market.db
+*.db
+
+# Strategy state / caches
+strategies/.notify_state.json
+strategies/.strategy_notify_state.json
+strategies/.fno_cache.json
+strategies/.price_cache/
+

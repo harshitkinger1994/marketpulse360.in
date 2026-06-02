@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | Market Pulse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://marketpulse360.in/contact.html" />
+  <meta name="description" content="Contact Market Pulse for support, feedback, partnership and feature requests." />
+  <meta name="theme-color" content="#6b4f2a" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="site-config.js"></script>
+</head>
+<body data-page="contact">
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-link" href="index.html">Market Pulse</a>
+      <span class="subtitle">Contact</span>
+    </div>
+    <nav class="topnav">
+      <a href="index.html">India</a>
+      <a href="global.html">Global</a>
+      <a href="commodities.html">Commodities</a>
+      <a href="crypto.html">Crypto</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card full-width">
+      <h2>Contact Us</h2>
+      <p class="muted">For feedback, support, collaborations, or feature requests, use the form below.</p>
+      <p>Email: <a href="mailto:hello@marketpulse360.in">hello@marketpulse360.in</a></p>
+    </section>
+
+    <section class="card full-width">
+      <h2>Send a Message</h2>
+      <form id="contactForm">
+        <input id="contactEmail" type="email" placeholder="Your email" required />
+        <select id="contactTopic" required>
+          <option value="General">General</option>
+          <option value="Bug report">Bug report</option>
+          <option value="Feature request">Feature request</option>
+          <option value="Partnership">Partnership</option>
+        </select>
+        <textarea id="contactMessage" placeholder="Your message" required></textarea>
+        <button class="primary" type="submit">Send Message</button>
+        <p id="contactStatus" class="muted"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Market Pulse</h3>
+        <p class="muted">Data-first market context for India, Global, Commodities and Crypto.</p>
+      </div>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <p class="disclaimer">
+      Disclaimer: Content is for educational purposes only and not investment advice. Markets involve risk.
+    </p>
+  </footer>
+
+  <div id="consentBanner" class="consent-banner" hidden>
+    <p>
+      We use cookies for analytics and ad personalization. You can update this anytime in your browser settings.
+      See <a href="privacy.html">Privacy Policy</a>.
+    </p>
+    <div class="consent-actions">
+      <button id="consentAccept" class="primary" type="button">Accept</button>
+      <button id="consentDecline" type="button">Decline</button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const endpoint = `${window.location.origin}/suggest`;
+      const form = document.getElementById("contactForm");
+      const email = document.getElementById("contactEmail");
+      const topic = document.getElementById("contactTopic");
+      const message = document.getElementById("contactMessage");
+      const status = document.getElementById("contactStatus");
+      if (!form || !email || !topic || !message || !status) return;
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const emailValue = String(email.value || "").trim();
+        const topicValue = String(topic.value || "").trim();
+        const messageValue = String(message.value || "").trim();
+        if (!emailValue || !emailValue.includes("@")) {
+          status.textContent = "Please enter a valid email.";
+          return;
+        }
+        if (!messageValue) {
+          status.textContent = "Please add a short message.";
+          return;
+        }
+        status.textContent = "Sending...";
+        try {
+          const payload = {
+            email: emailValue,
+            message: `[${topicValue}] ${messageValue}`,
+            page: "contact"
+          };
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) {
+            status.textContent = "Could not send. Please try again.";
+            return;
+          }
+          status.textContent = "Thanks! Your message was sent.";
+          message.value = "";
+        } catch (_) {
+          status.textContent = "Network error. Please try again.";
+        }
+      });
+    })();
+  </script>
+  <script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,2398 @@
+{
+  "strategy_id": "local_intraday_momentum_basic_on",
+  "title": "Intraday Momentum Basic \u2014 Trade ON (VWAP + Green Close)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "all",
+  "filter_mode": "basic",
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-12T10:43:01.711506+00:00",
+  "runtime_sec": 52.44,
+  "notes": [
+    "Entry only after VWAP retouch and a green 5m close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP.",
+    "Basic mode: breakout + volume + VWAP only.",
+    "Exit shown at day close and +15m from entry."
+  ],
+  "items": [
+    {
+      "ticker": "SBIN.NS",
+      "name": "SBIN.NS",
+      "notify_key": "SBIN.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 1080.5,
+      "exit_close_pct": 0.43,
+      "exit_15m_pct": 0.43,
+      "rvol": 3.6,
+      "breakout_gap_pct": 0.16,
+      "close_vs_vwap_pct": 1.05,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 3.60x | Breakout +0.16% | Close-VWAP +1.05% | Entry 1080.50 | Close +0.43% | +15m +0.43%"
+      ]
+    },
+    {
+      "ticker": "SBIN.NS",
+      "name": "SBIN.NS",
+      "notify_key": "SBIN.NS|2026-03-12 13:35|ON",
+      "signal_time": "2026-03-12 13:35",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 1080.5,
+      "exit_close_pct": 0.43,
+      "exit_15m_pct": 0.43,
+      "rvol": 2.56,
+      "breakout_gap_pct": 0.27,
+      "close_vs_vwap_pct": 1.36,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.56x | Breakout +0.27% | Close-VWAP +1.36% | Entry 1080.50 | Close +0.43% | +15m +0.43%"
+      ]
+    },
+    {
+      "ticker": "ONGC.NS",
+      "name": "ONGC.NS",
+      "notify_key": "ONGC.NS|2026-03-12 10:25|ON",
+      "signal_time": "2026-03-12 10:25",
+      "entry_time": "2026-03-12 10:50",
+      "entry_price": 271.35,
+      "exit_close_pct": -0.29,
+      "exit_15m_pct": 0.46,
+      "rvol": 2.32,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 0.24,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch 2026-03-12 10:45 | Trade ON 2026-03-12 10:50",
+        "Grade C | RVOL 2.32x | Breakout +0.13% | Close-VWAP +0.24% | Entry 271.35 | Close -0.29% | +15m +0.46%"
+      ]
+    },
+    {
+      "ticker": "ONGC.NS",
+      "name": "ONGC.NS",
+      "notify_key": "ONGC.NS|2026-03-12 15:10|ON",
+      "signal_time": "2026-03-12 15:10",
+      "entry_time": "2026-03-12 15:25",
+      "entry_price": 270.6,
+      "exit_close_pct": -0.02,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.28,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 0.04,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch 2026-03-12 15:20 | Trade ON 2026-03-12 15:25",
+        "Grade C | RVOL 2.28x | Breakout +0.02% | Close-VWAP +0.04% | Entry 270.60 | Close -0.02% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL.NS",
+      "name": "BHARTIARTL.NS",
+      "notify_key": "BHARTIARTL.NS|2026-03-12 14:05|ON",
+      "signal_time": "2026-03-12 14:05",
+      "entry_time": "2026-03-12 15:05",
+      "entry_price": 1809.1,
+      "exit_close_pct": -0.43,
+      "exit_15m_pct": -0.6,
+      "rvol": 2.19,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 0.16,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:05 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 15:05",
+        "Grade C | RVOL 2.19x | Breakout +0.06% | Close-VWAP +0.16% | Entry 1809.10 | Close -0.43% | +15m -0.60%"
+      ]
+    },
+    {
+      "ticker": "BHARTIARTL.NS",
+      "name": "BHARTIARTL.NS",
+      "notify_key": "BHARTIARTL.NS|2026-03-12 14:10|ON",
+      "signal_time": "2026-03-12 14:10",
+      "entry_time": "2026-03-12 15:05",
+      "entry_price": 1809.1,
+      "exit_close_pct": -0.43,
+      "exit_15m_pct": -0.6,
+      "rvol": 2.95,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.26,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:10 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 15:05",
+        "Grade C | RVOL 2.95x | Breakout +0.03% | Close-VWAP +0.26% | Entry 1809.10 | Close -0.43% | +15m -0.60%"
+      ]
+    },
+    {
+      "ticker": "INFY.NS",
+      "name": "INFY.NS",
+      "notify_key": "INFY.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:00",
+      "entry_price": 1271.3,
+      "exit_close_pct": -0.43,
+      "exit_15m_pct": 0.03,
+      "rvol": 3.09,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.35,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:50 | Trade ON 2026-03-12 14:00",
+        "Grade C | RVOL 3.09x | Breakout +0.03% | Close-VWAP +0.35% | Entry 1271.30 | Close -0.43% | +15m +0.03%"
+      ]
+    },
+    {
+      "ticker": "AXISBANK.NS",
+      "name": "AXISBANK.NS",
+      "notify_key": "AXISBANK.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:00",
+      "entry_price": 1245.1,
+      "exit_close_pct": -0.85,
+      "exit_15m_pct": -0.06,
+      "rvol": 2.5,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.25,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:55 | Trade ON 2026-03-12 14:00",
+        "Grade B | RVOL 2.50x | Breakout +0.10% | Close-VWAP +0.25% | Entry 1245.10 | Close -0.85% | +15m -0.06%"
+      ]
+    },
+    {
+      "ticker": "TCS.NS",
+      "name": "TCS.NS",
+      "notify_key": "TCS.NS|2026-03-12 11:40|ON",
+      "signal_time": "2026-03-12 11:40",
+      "entry_time": "2026-03-12 13:30",
+      "entry_price": 2455.3,
+      "exit_close_pct": -0.53,
+      "exit_15m_pct": -0.1,
+      "rvol": 2.62,
+      "breakout_gap_pct": 0.22,
+      "close_vs_vwap_pct": 0.67,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch 2026-03-12 12:20 | Trade ON 2026-03-12 13:30",
+        "Grade A | RVOL 2.62x | Breakout +0.22% | Close-VWAP +0.67% | Entry 2455.30 | Close -0.53% | +15m -0.10%"
+      ]
+    },
+    {
+      "ticker": "TCS.NS",
+      "name": "TCS.NS",
+      "notify_key": "TCS.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:10",
+      "entry_price": 2455.7,
+      "exit_close_pct": -0.54,
+      "exit_15m_pct": -0.21,
+      "rvol": 2.46,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.02,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:40 | Trade ON 2026-03-12 14:10",
+        "Grade C | RVOL 2.46x | Breakout +0.10% | Close-VWAP +0.02% | Entry 2455.70 | Close -0.54% | +15m -0.21%"
+      ]
+    },
+    {
+      "ticker": "POWERGRID.NS",
+      "name": "POWERGRID.NS",
+      "notify_key": "POWERGRID.NS|2026-03-12 10:35|ON",
+      "signal_time": "2026-03-12 10:35",
+      "entry_time": "2026-03-12 12:45",
+      "entry_price": 303.15,
+      "exit_close_pct": 0.15,
+      "exit_15m_pct": -0.13,
+      "rvol": 2.78,
+      "breakout_gap_pct": 0.36,
+      "close_vs_vwap_pct": 1.3,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch 2026-03-12 12:40 | Trade ON 2026-03-12 12:45",
+        "Grade A | RVOL 2.78x | Breakout +0.36% | Close-VWAP +1.30% | Entry 303.15 | Close +0.15% | +15m -0.13%"
+      ]
+    },
+    {
+      "ticker": "POWERGRID.NS",
+      "name": "POWERGRID.NS",
+      "notify_key": "POWERGRID.NS|2026-03-12 10:40|ON",
+      "signal_time": "2026-03-12 10:40",
+      "entry_time": "2026-03-12 12:45",
+      "entry_price": 303.15,
+      "exit_close_pct": 0.15,
+      "exit_15m_pct": -0.13,
+      "rvol": 2.79,
+      "breakout_gap_pct": 0.25,
+      "close_vs_vwap_pct": 1.31,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:40 | VWAP touch 2026-03-12 12:40 | Trade ON 2026-03-12 12:45",
+        "Grade B | RVOL 2.79x | Breakout +0.25% | Close-VWAP +1.31% | Entry 303.15 | Close +0.15% | +15m -0.13%"
+      ]
+    },
+    {
+      "ticker": "TMPV.NS",
+      "name": "TMPV.NS",
+      "notify_key": "TMPV.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 327.35,
+      "exit_close_pct": -0.86,
+      "exit_15m_pct": -0.12,
+      "rvol": 3.31,
+      "breakout_gap_pct": 0.2,
+      "close_vs_vwap_pct": 0.75,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:15",
+        "Grade A | RVOL 3.31x | Breakout +0.20% | Close-VWAP +0.75% | Entry 327.35 | Close -0.86% | +15m -0.12%"
+      ]
+    },
+    {
+      "ticker": "AMBER.NS",
+      "name": "AMBER.NS",
+      "notify_key": "AMBER.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:10",
+      "entry_price": 7043.5,
+      "exit_close_pct": -1.62,
+      "exit_15m_pct": -0.12,
+      "rvol": 2.79,
+      "breakout_gap_pct": 0.32,
+      "close_vs_vwap_pct": 0.37,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:55 | Trade ON 2026-03-12 14:10",
+        "Grade A | RVOL 2.79x | Breakout +0.32% | Close-VWAP +0.37% | Entry 7043.50 | Close -1.62% | +15m -0.12%"
+      ]
+    },
+    {
+      "ticker": "ASIANPAINT.NS",
+      "name": "ASIANPAINT.NS",
+      "notify_key": "ASIANPAINT.NS|2026-03-12 13:40|ON",
+      "signal_time": "2026-03-12 13:40",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 2228.0,
+      "exit_close_pct": -0.31,
+      "exit_15m_pct": -0.15,
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.22,
+      "close_vs_vwap_pct": 0.06,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 13:45 | Trade ON 2026-03-12 14:15",
+        "Grade B | RVOL 2.09x | Breakout +0.22% | Close-VWAP +0.06% | Entry 2228.00 | Close -0.31% | +15m -0.15%"
+      ]
+    },
+    {
+      "ticker": "NTPC.NS",
+      "name": "NTPC.NS",
+      "notify_key": "NTPC.NS|2026-03-12 10:10|ON",
+      "signal_time": "2026-03-12 10:10",
+      "entry_time": "2026-03-12 12:40",
+      "entry_price": 386.35,
+      "exit_close_pct": 1.09,
+      "exit_15m_pct": 0.25,
+      "rvol": 3.17,
+      "breakout_gap_pct": 0.35,
+      "close_vs_vwap_pct": 0.59,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:10 | VWAP touch 2026-03-12 12:35 | Trade ON 2026-03-12 12:40",
+        "Grade A | RVOL 3.17x | Breakout +0.35% | Close-VWAP +0.59% | Entry 386.35 | Close +1.09% | +15m +0.25%"
+      ]
+    },
+    {
+      "ticker": "CANBK.NS",
+      "name": "CANBK.NS",
+      "notify_key": "CANBK.NS|2026-03-12 13:20|ON",
+      "signal_time": "2026-03-12 13:20",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 140.4,
+      "exit_close_pct": -0.04,
+      "exit_15m_pct": -0.04,
+      "rvol": 2.95,
+      "breakout_gap_pct": 0.45,
+      "close_vs_vwap_pct": 1.89,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 15:00",
+        "Grade A | RVOL 2.95x | Breakout +0.45% | Close-VWAP +1.89% | Entry 140.40 | Close -0.04% | +15m -0.04%"
+      ]
+    },
+    {
+      "ticker": "CANBK.NS",
+      "name": "CANBK.NS",
+      "notify_key": "CANBK.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 140.4,
+      "exit_close_pct": -0.04,
+      "exit_15m_pct": -0.04,
+      "rvol": 2.26,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 2.08,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 15:00",
+        "Grade C | RVOL 2.26x | Breakout +0.11% | Close-VWAP +2.08% | Entry 140.40 | Close -0.04% | +15m -0.04%"
+      ]
+    },
+    {
+      "ticker": "POLYCAB.NS",
+      "name": "POLYCAB.NS",
+      "notify_key": "POLYCAB.NS|2026-03-12 11:30|ON",
+      "signal_time": "2026-03-12 11:30",
+      "entry_time": "2026-03-12 15:20",
+      "entry_price": 7443.5,
+      "exit_close_pct": 0.15,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.27,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 1.12,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:30 | VWAP touch 2026-03-12 15:15 | Trade ON 2026-03-12 15:20",
+        "Grade B | RVOL 2.27x | Breakout +0.17% | Close-VWAP +1.12% | Entry 7443.50 | Close +0.15% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "POLYCAB.NS",
+      "name": "POLYCAB.NS",
+      "notify_key": "POLYCAB.NS|2026-03-12 11:55|ON",
+      "signal_time": "2026-03-12 11:55",
+      "entry_time": "2026-03-12 15:20",
+      "entry_price": 7443.5,
+      "exit_close_pct": 0.15,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.96,
+      "breakout_gap_pct": 0.22,
+      "close_vs_vwap_pct": 1.65,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch 2026-03-12 15:15 | Trade ON 2026-03-12 15:20",
+        "Grade B | RVOL 2.96x | Breakout +0.22% | Close-VWAP +1.65% | Entry 7443.50 | Close +0.15% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "IDEA.NS",
+      "name": "IDEA.NS",
+      "notify_key": "IDEA.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 9.57,
+      "exit_close_pct": -0.1,
+      "exit_15m_pct": -0.31,
+      "rvol": 2.12,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 1.4,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 2.12x | Breakout +0.10% | Close-VWAP +1.40% | Entry 9.57 | Close -0.10% | +15m -0.31%"
+      ]
+    },
+    {
+      "ticker": "IDEA.NS",
+      "name": "IDEA.NS",
+      "notify_key": "IDEA.NS|2026-03-12 13:35|ON",
+      "signal_time": "2026-03-12 13:35",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 9.57,
+      "exit_close_pct": -0.1,
+      "exit_15m_pct": -0.31,
+      "rvol": 3.07,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 1.83,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 3.07x | Breakout +0.10% | Close-VWAP +1.83% | Entry 9.57 | Close -0.10% | +15m -0.31%"
+      ]
+    },
+    {
+      "ticker": "HINDZINC.NS",
+      "name": "HINDZINC.NS",
+      "notify_key": "HINDZINC.NS|2026-03-12 11:45|ON",
+      "signal_time": "2026-03-12 11:45",
+      "entry_time": "2026-03-12 12:00",
+      "entry_price": 574.0,
+      "exit_close_pct": 1.57,
+      "exit_15m_pct": 0.12,
+      "rvol": 2.03,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 0.07,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:45 | VWAP touch 2026-03-12 11:50 | Trade ON 2026-03-12 12:00",
+        "Grade C | RVOL 2.03x | Breakout +0.04% | Close-VWAP +0.07% | Entry 574.00 | Close +1.57% | +15m +0.12%"
+      ]
+    },
+    {
+      "ticker": "HINDZINC.NS",
+      "name": "HINDZINC.NS",
+      "notify_key": "HINDZINC.NS|2026-03-12 12:20|ON",
+      "signal_time": "2026-03-12 12:20",
+      "entry_time": "2026-03-12 12:55",
+      "entry_price": 575.0,
+      "exit_close_pct": 1.39,
+      "exit_15m_pct": 0.31,
+      "rvol": 4.32,
+      "breakout_gap_pct": 0.3,
+      "close_vs_vwap_pct": 0.51,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch 2026-03-12 12:45 | Trade ON 2026-03-12 12:55",
+        "Grade A | RVOL 4.32x | Breakout +0.30% | Close-VWAP +0.51% | Entry 575.00 | Close +1.39% | +15m +0.31%"
+      ]
+    },
+    {
+      "ticker": "BANKBARODA.NS",
+      "name": "BANKBARODA.NS",
+      "notify_key": "BANKBARODA.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 289.3,
+      "exit_close_pct": -0.03,
+      "exit_15m_pct": 0.0,
+      "rvol": 3.01,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 0.89,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 15:00",
+        "Grade A | RVOL 3.01x | Breakout +0.26% | Close-VWAP +0.89% | Entry 289.30 | Close -0.03% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "BANKBARODA.NS",
+      "name": "BANKBARODA.NS",
+      "notify_key": "BANKBARODA.NS|2026-03-12 12:20|ON",
+      "signal_time": "2026-03-12 12:20",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 289.3,
+      "exit_close_pct": -0.03,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.63,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 0.9,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 15:00",
+        "Grade A | RVOL 2.63x | Breakout +0.14% | Close-VWAP +0.90% | Entry 289.30 | Close -0.03% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "BAJAJ-AUTO.NS",
+      "name": "BAJAJ-AUTO.NS",
+      "notify_key": "BAJAJ-AUTO.NS|2026-03-12 11:55|ON",
+      "signal_time": "2026-03-12 11:55",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 9198.5,
+      "exit_close_pct": -0.4,
+      "exit_15m_pct": 0.12,
+      "rvol": 2.52,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 0.58,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch 2026-03-12 14:10 | Trade ON 2026-03-12 14:15",
+        "Grade A | RVOL 2.52x | Breakout +0.11% | Close-VWAP +0.58% | Entry 9198.50 | Close -0.40% | +15m +0.12%"
+      ]
+    },
+    {
+      "ticker": "HCLTECH.NS",
+      "name": "HCLTECH.NS",
+      "notify_key": "HCLTECH.NS|2026-03-12 14:20|ON",
+      "signal_time": "2026-03-12 14:20",
+      "entry_time": "2026-03-12 14:45",
+      "entry_price": 1356.7,
+      "exit_close_pct": 0.1,
+      "exit_15m_pct": 0.03,
+      "rvol": 2.2,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 0.46,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:20 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:45",
+        "Grade C | RVOL 2.20x | Breakout +0.05% | Close-VWAP +0.46% | Entry 1356.70 | Close +0.10% | +15m +0.03%"
+      ]
+    },
+    {
+      "ticker": "INDUSINDBK.NS",
+      "name": "INDUSINDBK.NS",
+      "notify_key": "INDUSINDBK.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 839.95,
+      "exit_close_pct": -1.02,
+      "exit_15m_pct": -0.27,
+      "rvol": 2.49,
+      "breakout_gap_pct": 0.49,
+      "close_vs_vwap_pct": 0.86,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:00 | Trade ON 2026-03-12 14:15",
+        "Grade A | RVOL 2.49x | Breakout +0.49% | Close-VWAP +0.86% | Entry 839.95 | Close -1.02% | +15m -0.27%"
+      ]
+    },
+    {
+      "ticker": "PNB.NS",
+      "name": "PNB.NS",
+      "notify_key": "PNB.NS|2026-03-12 13:20|ON",
+      "signal_time": "2026-03-12 13:20",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 116.65,
+      "exit_close_pct": -0.03,
+      "exit_15m_pct": -0.1,
+      "rvol": 2.18,
+      "breakout_gap_pct": 0.39,
+      "close_vs_vwap_pct": 1.36,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.18x | Breakout +0.39% | Close-VWAP +1.36% | Entry 116.65 | Close -0.03% | +15m -0.10%"
+      ]
+    },
+    {
+      "ticker": "PNB.NS",
+      "name": "PNB.NS",
+      "notify_key": "PNB.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 116.65,
+      "exit_close_pct": -0.03,
+      "exit_15m_pct": -0.1,
+      "rvol": 2.31,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 1.39,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade C | RVOL 2.31x | Breakout +0.05% | Close-VWAP +1.39% | Entry 116.65 | Close -0.03% | +15m -0.10%"
+      ]
+    },
+    {
+      "ticker": "PNB.NS",
+      "name": "PNB.NS",
+      "notify_key": "PNB.NS|2026-03-12 13:40|ON",
+      "signal_time": "2026-03-12 13:40",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 116.65,
+      "exit_close_pct": -0.03,
+      "exit_15m_pct": -0.1,
+      "rvol": 2.53,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 1.44,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 2.53x | Breakout +0.02% | Close-VWAP +1.44% | Entry 116.65 | Close -0.03% | +15m -0.10%"
+      ]
+    },
+    {
+      "ticker": "SUZLON.NS",
+      "name": "SUZLON.NS",
+      "notify_key": "SUZLON.NS|2026-03-12 10:55|ON",
+      "signal_time": "2026-03-12 10:55",
+      "entry_time": "2026-03-12 14:35",
+      "entry_price": 42.68,
+      "exit_close_pct": -0.59,
+      "exit_15m_pct": -0.77,
+      "rvol": 2.45,
+      "breakout_gap_pct": 0.71,
+      "close_vs_vwap_pct": 1.8,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch 2026-03-12 14:15 | Trade ON 2026-03-12 14:35",
+        "Grade A | RVOL 2.45x | Breakout +0.71% | Close-VWAP +1.80% | Entry 42.68 | Close -0.59% | +15m -0.77%"
+      ]
+    },
+    {
+      "ticker": "SUZLON.NS",
+      "name": "SUZLON.NS",
+      "notify_key": "SUZLON.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 14:35",
+      "entry_price": 42.68,
+      "exit_close_pct": -0.59,
+      "exit_15m_pct": -0.77,
+      "rvol": 2.58,
+      "breakout_gap_pct": 0.94,
+      "close_vs_vwap_pct": 2.47,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 14:15 | Trade ON 2026-03-12 14:35",
+        "Grade A | RVOL 2.58x | Breakout +0.94% | Close-VWAP +2.47% | Entry 42.68 | Close -0.59% | +15m -0.77%"
+      ]
+    },
+    {
+      "ticker": "BDL.NS",
+      "name": "BDL.NS",
+      "notify_key": "BDL.NS|2026-03-12 12:15|ON",
+      "signal_time": "2026-03-12 12:15",
+      "entry_time": "2026-03-12 14:20",
+      "entry_price": 1342.8,
+      "exit_close_pct": 0.49,
+      "exit_15m_pct": -0.07,
+      "rvol": 2.66,
+      "breakout_gap_pct": 0.31,
+      "close_vs_vwap_pct": 1.03,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 14:15 | Trade ON 2026-03-12 14:20",
+        "Grade A | RVOL 2.66x | Breakout +0.31% | Close-VWAP +1.03% | Entry 1342.80 | Close +0.49% | +15m -0.07%"
+      ]
+    },
+    {
+      "ticker": "PETRONET.NS",
+      "name": "PETRONET.NS",
+      "notify_key": "PETRONET.NS|2026-03-12 09:20|ON",
+      "signal_time": "2026-03-12 09:20",
+      "entry_time": "2026-03-12 09:30",
+      "entry_price": 290.95,
+      "exit_close_pct": 1.98,
+      "exit_15m_pct": 0.86,
+      "rvol": 2.43,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.18,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:20 | VWAP touch 2026-03-12 09:25 | Trade ON 2026-03-12 09:30",
+        "Grade C | RVOL 2.43x | Breakout +0.09% | Close-VWAP +0.18% | Entry 290.95 | Close +1.98% | +15m +0.86%"
+      ]
+    },
+    {
+      "ticker": "PETRONET.NS",
+      "name": "PETRONET.NS",
+      "notify_key": "PETRONET.NS|2026-03-12 09:25|ON",
+      "signal_time": "2026-03-12 09:25",
+      "entry_time": "2026-03-12 09:35",
+      "entry_price": 291.5,
+      "exit_close_pct": 1.78,
+      "exit_15m_pct": 0.53,
+      "rvol": 2.42,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 0.26,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:25 | VWAP touch 2026-03-12 09:30 | Trade ON 2026-03-12 09:35",
+        "Grade B | RVOL 2.42x | Breakout +0.21% | Close-VWAP +0.26% | Entry 291.50 | Close +1.78% | +15m +0.53%"
+      ]
+    },
+    {
+      "ticker": "PETRONET.NS",
+      "name": "PETRONET.NS",
+      "notify_key": "PETRONET.NS|2026-03-12 09:40|ON",
+      "signal_time": "2026-03-12 09:40",
+      "entry_time": "2026-03-12 11:30",
+      "entry_price": 296.3,
+      "exit_close_pct": 0.14,
+      "exit_15m_pct": -0.44,
+      "rvol": 2.39,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.34,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:40 | VWAP touch 2026-03-12 11:25 | Trade ON 2026-03-12 11:30",
+        "Grade C | RVOL 2.39x | Breakout +0.10% | Close-VWAP +0.34% | Entry 296.30 | Close +0.14% | +15m -0.44%"
+      ]
+    },
+    {
+      "ticker": "PETRONET.NS",
+      "name": "PETRONET.NS",
+      "notify_key": "PETRONET.NS|2026-03-12 09:45|ON",
+      "signal_time": "2026-03-12 09:45",
+      "entry_time": "2026-03-12 11:30",
+      "entry_price": 296.3,
+      "exit_close_pct": 0.14,
+      "exit_15m_pct": -0.44,
+      "rvol": 2.39,
+      "breakout_gap_pct": 0.39,
+      "close_vs_vwap_pct": 0.65,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:45 | VWAP touch 2026-03-12 11:25 | Trade ON 2026-03-12 11:30",
+        "Grade A | RVOL 2.39x | Breakout +0.39% | Close-VWAP +0.65% | Entry 296.30 | Close +0.14% | +15m -0.44%"
+      ]
+    },
+    {
+      "ticker": "PETRONET.NS",
+      "name": "PETRONET.NS",
+      "notify_key": "PETRONET.NS|2026-03-12 13:15|ON",
+      "signal_time": "2026-03-12 13:15",
+      "entry_time": "2026-03-12 13:25",
+      "entry_price": 296.4,
+      "exit_close_pct": 0.1,
+      "exit_15m_pct": 0.44,
+      "rvol": 5.22,
+      "breakout_gap_pct": 0.27,
+      "close_vs_vwap_pct": 0.05,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch 2026-03-12 13:20 | Trade ON 2026-03-12 13:25",
+        "Grade A | RVOL 5.22x | Breakout +0.27% | Close-VWAP +0.05% | Entry 296.40 | Close +0.10% | +15m +0.44%"
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "name": "CHOLAFIN.NS",
+      "notify_key": "CHOLAFIN.NS|2026-03-12 09:55|ON",
+      "signal_time": "2026-03-12 09:55",
+      "entry_time": "2026-03-12 10:30",
+      "entry_price": 1521.5,
+      "exit_close_pct": 0.3,
+      "exit_15m_pct": 0.65,
+      "rvol": 6.87,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 0.35,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:55 | VWAP touch 2026-03-12 10:00 | Trade ON 2026-03-12 10:30",
+        "Grade A | RVOL 6.87x | Breakout +0.26% | Close-VWAP +0.35% | Entry 1521.50 | Close +0.30% | +15m +0.65%"
+      ]
+    },
+    {
+      "ticker": "GRASIM.NS",
+      "name": "GRASIM.NS",
+      "notify_key": "GRASIM.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 11:40",
+      "entry_price": 2690.0,
+      "exit_close_pct": -0.63,
+      "exit_15m_pct": 0.22,
+      "rvol": 2.93,
+      "breakout_gap_pct": 0.24,
+      "close_vs_vwap_pct": 0.61,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 11:15 | Trade ON 2026-03-12 11:40",
+        "Grade A | RVOL 2.93x | Breakout +0.24% | Close-VWAP +0.61% | Entry 2690.00 | Close -0.63% | +15m +0.22%"
+      ]
+    },
+    {
+      "ticker": "GRASIM.NS",
+      "name": "GRASIM.NS",
+      "notify_key": "GRASIM.NS|2026-03-12 11:05|ON",
+      "signal_time": "2026-03-12 11:05",
+      "entry_time": "2026-03-12 11:40",
+      "entry_price": 2690.0,
+      "exit_close_pct": -0.63,
+      "exit_15m_pct": 0.22,
+      "rvol": 3.34,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 0.62,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:05 | VWAP touch 2026-03-12 11:15 | Trade ON 2026-03-12 11:40",
+        "Grade B | RVOL 3.34x | Breakout +0.08% | Close-VWAP +0.62% | Entry 2690.00 | Close -0.63% | +15m +0.22%"
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 09:20|ON",
+      "signal_time": "2026-03-12 09:20",
+      "entry_time": "2026-03-12 10:25",
+      "entry_price": 1305.6,
+      "exit_close_pct": 0.48,
+      "exit_15m_pct": 0.33,
+      "rvol": 2.77,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.03,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:20 | VWAP touch 2026-03-12 09:25 | Trade ON 2026-03-12 10:25",
+        "Grade C | RVOL 2.77x | Breakout +0.03% | Close-VWAP +0.03% | Entry 1305.60 | Close +0.48% | +15m +0.33%"
+      ]
+    },
+    {
+      "ticker": "ADANIENT.NS",
+      "name": "ADANIENT.NS",
+      "notify_key": "ADANIENT.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 2003.7,
+      "exit_close_pct": -0.08,
+      "exit_15m_pct": 0.02,
+      "rvol": 2.49,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.41,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 2.49x | Breakout +0.18% | Close-VWAP +1.41% | Entry 2003.70 | Close -0.08% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "AUBANK.NS",
+      "name": "AUBANK.NS",
+      "notify_key": "AUBANK.NS|2026-03-12 13:35|ON",
+      "signal_time": "2026-03-12 13:35",
+      "entry_time": "2026-03-12 14:20",
+      "entry_price": 908.7,
+      "exit_close_pct": -0.72,
+      "exit_15m_pct": -0.14,
+      "rvol": 8.11,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.18,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 13:40 | Trade ON 2026-03-12 14:20",
+        "Grade B | RVOL 8.11x | Breakout +0.01% | Close-VWAP +0.18% | Entry 908.70 | Close -0.72% | +15m -0.14%"
+      ]
+    },
+    {
+      "ticker": "KEI.NS",
+      "name": "KEI.NS",
+      "notify_key": "KEI.NS|2026-03-12 11:50|ON",
+      "signal_time": "2026-03-12 11:50",
+      "entry_time": "2026-03-12 12:10",
+      "entry_price": 4364.0,
+      "exit_close_pct": -0.78,
+      "exit_15m_pct": -0.26,
+      "rvol": 4.62,
+      "breakout_gap_pct": 0.16,
+      "close_vs_vwap_pct": 1.25,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:50 | VWAP touch 2026-03-12 12:05 | Trade ON 2026-03-12 12:10",
+        "Grade A | RVOL 4.62x | Breakout +0.16% | Close-VWAP +1.25% | Entry 4364.00 | Close -0.78% | +15m -0.26%"
+      ]
+    },
+    {
+      "ticker": "KEI.NS",
+      "name": "KEI.NS",
+      "notify_key": "KEI.NS|2026-03-12 11:55|ON",
+      "signal_time": "2026-03-12 11:55",
+      "entry_time": "2026-03-12 12:10",
+      "entry_price": 4364.0,
+      "exit_close_pct": -0.78,
+      "exit_15m_pct": -0.26,
+      "rvol": 2.29,
+      "breakout_gap_pct": 0.31,
+      "close_vs_vwap_pct": 1.54,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch 2026-03-12 12:05 | Trade ON 2026-03-12 12:10",
+        "Grade B | RVOL 2.29x | Breakout +0.31% | Close-VWAP +1.54% | Entry 4364.00 | Close -0.78% | +15m -0.26%"
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 09:45|ON",
+      "signal_time": "2026-03-12 09:45",
+      "entry_time": "2026-03-12 10:45",
+      "entry_price": 3167.4,
+      "exit_close_pct": 2.42,
+      "exit_15m_pct": 0.23,
+      "rvol": 7.31,
+      "breakout_gap_pct": 0.16,
+      "close_vs_vwap_pct": 0.43,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:45 | VWAP touch 2026-03-12 10:40 | Trade ON 2026-03-12 10:45",
+        "Grade A | RVOL 7.31x | Breakout +0.16% | Close-VWAP +0.43% | Entry 3167.40 | Close +2.42% | +15m +0.23%"
+      ]
+    },
+    {
+      "ticker": "CIPLA.NS",
+      "name": "CIPLA.NS",
+      "notify_key": "CIPLA.NS|2026-03-12 11:50|ON",
+      "signal_time": "2026-03-12 11:50",
+      "entry_time": "2026-03-12 12:25",
+      "entry_price": 1331.4,
+      "exit_close_pct": -0.53,
+      "exit_15m_pct": 0.14,
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 0.06,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:50 | VWAP touch 2026-03-12 11:55 | Trade ON 2026-03-12 12:25",
+        "Grade C | RVOL 2.09x | Breakout +0.03% | Close-VWAP +0.06% | Entry 1331.40 | Close -0.53% | +15m +0.14%"
+      ]
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "name": "YESBANK.NS",
+      "notify_key": "YESBANK.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 19.32,
+      "exit_close_pct": -0.05,
+      "exit_15m_pct": -0.05,
+      "rvol": 2.02,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 1.17,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.02x | Breakout +0.26% | Close-VWAP +1.17% | Entry 19.32 | Close -0.05% | +15m -0.05%"
+      ]
+    },
+    {
+      "ticker": "TORNTPHARM.NS",
+      "name": "TORNTPHARM.NS",
+      "notify_key": "TORNTPHARM.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 11:30",
+      "entry_price": 4413.9,
+      "exit_close_pct": 0.73,
+      "exit_15m_pct": -0.01,
+      "rvol": 2.03,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 0.4,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 11:15 | Trade ON 2026-03-12 11:30",
+        "Grade C | RVOL 2.03x | Breakout +0.12% | Close-VWAP +0.40% | Entry 4413.90 | Close +0.73% | +15m -0.01%"
+      ]
+    },
+    {
+      "ticker": "AMBUJACEM.NS",
+      "name": "AMBUJACEM.NS",
+      "notify_key": "AMBUJACEM.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 13:40",
+      "entry_price": 452.55,
+      "exit_close_pct": -1.35,
+      "exit_15m_pct": -0.41,
+      "rvol": 8.48,
+      "breakout_gap_pct": 0.32,
+      "close_vs_vwap_pct": 0.21,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 13:35 | Trade ON 2026-03-12 13:40",
+        "Grade B | RVOL 8.48x | Breakout +0.32% | Close-VWAP +0.21% | Entry 452.55 | Close -1.35% | +15m -0.41%"
+      ]
+    },
+    {
+      "ticker": "INDIANB.NS",
+      "name": "INDIANB.NS",
+      "notify_key": "INDIANB.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 909.8,
+      "exit_close_pct": -0.02,
+      "exit_15m_pct": 0.05,
+      "rvol": 3.32,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 1.04,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 15:00",
+        "Grade A | RVOL 3.32x | Breakout +0.21% | Close-VWAP +1.04% | Entry 909.80 | Close -0.02% | +15m +0.05%"
+      ]
+    },
+    {
+      "ticker": "INDIANB.NS",
+      "name": "INDIANB.NS",
+      "notify_key": "INDIANB.NS|2026-03-12 13:40|ON",
+      "signal_time": "2026-03-12 13:40",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 909.8,
+      "exit_close_pct": -0.02,
+      "exit_15m_pct": 0.05,
+      "rvol": 2.67,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 1.51,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 15:00",
+        "Grade B | RVOL 2.67x | Breakout +0.23% | Close-VWAP +1.51% | Entry 909.80 | Close -0.02% | +15m +0.05%"
+      ]
+    },
+    {
+      "ticker": "NESTLEIND.NS",
+      "name": "NESTLEIND.NS",
+      "notify_key": "NESTLEIND.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 15:15",
+      "entry_price": 1222.0,
+      "exit_close_pct": -0.1,
+      "exit_15m_pct": 0.0,
+      "rvol": 3.95,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 0.0,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:35 | Trade ON 2026-03-12 15:15",
+        "Grade B | RVOL 3.95x | Breakout +0.13% | Close-VWAP +0.00% | Entry 1222.00 | Close -0.10% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "MANKIND.NS",
+      "name": "MANKIND.NS",
+      "notify_key": "MANKIND.NS|2026-03-12 12:15|ON",
+      "signal_time": "2026-03-12 12:15",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 2219.1,
+      "exit_close_pct": -0.5,
+      "exit_15m_pct": -0.17,
+      "rvol": 2.55,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 0.43,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:15",
+        "Grade B | RVOL 2.55x | Breakout +0.06% | Close-VWAP +0.43% | Entry 2219.10 | Close -0.50% | +15m -0.17%"
+      ]
+    },
+    {
+      "ticker": "RBLBANK.NS",
+      "name": "RBLBANK.NS",
+      "notify_key": "RBLBANK.NS|2026-03-12 09:55|ON",
+      "signal_time": "2026-03-12 09:55",
+      "entry_time": "2026-03-12 10:25",
+      "entry_price": 297.35,
+      "exit_close_pct": 0.82,
+      "exit_15m_pct": 0.44,
+      "rvol": 2.13,
+      "breakout_gap_pct": 0.3,
+      "close_vs_vwap_pct": 0.59,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:55 | VWAP touch 2026-03-12 10:15 | Trade ON 2026-03-12 10:25",
+        "Grade B | RVOL 2.13x | Breakout +0.30% | Close-VWAP +0.59% | Entry 297.35 | Close +0.82% | +15m +0.44%"
+      ]
+    },
+    {
+      "ticker": "DIVISLAB.NS",
+      "name": "DIVISLAB.NS",
+      "notify_key": "DIVISLAB.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 6287.0,
+      "exit_close_pct": -0.08,
+      "exit_15m_pct": -0.11,
+      "rvol": 2.9,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 0.69,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 15:00",
+        "Grade A | RVOL 2.90x | Breakout +0.17% | Close-VWAP +0.69% | Entry 6287.00 | Close -0.08% | +15m -0.11%"
+      ]
+    },
+    {
+      "ticker": "NHPC.NS",
+      "name": "NHPC.NS",
+      "notify_key": "NHPC.NS|2026-03-12 11:10|ON",
+      "signal_time": "2026-03-12 11:10",
+      "entry_time": "2026-03-12 14:20",
+      "entry_price": 75.09,
+      "exit_close_pct": -0.41,
+      "exit_15m_pct": -0.09,
+      "rvol": 2.06,
+      "breakout_gap_pct": 0.07,
+      "close_vs_vwap_pct": 1.57,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:20",
+        "Grade C | RVOL 2.06x | Breakout +0.07% | Close-VWAP +1.57% | Entry 75.09 | Close -0.41% | +15m -0.09%"
+      ]
+    },
+    {
+      "ticker": "NHPC.NS",
+      "name": "NHPC.NS",
+      "notify_key": "NHPC.NS|2026-03-12 11:55|ON",
+      "signal_time": "2026-03-12 11:55",
+      "entry_time": "2026-03-12 14:20",
+      "entry_price": 75.09,
+      "exit_close_pct": -0.41,
+      "exit_15m_pct": -0.09,
+      "rvol": 3.64,
+      "breakout_gap_pct": 0.86,
+      "close_vs_vwap_pct": 1.92,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:20",
+        "Grade A | RVOL 3.64x | Breakout +0.86% | Close-VWAP +1.92% | Entry 75.09 | Close -0.41% | +15m -0.09%"
+      ]
+    },
+    {
+      "ticker": "NHPC.NS",
+      "name": "NHPC.NS",
+      "notify_key": "NHPC.NS|2026-03-12 12:00|ON",
+      "signal_time": "2026-03-12 12:00",
+      "entry_time": "2026-03-12 14:20",
+      "entry_price": 75.09,
+      "exit_close_pct": -0.41,
+      "exit_15m_pct": -0.09,
+      "rvol": 3.34,
+      "breakout_gap_pct": 0.22,
+      "close_vs_vwap_pct": 2.0,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:20",
+        "Grade B | RVOL 3.34x | Breakout +0.22% | Close-VWAP +2.00% | Entry 75.09 | Close -0.41% | +15m -0.09%"
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 09:50|ON",
+      "signal_time": "2026-03-12 09:50",
+      "entry_time": "2026-03-12 10:00",
+      "entry_price": 850.65,
+      "exit_close_pct": 1.87,
+      "exit_15m_pct": -0.13,
+      "rvol": 2.1,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 0.31,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:50 | VWAP touch 2026-03-12 09:55 | Trade ON 2026-03-12 10:00",
+        "Grade C | RVOL 2.10x | Breakout +0.04% | Close-VWAP +0.31% | Entry 850.65 | Close +1.87% | +15m -0.13%"
+      ]
+    },
+    {
+      "ticker": "VOLTAS.NS",
+      "name": "VOLTAS.NS",
+      "notify_key": "VOLTAS.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 15:20",
+      "entry_price": 1447.8,
+      "exit_close_pct": 0.11,
+      "exit_15m_pct": 0.0,
+      "rvol": 5.44,
+      "breakout_gap_pct": 1.06,
+      "close_vs_vwap_pct": 1.97,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:15 | Trade ON 2026-03-12 15:20",
+        "Grade A | RVOL 5.44x | Breakout +1.06% | Close-VWAP +1.97% | Entry 1447.80 | Close +0.11% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "ABCAPITAL.NS",
+      "name": "ABCAPITAL.NS",
+      "notify_key": "ABCAPITAL.NS|2026-03-12 11:55|ON",
+      "signal_time": "2026-03-12 11:55",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 320.8,
+      "exit_close_pct": -0.26,
+      "exit_15m_pct": -0.19,
+      "rvol": 4.09,
+      "breakout_gap_pct": 0.28,
+      "close_vs_vwap_pct": 0.85,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 4.09x | Breakout +0.28% | Close-VWAP +0.85% | Entry 320.80 | Close -0.26% | +15m -0.19%"
+      ]
+    },
+    {
+      "ticker": "SAMMAANCAP.NS",
+      "name": "SAMMAANCAP.NS",
+      "notify_key": "SAMMAANCAP.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:10",
+      "entry_price": 143.3,
+      "exit_close_pct": -0.61,
+      "exit_15m_pct": -0.31,
+      "rvol": 2.45,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 0.46,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:10",
+        "Grade C | RVOL 2.45x | Breakout +0.08% | Close-VWAP +0.46% | Entry 143.30 | Close -0.61% | +15m -0.31%"
+      ]
+    },
+    {
+      "ticker": "MANAPPURAM.NS",
+      "name": "MANAPPURAM.NS",
+      "notify_key": "MANAPPURAM.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 11:20",
+      "entry_price": 255.7,
+      "exit_close_pct": -0.06,
+      "exit_15m_pct": 0.49,
+      "rvol": 3.79,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 0.52,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 11:15 | Trade ON 2026-03-12 11:20",
+        "Grade B | RVOL 3.79x | Breakout +0.08% | Close-VWAP +0.52% | Entry 255.70 | Close -0.06% | +15m +0.49%"
+      ]
+    },
+    {
+      "ticker": "MANAPPURAM.NS",
+      "name": "MANAPPURAM.NS",
+      "notify_key": "MANAPPURAM.NS|2026-03-12 13:20|ON",
+      "signal_time": "2026-03-12 13:20",
+      "entry_time": "2026-03-12 14:10",
+      "entry_price": 257.4,
+      "exit_close_pct": -0.72,
+      "exit_15m_pct": -0.54,
+      "rvol": 2.49,
+      "breakout_gap_pct": 0.21,
+      "close_vs_vwap_pct": 0.58,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:10",
+        "Grade A | RVOL 2.49x | Breakout +0.21% | Close-VWAP +0.58% | Entry 257.40 | Close -0.72% | +15m -0.54%"
+      ]
+    },
+    {
+      "ticker": "MANAPPURAM.NS",
+      "name": "MANAPPURAM.NS",
+      "notify_key": "MANAPPURAM.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:10",
+      "entry_price": 257.4,
+      "exit_close_pct": -0.72,
+      "exit_15m_pct": -0.54,
+      "rvol": 6.76,
+      "breakout_gap_pct": 0.19,
+      "close_vs_vwap_pct": 0.68,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:05 | Trade ON 2026-03-12 14:10",
+        "Grade A | RVOL 6.76x | Breakout +0.19% | Close-VWAP +0.68% | Entry 257.40 | Close -0.72% | +15m -0.54%"
+      ]
+    },
+    {
+      "ticker": "PRESTIGE.NS",
+      "name": "PRESTIGE.NS",
+      "notify_key": "PRESTIGE.NS|2026-03-12 11:50|ON",
+      "signal_time": "2026-03-12 11:50",
+      "entry_time": "2026-03-12 15:25",
+      "entry_price": 1264.8,
+      "exit_close_pct": -0.96,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.28,
+      "breakout_gap_pct": 0.03,
+      "close_vs_vwap_pct": 1.4,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:50 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 15:25",
+        "Grade B | RVOL 2.28x | Breakout +0.03% | Close-VWAP +1.40% | Entry 1264.80 | Close -0.96% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "TECHM.NS",
+      "name": "TECHM.NS",
+      "notify_key": "TECHM.NS|2026-03-12 09:20|ON",
+      "signal_time": "2026-03-12 09:20",
+      "entry_time": "2026-03-12 09:30",
+      "entry_price": 1338.8,
+      "exit_close_pct": 0.82,
+      "exit_15m_pct": 0.02,
+      "rvol": 2.31,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.03,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:20 | VWAP touch 2026-03-12 09:25 | Trade ON 2026-03-12 09:30",
+        "Grade C | RVOL 2.31x | Breakout +0.01% | Close-VWAP +0.03% | Entry 1338.80 | Close +0.82% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "MARICO.NS",
+      "name": "MARICO.NS",
+      "notify_key": "MARICO.NS|2026-03-12 09:55|ON",
+      "signal_time": "2026-03-12 09:55",
+      "entry_time": "2026-03-12 10:15",
+      "entry_price": 754.75,
+      "exit_close_pct": 0.32,
+      "exit_15m_pct": 0.21,
+      "rvol": 2.74,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 0.55,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:55 | VWAP touch 2026-03-12 10:05 | Trade ON 2026-03-12 10:15",
+        "Grade B | RVOL 2.74x | Breakout +0.05% | Close-VWAP +0.55% | Entry 754.75 | Close +0.32% | +15m +0.21%"
+      ]
+    },
+    {
+      "ticker": "UNOMINDA.NS",
+      "name": "UNOMINDA.NS",
+      "notify_key": "UNOMINDA.NS|2026-03-12 11:35|ON",
+      "signal_time": "2026-03-12 11:35",
+      "entry_time": "2026-03-12 14:45",
+      "entry_price": 1067.6,
+      "exit_close_pct": 0.08,
+      "exit_15m_pct": 0.27,
+      "rvol": 2.33,
+      "breakout_gap_pct": 0.42,
+      "close_vs_vwap_pct": 1.44,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:45",
+        "Grade A | RVOL 2.33x | Breakout +0.42% | Close-VWAP +1.44% | Entry 1067.60 | Close +0.08% | +15m +0.27%"
+      ]
+    },
+    {
+      "ticker": "FORTIS.NS",
+      "name": "FORTIS.NS",
+      "notify_key": "FORTIS.NS|2026-03-12 11:40|ON",
+      "signal_time": "2026-03-12 11:40",
+      "entry_time": "2026-03-12 13:35",
+      "entry_price": 862.75,
+      "exit_close_pct": -0.38,
+      "exit_15m_pct": -0.14,
+      "rvol": 2.95,
+      "breakout_gap_pct": 0.61,
+      "close_vs_vwap_pct": 0.96,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch 2026-03-12 13:10 | Trade ON 2026-03-12 13:35",
+        "Grade A | RVOL 2.95x | Breakout +0.61% | Close-VWAP +0.96% | Entry 862.75 | Close -0.38% | +15m -0.14%"
+      ]
+    },
+    {
+      "ticker": "FORTIS.NS",
+      "name": "FORTIS.NS",
+      "notify_key": "FORTIS.NS|2026-03-12 14:55|ON",
+      "signal_time": "2026-03-12 14:55",
+      "entry_time": "2026-03-12 15:15",
+      "entry_price": 861.2,
+      "exit_close_pct": -0.2,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.3,
+      "breakout_gap_pct": 0.5,
+      "close_vs_vwap_pct": 0.22,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch 2026-03-12 15:00 | Trade ON 2026-03-12 15:15",
+        "Grade B | RVOL 2.30x | Breakout +0.50% | Close-VWAP +0.22% | Entry 861.20 | Close -0.20% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-12 11:15|ON",
+      "signal_time": "2026-03-12 11:15",
+      "entry_time": "2026-03-12 13:10",
+      "entry_price": 773.7,
+      "exit_close_pct": 0.83,
+      "exit_15m_pct": 0.65,
+      "rvol": 4.37,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 1.19,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:15 | VWAP touch 2026-03-12 13:05 | Trade ON 2026-03-12 13:10",
+        "Grade B | RVOL 4.37x | Breakout +0.05% | Close-VWAP +1.19% | Entry 773.70 | Close +0.83% | +15m +0.65%"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-12 11:20|ON",
+      "signal_time": "2026-03-12 11:20",
+      "entry_time": "2026-03-12 13:10",
+      "entry_price": 773.7,
+      "exit_close_pct": 0.83,
+      "exit_15m_pct": 0.65,
+      "rvol": 5.1,
+      "breakout_gap_pct": 0.02,
+      "close_vs_vwap_pct": 1.4,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:20 | VWAP touch 2026-03-12 13:05 | Trade ON 2026-03-12 13:10",
+        "Grade B | RVOL 5.10x | Breakout +0.02% | Close-VWAP +1.40% | Entry 773.70 | Close +0.83% | +15m +0.65%"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-12 11:35|ON",
+      "signal_time": "2026-03-12 11:35",
+      "entry_time": "2026-03-12 13:10",
+      "entry_price": 773.7,
+      "exit_close_pct": 0.83,
+      "exit_15m_pct": 0.65,
+      "rvol": 2.49,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 1.3,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch 2026-03-12 13:05 | Trade ON 2026-03-12 13:10",
+        "Grade B | RVOL 2.49x | Breakout +0.04% | Close-VWAP +1.30% | Entry 773.70 | Close +0.83% | +15m +0.65%"
+      ]
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "name": "PNBHOUSING.NS",
+      "notify_key": "PNBHOUSING.NS|2026-03-12 11:45|ON",
+      "signal_time": "2026-03-12 11:45",
+      "entry_time": "2026-03-12 13:10",
+      "entry_price": 773.7,
+      "exit_close_pct": 0.83,
+      "exit_15m_pct": 0.65,
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 1.48,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:45 | VWAP touch 2026-03-12 13:05 | Trade ON 2026-03-12 13:10",
+        "Grade C | RVOL 2.09x | Breakout +0.09% | Close-VWAP +1.48% | Entry 773.70 | Close +0.83% | +15m +0.65%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 09:30|ON",
+      "signal_time": "2026-03-12 09:30",
+      "entry_time": "2026-03-12 09:50",
+      "entry_price": 496.7,
+      "exit_close_pct": 4.35,
+      "exit_15m_pct": -0.23,
+      "rvol": 2.72,
+      "breakout_gap_pct": 0.25,
+      "close_vs_vwap_pct": 0.57,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:30 | VWAP touch 2026-03-12 09:40 | Trade ON 2026-03-12 09:50",
+        "Grade A | RVOL 2.72x | Breakout +0.25% | Close-VWAP +0.57% | Entry 496.70 | Close +4.35% | +15m -0.23%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 09:35|ON",
+      "signal_time": "2026-03-12 09:35",
+      "entry_time": "2026-03-12 09:50",
+      "entry_price": 496.7,
+      "exit_close_pct": 4.35,
+      "exit_15m_pct": -0.23,
+      "rvol": 3.91,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.28,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:35 | VWAP touch 2026-03-12 09:40 | Trade ON 2026-03-12 09:50",
+        "Grade C | RVOL 3.91x | Breakout +0.01% | Close-VWAP +0.28% | Entry 496.70 | Close +4.35% | +15m -0.23%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 09:40|ON",
+      "signal_time": "2026-03-12 09:40",
+      "entry_time": "2026-03-12 10:30",
+      "entry_price": 505.15,
+      "exit_close_pct": 2.6,
+      "exit_15m_pct": 1.32,
+      "rvol": 3.98,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 0.76,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:40 | VWAP touch 2026-03-12 10:25 | Trade ON 2026-03-12 10:30",
+        "Grade B | RVOL 3.98x | Breakout +0.13% | Close-VWAP +0.76% | Entry 505.15 | Close +2.60% | +15m +1.32%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 09:50|ON",
+      "signal_time": "2026-03-12 09:50",
+      "entry_time": "2026-03-12 10:30",
+      "entry_price": 505.15,
+      "exit_close_pct": 2.6,
+      "exit_15m_pct": 1.32,
+      "rvol": 2.35,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.66,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:50 | VWAP touch 2026-03-12 10:25 | Trade ON 2026-03-12 10:30",
+        "Grade C | RVOL 2.35x | Breakout +0.09% | Close-VWAP +0.66% | Entry 505.15 | Close +2.60% | +15m +1.32%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 10:25|ON",
+      "signal_time": "2026-03-12 10:25",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 523.5,
+      "exit_close_pct": -0.99,
+      "exit_15m_pct": 0.02,
+      "rvol": 4.79,
+      "breakout_gap_pct": 1.44,
+      "close_vs_vwap_pct": 1.63,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch 2026-03-12 14:10 | Trade ON 2026-03-12 14:15",
+        "Grade A | RVOL 4.79x | Breakout +1.44% | Close-VWAP +1.63% | Entry 523.50 | Close -0.99% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 10:30|ON",
+      "signal_time": "2026-03-12 10:30",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 523.5,
+      "exit_close_pct": -0.99,
+      "exit_15m_pct": 0.02,
+      "rvol": 2.6,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.61,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:30 | VWAP touch 2026-03-12 14:10 | Trade ON 2026-03-12 14:15",
+        "Grade B | RVOL 2.60x | Breakout +0.18% | Close-VWAP +1.61% | Entry 523.50 | Close -0.99% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 10:45|ON",
+      "signal_time": "2026-03-12 10:45",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 523.5,
+      "exit_close_pct": -0.99,
+      "exit_15m_pct": 0.02,
+      "rvol": 4.69,
+      "breakout_gap_pct": 0.99,
+      "close_vs_vwap_pct": 2.03,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:45 | VWAP touch 2026-03-12 14:10 | Trade ON 2026-03-12 14:15",
+        "Grade A | RVOL 4.69x | Breakout +0.99% | Close-VWAP +2.03% | Entry 523.50 | Close -0.99% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 523.5,
+      "exit_close_pct": -0.99,
+      "exit_15m_pct": 0.02,
+      "rvol": 2.53,
+      "breakout_gap_pct": 0.88,
+      "close_vs_vwap_pct": 2.48,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 14:10 | Trade ON 2026-03-12 14:15",
+        "Grade A | RVOL 2.53x | Breakout +0.88% | Close-VWAP +2.48% | Entry 523.50 | Close -0.99% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "name": "JSWENERGY.NS",
+      "notify_key": "JSWENERGY.NS|2026-03-12 11:05|ON",
+      "signal_time": "2026-03-12 11:05",
+      "entry_time": "2026-03-12 14:15",
+      "entry_price": 523.5,
+      "exit_close_pct": -0.99,
+      "exit_15m_pct": 0.02,
+      "rvol": 2.48,
+      "breakout_gap_pct": 0.08,
+      "close_vs_vwap_pct": 2.35,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:05 | VWAP touch 2026-03-12 14:10 | Trade ON 2026-03-12 14:15",
+        "Grade C | RVOL 2.48x | Breakout +0.08% | Close-VWAP +2.35% | Entry 523.50 | Close -0.99% | +15m +0.02%"
+      ]
+    },
+    {
+      "ticker": "HAVELLS.NS",
+      "name": "HAVELLS.NS",
+      "notify_key": "HAVELLS.NS|2026-03-12 11:35|ON",
+      "signal_time": "2026-03-12 11:35",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 1357.1,
+      "exit_close_pct": -0.23,
+      "exit_15m_pct": -0.29,
+      "rvol": 3.62,
+      "breakout_gap_pct": 0.17,
+      "close_vs_vwap_pct": 0.4,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 3.62x | Breakout +0.17% | Close-VWAP +0.40% | Entry 1357.10 | Close -0.23% | +15m -0.29%"
+      ]
+    },
+    {
+      "ticker": "HAVELLS.NS",
+      "name": "HAVELLS.NS",
+      "notify_key": "HAVELLS.NS|2026-03-12 11:40|ON",
+      "signal_time": "2026-03-12 11:40",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 1357.1,
+      "exit_close_pct": -0.23,
+      "exit_15m_pct": -0.29,
+      "rvol": 4.25,
+      "breakout_gap_pct": 0.23,
+      "close_vs_vwap_pct": 0.57,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 4.25x | Breakout +0.23% | Close-VWAP +0.57% | Entry 1357.10 | Close -0.23% | +15m -0.29%"
+      ]
+    },
+    {
+      "ticker": "HAVELLS.NS",
+      "name": "HAVELLS.NS",
+      "notify_key": "HAVELLS.NS|2026-03-12 13:20|ON",
+      "signal_time": "2026-03-12 13:20",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 1357.1,
+      "exit_close_pct": -0.23,
+      "exit_15m_pct": -0.29,
+      "rvol": 5.33,
+      "breakout_gap_pct": 0.45,
+      "close_vs_vwap_pct": 0.7,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 5.33x | Breakout +0.45% | Close-VWAP +0.70% | Entry 1357.10 | Close -0.23% | +15m -0.29%"
+      ]
+    },
+    {
+      "ticker": "ADANIENSOL.NS",
+      "name": "ADANIENSOL.NS",
+      "notify_key": "ADANIENSOL.NS|2026-03-12 10:05|ON",
+      "signal_time": "2026-03-12 10:05",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 1005.6,
+      "exit_close_pct": -0.12,
+      "exit_15m_pct": -0.05,
+      "rvol": 2.46,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.64,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:05 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 14:50",
+        "Grade C | RVOL 2.46x | Breakout +0.01% | Close-VWAP +0.64% | Entry 1005.60 | Close -0.12% | +15m -0.05%"
+      ]
+    },
+    {
+      "ticker": "ADANIENSOL.NS",
+      "name": "ADANIENSOL.NS",
+      "notify_key": "ADANIENSOL.NS|2026-03-12 12:00|ON",
+      "signal_time": "2026-03-12 12:00",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 1005.6,
+      "exit_close_pct": -0.12,
+      "exit_15m_pct": -0.05,
+      "rvol": 5.7,
+      "breakout_gap_pct": 0.26,
+      "close_vs_vwap_pct": 1.02,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 14:50",
+        "Grade A | RVOL 5.70x | Breakout +0.26% | Close-VWAP +1.02% | Entry 1005.60 | Close -0.12% | +15m -0.05%"
+      ]
+    },
+    {
+      "ticker": "PIDILITIND.NS",
+      "name": "PIDILITIND.NS",
+      "notify_key": "PIDILITIND.NS|2026-03-12 12:05|ON",
+      "signal_time": "2026-03-12 12:05",
+      "entry_time": "2026-03-12 13:15",
+      "entry_price": 1384.0,
+      "exit_close_pct": 0.25,
+      "exit_15m_pct": 0.53,
+      "rvol": 3.06,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.27,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:05 | VWAP touch 2026-03-12 13:10 | Trade ON 2026-03-12 13:15",
+        "Grade C | RVOL 3.06x | Breakout +0.09% | Close-VWAP +0.27% | Entry 1384.00 | Close +0.25% | +15m +0.53%"
+      ]
+    },
+    {
+      "ticker": "LTM.NS",
+      "name": "LTM.NS",
+      "notify_key": "LTM.NS|2026-03-12 12:25|ON",
+      "signal_time": "2026-03-12 12:25",
+      "entry_time": "2026-03-12 15:15",
+      "entry_price": 4332.5,
+      "exit_close_pct": -0.21,
+      "exit_15m_pct": 0.0,
+      "rvol": 4.39,
+      "breakout_gap_pct": 0.07,
+      "close_vs_vwap_pct": 0.82,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch 2026-03-12 15:00 | Trade ON 2026-03-12 15:15",
+        "Grade B | RVOL 4.39x | Breakout +0.07% | Close-VWAP +0.82% | Entry 4332.50 | Close -0.21% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "LTM.NS",
+      "name": "LTM.NS",
+      "notify_key": "LTM.NS|2026-03-12 12:40|ON",
+      "signal_time": "2026-03-12 12:40",
+      "entry_time": "2026-03-12 15:15",
+      "entry_price": 4332.5,
+      "exit_close_pct": -0.21,
+      "exit_15m_pct": 0.0,
+      "rvol": 2.19,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 0.94,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:40 | VWAP touch 2026-03-12 15:00 | Trade ON 2026-03-12 15:15",
+        "Grade B | RVOL 2.19x | Breakout +0.06% | Close-VWAP +0.94% | Entry 4332.50 | Close -0.21% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "LTM.NS",
+      "name": "LTM.NS",
+      "notify_key": "LTM.NS|2026-03-12 13:00|ON",
+      "signal_time": "2026-03-12 13:00",
+      "entry_time": "2026-03-12 15:15",
+      "entry_price": 4332.5,
+      "exit_close_pct": -0.21,
+      "exit_15m_pct": 0.0,
+      "rvol": 4.27,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 0.98,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch 2026-03-12 15:00 | Trade ON 2026-03-12 15:15",
+        "Grade B | RVOL 4.27x | Breakout +0.13% | Close-VWAP +0.98% | Entry 4332.50 | Close -0.21% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "LTM.NS",
+      "name": "LTM.NS",
+      "notify_key": "LTM.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 15:15",
+      "entry_price": 4332.5,
+      "exit_close_pct": -0.21,
+      "exit_15m_pct": 0.0,
+      "rvol": 3.87,
+      "breakout_gap_pct": 0.6,
+      "close_vs_vwap_pct": 1.48,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:00 | Trade ON 2026-03-12 15:15",
+        "Grade A | RVOL 3.87x | Breakout +0.60% | Close-VWAP +1.48% | Entry 4332.50 | Close -0.21% | +15m +0.00%"
+      ]
+    },
+    {
+      "ticker": "LTF.NS",
+      "name": "LTF.NS",
+      "notify_key": "LTF.NS|2026-03-12 09:50|ON",
+      "signal_time": "2026-03-12 09:50",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 265.9,
+      "exit_close_pct": -0.15,
+      "exit_15m_pct": -0.17,
+      "rvol": 2.06,
+      "breakout_gap_pct": 0.04,
+      "close_vs_vwap_pct": 0.62,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:50 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 15:00",
+        "Grade C | RVOL 2.06x | Breakout +0.04% | Close-VWAP +0.62% | Entry 265.90 | Close -0.15% | +15m -0.17%"
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 11:55",
+      "entry_price": 2514.9,
+      "exit_close_pct": 1.38,
+      "exit_15m_pct": -0.13,
+      "rvol": 2.32,
+      "breakout_gap_pct": 0.35,
+      "close_vs_vwap_pct": 0.68,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 11:50 | Trade ON 2026-03-12 11:55",
+        "Grade A | RVOL 2.32x | Breakout +0.35% | Close-VWAP +0.68% | Entry 2514.90 | Close +1.38% | +15m -0.13%"
+      ]
+    },
+    {
+      "ticker": "SIEMENS.NS",
+      "name": "SIEMENS.NS",
+      "notify_key": "SIEMENS.NS|2026-03-12 11:35|ON",
+      "signal_time": "2026-03-12 11:35",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 3316.2,
+      "exit_close_pct": 0.26,
+      "exit_15m_pct": 0.29,
+      "rvol": 2.58,
+      "breakout_gap_pct": 0.45,
+      "close_vs_vwap_pct": 1.54,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.58x | Breakout +0.45% | Close-VWAP +1.54% | Entry 3316.20 | Close +0.26% | +15m +0.29%"
+      ]
+    },
+    {
+      "ticker": "SIEMENS.NS",
+      "name": "SIEMENS.NS",
+      "notify_key": "SIEMENS.NS|2026-03-12 11:45|ON",
+      "signal_time": "2026-03-12 11:45",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 3316.2,
+      "exit_close_pct": 0.26,
+      "exit_15m_pct": 0.29,
+      "rvol": 2.8,
+      "breakout_gap_pct": 0.24,
+      "close_vs_vwap_pct": 1.75,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:45 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.80x | Breakout +0.24% | Close-VWAP +1.75% | Entry 3316.20 | Close +0.26% | +15m +0.29%"
+      ]
+    },
+    {
+      "ticker": "SHREECEM.NS",
+      "name": "SHREECEM.NS",
+      "notify_key": "SHREECEM.NS|2026-03-12 13:40|ON",
+      "signal_time": "2026-03-12 13:40",
+      "entry_time": "2026-03-12 15:05",
+      "entry_price": 23510.0,
+      "exit_close_pct": -0.04,
+      "exit_15m_pct": -0.09,
+      "rvol": 8.58,
+      "breakout_gap_pct": 0.09,
+      "close_vs_vwap_pct": 0.02,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 13:45 | Trade ON 2026-03-12 15:05",
+        "Grade B | RVOL 8.58x | Breakout +0.09% | Close-VWAP +0.02% | Entry 23510.00 | Close -0.04% | +15m -0.09%"
+      ]
+    },
+    {
+      "ticker": "ICICIPRULI.NS",
+      "name": "ICICIPRULI.NS",
+      "notify_key": "ICICIPRULI.NS|2026-03-12 10:50|ON",
+      "signal_time": "2026-03-12 10:50",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 592.55,
+      "exit_close_pct": 0.07,
+      "exit_15m_pct": 0.04,
+      "rvol": 3.43,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 0.63,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:50 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:50",
+        "Grade B | RVOL 3.43x | Breakout +0.14% | Close-VWAP +0.63% | Entry 592.55 | Close +0.07% | +15m +0.04%"
+      ]
+    },
+    {
+      "ticker": "TORNTPOWER.NS",
+      "name": "TORNTPOWER.NS",
+      "notify_key": "TORNTPOWER.NS|2026-03-12 09:25|ON",
+      "signal_time": "2026-03-12 09:25",
+      "entry_time": "2026-03-12 09:45",
+      "entry_price": 1453.9,
+      "exit_close_pct": 3.58,
+      "exit_15m_pct": 0.56,
+      "rvol": 2.15,
+      "breakout_gap_pct": 0.28,
+      "close_vs_vwap_pct": 0.5,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:25 | VWAP touch 2026-03-12 09:35 | Trade ON 2026-03-12 09:45",
+        "Grade A | RVOL 2.15x | Breakout +0.28% | Close-VWAP +0.50% | Entry 1453.90 | Close +3.58% | +15m +0.56%"
+      ]
+    },
+    {
+      "ticker": "HUDCO.NS",
+      "name": "HUDCO.NS",
+      "notify_key": "HUDCO.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 177.2,
+      "exit_close_pct": -0.3,
+      "exit_15m_pct": -0.22,
+      "rvol": 2.09,
+      "breakout_gap_pct": 0.53,
+      "close_vs_vwap_pct": 1.46,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.09x | Breakout +0.53% | Close-VWAP +1.46% | Entry 177.20 | Close -0.30% | +15m -0.22%"
+      ]
+    },
+    {
+      "ticker": "MPHASIS.NS",
+      "name": "MPHASIS.NS",
+      "notify_key": "MPHASIS.NS|2026-03-12 10:55|ON",
+      "signal_time": "2026-03-12 10:55",
+      "entry_time": "2026-03-12 11:25",
+      "entry_price": 2180.4,
+      "exit_close_pct": 0.22,
+      "exit_15m_pct": 0.29,
+      "rvol": 2.13,
+      "breakout_gap_pct": 0.37,
+      "close_vs_vwap_pct": 0.74,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch 2026-03-12 11:20 | Trade ON 2026-03-12 11:25",
+        "Grade A | RVOL 2.13x | Breakout +0.37% | Close-VWAP +0.74% | Entry 2180.40 | Close +0.22% | +15m +0.29%"
+      ]
+    },
+    {
+      "ticker": "MPHASIS.NS",
+      "name": "MPHASIS.NS",
+      "notify_key": "MPHASIS.NS|2026-03-12 11:45|ON",
+      "signal_time": "2026-03-12 11:45",
+      "entry_time": "2026-03-12 15:00",
+      "entry_price": 2188.3,
+      "exit_close_pct": -0.14,
+      "exit_15m_pct": -0.05,
+      "rvol": 2.77,
+      "breakout_gap_pct": 0.32,
+      "close_vs_vwap_pct": 0.8,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:45 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 15:00",
+        "Grade A | RVOL 2.77x | Breakout +0.32% | Close-VWAP +0.80% | Entry 2188.30 | Close -0.14% | +15m -0.05%"
+      ]
+    },
+    {
+      "ticker": "BOSCHLTD.NS",
+      "name": "BOSCHLTD.NS",
+      "notify_key": "BOSCHLTD.NS|2026-03-12 13:40|ON",
+      "signal_time": "2026-03-12 13:40",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 31260.0,
+      "exit_close_pct": 0.14,
+      "exit_15m_pct": 0.21,
+      "rvol": 4.32,
+      "breakout_gap_pct": 0.06,
+      "close_vs_vwap_pct": 1.16,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 14:50",
+        "Grade B | RVOL 4.32x | Breakout +0.06% | Close-VWAP +1.16% | Entry 31260.00 | Close +0.14% | +15m +0.21%"
+      ]
+    },
+    {
+      "ticker": "KFINTECH.NS",
+      "name": "KFINTECH.NS",
+      "notify_key": "KFINTECH.NS|2026-03-12 13:25|ON",
+      "signal_time": "2026-03-12 13:25",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 911.65,
+      "exit_close_pct": -0.44,
+      "exit_15m_pct": -0.42,
+      "rvol": 2.38,
+      "breakout_gap_pct": 0.11,
+      "close_vs_vwap_pct": 0.81,
+      "setup_grade": "C",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:55",
+        "Grade C | RVOL 2.38x | Breakout +0.11% | Close-VWAP +0.81% | Entry 911.65 | Close -0.44% | +15m -0.42%"
+      ]
+    },
+    {
+      "ticker": "KFINTECH.NS",
+      "name": "KFINTECH.NS",
+      "notify_key": "KFINTECH.NS|2026-03-12 13:35|ON",
+      "signal_time": "2026-03-12 13:35",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 911.65,
+      "exit_close_pct": -0.44,
+      "exit_15m_pct": -0.42,
+      "rvol": 3.26,
+      "breakout_gap_pct": 0.19,
+      "close_vs_vwap_pct": 1.12,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 3.26x | Breakout +0.19% | Close-VWAP +1.12% | Entry 911.65 | Close -0.44% | +15m -0.42%"
+      ]
+    },
+    {
+      "ticker": "KFINTECH.NS",
+      "name": "KFINTECH.NS",
+      "notify_key": "KFINTECH.NS|2026-03-12 13:45|ON",
+      "signal_time": "2026-03-12 13:45",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 911.65,
+      "exit_close_pct": -0.44,
+      "exit_15m_pct": -0.42,
+      "rvol": 5.55,
+      "breakout_gap_pct": 0.13,
+      "close_vs_vwap_pct": 1.14,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch 2026-03-12 14:40 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 5.55x | Breakout +0.13% | Close-VWAP +1.14% | Entry 911.65 | Close -0.44% | +15m -0.42%"
+      ]
+    },
+    {
+      "ticker": "CONCOR.NS",
+      "name": "CONCOR.NS",
+      "notify_key": "CONCOR.NS|2026-03-12 13:35|ON",
+      "signal_time": "2026-03-12 13:35",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 467.25,
+      "exit_close_pct": -0.02,
+      "exit_15m_pct": 0.17,
+      "rvol": 10.39,
+      "breakout_gap_pct": 0.14,
+      "close_vs_vwap_pct": 0.39,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:30 | Trade ON 2026-03-12 14:50",
+        "Grade B | RVOL 10.39x | Breakout +0.14% | Close-VWAP +0.39% | Entry 467.25 | Close -0.02% | +15m +0.17%"
+      ]
+    },
+    {
+      "ticker": "GLENMARK.NS",
+      "name": "GLENMARK.NS",
+      "notify_key": "GLENMARK.NS|2026-03-12 13:35|ON",
+      "signal_time": "2026-03-12 13:35",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 2241.2,
+      "exit_close_pct": 0.68,
+      "exit_15m_pct": 0.96,
+      "rvol": 4.46,
+      "breakout_gap_pct": 0.39,
+      "close_vs_vwap_pct": 0.97,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 4.46x | Breakout +0.39% | Close-VWAP +0.97% | Entry 2241.20 | Close +0.68% | +15m +0.96%"
+      ]
+    },
+    {
+      "ticker": "GLENMARK.NS",
+      "name": "GLENMARK.NS",
+      "notify_key": "GLENMARK.NS|2026-03-12 13:45|ON",
+      "signal_time": "2026-03-12 13:45",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 2241.2,
+      "exit_close_pct": 0.68,
+      "exit_15m_pct": 0.96,
+      "rvol": 3.29,
+      "breakout_gap_pct": 0.19,
+      "close_vs_vwap_pct": 1.27,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 3.29x | Breakout +0.19% | Close-VWAP +1.27% | Entry 2241.20 | Close +0.68% | +15m +0.96%"
+      ]
+    },
+    {
+      "ticker": "OFSS.NS",
+      "name": "OFSS.NS",
+      "notify_key": "OFSS.NS|2026-03-12 11:40|ON",
+      "signal_time": "2026-03-12 11:40",
+      "entry_time": "2026-03-12 12:40",
+      "entry_price": 6726.0,
+      "exit_close_pct": -0.47,
+      "exit_15m_pct": 0.1,
+      "rvol": 2.93,
+      "breakout_gap_pct": 0.05,
+      "close_vs_vwap_pct": 0.52,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch 2026-03-12 12:30 | Trade ON 2026-03-12 12:40",
+        "Grade A | RVOL 2.93x | Breakout +0.05% | Close-VWAP +0.52% | Entry 6726.00 | Close -0.47% | +15m +0.10%"
+      ]
+    },
+    {
+      "ticker": "TATATECH.NS",
+      "name": "TATATECH.NS",
+      "notify_key": "TATATECH.NS|2026-03-12 13:20|ON",
+      "signal_time": "2026-03-12 13:20",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 551.95,
+      "exit_close_pct": -0.02,
+      "exit_15m_pct": -0.11,
+      "rvol": 2.33,
+      "breakout_gap_pct": 0.36,
+      "close_vs_vwap_pct": 1.23,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.33x | Breakout +0.36% | Close-VWAP +1.23% | Entry 551.95 | Close -0.02% | +15m -0.11%"
+      ]
+    },
+    {
+      "ticker": "DELHIVERY.NS",
+      "name": "DELHIVERY.NS",
+      "notify_key": "DELHIVERY.NS|2026-03-12 12:25|ON",
+      "signal_time": "2026-03-12 12:25",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 408.7,
+      "exit_close_pct": -0.12,
+      "exit_15m_pct": 0.12,
+      "rvol": 2.77,
+      "breakout_gap_pct": 0.1,
+      "close_vs_vwap_pct": 0.79,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 14:50",
+        "Grade B | RVOL 2.77x | Breakout +0.10% | Close-VWAP +0.79% | Entry 408.70 | Close -0.12% | +15m +0.12%"
+      ]
+    },
+    {
+      "ticker": "DELHIVERY.NS",
+      "name": "DELHIVERY.NS",
+      "notify_key": "DELHIVERY.NS|2026-03-12 13:30|ON",
+      "signal_time": "2026-03-12 13:30",
+      "entry_time": "2026-03-12 14:50",
+      "entry_price": 408.7,
+      "exit_close_pct": -0.12,
+      "exit_15m_pct": 0.12,
+      "rvol": 2.42,
+      "breakout_gap_pct": 0.51,
+      "close_vs_vwap_pct": 1.43,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:45 | Trade ON 2026-03-12 14:50",
+        "Grade A | RVOL 2.42x | Breakout +0.51% | Close-VWAP +1.43% | Entry 408.70 | Close -0.12% | +15m +0.12%"
+      ]
+    },
+    {
+      "ticker": "EXIDEIND.NS",
+      "name": "EXIDEIND.NS",
+      "notify_key": "EXIDEIND.NS|2026-03-12 11:55|ON",
+      "signal_time": "2026-03-12 11:55",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 310.8,
+      "exit_close_pct": -0.26,
+      "exit_15m_pct": -0.14,
+      "rvol": 2.26,
+      "breakout_gap_pct": 0.18,
+      "close_vs_vwap_pct": 1.24,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.26x | Breakout +0.18% | Close-VWAP +1.24% | Entry 310.80 | Close -0.26% | +15m -0.14%"
+      ]
+    },
+    {
+      "ticker": "SONACOMS.NS",
+      "name": "SONACOMS.NS",
+      "notify_key": "SONACOMS.NS|2026-03-12 12:15|ON",
+      "signal_time": "2026-03-12 12:15",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 509.6,
+      "exit_close_pct": 0.14,
+      "exit_15m_pct": 0.21,
+      "rvol": 3.13,
+      "breakout_gap_pct": 0.01,
+      "close_vs_vwap_pct": 0.67,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade B | RVOL 3.13x | Breakout +0.01% | Close-VWAP +0.67% | Entry 509.60 | Close +0.14% | +15m +0.21%"
+      ]
+    },
+    {
+      "ticker": "SONACOMS.NS",
+      "name": "SONACOMS.NS",
+      "notify_key": "SONACOMS.NS|2026-03-12 12:25|ON",
+      "signal_time": "2026-03-12 12:25",
+      "entry_time": "2026-03-12 14:55",
+      "entry_price": 509.6,
+      "exit_close_pct": 0.14,
+      "exit_15m_pct": 0.21,
+      "rvol": 2.61,
+      "breakout_gap_pct": 0.28,
+      "close_vs_vwap_pct": 1.14,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch 2026-03-12 14:50 | Trade ON 2026-03-12 14:55",
+        "Grade A | RVOL 2.61x | Breakout +0.28% | Close-VWAP +1.14% | Entry 509.60 | Close +0.14% | +15m +0.21%"
+      ]
+    },
+    {
+      "ticker": "CROMPTON.NS",
+      "name": "CROMPTON.NS",
+      "notify_key": "CROMPTON.NS|2026-03-12 09:50|ON",
+      "signal_time": "2026-03-12 09:50",
+      "entry_time": "2026-03-12 10:15",
+      "entry_price": 245.9,
+      "exit_close_pct": 0.53,
+      "exit_15m_pct": 0.53,
+      "rvol": 2.54,
+      "breakout_gap_pct": 0.12,
+      "close_vs_vwap_pct": 0.88,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 09:50 | VWAP touch 2026-03-12 10:00 | Trade ON 2026-03-12 10:15",
+        "Grade B | RVOL 2.54x | Breakout +0.12% | Close-VWAP +0.88% | Entry 245.90 | Close +0.53% | +15m +0.53%"
+      ]
+    },
+    {
+      "ticker": "CROMPTON.NS",
+      "name": "CROMPTON.NS",
+      "notify_key": "CROMPTON.NS|2026-03-12 12:00|ON",
+      "signal_time": "2026-03-12 12:00",
+      "entry_time": "2026-03-12 13:20",
+      "entry_price": 249.7,
+      "exit_close_pct": -1.0,
+      "exit_15m_pct": 0.26,
+      "rvol": 4.32,
+      "breakout_gap_pct": 0.83,
+      "close_vs_vwap_pct": 2.52,
+      "setup_grade": "A",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch 2026-03-12 13:10 | Trade ON 2026-03-12 13:20",
+        "Grade A | RVOL 4.32x | Breakout +0.83% | Close-VWAP +2.52% | Entry 249.70 | Close -1.00% | +15m +0.26%"
+      ]
+    },
+    {
+      "ticker": "PPLPHARMA.NS",
+      "name": "PPLPHARMA.NS",
+      "notify_key": "PPLPHARMA.NS|2026-03-12 11:00|ON",
+      "signal_time": "2026-03-12 11:00",
+      "entry_time": "2026-03-12 13:35",
+      "entry_price": 148.86,
+      "exit_close_pct": -2.23,
+      "exit_15m_pct": -1.22,
+      "rvol": 2.04,
+      "breakout_gap_pct": 0.54,
+      "close_vs_vwap_pct": 0.2,
+      "setup_grade": "B",
+      "filter_mode": "basic",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 11:05 | Trade ON 2026-03-12 13:35",
+        "Grade B | RVOL 2.04x | Breakout +0.54% | Close-VWAP +0.20% | Entry 148.86 | Close -2.23% | +15m -1.22%"
+      ]
+    }
+  ]
+}

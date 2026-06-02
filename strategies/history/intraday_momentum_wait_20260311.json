@@ -1,0 +1,77 @@
+{
+  "strategy_id": "intraday_momentum_wait",
+  "title": "Intraday Momentum \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "all",
+  "filter_mode": "basic",
+  "rules": {
+    "breakout_condition": "close above previous 6-candle high",
+    "entry_window_candles": "same-day intraday",
+    "entry_trigger": "waiting for VWAP retouch + green close above VWAP",
+    "volume_multiple": 2.0,
+    "lookback_volume": 20,
+    "filter_mode": "basic"
+  },
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-11",
+  "runtime_sec": 20.18,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP."
+  ],
+  "items": [
+    {
+      "ticker": "CIPLA.NS",
+      "name": "CIPLA.NS",
+      "notify_key": "CIPLA.NS|2026-03-11 14:50|WAIT",
+      "lines": [
+        "Signal 2026-03-11 14:50 | VWAP touch 2026-03-11 14:55 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIVISLAB.NS",
+      "name": "DIVISLAB.NS",
+      "notify_key": "DIVISLAB.NS|2026-03-11 11:35|WAIT",
+      "lines": [
+        "Signal 2026-03-11 11:35 | VWAP touch 2026-03-11 13:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIVISLAB.NS",
+      "name": "DIVISLAB.NS",
+      "notify_key": "DIVISLAB.NS|2026-03-11 11:40|WAIT",
+      "lines": [
+        "Signal 2026-03-11 11:40 | VWAP touch 2026-03-11 13:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIVISLAB.NS",
+      "name": "DIVISLAB.NS",
+      "notify_key": "DIVISLAB.NS|2026-03-11 12:15|WAIT",
+      "lines": [
+        "Signal 2026-03-11 12:15 | VWAP touch 2026-03-11 13:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HDFCBANK.NS",
+      "name": "HDFCBANK.NS",
+      "notify_key": "HDFCBANK.NS|2026-03-11 15:05|WAIT",
+      "lines": [
+        "Signal 2026-03-11 15:05 | VWAP touch 2026-03-11 15:20 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-11 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-11 11:00 | VWAP touch 2026-03-11 11:20 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "strategy_id": "intraday_momentum_commodities_wait",
+  "title": "Commodities Intraday Momentum \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "commodities",
+  "generated_at": "2026-03-05",
+  "runtime_sec": 1.68,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP."
+  ],
+  "items": [
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 14:30|WAIT",
+      "lines": [
+        "Signal 2026-03-05 14:30 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 14:35|WAIT",
+      "lines": [
+        "Signal 2026-03-05 14:35 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 14:40|WAIT",
+      "lines": [
+        "Signal 2026-03-05 14:40 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 14:50|WAIT",
+      "lines": [
+        "Signal 2026-03-05 14:50 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 17:30|WAIT",
+      "lines": [
+        "Signal 2026-03-05 17:30 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 17:40|WAIT",
+      "lines": [
+        "Signal 2026-03-05 17:40 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SI=F",
+      "name": "SI=F",
+      "notify_key": "SI=F|2026-03-05 17:45|WAIT",
+      "lines": [
+        "Signal 2026-03-05 17:45 | VWAP touch 2026-03-05 18:30 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 16:30|WAIT",
+      "lines": [
+        "Signal 2026-03-05 16:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 17:50|WAIT",
+      "lines": [
+        "Signal 2026-03-05 17:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 19:30|WAIT",
+      "lines": [
+        "Signal 2026-03-05 19:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 19:45|WAIT",
+      "lines": [
+        "Signal 2026-03-05 19:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 23:05|WAIT",
+      "lines": [
+        "Signal 2026-03-05 23:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 23:45|WAIT",
+      "lines": [
+        "Signal 2026-03-05 23:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CL=F",
+      "name": "CL=F",
+      "notify_key": "CL=F|2026-03-05 23:55|WAIT",
+      "lines": [
+        "Signal 2026-03-05 23:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NG=F",
+      "name": "NG=F",
+      "notify_key": "NG=F|2026-03-05 23:55|WAIT",
+      "lines": [
+        "Signal 2026-03-05 23:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    }
+  ]
+}

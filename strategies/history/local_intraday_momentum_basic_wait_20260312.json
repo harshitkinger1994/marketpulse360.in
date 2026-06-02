@@ -1,0 +1,1517 @@
+{
+  "strategy_id": "local_intraday_momentum_basic_wait",
+  "title": "Intraday Momentum Basic \u2014 Signal Waiting (VWAP not confirmed)",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "all",
+  "filter_mode": "basic",
+  "market_context": {
+    "nifty_bias_bullish": null,
+    "banknifty_bias_bullish": null,
+    "bullish": null
+  },
+  "generated_at": "2026-03-12",
+  "runtime_sec": 52.44,
+  "notes": [
+    "Signal fired but trade is OFF until VWAP retouch + green close above VWAP.",
+    "Signal precondition: breakout above previous 6 candles + volume > 2x (20-bar avg) + close > VWAP."
+  ],
+  "items": [
+    {
+      "ticker": "ICICIBANK.NS",
+      "name": "ICICIBANK.NS",
+      "notify_key": "ICICIBANK.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:05 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INDIGO.NS",
+      "name": "INDIGO.NS",
+      "notify_key": "INDIGO.NS|2026-03-12 15:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SHRIRAMFIN.NS",
+      "name": "SHRIRAMFIN.NS",
+      "notify_key": "SHRIRAMFIN.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BPCL.NS",
+      "name": "BPCL.NS",
+      "notify_key": "BPCL.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BPCL.NS",
+      "name": "BPCL.NS",
+      "notify_key": "BPCL.NS|2026-03-12 15:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BSE.NS",
+      "name": "BSE.NS",
+      "notify_key": "BSE.NS|2026-03-12 12:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MCX.NS",
+      "name": "MCX.NS",
+      "notify_key": "MCX.NS|2026-03-12 11:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BEL.NS",
+      "name": "BEL.NS",
+      "notify_key": "BEL.NS|2026-03-12 15:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MARUTI.NS",
+      "name": "MARUTI.NS",
+      "notify_key": "MARUTI.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:35 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BAJFINANCE.NS",
+      "name": "BAJFINANCE.NS",
+      "notify_key": "BAJFINANCE.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 13:55 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:05|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MAZDOCK.NS",
+      "name": "MAZDOCK.NS",
+      "notify_key": "MAZDOCK.NS|2026-03-12 15:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NATIONALUM.NS",
+      "name": "NATIONALUM.NS",
+      "notify_key": "NATIONALUM.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NATIONALUM.NS",
+      "name": "NATIONALUM.NS",
+      "notify_key": "NATIONALUM.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "VEDL.NS",
+      "name": "VEDL.NS",
+      "notify_key": "VEDL.NS|2026-03-12 13:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 10:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 10:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 11:05|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "name": "COALINDIA.NS",
+      "notify_key": "COALINDIA.NS|2026-03-12 13:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDALCO.NS",
+      "name": "HINDALCO.NS",
+      "notify_key": "HINDALCO.NS|2026-03-12 15:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IOC.NS",
+      "name": "IOC.NS",
+      "notify_key": "IOC.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "OIL.NS",
+      "name": "OIL.NS",
+      "notify_key": "OIL.NS|2026-03-12 09:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 09:40 | VWAP touch 2026-03-12 11:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HAL.NS",
+      "name": "HAL.NS",
+      "notify_key": "HAL.NS|2026-03-12 11:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WIPRO.NS",
+      "name": "WIPRO.NS",
+      "notify_key": "WIPRO.NS|2026-03-12 15:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 10:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 12:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 14:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DIXON.NS",
+      "name": "DIXON.NS",
+      "notify_key": "DIXON.NS|2026-03-12 15:05|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "name": "GODREJPROP.NS",
+      "notify_key": "GODREJPROP.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "name": "GODREJPROP.NS",
+      "notify_key": "GODREJPROP.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 12:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 13:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JIOFIN.NS",
+      "name": "JIOFIN.NS",
+      "notify_key": "JIOFIN.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NTPC.NS",
+      "name": "NTPC.NS",
+      "notify_key": "NTPC.NS|2026-03-12 13:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NTPC.NS",
+      "name": "NTPC.NS",
+      "notify_key": "NTPC.NS|2026-03-12 13:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 12:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNIONBANK.NS",
+      "name": "UNIONBANK.NS",
+      "notify_key": "UNIONBANK.NS|2026-03-12 13:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "KAYNES.NS",
+      "name": "KAYNES.NS",
+      "notify_key": "KAYNES.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "KAYNES.NS",
+      "name": "KAYNES.NS",
+      "notify_key": "KAYNES.NS|2026-03-12 13:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DMART.NS",
+      "name": "DMART.NS",
+      "notify_key": "DMART.NS|2026-03-12 14:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDZINC.NS",
+      "name": "HINDZINC.NS",
+      "notify_key": "HINDZINC.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PFC.NS",
+      "name": "PFC.NS",
+      "notify_key": "PFC.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PFC.NS",
+      "name": "PFC.NS",
+      "notify_key": "PFC.NS|2026-03-12 13:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 10:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PERSISTENT.NS",
+      "name": "PERSISTENT.NS",
+      "notify_key": "PERSISTENT.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-12 14:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:35 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-12 15:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HINDUNILVR.NS",
+      "name": "HINDUNILVR.NS",
+      "notify_key": "HINDUNILVR.NS|2026-03-12 15:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBILIFE.NS",
+      "name": "SBILIFE.NS",
+      "notify_key": "SBILIFE.NS|2026-03-12 12:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBILIFE.NS",
+      "name": "SBILIFE.NS",
+      "notify_key": "SBILIFE.NS|2026-03-12 13:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBILIFE.NS",
+      "name": "SBILIFE.NS",
+      "notify_key": "SBILIFE.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "HDFCLIFE.NS",
+      "name": "HDFCLIFE.NS",
+      "notify_key": "HDFCLIFE.NS|2026-03-12 12:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PAYTM.NS",
+      "name": "PAYTM.NS",
+      "notify_key": "PAYTM.NS|2026-03-12 15:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch 2026-03-12 15:05 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BDL.NS",
+      "name": "BDL.NS",
+      "notify_key": "BDL.NS|2026-03-12 15:05|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "name": "CHOLAFIN.NS",
+      "notify_key": "CHOLAFIN.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 13:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUROPHARMA.NS",
+      "name": "AUROPHARMA.NS",
+      "notify_key": "AUROPHARMA.NS|2026-03-12 15:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "RECLTD.NS",
+      "name": "RECLTD.NS",
+      "notify_key": "RECLTD.NS|2026-03-12 11:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "RECLTD.NS",
+      "name": "RECLTD.NS",
+      "notify_key": "RECLTD.NS|2026-03-12 12:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 10:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 11:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JSWSTEEL.NS",
+      "name": "JSWSTEEL.NS",
+      "notify_key": "JSWSTEEL.NS|2026-03-12 14:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 13:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAIL.NS",
+      "name": "SAIL.NS",
+      "notify_key": "SAIL.NS|2026-03-12 15:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 10:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 11:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 11:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 12:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 12:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "name": "JINDALSTEL.NS",
+      "notify_key": "JINDALSTEL.NS|2026-03-12 14:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "name": "WAAREEENER.NS",
+      "notify_key": "WAAREEENER.NS|2026-03-12 14:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 10:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 11:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TITAN.NS",
+      "name": "TITAN.NS",
+      "notify_key": "TITAN.NS|2026-03-12 13:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "AUBANK.NS",
+      "name": "AUBANK.NS",
+      "notify_key": "AUBANK.NS|2026-03-12 14:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INDHOTEL.NS",
+      "name": "INDHOTEL.NS",
+      "notify_key": "INDHOTEL.NS|2026-03-12 10:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 13:05|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "name": "MUTHOOTFIN.NS",
+      "notify_key": "MUTHOOTFIN.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NMDC.NS",
+      "name": "NMDC.NS",
+      "notify_key": "NMDC.NS|2026-03-12 12:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHARATFORG.NS",
+      "name": "BHARATFORG.NS",
+      "notify_key": "BHARATFORG.NS|2026-03-12 15:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-12 12:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:15 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-12 12:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "name": "DRREDDY.NS",
+      "notify_key": "DRREDDY.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANKINDIA.NS",
+      "name": "BANKINDIA.NS",
+      "notify_key": "BANKINDIA.NS|2026-03-12 13:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANKINDIA.NS",
+      "name": "BANKINDIA.NS",
+      "notify_key": "BANKINDIA.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LAURUSLABS.NS",
+      "name": "LAURUSLABS.NS",
+      "notify_key": "LAURUSLABS.NS|2026-03-12 13:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LUPIN.NS",
+      "name": "LUPIN.NS",
+      "notify_key": "LUPIN.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-12 09:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 09:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-12 09:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 09:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "name": "TATAPOWER.NS",
+      "notify_key": "TATAPOWER.NS|2026-03-12 10:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-12 13:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-12 14:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CGPOWER.NS",
+      "name": "CGPOWER.NS",
+      "notify_key": "CGPOWER.NS|2026-03-12 15:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BAJAJFINSV.NS",
+      "name": "BAJAJFINSV.NS",
+      "notify_key": "BAJAJFINSV.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHEL.NS",
+      "name": "BHEL.NS",
+      "notify_key": "BHEL.NS|2026-03-12 10:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHEL.NS",
+      "name": "BHEL.NS",
+      "notify_key": "BHEL.NS|2026-03-12 11:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BHEL.NS",
+      "name": "BHEL.NS",
+      "notify_key": "BHEL.NS|2026-03-12 11:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "RVNL.NS",
+      "name": "RVNL.NS",
+      "notify_key": "RVNL.NS|2026-03-12 11:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "name": "BANDHANBNK.NS",
+      "notify_key": "BANDHANBNK.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:35 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "name": "BANDHANBNK.NS",
+      "notify_key": "BANDHANBNK.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:35 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "name": "BANDHANBNK.NS",
+      "notify_key": "BANDHANBNK.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 14:35 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MOTHERSON.NS",
+      "name": "MOTHERSON.NS",
+      "notify_key": "MOTHERSON.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MOTHERSON.NS",
+      "name": "MOTHERSON.NS",
+      "notify_key": "MOTHERSON.NS|2026-03-12 15:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "CUMMINSIND.NS",
+      "name": "CUMMINSIND.NS",
+      "notify_key": "CUMMINSIND.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 10:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 10:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 12:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "name": "ADANIGREEN.NS",
+      "notify_key": "ADANIGREEN.NS|2026-03-12 12:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IRFC.NS",
+      "name": "IRFC.NS",
+      "notify_key": "IRFC.NS|2026-03-12 11:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SAMMAANCAP.NS",
+      "name": "SAMMAANCAP.NS",
+      "notify_key": "SAMMAANCAP.NS|2026-03-12 15:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch 2026-03-12 15:20 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "360ONE.NS",
+      "name": "360ONE.NS",
+      "notify_key": "360ONE.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "360ONE.NS",
+      "name": "360ONE.NS",
+      "notify_key": "360ONE.NS|2026-03-12 14:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-12 11:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-12 11:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ABB.NS",
+      "name": "ABB.NS",
+      "notify_key": "ABB.NS|2026-03-12 14:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BLUESTARCO.NS",
+      "name": "BLUESTARCO.NS",
+      "notify_key": "BLUESTARCO.NS|2026-03-12 13:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:15 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BLUESTARCO.NS",
+      "name": "BLUESTARCO.NS",
+      "notify_key": "BLUESTARCO.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "BLUESTARCO.NS",
+      "name": "BLUESTARCO.NS",
+      "notify_key": "BLUESTARCO.NS|2026-03-12 13:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:45 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "MFSL.NS",
+      "name": "MFSL.NS",
+      "notify_key": "MFSL.NS|2026-03-12 15:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SBICARD.NS",
+      "name": "SBICARD.NS",
+      "notify_key": "SBICARD.NS|2026-03-12 11:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ADANIENSOL.NS",
+      "name": "ADANIENSOL.NS",
+      "notify_key": "ADANIENSOL.NS|2026-03-12 15:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LICI.NS",
+      "name": "LICI.NS",
+      "notify_key": "LICI.NS|2026-03-12 12:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "UNITDSPR.NS",
+      "name": "UNITDSPR.NS",
+      "notify_key": "UNITDSPR.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 13:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:50 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TIINDIA.NS",
+      "name": "TIINDIA.NS",
+      "notify_key": "TIINDIA.NS|2026-03-12 15:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NBCC.NS",
+      "name": "NBCC.NS",
+      "notify_key": "NBCC.NS|2026-03-12 10:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NBCC.NS",
+      "name": "NBCC.NS",
+      "notify_key": "NBCC.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-12 12:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-12 12:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "IREDA.NS",
+      "name": "IREDA.NS",
+      "notify_key": "IREDA.NS|2026-03-12 12:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 10:55|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:55 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 11:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 12:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "name": "INOXWIND.NS",
+      "notify_key": "INOXWIND.NS|2026-03-12 13:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:20 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SUPREMEIND.NS",
+      "name": "SUPREMEIND.NS",
+      "notify_key": "SUPREMEIND.NS|2026-03-12 11:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SUPREMEIND.NS",
+      "name": "SUPREMEIND.NS",
+      "notify_key": "SUPREMEIND.NS|2026-03-12 12:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:00 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SUPREMEIND.NS",
+      "name": "SUPREMEIND.NS",
+      "notify_key": "SUPREMEIND.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ASTRAL.NS",
+      "name": "ASTRAL.NS",
+      "notify_key": "ASTRAL.NS|2026-03-12 15:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch 2026-03-12 15:25 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "LODHA.NS",
+      "name": "LODHA.NS",
+      "notify_key": "LODHA.NS|2026-03-12 13:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:35 | VWAP touch 2026-03-12 14:40 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-12 11:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-12 13:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "name": "PREMIERENE.NS",
+      "notify_key": "PREMIERENE.NS|2026-03-12 14:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 14:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "TORNTPOWER.NS",
+      "name": "TORNTPOWER.NS",
+      "notify_key": "TORNTPOWER.NS|2026-03-12 12:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "name": "KALYANKJIL.NS",
+      "notify_key": "KALYANKJIL.NS|2026-03-12 10:50|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:50 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SRF.NS",
+      "name": "SRF.NS",
+      "notify_key": "SRF.NS|2026-03-12 09:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 09:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SRF.NS",
+      "name": "SRF.NS",
+      "notify_key": "SRF.NS|2026-03-12 12:35|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:35 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:05|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:05 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:15|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:15 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "ICICIGI.NS",
+      "name": "ICICIGI.NS",
+      "notify_key": "ICICIGI.NS|2026-03-12 15:20|WAIT",
+      "lines": [
+        "Signal 2026-03-12 15:20 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "name": "SYNGENE.NS",
+      "notify_key": "SYNGENE.NS|2026-03-12 10:30|WAIT",
+      "lines": [
+        "Signal 2026-03-12 10:30 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "name": "SYNGENE.NS",
+      "notify_key": "SYNGENE.NS|2026-03-12 11:10|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:10 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "name": "SYNGENE.NS",
+      "notify_key": "SYNGENE.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NUVAMA.NS",
+      "name": "NUVAMA.NS",
+      "notify_key": "NUVAMA.NS|2026-03-12 13:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:25 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "NUVAMA.NS",
+      "name": "NUVAMA.NS",
+      "notify_key": "NUVAMA.NS|2026-03-12 13:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:40 | VWAP touch 2026-03-12 14:45 | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 09:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 09:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 11:40|WAIT",
+      "lines": [
+        "Signal 2026-03-12 11:40 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 12:25|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:25 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 12:45|WAIT",
+      "lines": [
+        "Signal 2026-03-12 12:45 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    },
+    {
+      "ticker": "DALBHARAT.NS",
+      "name": "DALBHARAT.NS",
+      "notify_key": "DALBHARAT.NS|2026-03-12 13:00|WAIT",
+      "lines": [
+        "Signal 2026-03-12 13:00 | VWAP touch NA | Trade ON NA | Waiting for green 5m close above VWAP."
+      ]
+    }
+  ]
+}

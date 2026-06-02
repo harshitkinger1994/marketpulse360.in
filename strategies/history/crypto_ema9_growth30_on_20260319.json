@@ -1,0 +1,93 @@
+{
+  "strategy_id": "crypto_ema9_growth30_on",
+  "title": "Crypto EMA9 Growth 30",
+  "owner": "HARSHIT",
+  "trade_type": "SWING",
+  "market": "crypto",
+  "generated_at": "2026-03-19T06:50:20.139056+00:00",
+  "as_of_date": "2026-03-19",
+  "counts": {
+    "assets": 5,
+    "assets_with_data": 5,
+    "window_days": 30,
+    "signals_total": 4
+  },
+  "rules": {
+    "breakout_condition": "Daily range > ATR(14) x 1.4, with daily and weekly EMA9 side alignment",
+    "entry_trigger": "BUY: low < EMA9 and close > EMA9 with bullish candle near high | SELL: high > EMA9 and close < EMA9 with bearish candle near low",
+    "volume_multiple": "Daily volume > SMA(14)",
+    "lookback_volume": 14,
+    "rsi_range": [
+      30.0,
+      60.0
+    ],
+    "min_atr_pct": 0.0,
+    "require_ema9_slope": false,
+    "ema9_slope_lookback_days": 5,
+    "filter_mode": "RSI(14) in 30.0-60.0, volume > SMA(14); market gate disabled"
+  },
+  "notes": [
+    "Daily+Weekly EMA9 strategy with ATR range expansion, volume, RSI and candle-body confirmation.",
+    "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
+    "Market benchmark gate is disabled for this strategy.",
+    "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures."
+  ],
+  "items": [
+    {
+      "ticker": "BTC",
+      "name": "BTC",
+      "symbol": "BTC-USD",
+      "side": "SELL",
+      "notify_key": "BTC|2026-03-18|SELL|71245.58",
+      "signal_time": "2026-03-18",
+      "entry_time": "2026-03-18",
+      "entry_price": 71245.578125,
+      "lines": [
+        "SELL | Date 2026-03-18 | Close 71245.58 vs EMA9 71715.98 | Weekly close 70692.90 vs EMA9 73304.65",
+        "Range 4155.12 > ATR14x1.4 (2681.10) | Vol 46229011155 vs SMA14 43125741310 | RSI14 46.19 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "SOL",
+      "symbol": "SOL-USD",
+      "side": "SELL",
+      "notify_key": "SOL|2026-03-18|SELL|90.07",
+      "signal_time": "2026-03-18",
+      "entry_time": "2026-03-18",
+      "entry_price": 90.06571960449219,
+      "lines": [
+        "SELL | Date 2026-03-18 | Close 90.07 vs EMA9 90.37 | Weekly close 89.97 vs EMA9 95.75",
+        "Range 6.73 > ATR14x1.4 (4.37) | Vol 4331839385 vs SMA14 3950718952 | RSI14 48.72 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "side": "SELL",
+      "notify_key": "BNB|2026-03-18|SELL|652.06",
+      "signal_time": "2026-03-18",
+      "entry_time": "2026-03-18",
+      "entry_price": 652.05908203125,
+      "lines": [
+        "SELL | Date 2026-03-18 | Close 652.06 vs EMA9 657.57 | Weekly close 649.23 vs EMA9 686.55",
+        "Range 30.70 > ATR14x1.4 (19.34) | Vol 1920423223 vs SMA14 1654299120 | RSI14 47.95 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "name": "SOL",
+      "symbol": "SOL-USD",
+      "side": "SELL",
+      "notify_key": "SOL|2026-02-27|SELL|81.95",
+      "signal_time": "2026-02-27",
+      "entry_time": "2026-02-27",
+      "entry_price": 81.95148468017578,
+      "lines": [
+        "SELL | Date 2026-02-27 | Close 81.95 vs EMA9 83.50 | Weekly close 83.58 vs EMA9 102.64",
+        "Range 7.11 > ATR14x1.4 (4.93) | Vol 3859172094 vs SMA14 3592758444 | RSI14 46.92 | Market gate disabled"
+      ]
+    }
+  ]
+}

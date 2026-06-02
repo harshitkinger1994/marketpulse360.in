@@ -1,0 +1,93 @@
+{
+  "strategy_id": "global_ema9_growth30_on",
+  "title": "Global EMA9 Growth 30",
+  "owner": "HARSHIT",
+  "trade_type": "SWING",
+  "market": "global",
+  "generated_at": "2026-03-19T06:50:14.649017+00:00",
+  "as_of_date": "2026-03-18",
+  "counts": {
+    "assets": 50,
+    "assets_with_data": 50,
+    "window_days": 30,
+    "signals_total": 4
+  },
+  "rules": {
+    "breakout_condition": "Daily range > ATR(14) x 1.4, with daily and weekly EMA9 side alignment",
+    "entry_trigger": "BUY: low < EMA9 and close > EMA9 with bullish candle near high | SELL: high > EMA9 and close < EMA9 with bearish candle near low",
+    "volume_multiple": "Daily volume > SMA(14)",
+    "lookback_volume": 14,
+    "rsi_range": [
+      30.0,
+      60.0
+    ],
+    "min_atr_pct": 0.0,
+    "require_ema9_slope": false,
+    "ema9_slope_lookback_days": 5,
+    "filter_mode": "RSI(14) in 30.0-60.0, volume > SMA(14); market gate disabled"
+  },
+  "notes": [
+    "Daily+Weekly EMA9 strategy with ATR range expansion, volume, RSI and candle-body confirmation.",
+    "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
+    "Market benchmark gate is disabled for this strategy.",
+    "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures."
+  ],
+  "items": [
+    {
+      "ticker": "LIN",
+      "name": "LIN",
+      "symbol": "LIN",
+      "side": "BUY",
+      "notify_key": "LIN|2026-03-12|BUY|490.41",
+      "signal_time": "2026-03-12",
+      "entry_time": "2026-03-12",
+      "entry_price": 490.4100036621094,
+      "lines": [
+        "BUY | Date 2026-03-12 | Close 490.41 vs EMA9 488.55 | Weekly close 493.92 vs EMA9 476.11",
+        "Range 15.28 > ATR14x1.4 (10.73) | Vol 2908500 vs SMA14 2790350 | RSI14 46.00 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "name": "HON",
+      "symbol": "HON",
+      "side": "BUY",
+      "notify_key": "HON|2026-03-10|BUY|240.61",
+      "signal_time": "2026-03-10",
+      "entry_time": "2026-03-10",
+      "entry_price": 240.61000061035156,
+      "lines": [
+        "BUY | Date 2026-03-10 | Close 240.61 vs EMA9 240.52 | Weekly close 234.50 vs EMA9 231.29",
+        "Range 8.64 > ATR14x1.4 (5.56) | Vol 5089100 vs SMA14 3703329 | RSI14 49.29 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "COST",
+      "name": "COST",
+      "symbol": "COST",
+      "side": "BUY",
+      "notify_key": "COST|2026-02-12|BUY|998.86",
+      "signal_time": "2026-02-12",
+      "entry_time": "2026-02-12",
+      "entry_price": 998.8599853515625,
+      "lines": [
+        "BUY | Date 2026-02-12 | Close 998.86 vs EMA9 982.89 | Weekly close 1018.48 vs EMA9 956.73",
+        "Range 31.07 > ATR14x1.4 (21.92) | Vol 2970400 vs SMA14 2357614 | RSI14 54.83 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "BAC",
+      "name": "BAC",
+      "symbol": "BAC",
+      "side": "SELL",
+      "notify_key": "BAC|2026-02-11|SELL|53.85",
+      "signal_time": "2026-02-11",
+      "entry_time": "2026-02-11",
+      "entry_price": 53.849998474121094,
+      "lines": [
+        "SELL | Date 2026-02-11 | Close 53.85 vs EMA9 54.74 | Weekly close 52.55 vs EMA9 53.92",
+        "Range 2.87 > ATR14x1.4 (1.29) | Vol 48973500 vs SMA14 37756121 | RSI14 57.13 | Market gate disabled"
+      ]
+    }
+  ]
+}

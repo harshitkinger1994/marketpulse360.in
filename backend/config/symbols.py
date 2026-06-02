@@ -1,0 +1,24 @@
+INDEX_SYMBOLS = {
+    "NIFTY": "^NSEI",
+    "BANKNIFTY": "^NSEBANK",
+    "FINNIFTY": "NIFTY_FIN_SERVICE.NS",
+}
+
+GLOBAL_INDICES = {
+    "SP500": "^GSPC",
+    "NASDAQ": "^IXIC",
+}
+
+COMMODITIES = {
+    "GOLD": "GC=F",
+    "SILVER": "XAGINR=X",
+}
+
+CRYPTO = {
+    "BITCOIN": "BTC-USD",
+    "ETHEREUM": "ETH-USD",
+}
+
+VOLATILITY = {
+    "INDIA_VIX": "^INDIAVIX"
+}

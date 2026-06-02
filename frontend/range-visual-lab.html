@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Range Visual Lab | Market Pulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f1e6;
+      --panel: rgba(255, 250, 242, 0.88);
+      --panel-strong: #fffdf8;
+      --text: #2f2317;
+      --muted: #7f6b58;
+      --line: #e7d7c1;
+      --green: #1f8f5f;
+      --green-soft: rgba(31, 143, 95, 0.16);
+      --red: #cc5938;
+      --red-soft: rgba(204, 89, 56, 0.15);
+      --gold: #b98b3d;
+      --ink-soft: rgba(47, 35, 23, 0.08);
+      --shadow: 0 28px 60px rgba(92, 64, 34, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "IBM Plex Sans", sans-serif;
+      background:
+        radial-gradient(900px 520px at 15% 0%, rgba(255, 255, 255, 0.95), transparent 58%),
+        radial-gradient(1000px 600px at 100% 20%, rgba(234, 191, 123, 0.18), transparent 50%),
+        linear-gradient(180deg, #fbf6ee 0%, #f2e7d9 100%);
+      min-height: 100vh;
+    }
+
+    .shell {
+      width: min(1380px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(185, 139, 61, 0.18);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-main {
+      padding: 30px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -90px auto;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(185, 139, 61, 0.16), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(185, 139, 61, 0.12);
+      color: #7d5a22;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Space Grotesk", sans-serif;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 0.98;
+      max-width: 720px;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .hero-points span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(47, 35, 23, 0.08);
+      background: rgba(255, 255, 255, 0.52);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero-side {
+      padding: 26px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .side-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(47, 35, 23, 0.08);
+    }
+
+    .side-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .lab-card {
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lab-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .lab-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .state-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .state-chip.green {
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .state-chip.red {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .state-chip.neutral {
+      color: #8f6a20;
+      background: rgba(185, 139, 61, 0.14);
+    }
+
+    .ticker-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 18px;
+    }
+
+    .ticker {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .market-tag {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .range-stage {
+      position: relative;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(249, 244, 236, 0.9));
+      border: 1px solid rgba(47, 35, 23, 0.08);
+      padding: 18px 18px 16px;
+      overflow: hidden;
+    }
+
+    .range-rail {
+      position: relative;
+      height: 16px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, rgba(47, 35, 23, 0.07) 0%, rgba(47, 35, 23, 0.12) 100%);
+      margin: 44px 0 26px;
+      overflow: visible;
+    }
+
+    .session-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      border-radius: 999px;
+      opacity: 0.95;
+    }
+
+    .session-fill.green {
+      background: linear-gradient(90deg, rgba(31, 143, 95, 0.18), rgba(31, 143, 95, 0.82));
+      box-shadow: 0 0 24px rgba(31, 143, 95, 0.18);
+    }
+
+    .session-fill.red {
+      background: linear-gradient(90deg, rgba(204, 89, 56, 0.82), rgba(204, 89, 56, 0.18));
+      box-shadow: 0 0 24px rgba(204, 89, 56, 0.18);
+    }
+
+    .marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .marker.open .pin {
+      width: 18px;
+      height: 18px;
+      background: #fffaf2;
+      border: 2px solid #8e7350;
+      transform: rotate(45deg);
+      border-radius: 5px;
+      box-shadow: 0 10px 22px rgba(68, 52, 33, 0.12);
+    }
+
+    .marker.current .pin {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 3px solid #fffaf2;
+      box-shadow: 0 8px 20px rgba(31, 27, 20, 0.18);
+    }
+
+    .marker.current.green .pin {
+      background: var(--green);
+    }
+
+    .marker.current.red .pin {
+      background: var(--red);
+    }
+
+    .marker-label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--panel-strong);
+      border: 1px solid rgba(47, 35, 23, 0.08);
+      color: #654d36;
+      white-space: nowrap;
+      box-shadow: 0 10px 18px rgba(68, 52, 33, 0.08);
+    }
+
+    .marker.open .marker-label {
+      bottom: 22px;
+    }
+
+    .marker.current .marker-label {
+      top: 22px;
+    }
+
+    .rail-ends {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    .endcap {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .endcap b {
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(47, 35, 23, 0.08);
+    }
+
+    .stat label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .stat .value {
+      font-size: 21px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .stat .sub {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .insight-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .insight-pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(47, 35, 23, 0.08);
+      color: #61482f;
+    }
+
+    .playground {
+      margin-top: 24px;
+      padding: 26px;
+    }
+
+    .playground-grid {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .controls {
+      display: grid;
+      gap: 14px;
+    }
+
+    .control {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(47, 35, 23, 0.08);
+    }
+
+    .control-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #8a6733;
+    }
+
+    .play-legend {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .grid,
+      .playground-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 24px, 1380px);
+        padding-top: 16px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .lab-card,
+      .playground {
+        padding: 20px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ticker-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="panel hero-main">
+        <span class="eyebrow">Range Visual Lab</span>
+        <h1>Open. Low. High. Current. One clean visual that tells the story fast.</h1>
+        <p class="hero-copy">
+          This is a test page for the new daily range component. The idea is to show where price is sitting inside the day range,
+          how far it has moved from the open, and whether the session tone is green or red at a glance.
+        </p>
+        <div class="hero-points">
+          <span>Open marker</span>
+          <span>Low-high session rail</span>
+          <span>Current price pin</span>
+          <span>Green/red directional fill</span>
+          <span>Position inside day range</span>
+        </div>
+      </div>
+      <div class="panel hero-side">
+        <div class="side-card">
+          <h3>Best use on market pages</h3>
+          <p>Perfect for index cards, stock search results, watchlists, telegram alerts, and exchange pages where quick intraday context matters.</p>
+        </div>
+        <div class="side-card">
+          <h3>Why this is stronger</h3>
+          <p>Numbers alone force the eye to work too hard. This turns the day into a visual map: range, control, rejection, expansion, compression, and recovery.</p>
+        </div>
+        <div class="side-card">
+          <h3>What we are testing</h3>
+          <p>Color balance, marker clarity, density, and whether the current pin feels premium enough to use across India, global, commodity, and crypto pages.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="samplesGrid"></section>
+
+    <section class="panel playground">
+      <div class="lab-head">
+        <div>
+          <h2>Interactive Playground</h2>
+          <p>Drag the values and watch how the component reacts before we wire this into live pages.</p>
+        </div>
+        <span class="state-chip neutral">Custom Scenario</span>
+      </div>
+      <div class="playground-grid">
+        <div class="controls">
+          <div class="control">
+            <div class="control-top">
+              <span>Low</span>
+              <strong id="lowValue">24840</strong>
+            </div>
+            <input id="lowInput" type="range" min="24500" max="25500" step="5" value="24840" />
+          </div>
+          <div class="control">
+            <div class="control-top">
+              <span>High</span>
+              <strong id="highValue">25260</strong>
+            </div>
+            <input id="highInput" type="range" min="24880" max="25800" step="5" value="25260" />
+          </div>
+          <div class="control">
+            <div class="control-top">
+              <span>Open</span>
+              <strong id="openValue">24990</strong>
+            </div>
+            <input id="openInput" type="range" min="24840" max="25260" step="5" value="24990" />
+          </div>
+          <div class="control">
+            <div class="control-top">
+              <span>Current</span>
+              <strong id="currentValue">25180</strong>
+            </div>
+            <input id="currentInput" type="range" min="24840" max="25260" step="5" value="25180" />
+          </div>
+          <div class="play-legend">
+            Green means current is above open. Red means current is below open. The current pin always sits inside the intraday rail from low to high.
+          </div>
+        </div>
+        <div id="playgroundTarget"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const samples = [
+      {
+        ticker: "NIFTY 50",
+        market: "India Index",
+        title: "Strong Bull Close",
+        description: "Open held, buyers controlled the day, and price is pressing near the session high.",
+        low: 24780,
+        high: 25240,
+        open: 24895,
+        current: 25198,
+      },
+      {
+        ticker: "BANKNIFTY",
+        market: "India Index",
+        title: "Breakdown Session",
+        description: "Open failed early, price spent most of the session below the opening print, and the current level is sitting weak near low.",
+        low: 54910,
+        high: 55680,
+        open: 55510,
+        current: 55040,
+      },
+      {
+        ticker: "AAPL",
+        market: "Nasdaq",
+        title: "Morning Flush, Strong Recovery",
+        description: "Large lower tail, open lost, then price recovered enough to regain the opening level.",
+        low: 212.4,
+        high: 219.7,
+        open: 214.1,
+        current: 217.9,
+      },
+      {
+        ticker: "TSLA",
+        market: "Nasdaq",
+        title: "Rejection From High",
+        description: "Price expanded early but sellers hit near the upper range, forcing a red close under the opening print.",
+        low: 174.2,
+        high: 188.6,
+        open: 183.7,
+        current: 179.1,
+      },
+      {
+        ticker: "GOLD",
+        market: "Commodity",
+        title: "Trend Day Up",
+        description: "The session stayed constructive with current price hugging the upper third of the day range.",
+        low: 71480,
+        high: 72195,
+        open: 71610,
+        current: 72088,
+      },
+      {
+        ticker: "BTC",
+        market: "Crypto",
+        title: "Compression Near Open",
+        description: "Flat rotational day. Current price is almost sitting on the open with neither side in clear control.",
+        low: 80220,
+        high: 82140,
+        open: 81110,
+        current: 81140,
+      },
+    ];
+
+    const fmt = (value) => {
+      if (Math.abs(value) >= 1000) {
+        return Number(value).toLocaleString("en-IN", { maximumFractionDigits: 2 });
+      }
+      return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
+    };
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const pct = (value, base) => {
+      if (!base) return 0;
+      return ((value - base) / base) * 100;
+    };
+
+    const rangePosition = (value, low, high) => {
+      if (high <= low) return 0;
+      return clamp(((value - low) / (high - low)) * 100, 0, 100);
+    };
+
+    const buildCard = (sample) => {
+      const tone = sample.current > sample.open ? "green" : sample.current < sample.open ? "red" : "neutral";
+      const stateLabel = sample.current > sample.open ? "Green Session" : sample.current < sample.open ? "Red Session" : "Flat Session";
+      const openPos = rangePosition(sample.open, sample.low, sample.high);
+      const currentPos = rangePosition(sample.current, sample.low, sample.high);
+      const fillLeft = Math.min(openPos, currentPos);
+      const fillWidth = Math.abs(currentPos - openPos);
+      const move = pct(sample.current, sample.open);
+      const dayRange = pct(sample.high, sample.low);
+      const rangeHeld = rangePosition(sample.current, sample.low, sample.high);
+      const fromLow = pct(sample.current, sample.low);
+      const fromHigh = pct(sample.current, sample.high);
+
+      return `
+        <article class="panel lab-card">
+          <div class="lab-head">
+            <div>
+              <h2>${sample.title}</h2>
+              <p>${sample.description}</p>
+            </div>
+            <span class="state-chip ${tone}">${stateLabel}</span>
+          </div>
+          <div class="ticker-row">
+            <div class="ticker">${sample.ticker}</div>
+            <div class="market-tag">${sample.market}</div>
+          </div>
+          <div class="range-stage">
+            <div class="range-rail">
+              <div class="session-fill ${tone === "neutral" ? "green" : tone}" style="left:${fillLeft}%; width:${Math.max(fillWidth, 1.2)}%;"></div>
+              <div class="marker open" style="left:${openPos}%;">
+                <div class="marker-label">Open ${fmt(sample.open)}</div>
+                <div class="pin"></div>
+              </div>
+              <div class="marker current ${tone === "neutral" ? "green" : tone}" style="left:${currentPos}%;">
+                <div class="marker-label">Current ${fmt(sample.current)}</div>
+                <div class="pin"></div>
+              </div>
+            </div>
+            <div class="rail-ends">
+              <div class="endcap">
+                <span>Low</span>
+                <b>${fmt(sample.low)}</b>
+              </div>
+              <div class="endcap" style="text-align:right;">
+                <span>High</span>
+                <b>${fmt(sample.high)}</b>
+              </div>
+            </div>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <label>Current vs Open</label>
+              <div class="value" style="color:${tone === "red" ? "var(--red)" : "var(--green)"};">${move >= 0 ? "+" : ""}${move.toFixed(2)}%</div>
+              <div class="sub">${sample.current >= sample.open ? "buyers ahead" : "sellers ahead"}</div>
+            </div>
+            <div class="stat">
+              <label>Day Range</label>
+              <div class="value">${dayRange.toFixed(2)}%</div>
+              <div class="sub">high vs low</div>
+            </div>
+            <div class="stat">
+              <label>Range Position</label>
+              <div class="value">${rangeHeld.toFixed(0)}%</div>
+              <div class="sub">current inside day</div>
+            </div>
+            <div class="stat">
+              <label>Distance to High</label>
+              <div class="value">${fromHigh.toFixed(2)}%</div>
+              <div class="sub">negative means below high</div>
+            </div>
+          </div>
+          <div class="insight-row">
+            <span class="insight-pill">From Low: +${fromLow.toFixed(2)}%</span>
+            <span class="insight-pill">Open Marker: ${openPos.toFixed(0)}% in range</span>
+            <span class="insight-pill">Current Marker: ${currentPos.toFixed(0)}% in range</span>
+          </div>
+        </article>
+      `;
+    };
+
+    const renderSamples = () => {
+      document.getElementById("samplesGrid").innerHTML = samples.map(buildCard).join("");
+    };
+
+    const lowInput = document.getElementById("lowInput");
+    const highInput = document.getElementById("highInput");
+    const openInput = document.getElementById("openInput");
+    const currentInput = document.getElementById("currentInput");
+
+    const syncValue = (id, value) => {
+      document.getElementById(id).textContent = fmt(Number(value));
+    };
+
+    const renderPlayground = () => {
+      let low = Number(lowInput.value);
+      let high = Number(highInput.value);
+      if (high <= low) {
+        high = low + 5;
+        highInput.value = String(high);
+      }
+
+      openInput.min = String(low);
+      openInput.max = String(high);
+      currentInput.min = String(low);
+      currentInput.max = String(high);
+
+      let open = clamp(Number(openInput.value), low, high);
+      let current = clamp(Number(currentInput.value), low, high);
+      openInput.value = String(open);
+      currentInput.value = String(current);
+
+      syncValue("lowValue", low);
+      syncValue("highValue", high);
+      syncValue("openValue", open);
+      syncValue("currentValue", current);
+
+      document.getElementById("playgroundTarget").innerHTML = buildCard({
+        ticker: "CUSTOM",
+        market: "Playground",
+        title: "Your Scenario",
+        description: "Use this to decide how the component should look before we integrate it into actual market pages.",
+        low,
+        high,
+        open,
+        current,
+      });
+    };
+
+    [lowInput, highInput, openInput, currentInput].forEach((input) => {
+      input.addEventListener("input", renderPlayground);
+    });
+
+    renderSamples();
+    renderPlayground();
+  </script>
+</body>
+</html>
