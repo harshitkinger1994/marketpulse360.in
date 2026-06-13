@@ -1,0 +1,33 @@
+{
+  "strategy_id": "india_dhan_ema9_growth30_on",
+  "title": "India Dhan 15m OI EMA9 Growth 30",
+  "owner": "HARSHIT",
+  "trade_type": "INTRADAY",
+  "market": "india",
+  "generated_at": "2026-06-13T13:36:28.488566+00:00",
+  "as_of_date": "2026-06-13",
+  "counts": {
+    "assets": 3,
+    "assets_with_data": 3,
+    "signals_total": 0,
+    "scanned_signals": 1,
+    "window_days": 60,
+    "source": "dhan",
+    "pilot_side": "bullish"
+  },
+  "rules": {
+    "data_source": "Dhan intraday API",
+    "timeframe": "15m",
+    "trend_filter": "3h EMA9 and session VWAP alignment",
+    "range_multiple": "2.5x to 4.0x",
+    "reward_risk_min": 1.0,
+    "note": "Live Dhan-backed pilot used for UI cards and Telegram alerts."
+  },
+  "notes": [
+    "Dhan intraday charts and scrip master power this live pilot.",
+    "Telegram alert is sent by backend daily notifier for current-day pilot entries.",
+    "Pilot symbols: BAJFINANCE, TITAN, SBIN.",
+    "Current-day items: 0 | Raw signals scanned: 1."
+  ],
+  "items": []
+}

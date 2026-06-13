@@ -126,12 +126,37 @@ const resolveAssetKey = (data, rawKey) => {
   return null;
 };
 
-const pctChange = (history, days) => {
+const pctChange = (input, days) => {
+  const item = Array.isArray(input) ? { history: input } : (input || {});
+  const history = Array.isArray(item.history) ? item.history : [];
+  const structuredRange = item.day_range || item.session_range || item.ohlc || item.intraday || item.price_action || null;
+
+  if (days === 1) {
+    const current = getFirstFiniteNumber(item, ["current_price", "current", "close", "ltp", "price"])
+      ?? getFirstFiniteNumber(structuredRange, ["current", "last", "ltp", "close", "price"]);
+    const previous = getFirstFiniteNumber(structuredRange, ["previous_close", "prev_close", "previous"])
+      ?? (history.length >= 2 ? history[history.length - 2]?.close : null);
+    if (typeof current === "number" && typeof previous === "number" && previous !== 0) {
+      return ((current / previous) - 1) * 100;
+    }
+  }
+
   if (!Array.isArray(history) || history.length <= days) return null;
   const latest = history[history.length - 1]?.close;
   const previous = history[history.length - 1 - days]?.close;
   if (typeof latest !== "number" || typeof previous !== "number" || previous === 0) return null;
   return ((latest / previous) - 1) * 100;
+};
+
+const liveSessionTrend = (item) => {
+  const current = getFirstFiniteNumber(item, ["current_price", "current", "close", "ltp", "price"]);
+  const dayRange = item?.day_range || item?.session_range || item?.ohlc || item?.intraday || item?.price_action || null;
+  const previous = getFirstFiniteNumber(dayRange, ["previous_close", "prev_close", "previous"])
+    ?? getFirstFiniteNumber(item, ["previous_close", "prev_close", "previous"]);
+  if (typeof current !== "number" || typeof previous !== "number" || previous === 0) return null;
+  if (current > previous) return "PRIMARY_UPTREND";
+  if (current < previous) return "PRIMARY_DOWNTREND";
+  return "RANGE";
 };
 
 const formatChange = (pct) => {
@@ -339,8 +364,8 @@ const renderExecutiveSummaryShell = ({
 `;
 
 const buildExecutiveAssetCard = (label, key, item, options = {}) => {
-  const oneDay = pctChange(item?.history, 1);
-  const oneWeek = pctChange(item?.history, 5);
+  const oneDay = pctChange(item, 1);
+  const oneWeek = pctChange(item, 5);
   const tone = options.tone || executiveToneFromBalance(
     typeof oneDay === "number" && oneDay > 0 ? 1 : 0,
     typeof oneDay === "number" && oneDay < 0 ? 1 : 0,
@@ -790,6 +815,21 @@ const fetchAndMergeLiveKeys = async (data, keys = []) => {
         lastLiveOkAt = Date.now();
         lastLiveOkTs = payload.timestamp;
       }
+      if (payload?.summary) {
+        data.__live_summary = payload.summary;
+        if (payload.summary.breadth) {
+          data.breadth = payload.summary.breadth;
+          if (window.__exchangePayload) window.__exchangePayload.breadth = payload.summary.breadth;
+        }
+        if (payload.summary.market_health) {
+          data.market_health = payload.summary.market_health;
+          if (window.__exchangePayload) window.__exchangePayload.market_health = payload.summary.market_health;
+        }
+        if (payload.summary.executive_summary) {
+          data.executive_summary = payload.summary.executive_summary;
+          if (window.__exchangePayload) window.__exchangePayload.executive_summary = payload.summary.executive_summary;
+        }
+      }
       const prices = payload?.prices || {};
       Object.entries(prices).forEach(([key, value]) => {
         if (!data[key] || value?.price === null || value?.price === undefined) return;
@@ -801,6 +841,8 @@ const fetchAndMergeLiveKeys = async (data, keys = []) => {
           day_range: value?.day_range || data[key]?.day_range,
           freshness: "Live",
         };
+        const liveTrend = liveSessionTrend(data[key]);
+        if (liveTrend) data[key].trend = liveTrend;
       });
       return true;
     } catch (err) {
@@ -1814,8 +1856,8 @@ const renderExchangePage = (payload) => {
     : benchmark?.trend === "PRIMARY_DOWNTREND"
       ? "bear"
       : executiveToneFromBalance(
-        typeof pctChange(benchmark?.history, 1) === "number" && pctChange(benchmark?.history, 1) > 0 ? 1 : 0,
-        typeof pctChange(benchmark?.history, 1) === "number" && pctChange(benchmark?.history, 1) < 0 ? 1 : 0,
+        typeof pctChange(benchmark, 1) === "number" && pctChange(benchmark, 1) > 0 ? 1 : 0,
+        typeof pctChange(benchmark, 1) === "number" && pctChange(benchmark, 1) < 0 ? 1 : 0,
         status === "upcoming" ? "neutral" : "bull"
       );
   const score = breadth
@@ -1974,14 +2016,24 @@ const renderExchangePage = (payload) => {
     .filter(([, value]) => Array.isArray(value?.history) && value.history.length >= 6)
     .map(([name, value]) => ({
       name,
-      one: pctChange(value.history, 1),
-      five: pctChange(value.history, 5),
-      twentyOne: pctChange(value.history, 21),
+      one: pctChange(value, 1),
+      five: pctChange(value, 5),
+      twentyOne: pctChange(value, 21),
     }))
     .filter((item) => item.one !== null);
 
-  renderMovers("topGainers", "Top Gainers", movers.slice().sort((a, b) => b.one - a.one).slice(0, 5), "No gainers available yet.");
-  renderMovers("topLosers", "Top Losers", movers.slice().sort((a, b) => a.one - b.one).slice(0, 5), "No losers available yet.");
+  renderMovers(
+    "topGainers",
+    "Top Gainers",
+    movers.filter((item) => item.one > 0).slice().sort((a, b) => b.one - a.one).slice(0, 5),
+    "No gainers available yet."
+  );
+  renderMovers(
+    "topLosers",
+    "Top Losers",
+    movers.filter((item) => item.one < 0).slice().sort((a, b) => a.one - b.one).slice(0, 5),
+    "No losers available yet."
+  );
   bindExchangeSearch(entries, cfg);
   const newsCount = renderNews(payload);
   const eventCount = renderEvents(payload);

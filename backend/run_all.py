@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ENV_PATH = ROOT / "backend" / ".env"
 SWING_SCRIPT = ROOT / "strategies" / "reliance_open_close.py"
 DAILY_SCRIPT = ROOT / "backend" / "daily_run.py"
+TRADER_SCRIPT = ROOT / "backend" / "auto_trader.py"
 LOG_DIR = ROOT / "backend" / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -90,6 +91,10 @@ def main():
     daily_rc = _run(DAILY_SCRIPT, "daily")
     if daily_rc != 0 and exit_code == 0:
         exit_code = daily_rc
+    if daily_rc == 0:
+        trader_rc = _run(TRADER_SCRIPT, "trading")
+        if trader_rc != 0 and exit_code == 0:
+            exit_code = trader_rc
     elapsed = time.perf_counter() - start
     print(f"[RUN_ALL] Total execution time: {elapsed:.2f}s")
     return exit_code

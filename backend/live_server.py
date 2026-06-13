@@ -50,6 +50,7 @@ from backend.suggest_store import (  # noqa: E402
     log_event,
     upsert_block,
 )
+from backend.auto_trader import load_latest_trade_report, load_recent_trade_orders  # noqa: E402
 
 from backend.data_fetcher import (
     SYMBOLS,
@@ -81,13 +82,132 @@ _CACHE = {}
 _LAST_CLOSE_CACHE = {}
 _LAST_CLOSE_TTL_SEC = int(os.environ.get("LIVE_LAST_CLOSE_TTL_SEC", "300"))
 _EXCHANGE_UNIVERSE_MANIFEST = build_exchange_universe_manifest()
+_NIFTY50_SYMBOLS = get_nifty50_symbols()
 _LIVE_SYMBOLS = {
     **SYMBOLS,
     **GLOBAL_STOCKS,
-    **get_nifty50_symbols(),
+    **_NIFTY50_SYMBOLS,
     **CRYPTO,
     **build_exchange_symbol_map(_EXCHANGE_UNIVERSE_MANIFEST),
 }
+
+_LIVE_INDIA_INDEX_KEYS = {"NIFTY", "BANKNIFTY", "SENSEX"}
+_LIVE_GLOBAL_INDEX_KEYS = {"SP500", "NASDAQ", "DAX", "NIKKEI", "HANGSENG"}
+
+
+def _trend_from_live_price(name, live_price):
+    last_close = _get_last_close(name)
+    if live_price is None or last_close is None:
+        return None
+    try:
+        live_price = float(live_price)
+        last_close = float(last_close)
+    except Exception:
+        return None
+    if not math.isfinite(live_price) or not math.isfinite(last_close) or last_close <= 0:
+        return None
+    if live_price > last_close:
+        return "PRIMARY_UPTREND"
+    if live_price < last_close:
+        return "PRIMARY_DOWNTREND"
+    return "RANGE"
+
+
+def _build_live_summary(prices):
+    if not isinstance(prices, dict) or not prices:
+        return None
+
+    trends = {}
+    for key, payload in prices.items():
+        trend = _trend_from_live_price(key, payload.get("price"))
+        if trend:
+            trends[key] = trend
+
+    india_index_trends = {k: trends.get(k) for k in _LIVE_INDIA_INDEX_KEYS}
+    india_up = sum(1 for v in india_index_trends.values() if v == "PRIMARY_UPTREND")
+    india_down = sum(1 for v in india_index_trends.values() if v == "PRIMARY_DOWNTREND")
+    india_total = sum(1 for v in india_index_trends.values() if v in {"PRIMARY_UPTREND", "PRIMARY_DOWNTREND", "RANGE"})
+    india_breadth_pct = round((india_up / india_total) * 100, 1) if india_total else 0.0
+    vix = prices.get("INDIA_VIX", {}).get("price")
+    if vix is None:
+        vix = _get_last_close("INDIA_VIX")
+
+    india_score = 50 + ((india_up - india_down) * 10)
+    if india_breadth_pct >= 60:
+        india_score += 8
+    elif india_breadth_pct <= 40:
+        india_score -= 8
+    if vix is not None:
+        try:
+            vix_val = float(vix)
+            if vix_val < 14:
+                india_score += 5
+            elif vix_val > 18:
+                india_score -= 5
+        except Exception:
+            pass
+    india_score = int(max(0, min(100, round(india_score))))
+    if india_score >= 65:
+        india_status = "RISK-ON"
+    elif india_score <= 40:
+        india_status = "RISK-OFF"
+    else:
+        india_status = "NEUTRAL"
+
+    global_index_trends = {k: trends.get(k) for k in _LIVE_GLOBAL_INDEX_KEYS}
+    global_up = sum(1 for v in global_index_trends.values() if v == "PRIMARY_UPTREND")
+    global_down = sum(1 for v in global_index_trends.values() if v == "PRIMARY_DOWNTREND")
+    global_total = sum(1 for v in global_index_trends.values() if v in {"PRIMARY_UPTREND", "PRIMARY_DOWNTREND", "RANGE"})
+    global_score = 50 + ((global_up - global_down) * 10)
+    if global_score >= 65:
+        global_status = "RISK-ON"
+    elif global_score <= 40:
+        global_status = "RISK-OFF"
+    else:
+        global_status = "NEUTRAL"
+
+    breadth = {
+        "up_pct": india_breadth_pct,
+        "down_pct": round(100 - india_breadth_pct, 1) if india_total else 0.0,
+        "sideways_pct": 0.0,
+        "source": "live",
+        "universe": "live_session",
+        "symbols": len([k for k in prices.keys() if k not in {"INDIA_VIX"}]),
+        "priced": len(trends),
+    }
+
+    market_health = {
+        "india": {
+            "score": india_score,
+            "status": india_status,
+            "notes": [
+                f"{india_up}/{india_total or 3} live India indices in uptrend; Dow NOT CONFIRMED.",
+                f"Live breadth {breadth['up_pct']}% up; VIX {round(float(vix), 2) if isinstance(vix, (int, float)) or str(vix).replace('.', '', 1).isdigit() else 'n/a'}."
+            ],
+            "opportunity": "Live session trend. Trade the strongest leaders and avoid stale mean-reversion assumptions.",
+            "breadth_source": "live",
+        },
+        "global": {
+            "score": int(max(0, min(100, round(global_score)))),
+            "status": global_status,
+            "notes": [
+                f"{global_up}/{global_total or 5} live global indices in uptrend.",
+                "Global breadth measured from the live endpoint snapshot."
+            ],
+        },
+    }
+
+    executive_summary = [
+        f"India: {india_status} | Global: {global_status} | Dow: NOT CONFIRMED",
+        f"Breadth: {breadth['up_pct']}% up / {breadth['down_pct']}% down | VIX: {round(float(vix), 1) if isinstance(vix, (int, float)) or str(vix).replace('.', '', 1).isdigit() else 'n/a'} | Live session. Action: Trade the live leaders",
+    ]
+
+    return {
+        "breadth": breadth,
+        "market_health": market_health,
+        "executive_summary": executive_summary,
+        "trends": trends,
+    }
 
 
 def _utc_now_iso():
@@ -114,10 +234,15 @@ def _fetch_symbol(key):
     if not snapshot or snapshot.get("price") is None:
         return None
     price = snapshot.get("price")
+    day_range = snapshot.get("day_range")
+    if isinstance(day_range, dict):
+        day_range = dict(day_range)
+        day_range["source"] = "LIVE"
+        day_range["basis"] = "intraday"
     return {
         "price": round(price, 2),
         "timestamp": snapshot.get("timestamp") or _utc_now_iso(),
-        "day_range": snapshot.get("day_range"),
+        "day_range": day_range,
     }
 
 
@@ -189,6 +314,8 @@ def _get_cached_or_fetch(key):
         if isinstance(day_range, dict):
             day_range = dict(day_range)
             day_range["current"] = data["price"]
+            day_range["source"] = "LIVE"
+            day_range["basis"] = "intraday"
             high = day_range.get("high")
             low = day_range.get("low")
             if isinstance(high, (int, float)):
@@ -272,6 +399,21 @@ class LiveHandler(BaseHTTPRequestHandler):
         if parsed.path == "/universe":
             self._send(200, _EXCHANGE_UNIVERSE_MANIFEST)
             return
+        if parsed.path == "/trading":
+            params = parse_qs(parsed.query)
+            try:
+                limit = int((params.get("limit") or ["25"])[0])
+            except Exception:
+                limit = 25
+            self._send(
+                200,
+                {
+                    "timestamp": _utc_now_iso(),
+                    "report": load_latest_trade_report(),
+                    "recent_orders": load_recent_trade_orders(limit=limit),
+                },
+            )
+            return
         if parsed.path != "/live":
             self._send(404, {"error": "not_found"})
             return
@@ -302,7 +444,11 @@ class LiveHandler(BaseHTTPRequestHandler):
                     if data:
                         prices[key] = data
 
-        self._send(200, {"timestamp": _utc_now_iso(), "prices": prices})
+        summary = _build_live_summary(prices)
+        payload = {"timestamp": _utc_now_iso(), "prices": prices}
+        if summary:
+            payload["summary"] = summary
+        self._send(200, payload)
 
     def do_POST(self):
         parsed = urlparse(self.path)

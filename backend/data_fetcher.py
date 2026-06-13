@@ -2,8 +2,10 @@ import logging
 import re
 import contextlib
 import io
+import os
 import time
 from datetime import datetime
+from pathlib import Path
 import requests
 import pytz
 import pandas as pd
@@ -20,9 +22,28 @@ yf_logger.disabled = True
 logging.getLogger("urllib3").setLevel(logging.CRITICAL)
 
 IST = pytz.timezone("Asia/Kolkata")
+ROOT = Path(__file__).resolve().parents[1]
 nse = NSEClient()
 GOLD_OZ_TO_10G = 10 / 31.1034768
 SILVER_OZ_TO_KG = 32.1507466
+
+
+def _pick_col(df, names):
+    if df is None or df.empty:
+        return None
+    cols = {str(c).strip().upper(): c for c in df.columns}
+    for name in names:
+        key = str(name or "").strip().upper()
+        if key in cols:
+            return cols[key]
+    for name in names:
+        key = str(name or "").strip().upper()
+        if not key:
+            continue
+        for uc, real in cols.items():
+            if key in uc:
+                return real
+    return None
 
 # -------------------------------
 # SYMBOL DEFINITIONS
@@ -51,6 +72,10 @@ COMMODITIES = {
 }
 
 SYMBOLS.update(COMMODITIES)
+COMMODITY_SYMBOL_TO_NAME = {str(symbol).strip().upper(): name for name, symbol in COMMODITIES.items()}
+COMMODITY_SYMBOL_TO_NAME.update({
+    "SI=F": "SILVER",
+})
 
 NIFTY50_FALLBACK = {
     "RELIANCE": "RELIANCE.NS",
@@ -1136,11 +1161,250 @@ def _normalize_metal_snapshot(symbol, snapshot):
     }
 
 
+def _resolve_commodity_name(symbol):
+    key = str(symbol or "").strip().upper()
+    if not key:
+        return None
+    if key in COMMODITIES:
+        return key
+    return COMMODITY_SYMBOL_TO_NAME.get(key)
+
+
+def _fetch_dhan_commodity_daily_frame(symbol):
+    commodity = _resolve_commodity_name(symbol)
+    if not commodity:
+        return None, None
+    try:
+        from backend.dhan_intraday import fetch_intraday_history
+    except Exception:
+        fetch_intraday_history = None
+
+    frame, meta = None, None
+    if os.environ.get("DHAN_ACCESS_TOKEN", "").strip() and fetch_intraday_history is not None:
+        try:
+            frame, meta = fetch_intraday_history(commodity, interval="15m", data_range="60d", market="commodities")
+        except Exception:
+            frame, meta = None, None
+
+    if frame is None or frame.empty:
+        cache_candidates = [
+            ROOT / "backend" / "reports" / "cache" / "bullish_15m_oi_ema9" / f"{commodity}_60d_15m.csv",
+            ROOT / "backend" / "reports" / "cache" / "bullish_15m_oi_ema9" / f"{commodity.upper()}_60d_15m.csv",
+        ]
+        for cache_path in cache_candidates:
+            try:
+                if cache_path.exists():
+                    cached = pd.read_csv(cache_path)
+                    if not cached.empty:
+                        dt_col = _pick_col(cached, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+                        if dt_col is not None:
+                            cached[dt_col] = pd.to_datetime(cached[dt_col], errors="coerce", utc=True)
+                            cached = cached.dropna(subset=[dt_col]).set_index(dt_col)
+                        frame = cached.copy()
+                        meta = {"source": "LOCAL_DHAN_CACHE", "cache_path": str(cache_path)}
+                        break
+            except Exception:
+                continue
+
+    if frame is None or frame.empty:
+        return None, None
+
+    daily = frame.copy()
+    try:
+        daily.index = pd.to_datetime(daily.index, utc=True, errors="coerce")
+    except Exception:
+        return None, None
+    if getattr(daily.index, "tz", None) is None:
+        try:
+            daily.index = daily.index.tz_localize("UTC")
+        except Exception:
+            return None, None
+    try:
+        daily = daily.tz_convert(IST)
+    except Exception:
+        return None, None
+    daily.columns = [str(col).strip().lower() for col in daily.columns]
+    if not {"open", "high", "low", "close"}.issubset(set(daily.columns)):
+        return None, None
+
+    agg_map = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in daily.columns:
+        agg_map["volume"] = "sum"
+
+    daily = daily.resample("1D").agg(agg_map).dropna(subset=["close"])
+    if daily.empty:
+        return None, None
+
+    daily = daily.reset_index().rename(columns={"index": "date"})
+    if "date" not in daily.columns:
+        dt_col = _pick_col(daily, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+        if dt_col is not None and dt_col != "date":
+            daily = daily.rename(columns={dt_col: "date"})
+    daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
+    daily = daily.dropna(subset=["date"])
+    if daily.empty:
+        return None, None
+
+    last_row = daily.iloc[-1]
+    prev_close = float(daily["close"].iloc[-2]) if len(daily) >= 2 else None
+    timestamp = daily["date"].iloc[-1].isoformat()
+    snapshot = _build_day_range_payload(
+        last_row.get("open"),
+        last_row.get("high"),
+        last_row.get("low"),
+        last_row.get("close"),
+        timestamp,
+        "DHAN_INTRADAY",
+        basis="daily",
+        previous_close=prev_close,
+    )
+    if not snapshot:
+        return None, None
+
+    history = [
+        {
+            "date": str(pd.Timestamp(dt).date()),
+            "close": round(float(close), 2),
+        }
+        for dt, close in zip(daily["date"].iloc[-22:], daily["close"].iloc[-22:])
+        if pd.notna(dt) and pd.notna(close)
+    ]
+    return daily, {
+        "price": snapshot["current"],
+        "timestamp": timestamp,
+        "day_range": snapshot,
+        "history": history,
+        "meta": meta,
+    }
+
+
+def _fetch_dhan_india_daily_frame(symbol):
+    key = str(symbol or "").strip().upper()
+    if not key:
+        return None, None
+    try:
+        from backend.dhan_intraday import fetch_intraday_history
+    except Exception:
+        fetch_intraday_history = None
+
+    frame, meta = None, None
+    if os.environ.get("DHAN_ACCESS_TOKEN", "").strip() and fetch_intraday_history is not None:
+        try:
+            frame, meta = fetch_intraday_history(key, interval="15m", data_range="60d", market="india")
+        except Exception:
+            frame, meta = None, None
+
+    if frame is None or frame.empty:
+        cache_names = [
+            f"{key}_60d_15m.csv",
+            f"{key.replace('.NS', '_NS')}_60d_15m.csv",
+            f"{key.replace('-', '_')}_60d_15m.csv",
+        ]
+        cache_dirs = [
+            ROOT / "backend" / "reports" / "cache" / "bullish_15m_oi_ema9",
+        ]
+        for cache_dir in cache_dirs:
+            for cache_name in cache_names:
+                cache_path = cache_dir / cache_name
+                try:
+                    if cache_path.exists():
+                        cached = pd.read_csv(cache_path)
+                        if not cached.empty:
+                            dt_col = _pick_col(cached, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+                            if dt_col is not None:
+                                cached[dt_col] = pd.to_datetime(cached[dt_col], errors="coerce", utc=True)
+                                cached = cached.dropna(subset=[dt_col]).set_index(dt_col)
+                            frame = cached.copy()
+                            meta = {"source": "LOCAL_DHAN_CACHE", "cache_path": str(cache_path)}
+                            break
+                except Exception:
+                    continue
+            if frame is not None and not frame.empty:
+                break
+
+    if frame is None or frame.empty:
+        return None, None
+
+    daily = frame.copy()
+    try:
+        daily.index = pd.to_datetime(daily.index, utc=True, errors="coerce")
+    except Exception:
+        return None, None
+    if getattr(daily.index, "tz", None) is None:
+        try:
+            daily.index = daily.index.tz_localize("UTC")
+        except Exception:
+            return None, None
+    try:
+        daily = daily.tz_convert(IST)
+    except Exception:
+        return None, None
+    daily.columns = [str(col).strip().lower() for col in daily.columns]
+    if not {"open", "high", "low", "close"}.issubset(set(daily.columns)):
+        return None, None
+
+    agg_map = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in daily.columns:
+        agg_map["volume"] = "sum"
+
+    daily = daily.resample("1D").agg(agg_map).dropna(subset=["close"])
+    if daily.empty:
+        return None, None
+
+    daily = daily.reset_index().rename(columns={"index": "date"})
+    if "date" not in daily.columns:
+        dt_col = _pick_col(daily, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+        if dt_col is not None and dt_col != "date":
+            daily = daily.rename(columns={dt_col: "date"})
+    daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
+    daily = daily.dropna(subset=["date"])
+    if daily.empty:
+        return None, None
+
+    last_row = daily.iloc[-1]
+    prev_close = float(daily["close"].iloc[-2]) if len(daily) >= 2 else None
+    timestamp = daily["date"].iloc[-1].isoformat()
+    snapshot = _build_day_range_payload(
+        last_row.get("open"),
+        last_row.get("high"),
+        last_row.get("low"),
+        last_row.get("close"),
+        timestamp,
+        "DHAN_INTRADAY",
+        basis="daily",
+        previous_close=prev_close,
+    )
+    if not snapshot:
+        return None, None
+
+    history = [
+        {
+            "date": str(pd.Timestamp(dt).date()),
+            "close": round(float(close), 2),
+        }
+        for dt, close in zip(daily["date"].iloc[-22:], daily["close"].iloc[-22:])
+        if pd.notna(dt) and pd.notna(close)
+    ]
+    return daily, {
+        "price": snapshot["current"],
+        "timestamp": timestamp,
+        "day_range": snapshot,
+        "history": history,
+        "meta": meta,
+    }
+
+
 def fetch_live_snapshot(symbol, name=None):
     if name in {"NIFTY", "BANKNIFTY", "INDIA_VIX"}:
         snapshot = fetch_nse_index_snapshot(name)
         if snapshot:
             return snapshot
+
+    commodity_name = _resolve_commodity_name(name or symbol)
+    if commodity_name:
+        _daily_frame, commodity_snapshot = _fetch_dhan_commodity_daily_frame(commodity_name)
+        if commodity_snapshot:
+            return commodity_snapshot
 
     if symbol and symbol.endswith(".NS"):
         snapshot = fetch_nse_stock_snapshot(symbol.replace(".NS", ""))
@@ -1205,6 +1469,12 @@ def fetch_live_snapshot(symbol, name=None):
 
 
 def fetch_live_price(symbol):
+    commodity_name = _resolve_commodity_name(symbol)
+    if commodity_name:
+        _daily_frame, commodity_snapshot = _fetch_dhan_commodity_daily_frame(commodity_name)
+        if commodity_snapshot and commodity_snapshot.get("price") is not None:
+            return float(commodity_snapshot["price"]), commodity_snapshot.get("timestamp")
+
     if symbol == "XAGINR=X":
         df = _fetch_silver_inr_series(period="1d", interval="1m")
         if df is None or df.empty:
@@ -1349,21 +1619,33 @@ def fetch_incremental(name, symbol, symbol_type=None):
             rt.get("timestamp"),
             rt.get("open"),
             rt.get("high"),
-            rt.get("low"),
+                rt.get("low"),
         ):
             return
 
     df = None
+    if name in COMMODITIES and os.environ.get("DHAN_ACCESS_TOKEN", "").strip():
+        try:
+            commodity_daily, _commodity_snapshot = _fetch_dhan_commodity_daily_frame(name)
+            if commodity_daily is not None and not commodity_daily.empty:
+                df = commodity_daily
+        except Exception:
+            df = None
+
     try:
-        df = _yf_download_silent(symbol, start=start, progress=False, threads=False, show_errors=False)
+        if df is None or df.empty:
+            df = _yf_download_silent(symbol, start=start, progress=False, threads=False, show_errors=False)
     except TypeError:
         # Older yfinance versions may not support show_errors
         try:
-            df = _yf_download_silent(symbol, start=start, progress=False, threads=False)
+            if df is None or df.empty:
+                df = _yf_download_silent(symbol, start=start, progress=False, threads=False)
         except Exception:
-            df = None
+            if df is None or df.empty:
+                df = None
     except Exception:
-        df = None
+        if df is None or df.empty:
+            df = None
 
     if df is None or df.empty:
         if name == "SILVER" and symbol == "XAGINR=X":
