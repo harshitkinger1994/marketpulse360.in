@@ -83,6 +83,8 @@ KEY_INDIA_INDEX_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "INDIA_VIX"}
 STRICT_LIVE_ONLY_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "GOLD", "SILVER", "CRUDEOIL"}
 TOP_TRADES_PATH = ROOT / "strategies" / "top_trades.json"
 STRATEGY_DIR = ROOT / "strategies"
+STRATEGY_CANDIDATE_POOL_DIR = ROOT / "backend" / "data" / "strategy_candidate_pools"
+STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS = int(os.getenv("STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS", "4"))
 STRATEGY_NOTIFY_STATE_PATH = STRATEGY_DIR / ".strategy_notify_state.json"
 INDIA_MORNING_REEVAL_QUEUE_PATH = ROOT / "backend" / "data" / "india_morning_reeval_queue.json"
 INDIA_MORNING_REEVAL_SENT_PATH = ROOT / "backend" / "data" / "india_morning_reeval_sent.json"
@@ -1424,6 +1426,104 @@ def load_strategies():
     return strategies
 
 
+def _strategy_candidate_pool_path(strategy_id: str) -> Path:
+    safe_id = str(strategy_id or "").strip() or "unknown_strategy"
+    return STRATEGY_CANDIDATE_POOL_DIR / f"{safe_id}.json"
+
+
+def _strategy_candidate_symbol(item):
+    if not isinstance(item, dict):
+        return None
+    symbol = str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper()
+    if not symbol:
+        return None
+    return symbol[:-3] if symbol.endswith(".NS") else symbol
+
+
+def _publish_strategy_candidate_pool(strategy_id: str = "india_ema9_growth30_on", lookback_days: int = 4):
+    today = datetime.now(IST).date()
+    cutoff = today - timedelta(days=max(1, lookback_days) - 1)
+    current = STRATEGY_DIR / f"{strategy_id}.json"
+    history_dir = STRATEGY_DIR / "history"
+    source_files: list[str] = []
+    items_by_symbol: dict[str, dict[str, Any]] = {}
+
+    def _maybe_add_file(path: Path) -> None:
+        if not path.exists():
+            return
+        try:
+            payload = _load_json_file(path, default=None, label=f"strategy pool {path.name}")
+        except Exception:
+            return
+        if not isinstance(payload, dict):
+            return
+        generated_at = str(payload.get("generated_at") or "").strip()
+        generated_date = None
+        if generated_at:
+            try:
+                generated_date = pd.Timestamp(generated_at).tz_convert(IST).date()
+            except Exception:
+                try:
+                    generated_date = pd.Timestamp(generated_at).date()
+                except Exception:
+                    generated_date = None
+        if generated_date is not None and generated_date < cutoff:
+            return
+        items = payload.get("items") or []
+        if not isinstance(items, list) or not items:
+            return
+        source_files.append(path.name)
+        for item in items:
+            symbol = _strategy_candidate_symbol(item)
+            if not symbol:
+                continue
+            side = str(item.get("side") or item.get("signal") or "").strip().upper()
+            signal_time = str(item.get("signal_time") or item.get("entry_time") or item.get("date") or "").strip()
+            key = symbol
+            existing = items_by_symbol.get(key)
+            current_rank = signal_time
+            if existing:
+                existing_rank = str(existing.get("signal_time") or "")
+                if existing_rank >= current_rank:
+                    continue
+            items_by_symbol[key] = {
+                "ticker": symbol,
+                "side": side,
+                "signal_time": signal_time,
+                "entry_time": str(item.get("entry_time") or "").strip(),
+                "entry_price": item.get("entry_price"),
+                "notify_key": item.get("notify_key"),
+                "source_strategy_id": strategy_id,
+            }
+
+    _maybe_add_file(current)
+    if history_dir.exists():
+        for path in sorted(history_dir.glob(f"{strategy_id}_*.json")):
+            _maybe_add_file(path)
+
+    symbols = sorted(items_by_symbol.keys())
+    payload = {
+        "strategy_id": strategy_id,
+        "generated_at": NOW_UTC,
+        "lookback_days": max(1, lookback_days),
+        "cutoff_date": cutoff.isoformat(),
+        "source_files": source_files,
+        "symbols": symbols,
+        "items": [items_by_symbol[symbol] for symbol in symbols],
+        "counts": {
+            "symbols": len(symbols),
+            "items": len(items_by_symbol),
+            "source_files": len(source_files),
+        },
+        "notes": [
+            "Explicit 4-day candidate pool published from the EMA9 strategy outputs.",
+            "Used by pattern_oi_vwap_ema_scanner as the primary watchlist source.",
+        ],
+    }
+    _write_json_atomic(_strategy_candidate_pool_path(strategy_id), payload)
+    return payload
+
+
 def _send_telegram_to(chat_id, message):
     if not STRATEGY_NOTIFY_ENABLED:
         return False
@@ -1657,24 +1757,27 @@ def _sanitize_json_value(value):
     return value
 
 
-def _strategy_item_signature(item, strategy_id=None):
-    custom = str(item.get("notify_key") or "").strip()
-    if custom:
-        # Many strategy scripts emit notify_key as:
-        #   TICKER|YYYY-MM-DD|SIDE|<price or extra>
-        # We want day-level de-dupe so a ticker doesn't re-alert multiple times in the same day
-        # just because price/extra fields changed.
-        parts = custom.split("|")
-        if len(parts) >= 3:
-            ticker = parts[0].strip().upper()
-            day = parts[1].strip()
-            side = parts[2].strip().upper()
-            if ticker and len(day) == 10 and day[4] == "-" and day[7] == "-" and side in {"BUY", "SELL"}:
-                return f"{ticker}|{day}|{side}"[:300]
-        return custom[:300]
-    ticker = str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper()
-    side = _infer_alert_side(item)
-    signal_day = None
+def _strategy_pattern_hint(item):
+    if not isinstance(item, dict):
+        return ""
+    for key in ("pattern", "strategy_pattern", "daily_candle_type", "setup_type", "summary", "reason", "signal_text"):
+        text = str(item.get(key) or "").strip()
+        if text:
+            return text[:160]
+    lines = item.get("lines") or []
+    if isinstance(lines, list):
+        for raw in lines[:2]:
+            text = str(raw or "").strip()
+            if text:
+                # Keep the leading setup phrase but strip trailing numeric noise.
+                head = text.split("|", 1)[0].strip()
+                if head:
+                    return head[:160]
+                return text[:160]
+    return ""
+
+
+def _strategy_signal_day(item):
     for key in ("signal_time", "entry_time", "time", "date"):
         text = str(item.get(key) or "").strip()
         if not text:
@@ -1682,24 +1785,70 @@ def _strategy_item_signature(item, strategy_id=None):
         dt = pd.to_datetime(text, errors="coerce", utc=True)
         if not pd.isna(dt):
             try:
-                signal_day = dt.tz_convert(IST).date().isoformat()
-                break
+                return dt.tz_convert(IST).date().isoformat()
             except Exception:
                 pass
         if len(text) >= 10 and text[4] == "-" and text[7] == "-":
-            signal_day = text[:10]
-            break
-    lines = item.get("lines") or []
-    head = " | ".join(str(x).strip() for x in lines[:2] if x).strip()
-    if len(head) > 220:
-        head = head[:220]
-    if ticker and signal_day and side in {"BUY", "SELL"}:
-        prefix = str(strategy_id or "").strip().upper()
-        return f"{prefix}|{ticker}|{signal_day}|{side}" if prefix else f"{ticker}|{signal_day}|{side}"
+            return text[:10]
+    return datetime.now(IST).date().isoformat()
+
+
+def _normalize_notify_key(custom: str, item: dict | None = None, strategy_id: str | None = None) -> str:
+    text = str(custom or "").strip()
+    ticker = str((item or {}).get("ticker") or (item or {}).get("symbol") or (item or {}).get("name") or "").strip().upper()
+    side = str((item or {}).get("side") or (item or {}).get("signal") or "").strip().upper()
+    signal_day = _strategy_signal_day(item or {})
+    pattern = _strategy_pattern_hint(item or {})
+
+    if text:
+        parts = [part.strip() for part in text.split("|") if part.strip()]
+        if parts and not ticker:
+            ticker = parts[0].strip().upper()
+        if not side:
+            for part in parts:
+                up = part.strip().upper()
+                if up in {"BUY", "SELL"}:
+                    side = up
+                    break
+        # Find any date-like token in the notify key, even if it is not the second field.
+        for part in parts:
+            dt = pd.to_datetime(part, errors="coerce", utc=True)
+            if not pd.isna(dt):
+                try:
+                    signal_day = dt.tz_convert(IST).date().isoformat()
+                    break
+                except Exception:
+                    pass
+            if len(part) >= 10 and part[4] == "-" and part[7] == "-":
+                signal_day = part[:10]
+                break
+        if not pattern:
+            pattern = _strategy_pattern_hint(item or {})
+
+    prefix = str(strategy_id or "").strip().upper()
+    parts = [p for p in [prefix, ticker, signal_day, side, pattern] if p]
+    return "|".join(parts)[:300]
+
+
+def _strategy_item_signature(item, strategy_id=None):
+    custom = str(item.get("notify_key") or "").strip()
+    if custom:
+        return _normalize_notify_key(custom, item=item, strategy_id=strategy_id)
+    ticker = str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper()
+    side = _infer_alert_side(item)
+    signal_day = _strategy_signal_day(item)
+    pattern = _strategy_pattern_hint(item)
     if ticker and side in {"BUY", "SELL"}:
         prefix = str(strategy_id or "").strip().upper()
-        return f"{prefix}|{ticker}|{side}" if prefix else f"{ticker}|{side}"
-    return f"{ticker}|{head}" if ticker or head else ""
+        parts = [p for p in [prefix, ticker, signal_day, side, pattern] if p]
+        return "|".join(parts)[:300]
+    lines = item.get("lines") or []
+    head = " | ".join(str(x).strip() for x in lines[:2] if str(x).strip()).strip()
+    if len(head) > 220:
+        head = head[:220]
+    prefix = str(strategy_id or "").strip().upper()
+    parts = [p for p in [prefix, ticker, signal_day, pattern or head] if p]
+    return "|".join(parts)[:300]
 
 
 def _strategy_rules_lines(strategy):
@@ -3174,6 +3323,7 @@ if FAST_DHAN_ONLY:
 run_intraday_momentum_scan()
 run_gold_breakout_retest_scan()
 run_ema9_growth30_scan()
+_publish_strategy_candidate_pool("india_ema9_growth30_on", lookback_days=STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS)
 run_quant_trend_breakout_scan()
 strategies = load_strategies()
 _notify_new_strategy_trades(strategies)

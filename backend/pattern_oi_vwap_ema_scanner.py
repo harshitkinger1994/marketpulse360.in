@@ -45,8 +45,10 @@ DEFAULT_BODY_MULTIPLIER = float(os.environ.get("DHAN_BODY_MULTIPLIER", "5.5"))
 DEFAULT_SOURCE_STRATEGY_ID = os.environ.get("DHAN_WATCH_STRATEGY_ID", "india_ema9_growth30_on").strip() or "india_ema9_growth30_on"
 DEFAULT_SOURCE_STRATEGY_LOOKBACK_DAYS = int(os.environ.get("DHAN_WATCH_STRATEGY_LOOKBACK_DAYS", "4"))
 DEFAULT_STRATEGY_NAME = os.environ.get("DHAN_PATTERN_STRATEGY_NAME", "Pattern+OI+VWAP/EMA").strip() or "Pattern+OI+VWAP/EMA"
+DEFAULT_SCAN_UNIVERSE = os.environ.get("PATTERN_OI_VWAP_EMA_UNIVERSE", "all").strip().lower() or "all"
 FNO_CACHE_PATH = ROOT / "strategies" / ".fno_cache.json"
 EQUITY_HISTORY_CACHE_DIR = ROOT / "backend" / "data" / "dhan_equity_cache"
+STRATEGY_CANDIDATE_POOL_DIR = ROOT / "backend" / "data" / "strategy_candidate_pools"
 LOCAL_DHAN_MASTER_CACHE = ROOT.parent / "market-context-local-data" / "dhan_scrip_master_cache.csv"
 MANUAL_DHAN_SECURITY_MAP_FILE = ROOT / "backend" / "data" / "manual_dhan_security_map.json"
 OUTPUT_DIR = ROOT / "backend" / "reports" / "pattern_oi_vwap_ema"
@@ -144,6 +146,7 @@ GATE3_REPLAY_OUTPUT = OUTPUT_DIR / "dhan_gate3_replay.json"
 DEFAULT_STORE_TIMEFRAME = os.environ.get("DHAN_STORE_TIMEFRAME", "15m").strip() or "15m"
 STORE_PUBLISH_ENABLED = os.environ.get("DHAN_STORE_PUBLISH_ENABLED", "1") == "1"
 DEFAULT_SETUP_ALERTS = os.environ.get("DHAN_SETUP_ALERTS", "1") == "1"
+INDIA_INDEX_SCAN_SYMBOLS = ("NIFTY", "BANKNIFTY", "SENSEX")
 
 
 def _load_env_files() -> None:
@@ -233,7 +236,9 @@ def _send_telegram_to(chat_id: str | None, message: str) -> bool:
 def _is_fresh_gate3(previous: dict[str, str] | None, current: dict[str, str]) -> bool:
     if not previous:
         return True
-    keys = ("direction", "pattern", "candle_time_ist", "pcr", "put_velocity", "call_velocity")
+    # Keep Gate 3 from re-alerting every 15m while the same setup stays valid.
+    # We only treat it as fresh when the symbol/pattern/direction/day bucket changes.
+    keys = ("symbol", "direction", "pattern", "signal_day")
     for key in keys:
         if str(previous.get(key) or "") != str(current.get(key) or ""):
             return True
@@ -243,7 +248,9 @@ def _is_fresh_gate3(previous: dict[str, str] | None, current: dict[str, str]) ->
 def _is_fresh_gate12(previous: dict[str, str] | None, current: dict[str, str]) -> bool:
     if not previous:
         return True
-    keys = ("direction", "pattern", "candle_time_ist", "close", "vwap", "ema9")
+    # Keep Gate 1/2 from spamming the same symbol on every new candle.
+    # Only alert again if the symbol/pattern/direction/day bucket changes.
+    keys = ("symbol", "direction", "pattern", "signal_day")
     for key in keys:
         if str(previous.get(key) or "") != str(current.get(key) or ""):
             return True
@@ -251,10 +258,14 @@ def _is_fresh_gate12(previous: dict[str, str] | None, current: dict[str, str]) -
 
 
 def _gate3_trigger_signature(symbol: str, snapshot: "SymbolSnapshot", strategy: dict[str, Any]) -> dict[str, str]:
+    candle_day = ""
+    if snapshot.candle_time_ist:
+        candle_day = str(snapshot.candle_time_ist)[:10]
     return {
         "symbol": str(symbol or "").strip().upper(),
         "direction": str(strategy.get("direction") or "NEUTRAL").upper(),
         "pattern": str(strategy.get("gate1_pattern") or "UNAVAILABLE"),
+        "signal_day": candle_day,
         "candle_time_ist": str(snapshot.candle_time_ist or ""),
         "pcr": str(strategy.get("pcr") or ""),
         "pcr_prev": str(strategy.get("pcr_prev") or ""),
@@ -265,11 +276,13 @@ def _gate3_trigger_signature(symbol: str, snapshot: "SymbolSnapshot", strategy: 
 
 def _gate3_trigger_signature_from_snapshot_record(symbol: str, snapshot_record: dict[str, Any]) -> dict[str, str]:
     strategy = snapshot_record.get("strategy") if isinstance(snapshot_record.get("strategy"), dict) else {}
+    candle_time = str(snapshot_record.get("candle_time_ist") or "")
     return {
         "symbol": str(symbol or "").strip().upper(),
         "direction": str(strategy.get("direction") or "NEUTRAL").upper(),
         "pattern": str(strategy.get("pattern") or strategy.get("gate1_pattern") or "UNAVAILABLE"),
-        "candle_time_ist": str(snapshot_record.get("candle_time_ist") or ""),
+        "signal_day": candle_time[:10],
+        "candle_time_ist": candle_time,
         "pcr": str(strategy.get("pcr") or ""),
         "pcr_prev": str(strategy.get("pcr_prev") or ""),
         "put_velocity": str(strategy.get("put_oi_velocity_pct") or ""),
@@ -278,10 +291,14 @@ def _gate3_trigger_signature_from_snapshot_record(symbol: str, snapshot_record: 
 
 
 def _gate12_trigger_signature(symbol: str, snapshot: "SymbolSnapshot", strategy: dict[str, Any]) -> dict[str, str]:
+    candle_day = ""
+    if snapshot.candle_time_ist:
+        candle_day = str(snapshot.candle_time_ist)[:10]
     return {
         "symbol": str(symbol or "").strip().upper(),
         "direction": str(strategy.get("direction") or "NEUTRAL").upper(),
         "pattern": str(strategy.get("gate1_pattern") or "UNAVAILABLE"),
+        "signal_day": candle_day,
         "candle_time_ist": str(snapshot.candle_time_ist or ""),
         "close": str(snapshot.close or ""),
         "vwap": str(snapshot.vwap or ""),
@@ -291,11 +308,13 @@ def _gate12_trigger_signature(symbol: str, snapshot: "SymbolSnapshot", strategy:
 
 def _gate12_trigger_signature_from_snapshot_record(symbol: str, snapshot_record: dict[str, Any]) -> dict[str, str]:
     strategy = snapshot_record.get("strategy") if isinstance(snapshot_record.get("strategy"), dict) else {}
+    candle_time = str(snapshot_record.get("candle_time_ist") or "")
     return {
         "symbol": str(symbol or "").strip().upper(),
         "direction": str(strategy.get("direction") or "NEUTRAL").upper(),
         "pattern": str(strategy.get("pattern") or strategy.get("gate1_pattern") or "UNAVAILABLE"),
-        "candle_time_ist": str(snapshot_record.get("candle_time_ist") or ""),
+        "signal_day": candle_time[:10],
+        "candle_time_ist": candle_time,
         "close": str(snapshot_record.get("close") or ""),
         "vwap": str(snapshot_record.get("vwap") or ""),
         "ema9": str(snapshot_record.get("ema9") or ""),
@@ -462,6 +481,56 @@ def _load_recent_strategy_symbols(
             if not isinstance(item, dict):
                 continue
             _add_symbol(item.get("ticker") or item.get("name") or item.get("symbol"))
+    return symbols
+
+
+def _load_candidate_pool_symbols(strategy_id: str) -> list[str]:
+    pool_path = STRATEGY_CANDIDATE_POOL_DIR / f"{str(strategy_id or '').strip() or 'unknown_strategy'}.json"
+    if not pool_path.exists():
+        return []
+    payload = _load_json_file(pool_path, default=None)
+    if not isinstance(payload, dict):
+        return []
+    symbols_raw = payload.get("symbols")
+    symbols: list[str] = []
+    seen: set[str] = set()
+    if isinstance(symbols_raw, list):
+        for raw in symbols_raw:
+            symbol = _normalize_symbol_token(raw)
+            if not symbol or symbol in seen:
+                continue
+            seen.add(symbol)
+            symbols.append(symbol)
+    if symbols:
+        return symbols
+    items = payload.get("items") or []
+    if isinstance(items, list):
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            symbol = _normalize_symbol_token(item.get("ticker") or item.get("name") or item.get("symbol"))
+            if not symbol or symbol in seen:
+                continue
+            seen.add(symbol)
+            symbols.append(symbol)
+    return symbols
+
+
+def _load_broad_india_universe_symbols() -> list[str]:
+    symbols: list[str] = []
+    seen: set[str] = set()
+
+    def _add(raw: object) -> None:
+        symbol = _normalize_symbol_token(raw)
+        if not symbol or symbol in seen:
+            return
+        seen.add(symbol)
+        symbols.append(symbol)
+
+    for symbol in _load_fno_tickers():
+        _add(symbol)
+    for symbol in INDIA_INDEX_SCAN_SYMBOLS:
+        _add(symbol)
     return symbols
 
 
@@ -2148,6 +2217,7 @@ def _format_gate3_group_message(
     strategy: dict[str, Any],
     contract: dict | None,
     strategy_name: str = DEFAULT_STRATEGY_NAME,
+    source_note: str | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2161,6 +2231,8 @@ def _format_gate3_group_message(
         f"Put OI {put_velocity if put_velocity is not None else 'NA'}% | "
         f"PCR {pcr if pcr is not None else 'NA'} vs {pcr_prev if pcr_prev is not None else 'NA'}"
     )
+    if source_note:
+        compact_trade_line = f"{compact_trade_line} | {source_note}"
     payload = {
         "ticker": symbol.upper(),
         "live_data": {
@@ -2210,6 +2282,7 @@ def _format_gate3_group_message(
         "selection": "Master EMA9 symbols with Pattern + OI + VWAP/EMA",
         "freshness": "fresh Gate 3 trigger only",
         "filters": "Pattern + OI + VWAP/EMA alignment with Gate 3 OI velocity and PCR",
+        "source": source_note or "Pattern-only universe",
     }
     terminal_result = {
         "input_payload": payload,
@@ -2283,6 +2356,7 @@ def _format_gate3_group_message(
             f"Strategy: {strategy_name}",
             f"## {symbol.upper()} | Side: {direction}",
             f"Pattern: {pattern}",
+            f"Source: {source_note or 'Pattern-only universe'}",
             f"PCR: {pcr if pcr is not None else 'NA'} | Prev PCR: {pcr_prev if pcr_prev is not None else 'NA'}",
             f"Call OI Velocity: {call_velocity if call_velocity is not None else 'NA'}%",
             f"Put OI Velocity: {put_velocity if put_velocity is not None else 'NA'}%",
@@ -2298,6 +2372,7 @@ def _format_gate12_group_message(
     snapshot: "SymbolSnapshot",
     strategy: dict[str, Any],
     strategy_name: str = DEFAULT_STRATEGY_NAME,
+    source_note: str | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2309,6 +2384,7 @@ def _format_gate12_group_message(
         [
             f"{strategy_name} SETUP | {symbol.upper()} | {direction}",
             f"Pattern: {pattern}",
+            f"Source: {source_note or 'Pattern-only universe'}",
             f"Signals clear: Pattern + VWAP/EMA alignment",
             f"Close: {close} | VWAP: {vwap} | EMA9: {ema9}",
             f"Candle Time: {candle_time}",
@@ -2322,6 +2398,7 @@ def _format_gate3_personal_message(
     strategy: dict[str, Any],
     contract: dict | None,
     strategy_name: str = DEFAULT_STRATEGY_NAME,
+    source_note: str | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2341,6 +2418,7 @@ def _format_gate3_personal_message(
     put_oi = getattr(snapshot.option_chain, "highest_put_oi", None) if snapshot.option_chain else None
     lines = [
         f"{strategy_name.upper()} | {symbol.upper()}",
+        f"Source: {source_note or 'Pattern-only universe'}",
         f"Gate 1: {gate1_pass} | Pattern: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
         f"Gate 3: {gate3_pass} | Call OI: {call_oi if call_oi is not None else 'NA'} @ {call_strike if call_strike is not None else 'NA'} vs {call_oi_prev if call_oi_prev is not None else 'NA'} | Put OI: {put_oi if put_oi is not None else 'NA'} @ {put_strike if put_strike is not None else 'NA'} vs {put_oi_prev if put_oi_prev is not None else 'NA'}",
@@ -2359,6 +2437,7 @@ def _format_gate12_personal_message(
     snapshot: "SymbolSnapshot",
     strategy: dict[str, Any],
     strategy_name: str = DEFAULT_STRATEGY_NAME,
+    source_note: str | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2366,6 +2445,7 @@ def _format_gate12_personal_message(
     gate2_pass = "PASS" if strategy.get("gate2_pass") else "FAIL"
     lines = [
         f"{strategy_name.upper()} SETUP | {symbol.upper()}",
+        f"Source: {source_note or 'Pattern-only universe'}",
         f"Gate 1: {gate1_pass} | Pattern: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
         "Signal: Pattern and VWAP/EMA are clear.",
@@ -3154,9 +3234,11 @@ def run_once(
     setup_alerts: bool = DEFAULT_SETUP_ALERTS,
     strategy_name: str = DEFAULT_STRATEGY_NAME,
     source_strategy_id: str | None = None,
+    source_pool_symbols: set[str] | None = None,
     store_timeframe: str = DEFAULT_STORE_TIMEFRAME,
 ) -> dict[str, Any]:
     symbols = list(watchlist.keys())
+    source_pool_symbols = {str(sym).strip().upper() for sym in (source_pool_symbols or set()) if str(sym).strip()}
     snapshots: list[dict[str, Any]] = []
     triggered_signals: list[dict[str, Any]] = []
     gate12_alert_candidates: list[dict[str, Any]] = []
@@ -3206,6 +3288,11 @@ def run_once(
             direction = str(pre_strategy.get("direction") or "").strip().upper()
             gate12_pass = bool(pre_strategy.get("gate1_pass") and pre_strategy.get("gate2_pass"))
             if gate12_pass and direction in {"BULLISH", "BEARISH", "BOTH"}:
+                source_note = (
+                    "From 9 EMA strategy pool"
+                    if symbol.upper() in source_pool_symbols
+                    else "Pattern-only universe"
+                )
                 signature = _gate12_trigger_signature(symbol, snapshot, pre_strategy)
                 previous_meta = last_gate12_meta_map.get(symbol.upper())
                 if not isinstance(previous_meta, dict):
@@ -3214,9 +3301,10 @@ def run_once(
                     gate12_alert = {
                         "symbol": symbol.upper(),
                         "signature": signature,
-                        "group_message": _format_gate12_group_message(symbol, snapshot, pre_strategy, strategy_name),
-                        "personal_message": _format_gate12_personal_message(symbol, snapshot, pre_strategy, strategy_name),
+                        "group_message": _format_gate12_group_message(symbol, snapshot, pre_strategy, strategy_name, source_note=source_note),
+                        "personal_message": _format_gate12_personal_message(symbol, snapshot, pre_strategy, strategy_name, source_note=source_note),
                         "strategy": pre_strategy,
+                        "source_note": source_note,
                     }
 
         try:
@@ -3269,6 +3357,11 @@ def run_once(
             direction = str(strategy.get("direction") or "").strip().upper()
             gate3_pass = bool(strategy.get("gate1_pass") and strategy.get("gate2_pass") and strategy.get("gate3_pass"))
             if gate3_pass and direction in {"BULLISH", "BEARISH", "BOTH"}:
+                source_note = (
+                    "From 9 EMA strategy pool"
+                    if symbol.upper() in source_pool_symbols
+                    else "Pattern-only universe"
+                )
                 signature = _gate3_trigger_signature(symbol, snapshot, strategy)
                 previous_meta = last_gate3_meta_map.get(symbol.upper())
                 if not isinstance(previous_meta, dict):
@@ -3277,9 +3370,10 @@ def run_once(
                     gate3_alert = {
                         "symbol": symbol.upper(),
                         "signature": signature,
-                        "group_message": _format_gate3_group_message(symbol, snapshot, strategy, payload.get("contract"), strategy_name),
-                        "personal_message": _format_gate3_personal_message(symbol, snapshot, strategy, payload.get("contract"), strategy_name),
+                        "group_message": _format_gate3_group_message(symbol, snapshot, strategy, payload.get("contract"), strategy_name, source_note=source_note),
+                        "personal_message": _format_gate3_personal_message(symbol, snapshot, strategy, payload.get("contract"), strategy_name, source_note=source_note),
                         "strategy": strategy,
+                        "source_note": source_note,
                     }
         return payload, signal_row, gate12_alert, gate3_alert
 
@@ -4194,6 +4288,7 @@ def run_forever(
     personal_alerts_only: bool = False,
     strategy_name: str = DEFAULT_STRATEGY_NAME,
     source_strategy_id: str | None = None,
+    source_pool_symbols: set[str] | None = None,
     store_timeframe: str = DEFAULT_STORE_TIMEFRAME,
 ) -> None:
     if as_of_date is not None:
@@ -4215,6 +4310,7 @@ def run_forever(
             personal_alerts_only=personal_alerts_only,
             strategy_name=strategy_name,
             source_strategy_id=source_strategy_id,
+            source_pool_symbols=source_pool_symbols,
             store_timeframe=store_timeframe,
         )
         return
@@ -4239,6 +4335,7 @@ def run_forever(
                 personal_alerts_only=personal_alerts_only,
                 strategy_name=strategy_name,
                 source_strategy_id=source_strategy_id,
+                source_pool_symbols=source_pool_symbols,
                 store_timeframe=store_timeframe,
             )
             last_run_boundary = _floor_to_15_minute(now)
@@ -4318,31 +4415,41 @@ def main(argv: list[str] | None = None) -> int:
 
     strategy_name = str(args.strategy_name or DEFAULT_STRATEGY_NAME).strip() or DEFAULT_STRATEGY_NAME
     source_strategy_id = str(args.strategy_id or DEFAULT_SOURCE_STRATEGY_ID).strip() or DEFAULT_SOURCE_STRATEGY_ID
+    source_pool_symbols = set(_load_candidate_pool_symbols(source_strategy_id))
+    if not source_pool_symbols:
+        source_pool_symbols = {
+            _normalize_symbol_token(symbol)
+            for symbol in _load_recent_strategy_symbols(
+                source_strategy_id,
+                lookback_days=max(1, int(args.strategy_lookback_days)),
+            )
+        }
     watchlist = dict(WATCHLIST)
     if args.symbols.strip():
         selected = [_normalize_symbol_token(part) for part in args.symbols.split(",") if part.strip()]
         watchlist = {symbol: watchlist.get(symbol) for symbol in selected}
-    elif args.nifty_futures:
-        fno_tickers = _load_fno_tickers()
-        if fno_tickers:
-            watchlist = {symbol: None for symbol in fno_tickers}
+    elif args.nifty_futures or DEFAULT_SCAN_UNIVERSE == "all":
+        universe_symbols = _load_broad_india_universe_symbols()
+        if universe_symbols:
+            watchlist = {symbol: None for symbol in universe_symbols}
         else:
             logger.warning("F&O cache missing; falling back to NIFTY50 tickers.")
             watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
     elif args.nifty50:
         watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
-    else:
-        strategy_symbols = _load_recent_strategy_symbols(
-            source_strategy_id,
-            lookback_days=max(1, int(args.strategy_lookback_days)),
-        )
+    elif DEFAULT_SCAN_UNIVERSE == "source_pool":
+        strategy_symbols = sorted(source_pool_symbols)
         if strategy_symbols:
             watchlist = {symbol: None for symbol in strategy_symbols}
         else:
-            logger.warning(
-                "No symbols found in source strategy %s; using built-in watchlist fallback.",
-                source_strategy_id,
-            )
+            logger.warning("No symbols found in source strategy %s; using built-in watchlist fallback.", source_strategy_id)
+    else:
+        universe_symbols = _load_broad_india_universe_symbols()
+        if universe_symbols:
+            watchlist = {symbol: None for symbol in universe_symbols}
+        else:
+            logger.warning("Broad universe missing; using NIFTY50 fallback.")
+            watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
 
     probe_symbol = next(iter(watchlist.keys()), None)
     skip_preflight = bool(args.skip_dhan_preflight) or replay_snapshot_path is not None or os.getenv("DHAN_SKIP_PREFLIGHT", "").strip() == "1"
@@ -4439,6 +4546,7 @@ def main(argv: list[str] | None = None) -> int:
             personal_alerts_only=args.personal_alerts_only,
             strategy_name=strategy_name,
             source_strategy_id=source_strategy_id,
+            source_pool_symbols=source_pool_symbols,
             store_timeframe=args.store_timeframe,
         )
         return 0
@@ -4461,6 +4569,7 @@ def main(argv: list[str] | None = None) -> int:
         personal_alerts_only=args.personal_alerts_only,
         strategy_name=strategy_name,
         source_strategy_id=source_strategy_id,
+        source_pool_symbols=source_pool_symbols,
         store_timeframe=args.store_timeframe,
     )
     return 0
