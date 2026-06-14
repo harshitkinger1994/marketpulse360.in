@@ -12,6 +12,8 @@ RELEASE_DIR="${DEPLOY_RELEASE_DIR:-${REMOTE_DIR}.release}"
 BACKUP_ROOT="${DEPLOY_BACKUP_ROOT:-/opt/market-context-backups}"
 CLEANUP_CALENDAR="${DEPLOY_CLEANUP_CALENDAR:-daily}"
 MORNING_REEVAL_CALENDAR="${DEPLOY_MORNING_REEVAL_CALENDAR:-Mon..Fri *-*-* 04:00:00}"
+DHAN_TOKEN_REFRESH_CALENDAR="${DEPLOY_DHAN_TOKEN_REFRESH_CALENDAR:-*-*-* 11:30:00 UTC}"
+SSH_KEY="${DEPLOY_SSH_KEY:-${HOME}/.ssh/id_digitalocean}"
 RSYNC_PROGRESS_FLAG=""
 RSYNC_PROGRESS_NOTE=""
 
@@ -39,7 +41,7 @@ else
 fi
 
 echo "==> Syncing project to ${SERVER}:${RELEASE_DIR} (progress: ${RSYNC_PROGRESS_NOTE})"
-ssh "${SERVER}" "rm -rf '${RELEASE_DIR}' && mkdir -p '${RELEASE_DIR}'"
+ssh -i "${SSH_KEY}" -o IdentitiesOnly=yes "${SERVER}" "rm -rf '${RELEASE_DIR}' && mkdir -p '${RELEASE_DIR}'"
 rsync -az --delete ${RSYNC_PROGRESS_FLAG} \
   --exclude ".git" \
   --exclude "venv" \
@@ -53,10 +55,11 @@ rsync -az --delete ${RSYNC_PROGRESS_FLAG} \
   --exclude "frontend/data.json" \
   --exclude "strategies/.price_cache" \
   --exclude "strategies/history" \
+  -e "ssh -i ${SSH_KEY} -o IdentitiesOnly=yes" \
   "${SCRIPT_DIR}/" "${SERVER}:${RELEASE_DIR}/"
 
 echo "==> Running remote setup"
-ssh "${SERVER}" "DOMAIN='${DOMAIN}' WEB_ROOT='${WEB_ROOT}' REMOTE_DIR='${REMOTE_DIR}' RELEASE_DIR='${RELEASE_DIR}' BACKUP_ROOT='${BACKUP_ROOT}' LIVE_PORT='${LIVE_PORT}' CLEANUP_CALENDAR='${CLEANUP_CALENDAR}' MORNING_REEVAL_CALENDAR='${MORNING_REEVAL_CALENDAR}' bash -s" <<'EOF'
+ssh -i "${SSH_KEY}" -o IdentitiesOnly=yes "${SERVER}" "DOMAIN='${DOMAIN}' WEB_ROOT='${WEB_ROOT}' REMOTE_DIR='${REMOTE_DIR}' RELEASE_DIR='${RELEASE_DIR}' BACKUP_ROOT='${BACKUP_ROOT}' LIVE_PORT='${LIVE_PORT}' CLEANUP_CALENDAR='${CLEANUP_CALENDAR}' MORNING_REEVAL_CALENDAR='${MORNING_REEVAL_CALENDAR}' bash -s" <<'EOF'
 set -euo pipefail
 
 export DEBIAN_FRONTEND=noninteractive
@@ -69,6 +72,7 @@ rollback() {
   systemctl stop market-context-live market-context-updater >/dev/null 2>&1 || true
   systemctl stop market-context-cleanup.timer >/dev/null 2>&1 || true
   systemctl stop market-context-morning-reeval.timer >/dev/null 2>&1 || true
+  systemctl stop market-context-dhan-token-refresh.timer >/dev/null 2>&1 || true
   if [ -d "${BACKUP_DIR}/market-context" ]; then
     rm -rf "${REMOTE_DIR}"
     mv "${BACKUP_DIR}/market-context" "${REMOTE_DIR}"
@@ -101,12 +105,19 @@ rollback() {
   if [ -f "${BACKUP_DIR}/market-context-morning-reeval.timer" ]; then
     cp -a "${BACKUP_DIR}/market-context-morning-reeval.timer" /etc/systemd/system/market-context-morning-reeval.timer
   fi
+  if [ -f "${BACKUP_DIR}/market-context-dhan-token-refresh.service" ]; then
+    cp -a "${BACKUP_DIR}/market-context-dhan-token-refresh.service" /etc/systemd/system/market-context-dhan-token-refresh.service
+  fi
+  if [ -f "${BACKUP_DIR}/market-context-dhan-token-refresh.timer" ]; then
+    cp -a "${BACKUP_DIR}/market-context-dhan-token-refresh.timer" /etc/systemd/system/market-context-dhan-token-refresh.timer
+  fi
   systemctl daemon-reload >/dev/null 2>&1 || true
   nginx -t >/dev/null 2>&1 && systemctl reload nginx >/dev/null 2>&1 || true
   systemctl restart market-context-live >/dev/null 2>&1 || true
   systemctl restart market-context-updater >/dev/null 2>&1 || true
   systemctl restart market-context-cleanup.timer >/dev/null 2>&1 || true
   systemctl restart market-context-morning-reeval.timer >/dev/null 2>&1 || true
+  systemctl restart market-context-dhan-token-refresh.timer >/dev/null 2>&1 || true
   echo "[ROLLBACK] Completed."
 }
 
@@ -137,10 +148,17 @@ fi
 if [ -f /etc/systemd/system/market-context-morning-reeval.timer ]; then
   cp -a /etc/systemd/system/market-context-morning-reeval.timer "${BACKUP_DIR}/market-context-morning-reeval.timer"
 fi
+if [ -f /etc/systemd/system/market-context-dhan-token-refresh.service ]; then
+  cp -a /etc/systemd/system/market-context-dhan-token-refresh.service "${BACKUP_DIR}/market-context-dhan-token-refresh.service"
+fi
+if [ -f /etc/systemd/system/market-context-dhan-token-refresh.timer ]; then
+  cp -a /etc/systemd/system/market-context-dhan-token-refresh.timer "${BACKUP_DIR}/market-context-dhan-token-refresh.timer"
+fi
 
 systemctl stop market-context-live market-context-updater >/dev/null 2>&1 || true
 systemctl stop market-context-cleanup.timer >/dev/null 2>&1 || true
 systemctl stop market-context-morning-reeval.timer >/dev/null 2>&1 || true
+systemctl stop market-context-dhan-token-refresh.timer >/dev/null 2>&1 || true
 
 if [ -d "${WEB_ROOT}" ]; then
   mv "${WEB_ROOT}" "${BACKUP_DIR}/web-root"
@@ -187,6 +205,7 @@ ln -sf "${REMOTE_DIR}/frontend/data.json" "${WEB_ROOT}/data.json"
 ln -sf "${REMOTE_DIR}/frontend/_yesterday_snapshot.json" "${WEB_ROOT}/_yesterday_snapshot.json"
 
 chmod +x "${REMOTE_DIR}/server_scripts/start_live.sh" "${REMOTE_DIR}/server_scripts/cleanup.sh"
+chmod +x "${REMOTE_DIR}/server_scripts/refresh_dhan_token.sh"
 
 cat >/etc/nginx/sites-available/market-context <<NGINXCONF
 server {
@@ -339,12 +358,39 @@ Persistent=true
 WantedBy=timers.target
 TIMER
 
+cat >/etc/systemd/system/market-context-dhan-token-refresh.service <<SERVICE
+[Unit]
+Description=Market Context Dhan Token Refresh
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=${REMOTE_DIR}
+EnvironmentFile=${REMOTE_DIR}/backend/.env
+Environment=MARKET_CONTEXT_DIR=${REMOTE_DIR}
+Environment=PYTHONUNBUFFERED=1
+ExecStart=${REMOTE_DIR}/server_scripts/refresh_dhan_token.sh
+SERVICE
+
+cat >/etc/systemd/system/market-context-dhan-token-refresh.timer <<TIMER
+[Unit]
+Description=Market Context Dhan Token Refresh Timer
+
+[Timer]
+OnCalendar=${DHAN_TOKEN_REFRESH_CALENDAR}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+TIMER
+
 systemctl disable --now market-context-updater >/dev/null 2>&1 || true
 rm -f /etc/systemd/system/market-context-updater.service
 systemctl daemon-reload
 systemctl enable --now market-context-live
 systemctl enable --now market-context-cleanup.timer
 systemctl enable --now market-context-morning-reeval.timer
+systemctl enable --now market-context-dhan-token-refresh.timer
 systemctl restart market-context-live
 systemctl start market-context-cleanup.service || true
 

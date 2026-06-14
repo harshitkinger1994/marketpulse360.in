@@ -29,3 +29,5 @@ tzdata==2025.3
 urllib3==2.6.3
 websockets==16.0
 yfinance==1.0
+pyotp==2.9.0
+dhanhq
