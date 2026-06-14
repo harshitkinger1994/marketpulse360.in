@@ -809,6 +809,15 @@ def _pattern_direction(pattern: str | None) -> str | None:
     return None
 
 
+def _pattern_tag(pattern: str | None) -> str:
+    direction = _pattern_direction(pattern)
+    if direction == "BULLISH":
+        return "BULLISH_PATTERN"
+    if direction == "BEARISH":
+        return "BEARISH_PATTERN"
+    return "UNCLASSIFIED_PATTERN"
+
+
 def _price_context_confirmation(
     close: float | None,
     low: float | None,
@@ -2484,6 +2493,7 @@ def _repeat_pattern_sequence_label(direction: str | None, sequence_no: int) -> s
 def _repeat_pattern_message(symbol: str, snapshot: "SymbolSnapshot", strategy: dict[str, Any], sequence_no: int) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
+    pattern_tag = str(strategy.get("pattern_tag") or _pattern_tag(pattern)).strip() or "UNCLASSIFIED_PATTERN"
     candle_time = snapshot.candle_time_ist or "NA"
     close = snapshot.close if snapshot.close is not None else "NA"
     label = _repeat_pattern_sequence_label(direction, sequence_no)
@@ -2492,6 +2502,7 @@ def _repeat_pattern_message(symbol: str, snapshot: "SymbolSnapshot", strategy: d
         [
             f"Strategy: {strategy_name}",
             "Tag: REPEAT_PATTERN",
+            f"Pattern Tag: {pattern_tag}",
             f"Repeat Pattern | {symbol.upper()}",
             f"Sequence: {label}",
             f"Direction: {direction}",
@@ -3655,6 +3666,8 @@ def run_repeat_pattern_once(
 
         payload = snapshot.as_dict()
         strategy = _evaluate_strategy(snapshot)
+        pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "")
+        strategy["pattern_tag"] = _pattern_tag(pattern)
         payload["strategy"] = strategy
         direction = str(strategy.get("direction") or "").upper()
         gate1_pass = bool(strategy.get("gate1_pass"))
@@ -3672,7 +3685,8 @@ def run_repeat_pattern_once(
                 "bearish": {"sequence_no": 0, "last_candle_time_ist": None},
             }
 
-        slot_key = "bullish" if direction == "BULLISH" else "bearish"
+        pattern_tag = str(strategy.get("pattern_tag") or _pattern_tag(pattern))
+        slot_key = "bullish" if pattern_tag == "BULLISH_PATTERN" else "bearish"
         slot = symbol_state.get(slot_key)
         if not isinstance(slot, dict):
             slot = {"sequence_no": 0, "last_candle_time_ist": None}
@@ -3685,6 +3699,7 @@ def run_repeat_pattern_once(
         slot["sequence_no"] = sequence_no
         slot["last_candle_time_ist"] = candle_time
         slot["last_pattern"] = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
+        slot["pattern_tag"] = pattern_tag
         symbol_state[slot_key] = slot
         symbol_state["day_key"] = day_key
         last_meta_map[symbol_key] = symbol_state
@@ -3696,6 +3711,7 @@ def run_repeat_pattern_once(
             "symbol": symbol_key,
             "day_key": day_key,
             "direction": direction,
+            "pattern_tag": pattern_tag,
             "sequence_no": sequence_no,
             "candle_time_ist": candle_time,
             "pattern": str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE"),
