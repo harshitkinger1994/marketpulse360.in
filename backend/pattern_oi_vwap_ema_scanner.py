@@ -2506,7 +2506,7 @@ def _repeat_pattern_message(symbol: str, snapshot: "SymbolSnapshot", strategy: d
             f"Repeat Pattern | {symbol.upper()}",
             f"Sequence: {label}",
             f"Direction: {direction}",
-            f"Pattern: {pattern}",
+            f"Pattern Name: {pattern}",
             f"Close: {close}",
             f"Candle Time: {candle_time}",
         ]
