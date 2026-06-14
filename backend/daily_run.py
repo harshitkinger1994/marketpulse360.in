@@ -210,11 +210,21 @@ def _publish_commodity_snapshot_store(final_payload):
     try:
         from backend.market_snapshot_store import MarketSnapshotStore
 
+        store = MarketSnapshotStore()
+        previous_payload = store.read_payload("commodities_daily") or {}
+        previous_commodities = {
+            str(name).strip().upper(): value
+            for name, value in (previous_payload.get("data") or {}).items()
+            if str(name).strip().upper() in COMMODITIES
+        }
         commodities = {
             str(name).strip().upper(): value
             for name, value in (final_payload.get("data") or {}).items()
             if str(name).strip().upper() in COMMODITIES
         }
+        for name, previous_value in previous_commodities.items():
+            if name not in commodities or not commodities[name] or commodities[name].get("current_price") in (None, "", "null"):
+                commodities[name] = previous_value
         commodity_strategies = [
             strategy
             for strategy in (final_payload.get("strategies") or [])
@@ -231,7 +241,6 @@ def _publish_commodity_snapshot_store(final_payload):
             "commodity_trends": final_payload.get("commodity_trends") or {},
             "top_trades": final_payload.get("top_trades") or [],
         }
-        store = MarketSnapshotStore()
         store.write_payload(commodity_payload, timeframe="commodities_daily")
     except Exception as exc:
         print(f"[WARN] failed to publish commodity snapshot store: {exc}")
