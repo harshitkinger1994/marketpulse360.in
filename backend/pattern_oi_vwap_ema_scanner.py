@@ -3689,7 +3689,7 @@ def run_repeat_pattern_once(
         symbol_state["day_key"] = day_key
         last_meta_map[symbol_key] = symbol_state
 
-        if sequence_no != 2:
+        if sequence_no < 2:
             return payload, None
 
         signature = {
