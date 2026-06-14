@@ -1657,7 +1657,7 @@ def _sanitize_json_value(value):
     return value
 
 
-def _strategy_item_signature(item):
+def _strategy_item_signature(item, strategy_id=None):
     custom = str(item.get("notify_key") or "").strip()
     if custom:
         # Many strategy scripts emit notify_key as:
@@ -1673,10 +1673,32 @@ def _strategy_item_signature(item):
                 return f"{ticker}|{day}|{side}"[:300]
         return custom[:300]
     ticker = str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper()
+    side = _infer_alert_side(item)
+    signal_day = None
+    for key in ("signal_time", "entry_time", "time", "date"):
+        text = str(item.get(key) or "").strip()
+        if not text:
+            continue
+        dt = pd.to_datetime(text, errors="coerce", utc=True)
+        if not pd.isna(dt):
+            try:
+                signal_day = dt.tz_convert(IST).date().isoformat()
+                break
+            except Exception:
+                pass
+        if len(text) >= 10 and text[4] == "-" and text[7] == "-":
+            signal_day = text[:10]
+            break
     lines = item.get("lines") or []
     head = " | ".join(str(x).strip() for x in lines[:2] if x).strip()
     if len(head) > 220:
         head = head[:220]
+    if ticker and signal_day and side in {"BUY", "SELL"}:
+        prefix = str(strategy_id or "").strip().upper()
+        return f"{prefix}|{ticker}|{signal_day}|{side}" if prefix else f"{ticker}|{signal_day}|{side}"
+    if ticker and side in {"BUY", "SELL"}:
+        prefix = str(strategy_id or "").strip().upper()
+        return f"{prefix}|{ticker}|{side}" if prefix else f"{ticker}|{side}"
     return f"{ticker}|{head}" if ticker or head else ""
 
 
@@ -1877,7 +1899,8 @@ def _notify_new_strategy_trades(strategies):
         return
 
     state_exists, prev_state = _load_strategy_notify_state()
-    next_state = {}
+    # Preserve prior alert signatures so empty scans do not wipe dedupe history.
+    next_state = dict(prev_state)
     alerts = []
     compact_lines = []
     compact_markets = []
@@ -1898,13 +1921,14 @@ def _notify_new_strategy_trades(strategies):
         for item in items:
             if not isinstance(item, dict):
                 continue
-            sig = _strategy_item_signature(item)
+            sig = _strategy_item_signature(item, strategy_id=strategy_id)
             if sig:
                 sig_to_item[sig] = item
 
         current_sigs = sorted(sig_to_item.keys())
-        next_state[strategy_id] = current_sigs
         prev_sigs = set(prev_state.get(strategy_id, []))
+        if current_sigs:
+            next_state[strategy_id] = current_sigs
         new_sigs = [s for s in current_sigs if s not in prev_sigs]
         should_send = (state_exists and bool(new_sigs)) or (not state_exists and STRATEGY_NOTIFY_ON_FIRST_RUN and bool(current_sigs))
         if not should_send:
