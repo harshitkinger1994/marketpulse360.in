@@ -1,31 +1,27 @@
 {
   "strategy_id": "commodities_ema9_growth30_on",
-  "title": "Commodities EMA9 Growth 30",
+  "title": "Commodities Dhan 15m OI EMA9 Growth 30",
   "owner": "HARSHIT",
-  "trade_type": "SWING",
+  "trade_type": "INTRADAY",
   "market": "commodities",
-  "generated_at": "2026-06-14T12:47:38.880887+00:00",
-  "as_of_date": "",
+  "generated_at": "2026-06-14T16:26:35.523482+00:00",
+  "as_of_date": "2026-06-14",
   "counts": {
-    "assets": 7,
-    "assets_with_data": 0,
-    "window_days": 30,
+    "assets": 5,
+    "assets_with_data": 5,
     "signals_total": 0,
-    "universe_breakdown": {}
+    "scanned_signals": 6,
+    "window_days": 60,
+    "source": "dhan",
+    "pilot_side": "bullish"
   },
   "rules": {
-    "breakout_condition": "Daily range > ATR(14) x 1.4, with daily and weekly EMA9 side alignment",
-    "entry_trigger": "BUY: low < EMA9 and close > EMA9 with bullish candle near high | SELL: high > EMA9 and close < EMA9 with bearish candle near low",
-    "volume_multiple": "Daily volume > SMA(14)",
-    "lookback_volume": 14,
-    "rsi_range": [
-      30.0,
-      60.0
-    ],
-    "min_atr_pct": 0.0,
-    "require_ema9_slope": false,
-    "ema9_slope_lookback_days": 5,
-    "filter_mode": "RSI(14) in 30.0-60.0, volume > SMA(14); market gate disabled"
+    "data_source": "Dhan intraday API",
+    "timeframe": "15m",
+    "trend_filter": "3h EMA9 and session VWAP alignment",
+    "range_multiple": "2.5x to 4.0x",
+    "reward_risk_min": 1.0,
+    "note": "Live Dhan-backed pilot used for UI cards and Telegram alerts."
   },
   "input_schema": {
     "schema_version": "dhan_strategy_input_v1",
@@ -171,10 +167,10 @@
     ]
   },
   "notes": [
-    "Daily+Weekly EMA9 strategy with ATR range expansion, volume, RSI and candle-body confirmation.",
-    "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
-    "Market benchmark gate is disabled for this strategy.",
-    "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures."
+    "Dhan intraday charts and scrip master power this live pilot.",
+    "Telegram alert is sent by backend daily notifier for current-day pilot entries.",
+    "Pilot symbols: GOLD, SILVER, CRUDEOIL, NATGAS, COPPER.",
+    "Current-day items: 0 | Raw signals scanned: 6."
   ],
   "items": []
 }

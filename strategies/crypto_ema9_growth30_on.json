@@ -4,13 +4,13 @@
   "owner": "HARSHIT",
   "trade_type": "SWING",
   "market": "crypto",
-  "generated_at": "2026-06-14T12:47:39.327317+00:00",
-  "as_of_date": "",
+  "generated_at": "2026-06-14T16:15:46.840914+00:00",
+  "as_of_date": "2026-06-14",
   "counts": {
     "assets": 5,
-    "assets_with_data": 0,
+    "assets_with_data": 5,
     "window_days": 30,
-    "signals_total": 0,
+    "signals_total": 1,
     "universe_breakdown": {}
   },
   "rules": {
@@ -176,5 +176,21 @@
     "Market benchmark gate is disabled for this strategy.",
     "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures."
   ],
-  "items": []
+  "items": [
+    {
+      "ticker": "BNB",
+      "name": "BNB",
+      "symbol": "BNB-USD",
+      "instrument_type": "spot",
+      "side": "SELL",
+      "notify_key": "BNB|2026-06-02|SELL|650.43",
+      "signal_time": "2026-06-02",
+      "entry_time": "2026-06-02",
+      "entry_price": 650.4299926757812,
+      "lines": [
+        "SELL | Date 2026-06-02 | Close 650.43 vs EMA9 670.85 | Weekly close 603.63 vs EMA9 646.17",
+        "Range 48.64 > ATR14x1.4 (26.69) | Vol 2212967555 vs SMA14 1810267792 | RSI14 52.60 | Market gate disabled"
+      ]
+    }
+  ]
 }

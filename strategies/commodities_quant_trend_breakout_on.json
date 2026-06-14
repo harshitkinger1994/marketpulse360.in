@@ -4,11 +4,11 @@
   "owner": "HARSHIT",
   "trade_type": "SWING",
   "market": "commodities",
-  "generated_at": "2026-06-14T12:49:42.758217+00:00",
+  "generated_at": "2026-06-14T16:19:52.885302+00:00",
   "as_of_date": "",
   "counts": {
     "assets": 7,
-    "assets_with_data": 5,
+    "assets_with_data": 0,
     "window_days": 1,
     "signals_total": 0,
     "universe_breakdown": {}

@@ -4,15 +4,15 @@
   "owner": "HARSHIT",
   "trade_type": "SWING",
   "market": "india",
-  "generated_at": "2026-06-14T12:49:36.150637+00:00",
+  "generated_at": "2026-06-14T16:19:04.909917+00:00",
   "as_of_date": "",
   "counts": {
-    "assets": 210,
-    "assets_with_data": 3,
+    "assets": 53,
+    "assets_with_data": 0,
     "window_days": 1,
     "signals_total": 0,
     "universe_breakdown": {
-      "fno_stocks": 207,
+      "fno_stocks": 50,
       "index_companions": 3
     }
   },
@@ -221,7 +221,7 @@
     "BUY requires NIFTY above SMA200; SELL requires below.",
     "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures.",
     "Curated live-supported index companions are appended to this India universe with the same strategy filters.",
-    "Tracked universe: 210 instruments (fno stocks: 207, index companions: 3)."
+    "Tracked universe: 53 instruments (fno stocks: 50, index companions: 3)."
   ],
   "items": []
 }

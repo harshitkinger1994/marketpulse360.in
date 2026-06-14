@@ -4,13 +4,13 @@
   "owner": "HARSHIT",
   "trade_type": "SWING",
   "market": "global",
-  "generated_at": "2026-06-14T12:47:38.391883+00:00",
-  "as_of_date": "",
+  "generated_at": "2026-06-14T16:15:41.361544+00:00",
+  "as_of_date": "2026-06-12",
   "counts": {
     "assets": 55,
-    "assets_with_data": 0,
+    "assets_with_data": 55,
     "window_days": 30,
-    "signals_total": 0,
+    "signals_total": 11,
     "universe_breakdown": {
       "index_futures": 5
     }
@@ -180,5 +180,171 @@
     "Curated live-supported index futures are appended to this market universe with the same strategy filters.",
     "Tracked universe: 55 instruments (index futures: 5)."
   ],
-  "items": []
+  "items": [
+    {
+      "ticker": "XOM",
+      "name": "XOM",
+      "symbol": "XOM",
+      "instrument_type": "spot",
+      "side": "SELL",
+      "notify_key": "XOM|2026-06-11|SELL|146.60",
+      "signal_time": "2026-06-11",
+      "entry_time": "2026-06-11",
+      "entry_price": 146.60000610351562,
+      "lines": [
+        "SELL | Date 2026-06-11 | Close 146.60 vs EMA9 149.75 | Weekly close 147.01 vs EMA9 150.10",
+        "Range 6.07 > ATR14x1.4 (3.74) | Vol 17285800 vs SMA14 15577671 | RSI14 35.66 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "name": "HON",
+      "symbol": "HON",
+      "instrument_type": "spot",
+      "side": "SELL",
+      "notify_key": "HON|2026-06-03|SELL|223.26",
+      "signal_time": "2026-06-03",
+      "entry_time": "2026-06-03",
+      "entry_price": 223.25999450683594,
+      "lines": [
+        "SELL | Date 2026-06-03 | Close 223.26 vs EMA9 229.47 | Weekly close 213.97 vs EMA9 222.75",
+        "Range 16.10 > ATR14x1.4 (6.40) | Vol 6183400 vs SMA14 4964586 | RSI14 55.96 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "LIN",
+      "name": "LIN",
+      "symbol": "LIN",
+      "instrument_type": "spot",
+      "side": "BUY",
+      "notify_key": "LIN|2026-06-03|BUY|507.57",
+      "signal_time": "2026-06-03",
+      "entry_time": "2026-06-03",
+      "entry_price": 507.57000732421875,
+      "lines": [
+        "BUY | Date 2026-06-03 | Close 507.57 vs EMA9 503.83 | Weekly close 507.90 vs EMA9 502.40",
+        "Range 16.07 > ATR14x1.4 (9.38) | Vol 2283600 vs SMA14 2251093 | RSI14 45.38 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "META",
+      "symbol": "META",
+      "instrument_type": "spot",
+      "side": "SELL",
+      "notify_key": "META|2026-06-01|SELL|600.47",
+      "signal_time": "2026-06-01",
+      "entry_time": "2026-06-01",
+      "entry_price": 600.469970703125,
+      "lines": [
+        "SELL | Date 2026-06-01 | Close 600.47 vs EMA9 617.78 | Weekly close 593.00 vs EMA9 617.35",
+        "Range 36.22 > ATR14x1.4 (15.26) | Vol 29138800 vs SMA14 15215857 | RSI14 50.78 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "ADBE",
+      "name": "ADBE",
+      "symbol": "ADBE",
+      "instrument_type": "spot",
+      "side": "BUY",
+      "notify_key": "ADBE|2026-05-29|BUY|259.21",
+      "signal_time": "2026-05-29",
+      "entry_time": "2026-05-29",
+      "entry_price": 259.2099914550781,
+      "lines": [
+        "BUY | Date 2026-05-29 | Close 259.21 vs EMA9 247.05 | Weekly close 259.21 vs EMA9 251.19",
+        "Range 15.97 > ATR14x1.4 (9.69) | Vol 10808900 vs SMA14 4764157 | RSI14 54.05 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "MSFT",
+      "symbol": "MSFT",
+      "instrument_type": "spot",
+      "side": "BUY",
+      "notify_key": "MSFT|2026-05-28|BUY|426.99",
+      "signal_time": "2026-05-28",
+      "entry_time": "2026-05-28",
+      "entry_price": 426.989990234375,
+      "lines": [
+        "BUY | Date 2026-05-28 | Close 426.99 vs EMA9 418.51 | Weekly close 450.24 vs EMA9 419.20",
+        "Range 16.82 > ATR14x1.4 (10.50) | Vol 47250500 vs SMA14 33495164 | RSI14 54.69 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPM",
+      "symbol": "JPM",
+      "instrument_type": "spot",
+      "side": "SELL",
+      "notify_key": "JPM|2026-05-27|SELL|299.28",
+      "signal_time": "2026-05-27",
+      "entry_time": "2026-05-27",
+      "entry_price": 299.2799987792969,
+      "lines": [
+        "SELL | Date 2026-05-27 | Close 299.28 vs EMA9 302.59 | Weekly close 299.31 vs EMA9 302.49",
+        "Range 10.15 > ATR14x1.4 (6.51) | Vol 11779200 vs SMA14 8492879 | RSI14 35.35 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "GE",
+      "name": "GE",
+      "symbol": "GE",
+      "instrument_type": "spot",
+      "side": "BUY",
+      "notify_key": "GE|2026-05-20|BUY|300.17",
+      "signal_time": "2026-05-20",
+      "entry_time": "2026-05-20",
+      "entry_price": 300.1700134277344,
+      "lines": [
+        "BUY | Date 2026-05-20 | Close 300.17 vs EMA9 291.82 | Weekly close 302.84 vs EMA9 295.54",
+        "Range 14.27 > ATR14x1.4 (9.58) | Vol 6098400 vs SMA14 5273807 | RSI14 55.93 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "AVGO",
+      "symbol": "AVGO",
+      "instrument_type": "spot",
+      "side": "BUY",
+      "notify_key": "AVGO|2026-05-14|BUY|439.79",
+      "signal_time": "2026-05-14",
+      "entry_time": "2026-05-14",
+      "entry_price": 439.7900085449219,
+      "lines": [
+        "BUY | Date 2026-05-14 | Close 439.79 vs EMA9 423.72 | Weekly close 425.19 vs EMA9 392.61",
+        "Range 26.77 > ATR14x1.4 (16.36) | Vol 19733800 vs SMA14 19111286 | RSI14 56.63 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "ABBV",
+      "name": "ABBV",
+      "symbol": "ABBV",
+      "instrument_type": "spot",
+      "side": "BUY",
+      "notify_key": "ABBV|2026-05-12|BUY|207.86",
+      "signal_time": "2026-05-12",
+      "entry_time": "2026-05-12",
+      "entry_price": 207.86000061035156,
+      "lines": [
+        "BUY | Date 2026-05-12 | Close 207.86 vs EMA9 204.66 | Weekly close 210.39 vs EMA9 208.69",
+        "Range 7.81 > ATR14x1.4 (5.47) | Vol 7044100 vs SMA14 6846307 | RSI14 59.90 | Market gate disabled"
+      ]
+    },
+    {
+      "ticker": "DIS",
+      "name": "DIS",
+      "symbol": "DIS",
+      "instrument_type": "spot",
+      "side": "SELL",
+      "notify_key": "DIS|2026-05-11|SELL|104.72",
+      "signal_time": "2026-05-11",
+      "entry_time": "2026-05-11",
+      "entry_price": 104.72000122070312,
+      "lines": [
+        "SELL | Date 2026-05-11 | Close 104.72 vs EMA9 105.02 | Weekly close 102.72 vs EMA9 103.18",
+        "Range 4.01 > ATR14x1.4 (2.75) | Vol 10562300 vs SMA14 9415114 | RSI14 50.98 | Market gate disabled"
+      ]
+    }
+  ]
 }

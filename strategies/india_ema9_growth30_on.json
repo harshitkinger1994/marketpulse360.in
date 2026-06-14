@@ -4,15 +4,15 @@
   "owner": "HARSHIT",
   "trade_type": "SWING",
   "market": "india",
-  "generated_at": "2026-06-13T13:36:31.739567+00:00",
-  "as_of_date": "2026-06-12",
+  "generated_at": "2026-06-14T16:15:26.297084+00:00",
+  "as_of_date": "",
   "counts": {
-    "assets": 210,
-    "assets_with_data": 3,
+    "assets": 53,
+    "assets_with_data": 0,
     "window_days": 30,
-    "signals_total": 3,
+    "signals_total": 0,
     "universe_breakdown": {
-      "fno_stocks": 207,
+      "fno_stocks": 50,
       "index_companions": 3
     }
   },
@@ -30,59 +30,156 @@
     "ema9_slope_lookback_days": 5,
     "filter_mode": "RSI(14) in 30.0-60.0, volume > SMA(14); market gate disabled"
   },
+  "input_schema": {
+    "schema_version": "dhan_strategy_input_v1",
+    "required_fields": [
+      {
+        "field": "symbol",
+        "source": "Dhan scrip master / strategy universe",
+        "required": true,
+        "notes": "Tradable symbol name used by the strategy."
+      },
+      {
+        "field": "security_id",
+        "source": "Dhan scrip master",
+        "required": true,
+        "notes": "Dhan security identifier required for chart lookup."
+      },
+      {
+        "field": "exchange_segment",
+        "source": "Dhan scrip master",
+        "required": true,
+        "notes": "Exchange routing segment such as NSE_EQ, NSE_FNO or MCX_COMM."
+      },
+      {
+        "field": "instrument",
+        "source": "Dhan scrip master",
+        "required": true,
+        "notes": "Instrument type used by the Dhan charts endpoint."
+      },
+      {
+        "field": "market",
+        "source": "Strategy selection",
+        "required": true,
+        "notes": "India, global, commodities, or crypto."
+      },
+      {
+        "field": "interval",
+        "source": "Strategy selection",
+        "required": true,
+        "notes": "15m, 1h, 1d, etc."
+      },
+      {
+        "field": "timestamp",
+        "source": "Dhan intraday / daily chart",
+        "required": true,
+        "notes": "Close timestamp for the candle used by the strategy."
+      },
+      {
+        "field": "open",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle open price."
+      },
+      {
+        "field": "high",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle high price."
+      },
+      {
+        "field": "low",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle low price."
+      },
+      {
+        "field": "close",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle close price."
+      },
+      {
+        "field": "volume",
+        "source": "Dhan volume / chart payload",
+        "required": true,
+        "notes": "Candle volume."
+      },
+      {
+        "field": "vwap",
+        "source": "Derived from Dhan OHLCV",
+        "required": false,
+        "notes": "Intraday session VWAP when the strategy uses it."
+      },
+      {
+        "field": "ema9",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Primary EMA9 trigger line if the strategy needs it."
+      },
+      {
+        "field": "rsi14",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Momentum filter."
+      },
+      {
+        "field": "atr14",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Range / volatility filter."
+      },
+      {
+        "field": "volume_sma14",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Relative volume filter baseline."
+      },
+      {
+        "field": "daily_ema9",
+        "source": "Derived from Dhan daily candles",
+        "required": false,
+        "notes": "Higher timeframe trend confirmation."
+      },
+      {
+        "field": "weekly_ema9",
+        "source": "Derived from Dhan weekly candles",
+        "required": false,
+        "notes": "Higher timeframe trend confirmation."
+      },
+      {
+        "field": "day_range",
+        "source": "Dhan session OHLC",
+        "required": false,
+        "notes": "Structured session range for UI and risk controls."
+      },
+      {
+        "field": "call_oi_strike",
+        "source": "Dhan options chain",
+        "required": false,
+        "notes": "Highest call OI strike for option-barrier strategies."
+      },
+      {
+        "field": "put_oi_strike",
+        "source": "Dhan options chain",
+        "required": false,
+        "notes": "Highest put OI strike for option-barrier strategies."
+      },
+      {
+        "field": "pcr_ratio",
+        "source": "Dhan options chain",
+        "required": false,
+        "notes": "Put-call ratio when derivatives context is used."
+      }
+    ]
+  },
   "notes": [
     "Daily+Weekly EMA9 strategy with ATR range expansion, volume, RSI and candle-body confirmation.",
     "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
     "Market benchmark gate is disabled for this strategy.",
     "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures.",
     "Curated live-supported index companions are appended to this India universe with the same strategy filters.",
-    "Tracked universe: 210 instruments (fno stocks: 207, index companions: 3)."
+    "Tracked universe: 53 instruments (fno stocks: 50, index companions: 3)."
   ],
-  "items": [
-    {
-      "ticker": "TITAN",
-      "name": "TITAN",
-      "symbol": "TITAN.NS",
-      "instrument_type": "fno_stock",
-      "side": "SELL",
-      "notify_key": "TITAN|2026-06-09|SELL|4098.00",
-      "signal_time": "2026-06-09",
-      "entry_time": "2026-06-09",
-      "entry_price": 4098.0,
-      "lines": [
-        "SELL | Date 2026-06-09 | Close 4098.00 vs EMA9 4151.24 | Weekly close 4179.00 vs EMA9 4226.81",
-        "Range 129.00 > ATR14x1.4 (90.82) | Vol 1236222 vs SMA14 918273 | RSI14 50.11 | Market gate disabled"
-      ]
-    },
-    {
-      "ticker": "TITAN",
-      "name": "TITAN",
-      "symbol": "TITAN.NS",
-      "instrument_type": "fno_stock",
-      "side": "BUY",
-      "notify_key": "TITAN|2026-06-04|BUY|4250.00",
-      "signal_time": "2026-06-04",
-      "entry_time": "2026-06-04",
-      "entry_price": 4250.0,
-      "lines": [
-        "BUY | Date 2026-06-04 | Close 4250.00 vs EMA9 4132.42 | Weekly close 4265.00 vs EMA9 4238.76",
-        "Range 205.40 > ATR14x1.4 (88.69) | Vol 1737618 vs SMA14 857669 | RSI14 58.38 | Market gate disabled"
-      ]
-    },
-    {
-      "ticker": "SBIN",
-      "name": "SBIN",
-      "symbol": "SBIN.NS",
-      "instrument_type": "fno_stock",
-      "side": "SELL",
-      "notify_key": "SBIN|2026-05-08|SELL|1018.50",
-      "signal_time": "2026-05-08",
-      "entry_time": "2026-05-08",
-      "entry_price": 1018.5,
-      "lines": [
-        "SELL | Date 2026-05-08 | Close 1018.50 vs EMA9 1071.87 | Weekly close 1018.50 vs EMA9 1056.12",
-        "Range 83.80 > ATR14x1.4 (26.13) | Vol 47403009 vs SMA14 16373432 | RSI14 37.00 | Market gate disabled"
-      ]
-    }
-  ]
+  "items": []
 }
