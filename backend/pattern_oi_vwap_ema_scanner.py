@@ -2375,7 +2375,7 @@ def _format_gate3_group_message(
         lines = [
             f"Strategy: {strategy_name}",
             f"## {symbol.upper()} | Side: {direction}",
-            f"Pattern: {pattern}",
+            f"Pattern Name: {pattern}",
             f"Source: {source_note or 'Pattern-only universe'}",
             f"PCR: {pcr if pcr is not None else 'NA'} | Prev PCR: {pcr_prev if pcr_prev is not None else 'NA'}",
             f"Call OI Velocity: {call_velocity if call_velocity is not None else 'NA'}%",
@@ -2439,7 +2439,7 @@ def _format_gate3_personal_message(
     lines = [
         f"{strategy_name.upper()} | {symbol.upper()}",
         f"Source: {source_note or 'Pattern-only universe'}",
-        f"Gate 1: {gate1_pass} | Pattern: {pattern} | Direction: {direction}",
+        f"Gate 1: {gate1_pass} | Pattern Name: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
         f"Gate 3: {gate3_pass} | Call OI: {call_oi if call_oi is not None else 'NA'} @ {call_strike if call_strike is not None else 'NA'} vs {call_oi_prev if call_oi_prev is not None else 'NA'} | Put OI: {put_oi if put_oi is not None else 'NA'} @ {put_strike if put_strike is not None else 'NA'} vs {put_oi_prev if put_oi_prev is not None else 'NA'}",
         f"Gate 4: {gate4_pass} | PCR: {pcr if pcr is not None else 'NA'} | Prev PCR: {pcr_prev if pcr_prev is not None else 'NA'}",
@@ -2466,7 +2466,7 @@ def _format_gate12_personal_message(
     lines = [
         f"{strategy_name.upper()} SETUP | {symbol.upper()}",
         f"Source: {source_note or 'Pattern-only universe'}",
-        f"Gate 1: {gate1_pass} | Pattern: {pattern} | Direction: {direction}",
+        f"Gate 1: {gate1_pass} | Pattern Name: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
         "Signal: Pattern and VWAP/EMA are clear.",
         f"Candle Time: {snapshot.candle_time_ist or 'NA'}",
