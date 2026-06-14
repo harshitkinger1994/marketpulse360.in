@@ -226,6 +226,8 @@ server {
 
     location /snapshot {
         proxy_pass http://127.0.0.1:${LIVE_PORT}/snapshot;
+        proxy_intercept_errors on;
+        error_page 502 503 504 = /data.json;
         proxy_http_version 1.1;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
@@ -271,6 +273,8 @@ server {
 
     location /snapshot {
         proxy_pass http://127.0.0.1:${LIVE_PORT}/snapshot;
+        proxy_intercept_errors on;
+        error_page 502 503 504 = /data.json;
         proxy_http_version 1.1;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
