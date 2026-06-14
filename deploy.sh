@@ -438,7 +438,7 @@ if [ "${DATA_STATUS}" = "200" ] && command -v jq >/dev/null 2>&1; then
   fi
 fi
 LIVE_SERVICE_STATUS="unknown"
-if ssh "${SERVER}" "systemctl is-active --quiet market-context-live"; then
+if ssh -i "${SSH_KEY}" -o IdentitiesOnly=yes "${SERVER}" "systemctl is-active --quiet market-context-live"; then
   LIVE_SERVICE_STATUS="active"
 else
   LIVE_SERVICE_STATUS="inactive"
