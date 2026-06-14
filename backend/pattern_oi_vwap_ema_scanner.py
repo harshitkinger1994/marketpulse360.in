@@ -143,9 +143,11 @@ SCANNED_SIGNALS_CSV = OUTPUT_DIR / "scanned_signals.csv"
 GATE3_STATE_PATH = OUTPUT_DIR / "dhan_gate3_state.json"
 GATE3_DRY_RUN_LOG = OUTPUT_DIR / "gate3_telegram_dry_run.log"
 GATE3_REPLAY_OUTPUT = OUTPUT_DIR / "dhan_gate3_replay.json"
+REPEAT_PATTERN_STATE_PATH = OUTPUT_DIR / "repeat_pattern_state.json"
 DEFAULT_STORE_TIMEFRAME = os.environ.get("DHAN_STORE_TIMEFRAME", "15m").strip() or "15m"
 STORE_PUBLISH_ENABLED = os.environ.get("DHAN_STORE_PUBLISH_ENABLED", "1") == "1"
 DEFAULT_SETUP_ALERTS = os.environ.get("DHAN_SETUP_ALERTS", "1") == "1"
+DEFAULT_REPEAT_PATTERN_ALERTS = os.environ.get("DHAN_REPEAT_PATTERN_ALERTS", "0") == "1"
 INDIA_INDEX_SCAN_SYMBOLS = ("NIFTY", "BANKNIFTY", "SENSEX")
 
 
@@ -177,6 +179,15 @@ def _load_gate3_state() -> dict[str, Any]:
 
 def _save_gate3_state(payload: dict[str, Any]) -> None:
     _write_json_atomic(GATE3_STATE_PATH, payload)
+
+
+def _load_repeat_pattern_state() -> dict[str, Any]:
+    state = _load_json_file(REPEAT_PATTERN_STATE_PATH, default={})
+    return state if isinstance(state, dict) else {}
+
+
+def _save_repeat_pattern_state(payload: dict[str, Any]) -> None:
+    _write_json_atomic(REPEAT_PATTERN_STATE_PATH, payload)
 
 
 def _publish_market_snapshot_store(payload: dict[str, Any], timeframe: str) -> None:
@@ -2454,6 +2465,43 @@ def _format_gate12_personal_message(
     return "\n".join(lines)
 
 
+def _repeat_pattern_sequence_label(direction: str | None, sequence_no: int) -> str:
+    def _ordinal(n: int) -> str:
+        if 10 <= n % 100 <= 20:
+            suffix = "th"
+        else:
+            suffix = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+        return f"{n}{suffix}"
+
+    direction_text = str(direction or "").upper()
+    if direction_text == "BULLISH":
+        return f"{_ordinal(sequence_no)} bullish today"
+    if direction_text == "BEARISH":
+        return f"{_ordinal(sequence_no)} bearish today"
+    return f"{_ordinal(sequence_no)} repeat today"
+
+
+def _repeat_pattern_message(symbol: str, snapshot: "SymbolSnapshot", strategy: dict[str, Any], sequence_no: int) -> str:
+    direction = str(strategy.get("direction") or "NEUTRAL").upper()
+    pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
+    candle_time = snapshot.candle_time_ist or "NA"
+    close = snapshot.close if snapshot.close is not None else "NA"
+    label = _repeat_pattern_sequence_label(direction, sequence_no)
+    strategy_name = str(strategy.get("strategy_name") or DEFAULT_STRATEGY_NAME).strip() or DEFAULT_STRATEGY_NAME
+    return "\n".join(
+        [
+            f"Strategy: {strategy_name}",
+            "Tag: REPEAT_PATTERN",
+            f"Repeat Pattern | {symbol.upper()}",
+            f"Sequence: {label}",
+            f"Direction: {direction}",
+            f"Pattern: {pattern}",
+            f"Close: {close}",
+            f"Candle Time: {candle_time}",
+        ]
+    )
+
+
 def _replay_gate3_snapshot_file(
     snapshot_file: Path,
     gate12_alerts: bool = False,
@@ -3569,6 +3617,192 @@ def run_once(
     return output
 
 
+def run_repeat_pattern_once(
+    client: DhanRealtimeClient,
+    watchlist: dict[str, int | None],
+    interval: str = "15m",
+    lookback_days: int = 60,
+    market: str = "india",
+    buffer_seconds: float = DEFAULT_BUFFER_SECONDS,
+    fast_mode: bool = False,
+    fast_strike_window: int = DEFAULT_FAST_STRIKE_WINDOW,
+) -> dict[str, Any]:
+    symbols = list(watchlist.keys())
+    total = len(symbols)
+    state = _load_repeat_pattern_state()
+    last_meta_map = state.get("last_repeat_pattern_meta_map")
+    if not isinstance(last_meta_map, dict):
+        last_meta_map = {}
+
+    alert_rows: list[dict[str, Any]] = []
+    max_workers = min(DEFAULT_SCAN_WORKERS, max(1, total))
+    logger.info("Repeat-pattern scan across %s symbols using %s workers.", total, max_workers)
+
+    def _process_symbol(symbol: str) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+        try:
+            snapshot = client.snapshot_symbol(
+                symbol=symbol,
+                interval=interval,
+                lookback_days=lookback_days,
+                market=market,
+                fetch_option_chain=False,
+                fast_mode=fast_mode,
+                fast_strike_window=fast_strike_window,
+            )
+        except Exception as exc:
+            logger.warning("Skipping %s: %s", symbol, exc)
+            return None, None
+
+        payload = snapshot.as_dict()
+        strategy = _evaluate_strategy(snapshot)
+        payload["strategy"] = strategy
+        direction = str(strategy.get("direction") or "").upper()
+        gate1_pass = bool(strategy.get("gate1_pass"))
+        if not gate1_pass or direction not in {"BULLISH", "BEARISH"}:
+            return payload, None
+
+        candle_time = str(snapshot.candle_time_ist or "")
+        day_key = candle_time[:10] if candle_time else datetime.now(IST).date().isoformat()
+        symbol_key = symbol.upper()
+        symbol_state = last_meta_map.get(symbol_key)
+        if not isinstance(symbol_state, dict) or symbol_state.get("day_key") != day_key:
+            symbol_state = {
+                "day_key": day_key,
+                "bullish": {"sequence_no": 0, "last_candle_time_ist": None},
+                "bearish": {"sequence_no": 0, "last_candle_time_ist": None},
+            }
+
+        slot_key = "bullish" if direction == "BULLISH" else "bearish"
+        slot = symbol_state.get(slot_key)
+        if not isinstance(slot, dict):
+            slot = {"sequence_no": 0, "last_candle_time_ist": None}
+
+        if str(slot.get("last_candle_time_ist") or "") == candle_time:
+            last_meta_map[symbol_key] = symbol_state
+            return payload, None
+
+        sequence_no = int(slot.get("sequence_no") or 0) + 1
+        slot["sequence_no"] = sequence_no
+        slot["last_candle_time_ist"] = candle_time
+        slot["last_pattern"] = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
+        symbol_state[slot_key] = slot
+        symbol_state["day_key"] = day_key
+        last_meta_map[symbol_key] = symbol_state
+
+        if sequence_no < 2:
+            return payload, None
+
+        signature = {
+            "symbol": symbol_key,
+            "day_key": day_key,
+            "direction": direction,
+            "sequence_no": sequence_no,
+            "candle_time_ist": candle_time,
+            "pattern": str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE"),
+        }
+        previous_meta = slot.get("last_repeat_signature")
+        if isinstance(previous_meta, dict):
+            if (
+                str(previous_meta.get("candle_time_ist") or "") == candle_time
+                and int(previous_meta.get("sequence_no") or 0) == sequence_no
+            ):
+                return payload, None
+
+        slot["last_repeat_signature"] = signature
+        alert = {
+            "symbol": symbol_key,
+            "sequence_no": sequence_no,
+            "signature": signature,
+            "group_message": _repeat_pattern_message(symbol, snapshot, strategy, sequence_no),
+            "personal_message": _repeat_pattern_message(symbol, snapshot, strategy, sequence_no),
+            "strategy": strategy,
+        }
+        return payload, alert
+
+    snapshots: list[dict[str, Any]] = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_symbol = {executor.submit(_process_symbol, symbol): symbol for symbol in symbols}
+        completed = 0
+        for future in concurrent.futures.as_completed(future_to_symbol):
+            completed += 1
+            symbol = future_to_symbol[future]
+            logger.info("Repeat-pattern progress %s/%s: %s", completed, total, symbol)
+            payload, alert = future.result()
+            if payload is not None:
+                snapshots.append(payload)
+            if alert is not None:
+                alert_rows.append(alert)
+
+    if alert_rows:
+        for alert in alert_rows:
+            symbol = str(alert.get("symbol") or "").upper()
+            group_message = str(alert.get("group_message") or "").strip()
+            personal_message = str(alert.get("personal_message") or "").strip()
+            if group_message:
+                sent_group = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
+                logger.info("Repeat-pattern group alert %s for %s", "sent" if sent_group else "not sent", symbol)
+            if personal_message:
+                personal_chat_id = (
+                    os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
+                    or os.getenv("TELEGRAM_STATUS_CHAT_ID")
+                    or os.getenv("TELEGRAM_CHAT_ID")
+                )
+                sent_personal = _send_telegram_to(personal_chat_id, personal_message)
+                logger.info("Repeat-pattern personal alert %s for %s", "sent" if sent_personal else "not sent", symbol)
+        _save_repeat_pattern_state(
+            {
+                "last_repeat_pattern_meta_map": last_meta_map,
+                "last_repeat_pattern_at": datetime.now(IST).isoformat(),
+                "repeat_pattern_alert_count": len(alert_rows),
+            }
+        )
+
+    output = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "interval": interval,
+        "lookback_days": lookback_days,
+        "market": market,
+        "watchlist": list(watchlist.keys()),
+        "snapshots": snapshots,
+        "repeat_pattern_alerts": alert_rows,
+    }
+    out_path = OUTPUT_DIR / "repeat_pattern_alerts.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(output, indent=2, ensure_ascii=False))
+    print(f"Saved repeat-pattern scan to {out_path}")
+    return output
+
+
+def run_repeat_pattern_forever(
+    client: DhanRealtimeClient,
+    watchlist: dict[str, int | None],
+    interval: str = "15m",
+    lookback_days: int = 60,
+    market: str = "india",
+    buffer_seconds: float = DEFAULT_BUFFER_SECONDS,
+    fast_mode: bool = False,
+    fast_strike_window: int = DEFAULT_FAST_STRIKE_WINDOW,
+) -> None:
+    while True:
+        now = datetime.now(IST)
+        if _is_market_open(now, close_buffer_seconds=buffer_seconds):
+            run_repeat_pattern_once(
+                client=client,
+                watchlist=watchlist,
+                interval=interval,
+                lookback_days=lookback_days,
+                market=market,
+                buffer_seconds=buffer_seconds,
+                fast_mode=fast_mode,
+                fast_strike_window=fast_strike_window,
+            )
+        else:
+            logger.info("Market closed; waiting for the next open window.")
+        sleep_seconds = _seconds_until_next_scan(buffer_seconds=buffer_seconds)
+        logger.info("Sleeping %.1f seconds until next repeat-pattern scan.", sleep_seconds)
+        time.sleep(sleep_seconds)
+
+
 def run_history_scan(
     client: DhanRealtimeClient,
     symbols: list[str],
@@ -4373,8 +4607,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--fast-mode", action="store_true", help="Limit option-chain fetches to strikes near ATM for faster scans.")
     parser.add_argument("--fast-strike-window", type=int, default=DEFAULT_FAST_STRIKE_WINDOW, help="Number of strikes to keep on each side of ATM in fast mode.")
     parser.add_argument("--body-multiplier", type=float, default=DEFAULT_BODY_MULTIPLIER, help="Big-candle body threshold as a multiplier of the 40-period average body.")
+    parser.add_argument("--repeat-pattern-alerts", action="store_true", help="Enable isolated repeat-pattern Telegram alerts for 2nd/3rd bullish or bearish occurrences.")
+    parser.add_argument("--no-repeat-pattern-alerts", dest="repeat_pattern_alerts", action="store_false", help="Disable the repeat-pattern Telegram alerts path.")
     parser.add_argument("--setup-alerts", dest="setup_alerts", action="store_true", help="Send setup alerts when Gate 1 and Gate 2 first confirm.")
     parser.add_argument("--no-setup-alerts", dest="setup_alerts", action="store_false", help="Disable Gate 1/2 setup alerts.")
+    parser.set_defaults(repeat_pattern_alerts=DEFAULT_REPEAT_PATTERN_ALERTS)
     parser.set_defaults(setup_alerts=DEFAULT_SETUP_ALERTS)
     parser.add_argument("--skip-dhan-preflight", action="store_true", help="Skip the live Dhan token probe before running.")
     parser.add_argument("--gate3-alerts", action="store_true", help="Send group and personal Telegram alerts when Gate 3 confirms a fresh OI shift.")
@@ -4410,6 +4647,56 @@ def main(argv: list[str] | None = None) -> int:
             replay_snapshot_path,
             gate12_alerts=args.setup_alerts,
             gate3_alerts=args.gate3_alerts,
+        )
+        return 0
+
+    if args.repeat_pattern_alerts:
+        source_strategy_id = str(args.strategy_id or DEFAULT_SOURCE_STRATEGY_ID).strip() or DEFAULT_SOURCE_STRATEGY_ID
+        watchlist = dict(WATCHLIST)
+        if args.symbols.strip():
+            selected = [_normalize_symbol_token(part) for part in args.symbols.split(",") if part.strip()]
+            watchlist = {symbol: watchlist.get(symbol) for symbol in selected}
+        elif args.nifty_futures or DEFAULT_SCAN_UNIVERSE == "all":
+            universe_symbols = _load_broad_india_universe_symbols()
+            if universe_symbols:
+                watchlist = {symbol: None for symbol in universe_symbols}
+            else:
+                logger.warning("F&O cache missing; falling back to NIFTY50 tickers.")
+                watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
+        elif args.nifty50:
+            watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
+        elif DEFAULT_SCAN_UNIVERSE == "source_pool":
+            source_pool_symbols = set(_load_candidate_pool_symbols(source_strategy_id))
+            if not source_pool_symbols:
+                source_pool_symbols = {
+                    _normalize_symbol_token(symbol)
+                    for symbol in _load_recent_strategy_symbols(
+                        source_strategy_id,
+                        lookback_days=max(1, int(args.strategy_lookback_days)),
+                    )
+                }
+            strategy_symbols = sorted(source_pool_symbols)
+            if strategy_symbols:
+                watchlist = {symbol: None for symbol in strategy_symbols}
+            else:
+                logger.warning("No symbols found in source strategy %s; using built-in watchlist fallback.", source_strategy_id)
+        else:
+            universe_symbols = _load_broad_india_universe_symbols()
+            if universe_symbols:
+                watchlist = {symbol: None for symbol in universe_symbols}
+            else:
+                logger.warning("Broad universe missing; using NIFTY50 fallback.")
+                watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
+
+        run_repeat_pattern_forever(
+            client=client,
+            watchlist=watchlist,
+            interval=args.interval,
+            lookback_days=args.lookback_days,
+            market=args.market,
+            buffer_seconds=args.buffer_seconds,
+            fast_mode=args.fast_mode,
+            fast_strike_window=args.fast_strike_window,
         )
         return 0
 
