@@ -3,6 +3,7 @@ import json
 import math
 import os
 import socket
+import subprocess
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
@@ -24,6 +25,7 @@ IST = ZoneInfo("Asia/Kolkata")
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_DHAN_MASTER_CACHE = ROOT.parent / "market-context-local-data" / "dhan_scrip_master_cache.csv"
 DISABLE_LOCAL_DHAN_MASTER_CACHE = os.environ.get("DHAN_DISABLE_LOCAL_MASTER_CACHE", "").strip() == "1"
+_DHAN_TOKEN_REFRESH_IN_PROGRESS = False
 _COMMODITY_ALIASES = {
     "GOLD": ["GOLD"],
     "SILVER": ["SILVER"],
@@ -126,10 +128,30 @@ def _temporary_dhan_dns_override(hostnames):
 
 def _dhan_request(method, url, **kwargs):
     host = urlparse(str(url)).hostname
-    if host and host.lower() in DHAN_HOSTS:
-        with _temporary_dhan_dns_override([host]):
-            return requests.request(method=method, url=url, **kwargs)
-    return requests.request(method=method, url=url, **kwargs)
+    is_dhan_host = bool(host and host.lower() in DHAN_HOSTS)
+    response = None
+    for attempt in range(2):
+        if is_dhan_host:
+            with _temporary_dhan_dns_override([host]):
+                response = requests.request(method=method, url=url, **kwargs)
+        else:
+            response = requests.request(method=method, url=url, **kwargs)
+        if not _is_dhan_auth_error(response):
+            return response
+        if attempt >= 1:
+            return response
+        _refresh_dhan_token_from_env(restart_master=True)
+        headers = kwargs.get("headers")
+        if isinstance(headers, dict):
+            headers = dict(headers)
+            token = os.environ.get("DHAN_ACCESS_TOKEN", "").strip()
+            client_id = os.environ.get("DHAN_CLIENT_ID", "").strip()
+            if token:
+                headers["access-token"] = token
+            if client_id:
+                headers["client-id"] = client_id
+            kwargs["headers"] = headers
+    return response
 
 
 def _is_dhan_auth_error(response: requests.Response | None = None, detail: str | None = None) -> bool:
@@ -156,39 +178,48 @@ def _is_dhan_auth_error(response: requests.Response | None = None, detail: str |
     )
 
 
-def _refresh_dhan_token_from_env() -> str:
+def _refresh_dhan_token_from_env(restart_master: bool = True) -> str:
+    global _DHAN_TOKEN_REFRESH_IN_PROGRESS
+    if _DHAN_TOKEN_REFRESH_IN_PROGRESS:
+        raise RuntimeError("Dhan token refresh already in progress")
+    _DHAN_TOKEN_REFRESH_IN_PROGRESS = True
     from backend import dhan_token_refresh as token_refresh
 
     env_path = ROOT / "backend" / ".env"
-    env_values = token_refresh._load_env_file(env_path)
-    client_id = token_refresh._resolve_env_value(env_values, "DHAN_CLIENT_ID", "DHAN_ID")
-    pin = token_refresh._resolve_env_value(env_values, "DHAN_PIN")
-    totp_secret = token_refresh._resolve_env_value(
-        env_values,
-        "DHAN_TOTP_SECRET",
-        "TOTP_KEY",
-        "DHANTOPTTOKEN",
-    )
-    if not client_id:
-        raise RuntimeError("Missing DHAN_CLIENT_ID (or DHAN_ID) in env file")
-    if not pin:
-        raise RuntimeError("Missing DHAN_PIN in env file")
-    if not totp_secret:
-        raise RuntimeError("Missing DHAN_TOTP_SECRET (or TOTP_KEY / DHANTOPTTOKEN) in env file")
+    try:
+        env_values = token_refresh._load_env_file(env_path)
+        client_id = token_refresh._resolve_env_value(env_values, "DHAN_CLIENT_ID", "DHAN_ID")
+        pin = token_refresh._resolve_env_value(env_values, "DHAN_PIN")
+        totp_secret = token_refresh._resolve_env_value(
+            env_values,
+            "DHAN_TOTP_SECRET",
+            "TOTP_KEY",
+            "DHANTOPTTOKEN",
+        )
+        if not client_id:
+            raise RuntimeError("Missing DHAN_CLIENT_ID (or DHAN_ID) in env file")
+        if not pin:
+            raise RuntimeError("Missing DHAN_PIN in env file")
+        if not totp_secret:
+            raise RuntimeError("Missing DHAN_TOTP_SECRET (or TOTP_KEY / DHANTOPTTOKEN) in env file")
 
-    payload = token_refresh.generate_fresh_token(
-        client_id=client_id,
-        pin=pin,
-        totp_secret=totp_secret,
-    )
-    new_token = token_refresh._extract_access_token(payload)
-    if not new_token:
-        raise RuntimeError("Dhan auth response did not include a new access token")
+        payload = token_refresh.generate_fresh_token(
+            client_id=client_id,
+            pin=pin,
+            totp_secret=totp_secret,
+        )
+        new_token = token_refresh._extract_access_token(payload)
+        if not new_token:
+            raise RuntimeError("Dhan auth response did not include a new access token")
 
-    token_refresh._write_env_file(env_path, {"DHAN_ACCESS_TOKEN": new_token, "DHAN_CLIENT_ID": client_id})
-    os.environ["DHAN_ACCESS_TOKEN"] = new_token
-    os.environ["DHAN_CLIENT_ID"] = client_id
-    return new_token
+        token_refresh._write_env_file(env_path, {"DHAN_ACCESS_TOKEN": new_token, "DHAN_CLIENT_ID": client_id})
+        os.environ["DHAN_ACCESS_TOKEN"] = new_token
+        os.environ["DHAN_CLIENT_ID"] = client_id
+        if restart_master:
+            subprocess.run(["systemctl", "restart", "market-context-live"], check=True)
+        return new_token
+    finally:
+        _DHAN_TOKEN_REFRESH_IN_PROGRESS = False
 
 
 def _dhan_headers():
@@ -480,7 +511,6 @@ def fetch_intraday_history(symbol, interval="15m", data_range="60d", market="ind
                 "toDate": chunk_end.strftime("%Y-%m-%d %H:%M:%S"),
             }
             try:
-                headers = _dhan_headers()
                 resp = _dhan_request(
                     "post",
                     f"{DHAN_BASE_URL}/charts/intraday",
@@ -488,16 +518,6 @@ def fetch_intraday_history(symbol, interval="15m", data_range="60d", market="ind
                     json=payload,
                     timeout=30,
                 )
-                if _is_dhan_auth_error(resp):
-                    if attempt < DEFAULT_INTRADAY_RETRIES:
-                        _refresh_dhan_token_from_env()
-                        headers = _dhan_headers()
-                        time.sleep(min(0.5 * (attempt + 1), 2.0))
-                        continue
-                    last_error = RuntimeError(
-                        f"Dhan auth failed while fetching {contract['trading_symbol']} after refresh"
-                    )
-                    break
                 if resp.status_code >= 400:
                     last_error = RuntimeError(
                         f"Dhan intraday returned {resp.status_code} for {contract['trading_symbol']} "

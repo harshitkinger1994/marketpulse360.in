@@ -122,14 +122,12 @@ except Exception:
 from backend.dhan_intraday import (  # type: ignore
     _fetch_dhan_scrip_master,
     _dhan_request,
-    _is_dhan_auth_error,
     _interval_to_dhan,
     _normalize_exchange_segment,
     _parse_epoch_to_utc,
     _parse_expiry_date,
     _pick_col,
     _range_to_days,
-    _refresh_dhan_token_from_env,
     resolve_contract_candidates,
 )
 
@@ -1145,15 +1143,6 @@ def _fetch_chart_history_by_contract(
                     json=payload,
                     timeout=30,
                 )
-                if _is_dhan_auth_error(resp):
-                    if attempt < DEFAULT_INTRADAY_RETRIES:
-                        _refresh_dhan_token_from_env()
-                        time.sleep(min(0.5 * (attempt + 1), 2.0))
-                        continue
-                    last_error = RuntimeError(
-                        f"Dhan auth failed while fetching {contract['trading_symbol']} after refresh"
-                    )
-                    break
                 if resp.status_code == 429 and attempt < DEFAULT_INTRADAY_RETRIES:
                     retry_after = resp.headers.get("Retry-After")
                     if retry_after is not None:
