@@ -246,6 +246,38 @@ def _publish_commodity_snapshot_store(final_payload):
         print(f"[WARN] failed to publish commodity snapshot store: {exc}")
 
 
+def _merge_previous_commodity_data(final_payload):
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        store = MarketSnapshotStore()
+        previous_payload = store.read_payload("commodities_daily") or {}
+        previous_commodities = {
+            str(name).strip().upper(): value
+            for name, value in (previous_payload.get("data") or {}).items()
+            if str(name).strip().upper() in COMMODITIES
+        }
+        if not previous_commodities:
+            return final_payload
+        merged = dict(final_payload)
+        merged_data = {
+            str(name).strip().upper(): value
+            for name, value in (merged.get("data") or {}).items()
+        }
+        changed = False
+        for name, previous_value in previous_commodities.items():
+            current_value = merged_data.get(name)
+            if not current_value or current_value.get("current_price") in (None, "", "null"):
+                merged_data[name] = previous_value
+                changed = True
+        if changed:
+            merged["data"] = merged_data
+        return merged
+    except Exception as exc:
+        print(f"[WARN] failed to merge previous commodity data into frontend payload: {exc}")
+        return final_payload
+
+
 def _write_json_atomic(path, payload):
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = None
@@ -3412,6 +3444,7 @@ for _, v in output.items():
 
 # ---------------- WRITE FILE ----------------
 DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+final = _merge_previous_commodity_data(final)
 safe_final = _sanitize_json_value(final)
 tmp_path = None
 try:
