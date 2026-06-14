@@ -47,6 +47,7 @@ from backend.data_fetcher import (
     GLOBAL_STOCKS,
     CRYPTO,
     COMMODITIES,
+    NIFTY50_FALLBACK,
     NIFTY500,
     get_nifty50_symbols,
     get_niftybank_symbols,
@@ -58,6 +59,7 @@ from backend.data_fetcher import (
     fetch_nse_index_realtime,
     fetch_nse_stock_realtime,
     fetch_bulk_last_closes,
+    _fetch_dhan_commodity_daily_frame,
 )
 from backend.data_loader import load_index
 from backend.dow_theory import primary_trend, dow_confirmation
@@ -70,7 +72,7 @@ from backend.engines.event_trigger_engine import detect_event_driven_move
 from backend.reliability.freshness_engine import attach_freshness, DEFAULT_THRESHOLDS
 from backend.ingestion.kotak_neo_data import fetch_kotak_deltas
 from backend.constituents import get_global_index_constituents
-from backend.agent_trade_assistant import generate_group_brief
+from backend.agentic_pipeline import format_agentic_group_message, format_single_agent_group_message, run_single_agent_quant_terminal
 
 DATA_DIR = ROOT / "frontend"
 DATA_PATH = DATA_DIR / "data.json"
@@ -78,6 +80,7 @@ SNAPSHOT_PATH = DATA_DIR / "_yesterday_snapshot.json"
 
 GLOBAL_INDEX_NAMES = ["SP500", "NASDAQ", "DAX", "NIKKEI", "HANGSENG"]
 KEY_INDIA_INDEX_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "INDIA_VIX"}
+STRICT_LIVE_ONLY_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "GOLD", "SILVER", "CRUDEOIL"}
 TOP_TRADES_PATH = ROOT / "strategies" / "top_trades.json"
 STRATEGY_DIR = ROOT / "strategies"
 STRATEGY_NOTIFY_STATE_PATH = STRATEGY_DIR / ".strategy_notify_state.json"
@@ -88,6 +91,8 @@ STRATEGY_NOTIFY_MAX_ITEMS = int(os.getenv("STRATEGY_NOTIFY_MAX_ITEMS", "12"))
 STRATEGY_NOTIFY_CHUNK = int(os.getenv("STRATEGY_NOTIFY_CHUNK_SIZE", "3500"))
 STRATEGY_NOTIFY_ON_FIRST_RUN = os.getenv("STRATEGY_NOTIFY_ON_FIRST_RUN", "1") == "1"
 STRATEGY_NOTIFY_MAX_SIGNAL_AGE_DAYS = int(os.getenv("STRATEGY_NOTIFY_MAX_SIGNAL_AGE_DAYS", "0"))
+FAST_DHAN_ALERTS = os.getenv("FAST_DHAN_ALERTS", "1") == "1"
+FAST_DHAN_ONLY = os.getenv("FAST_DHAN_ONLY", "0") == "1"
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")  # Back-compat default
 TELEGRAM_TRADE_CHAT_ID = os.environ.get("TELEGRAM_TRADE_CHAT_ID") or TELEGRAM_CHAT_ID
@@ -154,6 +159,15 @@ PREOPEN_MIN = int(os.getenv("PREOPEN_MIN", "20"))
 ET = pytz.timezone("America/New_York")
 GLOBAL_GL_CACHE_TTL_MIN = int(os.getenv("GLOBAL_GL_CACHE_TTL_MIN", "60"))
 BREADTH_CACHE_TTL_MIN = int(os.getenv("BREADTH_CACHE_TTL_MIN", "120"))
+DHAN_BREADTH_CACHE_TTL_MIN = int(os.getenv("DHAN_BREADTH_CACHE_TTL_MIN", str(BREADTH_CACHE_TTL_MIN)))
+DHAN_BREADTH_SYMBOLS = [
+    s.strip().upper()
+    for s in os.getenv(
+        "DHAN_BREADTH_SYMBOLS",
+        ",".join(NIFTY50_FALLBACK.keys()),
+    ).split(",")
+    if s.strip()
+]
 
 
 def _clone_default_json(default):
@@ -175,6 +189,50 @@ def _load_json_file(path, default=None, label=None):
         name = label or path.name
         print(f"[WARN] failed to read {name}: {exc}")
         return fallback
+
+
+PREVIOUS_FRONTEND_DATA = _load_json_file(DATA_PATH, default={}, label="previous frontend data")
+
+
+def _publish_dashboard_snapshot_store(final_payload):
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        store = MarketSnapshotStore()
+        store.write_payload(final_payload, timeframe="dashboard")
+    except Exception as exc:
+        print(f"[WARN] failed to publish dashboard snapshot store: {exc}")
+
+
+def _publish_commodity_snapshot_store(final_payload):
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        commodities = {
+            str(name).strip().upper(): value
+            for name, value in (final_payload.get("data") or {}).items()
+            if str(name).strip().upper() in COMMODITIES
+        }
+        commodity_strategies = [
+            strategy
+            for strategy in (final_payload.get("strategies") or [])
+            if str(strategy.get("market") or "").strip().lower() == "commodities"
+        ]
+        if not commodities:
+            return
+        commodity_payload = {
+            "generated_at": final_payload.get("generated_at"),
+            "source": "daily_run",
+            "market": "commodities",
+            "data": commodities,
+            "strategies": commodity_strategies,
+            "commodity_trends": final_payload.get("commodity_trends") or {},
+            "top_trades": final_payload.get("top_trades") or [],
+        }
+        store = MarketSnapshotStore()
+        store.write_payload(commodity_payload, timeframe="commodities_daily")
+    except Exception as exc:
+        print(f"[WARN] failed to publish commodity snapshot store: {exc}")
 
 
 def _write_json_atomic(path, payload):
@@ -402,6 +460,16 @@ def _load_metric_cache(key, ttl_minutes):
         return None
 
 
+def _load_metric_cache_any_age(key):
+    path = _metric_cache_path(key)
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return None
+
+
 def _save_metric_cache(key, payload):
     try:
         path = _metric_cache_path(key)
@@ -410,6 +478,47 @@ def _save_metric_cache(key, payload):
         path.write_text(json.dumps(payload, indent=2))
     except Exception:
         pass
+
+
+def _breadth_payload_is_valid(payload, require_priced=True):
+    if not isinstance(payload, dict):
+        return False
+    breadth = payload.get("breadth")
+    if not isinstance(breadth, dict):
+        return False
+    if not require_priced:
+        vals = [breadth.get("up_pct"), breadth.get("down_pct"), breadth.get("sideways_pct")]
+        try:
+            return any((float(v) if v is not None else 0.0) != 0.0 for v in vals)
+        except Exception:
+            return False
+    try:
+        priced = int(breadth.get("priced", 0) or 0)
+    except Exception:
+        priced = 0
+    return priced > 0
+
+
+def _breadth_last_available_payload(market, fallback_payload=None):
+    candidates = [
+        _load_metric_cache_any_age(f"dhan_{market}_breadth"),
+        _load_metric_cache_any_age("nifty500_breadth"),
+    ]
+    prev_breadth = (PREVIOUS_FRONTEND_DATA or {}).get("breadth")
+    if isinstance(prev_breadth, dict):
+        candidates.append({"breadth": prev_breadth})
+    if isinstance(fallback_payload, dict):
+        candidates.insert(0, fallback_payload)
+    for candidate in candidates:
+        if _breadth_payload_is_valid(candidate, require_priced=False):
+            payload = dict(candidate)
+            breadth = dict(payload.get("breadth") or {})
+            breadth.setdefault("source", "legacy_last_available")
+            breadth["freshness"] = "last_available"
+            payload["breadth"] = breadth
+            payload["generated_at"] = NOW_UTC
+            return payload
+    return None
 
 
 def _next_open(now, open_hour, open_minute):
@@ -1018,9 +1127,15 @@ def build_market_health(output, breadth, vix_level, confirmation, regime, leader
 
     confirmation_label = str(confirmation or "UNKNOWN").replace("_", " ")
     vix_note = f"VIX {round(vix_level, 2)}" if vix_level is not None else "VIX n/a"
+    breadth_source = str(breadth.get("source") or "legacy").strip().lower()
+    breadth_freshness = str(breadth.get("freshness") or "").strip().lower()
+    if breadth_source == "dhan" and breadth_freshness == "last_available":
+        breadth_label = "Dhan last available breadth"
+    else:
+        breadth_label = "Dhan breadth" if breadth_source == "dhan" else "Breadth"
     india_notes = [
         f"{india_up}/{india_total} key Indian indices in uptrend; Dow {confirmation_label}.",
-        f"Breadth {breadth.get('up_pct', 0)}% up; {vix_note}."
+        f"{breadth_label} {breadth.get('up_pct', 0)}% up; {vix_note}."
     ]
 
     if regime.get("regime") == "TRENDING":
@@ -1048,6 +1163,7 @@ def build_market_health(output, breadth, vix_level, confirmation, regime, leader
             "status": _health_status(india_score),
             "notes": india_notes,
             "opportunity": india_opportunity
+            ,"breadth_source": breadth_source,
         },
         "global": {
             "score": global_score,
@@ -1055,6 +1171,83 @@ def build_market_health(output, breadth, vix_level, confirmation, regime, leader
             "notes": global_notes
         }
     }
+
+
+def _intraday_to_trend_frame(frame):
+    if frame is None or frame.empty:
+        return None
+    out = frame.copy().sort_index()
+    out.columns = [str(col).lower() for col in out.columns]
+    required = {"open", "high", "low", "close"}
+    if not required.issubset(set(out.columns)):
+        return None
+    ordered_cols = [col for col in ["open", "high", "low", "close", "volume"] if col in out.columns]
+    out = out[ordered_cols].copy()
+    out = out.dropna(subset=["close"])
+    if out.empty:
+        return None
+    out["high"] = pd.to_numeric(out["high"], errors="coerce")
+    out["low"] = pd.to_numeric(out["low"], errors="coerce")
+    out["close"] = pd.to_numeric(out["close"], errors="coerce")
+    if "open" in out.columns:
+        out["open"] = pd.to_numeric(out["open"], errors="coerce")
+    if "volume" in out.columns:
+        out["volume"] = pd.to_numeric(out["volume"], errors="coerce")
+    return out.dropna(subset=["high", "low", "close"])
+
+
+def build_dhan_breadth(market="india"):
+    cache_key = f"dhan_{market}_breadth"
+    cache = _load_metric_cache(cache_key, DHAN_BREADTH_CACHE_TTL_MIN)
+    if _breadth_payload_is_valid(cache):
+        return cache
+
+    try:
+        from backend.dhan_intraday import fetch_intraday_history
+    except Exception as exc:
+        return {"breadth": {}, "source": "dhan", "error": str(exc)}
+
+    trend_counts = {"PRIMARY_UPTREND": 0, "PRIMARY_DOWNTREND": 0, "TRANSITION": 0, "INSUFFICIENT_DATA": 0}
+    trend_map = {}
+    symbols = DHAN_BREADTH_SYMBOLS or list(NIFTY50_FALLBACK.keys())
+    for symbol in symbols:
+        try:
+            frame, _meta = fetch_intraday_history(symbol, interval="15m", data_range="60d", market=market)
+            trend_frame = _intraday_to_trend_frame(frame)
+            trend = primary_trend(trend_frame)
+        except Exception:
+            trend = "INSUFFICIENT_DATA"
+        trend_map[symbol] = trend
+        if trend not in trend_counts:
+            trend_counts[trend] = 0
+        trend_counts[trend] += 1
+
+    total = sum(1 for v in trend_map.values() if v != "INSUFFICIENT_DATA")
+    up = trend_counts.get("PRIMARY_UPTREND", 0)
+    down = trend_counts.get("PRIMARY_DOWNTREND", 0)
+    sideways = max(total - up - down, 0)
+    breadth = {
+        "up_pct": round((up / total) * 100, 1) if total else 0,
+        "down_pct": round((down / total) * 100, 1) if total else 0,
+        "sideways_pct": round((sideways / total) * 100, 1) if total else 0,
+        "source": "dhan",
+        "universe": "nifty50_proxy",
+        "symbols": len(symbols),
+        "priced": total,
+    }
+    payload = {
+        "breadth": breadth,
+        "trend_map": trend_map,
+        "trend_counts": trend_counts,
+        "generated_at": NOW_UTC,
+    }
+    if total <= 0:
+        fallback = _breadth_last_available_payload(market, fallback_payload=cache)
+        if fallback is not None:
+            _save_metric_cache(cache_key, fallback)
+            return fallback
+    _save_metric_cache(cache_key, payload)
+    return payload
 
 
 def load_top_trades():
@@ -1286,20 +1479,14 @@ def _compact_trade_line(item, *, market_tag: str = "", currency_symbol: str = ""
     return f"{prefix}{ticker} | {side} | {signal_time}{cmp_text}".strip()
 
 
-def _agent_input_for_trade(title, strategy_id, mode_text, market, trade_type, rules_lines, item_block, note_line=""):
-    # Keep the agent input small: strategy header + filter lines + one trade.
+def _agent_input_for_trade(ticker, market, item_block):
+    # Minimal stock context for the agent pipeline:
+    # Stock name + market + the raw stock row that already carries the important indicators.
     parts = [
-        f"Strategy: {title}",
-        f"ID: {strategy_id}",
-        f"Mode: {mode_text}",
-        f"Market: {market} | Type: {trade_type}",
-        "Filters:",
-        *[ln.strip() for ln in (rules_lines or []) if str(ln).strip()],
-        "",
+        f"Stock Name: {ticker}",
+        f"Market: {market}",
         *[ln.rstrip() for ln in (item_block or []) if str(ln).strip()],
     ]
-    if note_line:
-        parts.append(str(note_line).strip())
     return "\n".join(parts).strip()
 
 
@@ -1693,7 +1880,6 @@ def _notify_new_strategy_trades(strategies):
     next_state = {}
     alerts = []
     compact_lines = []
-    agent_inputs = []
     compact_markets = []
     india_reeval_records = []
     seen_trade_keys = set()
@@ -1775,17 +1961,6 @@ def _notify_new_strategy_trades(strategies):
 
                 compact_lines.append(_compact_trade_line(item, market_tag=market, currency_symbol=_market_currency_symbol(market)))
                 compact_markets.append(market)
-                agent_input = _agent_input_for_trade(
-                    title=title,
-                    strategy_id=strategy_id,
-                    mode_text=mode_text,
-                    market=market,
-                    trade_type=trade_type,
-                    rules_lines=_strategy_rules_lines(strategy),
-                    item_block=_format_strategy_item_for_alert(item, local_idx),
-                )
-                agent_inputs.append(agent_input)
-
                 # Queue INDIA new trades for next-working-day morning re-eval.
                 if state_exists and market == "INDIA":
                     day = _extract_day_ist_from_signal_text(signal_time)
@@ -1796,7 +1971,7 @@ def _notify_new_strategy_trades(strategies):
                             "ticker": ticker,
                             "side": side,
                             "signal_time": signal_time,
-                            "agent_input": agent_input,
+                            "compact_line": _compact_trade_line(item, market_tag=market, currency_symbol=_market_currency_symbol(market)),
                         }
                     )
             alerts.append("\n".join(lines))
@@ -1805,16 +1980,40 @@ def _notify_new_strategy_trades(strategies):
     for message in alerts:
         _send_telegram_chunks(message)
 
-    # Group gets 1 message per stock: tag | ticker | side | time | CMP + agent brief
+    # Group gets 1 message per stock: tag | ticker | side | time | CMP + combined agent output
     compact_lines = [ln for ln in compact_lines if ln]
     if compact_lines:
         for idx, ln in enumerate(compact_lines[:50]):
-            brief = None
-            if idx < len(agent_inputs):
-                brief = generate_group_brief(agent_inputs[idx])
-            payload = ln
-            if brief:
-                payload = f"{payload}\n\n{brief}".strip()
+            market = compact_markets[idx] if idx < len(compact_markets) else ""
+            ticker_match = re.match(r"^(?:[A-Z]+ \| )?([A-Z0-9&_.-]+)\s*\|", ln.strip())
+            ticker = ticker_match.group(1).strip().upper() if ticker_match else ""
+            terminal_result = run_single_agent_quant_terminal(ticker or "UNKNOWN", strategy_item=item)
+            try:
+                payload = format_single_agent_group_message(
+                    ln,
+                    terminal_result,
+                    market=market,
+                    strategy_context={
+                        "title": title,
+                        "id": strategy_id,
+                        "mode": mode_text,
+                        "market": market,
+                        "trade_type": trade_type,
+                        "selection": "all new eligible trades (no per-asset cap)",
+                        "freshness": (
+                            f"signal age <= {STRATEGY_NOTIFY_MAX_SIGNAL_AGE_DAYS} day(s)"
+                            if STRATEGY_NOTIFY_MAX_SIGNAL_AGE_DAYS >= 0
+                            else "freshness disabled"
+                        ),
+                        "filters": " | ".join(
+                            line.strip().lstrip("-").strip()
+                            for line in _strategy_rules_lines(strategy)[1:]
+                            if line.strip() and line.strip() != "Filters:"
+                        ),
+                    },
+                )
+            except Exception:
+                payload = format_agentic_group_message(ln, terminal_result, market=market)
             _send_telegram_trade(payload)
 
     # Persist INDIA queue even if Telegram is down; we still want the next-morning re-eval.
@@ -2072,6 +2271,54 @@ def run_quant_trend_breakout_scan():
             "--strategy-market", target["market"],
             *common,
         ])
+
+
+def refresh_dhan_live_strategy():
+    if os.environ.get("DHAN_PILOT_ENABLED", "1").strip() == "0":
+        return
+    if not os.environ.get("DHAN_ACCESS_TOKEN", "").strip():
+        return
+    try:
+        from backend.dhan_live_strategy_builder import refresh_dhan_live_strategy as _refresh_dhan_live_strategy
+        _refresh_dhan_live_strategy(
+            market="india",
+            strategy_id="india_dhan_ema9_growth30_on",
+            title="India Dhan 15m OI EMA9 Growth 30",
+            symbols=os.environ.get("DHAN_PILOT_SYMBOLS", "BAJFINANCE,TITAN,SBIN").split(","),
+            side=os.environ.get("DHAN_PILOT_SIDE", "bullish").strip().lower() or "bullish",
+            min_range_multiple=float(os.environ.get("DHAN_PILOT_MIN_RANGE_MULTIPLE", "2.5")),
+            max_range_multiple=float(os.environ.get("DHAN_PILOT_MAX_RANGE_MULTIPLE", "4.0")),
+            min_reward_risk=float(os.environ.get("DHAN_PILOT_MIN_REWARD_RISK", "1.0")),
+        )
+        _refresh_dhan_live_strategy(
+            market="commodities",
+            strategy_id="commodities_ema9_growth30_on",
+            title="Commodities Dhan 15m OI EMA9 Growth 30",
+            symbols=os.environ.get("DHAN_COMMODITY_SYMBOLS", "GOLD,SILVER,CRUDEOIL,NATGAS,COPPER").split(","),
+            side=os.environ.get("DHAN_PILOT_SIDE", "bullish").strip().lower() or "bullish",
+            min_range_multiple=float(os.environ.get("DHAN_PILOT_MIN_RANGE_MULTIPLE", "2.5")),
+            max_range_multiple=float(os.environ.get("DHAN_PILOT_MAX_RANGE_MULTIPLE", "4.0")),
+            min_reward_risk=float(os.environ.get("DHAN_PILOT_MIN_REWARD_RISK", "1.0")),
+        )
+    except Exception as exc:
+        print(f"[DHAN_PILOT] build failed: {exc}")
+
+
+def notify_fast_dhan_strategies():
+    if not FAST_DHAN_ALERTS:
+        return
+    try:
+        strategies = load_strategies()
+    except Exception:
+        return
+    fast_ids = {"india_dhan_ema9_growth30_on", "commodities_ema9_growth30_on"}
+    fast_strategies = [s for s in strategies if str(s.get("strategy_id") or "") in fast_ids]
+    if not fast_strategies:
+        return
+    try:
+        _notify_new_strategy_trades(fast_strategies)
+    except Exception as exc:
+        print(f"[FAST_DHAN_ALERTS] notify failed: {exc}")
 
 
 def _history_change_pct(history):
@@ -2332,6 +2579,43 @@ def process_full(name, symbol, asset_type):
             }
             return
 
+    if name in COMMODITIES:
+        commodity_daily = None
+        try:
+            commodity_daily, commodity_snapshot = _fetch_dhan_commodity_daily_frame(name)
+            if commodity_daily is not None and len(commodity_daily):
+                _cached_dfs[name] = commodity_daily.copy()
+                if commodity_snapshot and commodity_snapshot.get("price") is not None:
+                    _live_prices[name] = {
+                        "price": round(float(commodity_snapshot["price"]), 2),
+                        "timestamp": commodity_snapshot.get("timestamp"),
+                        "day_range": commodity_snapshot.get("day_range"),
+                        "meta": commodity_snapshot.get("meta") or {},
+                    }
+                    if name in {"GOLD", "SILVER"}:
+                        current = float(commodity_snapshot["price"])
+                        normalized = _normalize_metal_price(name, symbol, current)
+                        if normalized is not None:
+                            current = normalized
+                        output[name] = {
+                            "type": asset_type,
+                            "trend": "INSUFFICIENT_DATA",
+                            "current_price": round(current, 2),
+                            "ranges": None,
+                            "risk_reward": None,
+                            "last_updated": commodity_snapshot.get("timestamp") or NOW_UTC,
+                            "price_source": "DHAN_CACHE" if (commodity_snapshot.get("meta") or {}).get("source") == "LOCAL_DHAN_CACHE" else "LIVE_INR",
+                            "price_timestamp": commodity_snapshot.get("timestamp"),
+                            "day_range": commodity_snapshot.get("day_range"),
+                            "ema9": None,
+                            "history": commodity_snapshot.get("history", []),
+                        }
+                        return
+        except Exception:
+            pass
+        if commodity_daily is None or len(commodity_daily) == 0:
+            return
+
     _maybe_fetch(name, symbol)
     df = _load_index_cached(name)
 
@@ -2504,6 +2788,8 @@ def process_full(name, symbol, asset_type):
             "timestamp": live.get("timestamp"),
             "day_range": (live or {}).get("day_range"),
         }
+    if name in STRICT_LIVE_ONLY_NAMES and live is None:
+        return
     eod_timestamp = _estimate_series_timestamp(name, asset_type, df)
     last_updated = (live or {}).get("timestamp") or eod_timestamp or NOW_UTC
     sr = compute_support_resistance(df)
@@ -2516,6 +2802,7 @@ def process_full(name, symbol, asset_type):
     day_range = _normalize_live_day_range((live or {}).get("day_range"), current_price)
     if day_range is None:
         day_range = _build_latest_daily_range(name, symbol, df)
+    live_meta_source = ((live or {}).get("meta") or {}).get("source")
 
     output[name] = {
         "type": asset_type,
@@ -2526,7 +2813,7 @@ def process_full(name, symbol, asset_type):
         "support_resistance": sr,
         "ema9": ema9,
         "last_updated": last_updated,
-        "price_source": "LIVE" if live else "EOD",
+        "price_source": "DHAN_CACHE" if live_meta_source == "LOCAL_DHAN_CACHE" else ("LIVE" if live else "EOD"),
         "price_timestamp": (live or {}).get("timestamp") or eod_timestamp,
         "day_range": day_range,
         "history": [
@@ -2658,29 +2945,32 @@ global_overall_gainers = _gainers_losers_from_output("GLOBAL_STOCK")
 crypto_overall_gainers = _gainers_losers_from_output("CRYPTO")
 
 # ---------------- NIFTY 500 (BREADTH ONLY) ----------------
-up = down = side = 0
-breadth_cache = _load_metric_cache("nifty500_breadth", BREADTH_CACHE_TTL_MIN)
-if breadth_cache and isinstance(breadth_cache.get("breadth"), dict):
-    breadth = breadth_cache.get("breadth", {})
-else:
-    for k, v in NIFTY500.items():
-        process_trend_only(k, v)
-        t = output.get(k, {}).get("trend")
+dhan_breadth_payload = build_dhan_breadth("india")
+breadth = dhan_breadth_payload.get("breadth") if isinstance(dhan_breadth_payload, dict) else {}
+if not isinstance(breadth, dict) or not breadth:
+    up = down = side = 0
+    breadth_cache = _load_metric_cache("nifty500_breadth", BREADTH_CACHE_TTL_MIN)
+    if breadth_cache and isinstance(breadth_cache.get("breadth"), dict):
+        breadth = breadth_cache.get("breadth", {})
+    else:
+        for k, v in NIFTY500.items():
+            process_trend_only(k, v)
+            t = output.get(k, {}).get("trend")
 
-        if t == "PRIMARY_UPTREND":
-            up += 1
-        elif t == "PRIMARY_DOWNTREND":
-            down += 1
-        else:
-            side += 1
+            if t == "PRIMARY_UPTREND":
+                up += 1
+            elif t == "PRIMARY_DOWNTREND":
+                down += 1
+            else:
+                side += 1
 
-    total = up + down + side
-    breadth = {
-        "up_pct": round((up / total) * 100, 1) if total else 0,
-        "down_pct": round((down / total) * 100, 1) if total else 0,
-        "sideways_pct": round((side / total) * 100, 1) if total else 0
-    }
-    _save_metric_cache("nifty500_breadth", {"breadth": breadth})
+        total = up + down + side
+        breadth = {
+            "up_pct": round((up / total) * 100, 1) if total else 0,
+            "down_pct": round((down / total) * 100, 1) if total else 0,
+            "sideways_pct": round((side / total) * 100, 1) if total else 0
+        }
+        _save_metric_cache("nifty500_breadth", {"breadth": breadth})
 
 
 # ---------------- CHANGE & LEADERSHIP ----------------
@@ -2852,6 +3142,11 @@ executive_summary = build_executive_summary(
 
 
 # ---------------- FINAL PAYLOAD ----------------
+refresh_dhan_live_strategy()
+notify_fast_dhan_strategies()
+if FAST_DHAN_ONLY:
+    print("[FAST_DHAN_ONLY] exiting after Dhan pilot refresh")
+    raise SystemExit(0)
 run_intraday_momentum_scan()
 run_gold_breakout_retest_scan()
 run_ema9_growth30_scan()
@@ -2956,4 +3251,6 @@ finally:
         except Exception:
             pass
 
+_publish_dashboard_snapshot_store(safe_final)
+_publish_commodity_snapshot_store(safe_final)
 print("Daily data updated - stable & production-safe")

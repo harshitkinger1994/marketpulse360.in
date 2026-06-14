@@ -355,12 +355,37 @@ const showAssetDetails = (key, value) => {
   }
 };
 
-const pctChange = (history, days) => {
+const pctChange = (input, days) => {
+  const item = Array.isArray(input) ? { history: input } : (input || {});
+  const history = Array.isArray(item.history) ? item.history : [];
+  const structuredRange = item.day_range || item.session_range || item.ohlc || item.intraday || item.price_action || null;
+
+  if (days === 1) {
+    const current = getFirstFiniteNumber(item, ["current_price", "current", "close", "ltp", "price"])
+      ?? getFirstFiniteNumber(structuredRange, ["current", "last", "ltp", "close", "price"]);
+    const prev = getFirstFiniteNumber(structuredRange, ["previous_close", "prev_close", "previous"])
+      ?? (history.length >= 2 ? history[history.length - 2]?.close : null);
+    if (typeof current === "number" && typeof prev === "number" && prev !== 0) {
+      return ((current / prev) - 1) * 100;
+    }
+  }
+
   if (!Array.isArray(history) || history.length <= days) return null;
   const last = history[history.length - 1]?.close;
   const prev = history[history.length - 1 - days]?.close;
   if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return null;
   return ((last / prev) - 1) * 100;
+};
+
+const liveSessionTrend = (item) => {
+  const current = getFirstFiniteNumber(item, ["current_price", "current", "close", "ltp", "price"]);
+  const dayRange = item?.day_range || item?.session_range || item?.ohlc || item?.intraday || item?.price_action || null;
+  const previous = getFirstFiniteNumber(dayRange, ["previous_close", "prev_close", "previous"])
+    ?? getFirstFiniteNumber(item, ["previous_close", "prev_close", "previous"]);
+  if (typeof current !== "number" || typeof previous !== "number" || previous === 0) return null;
+  if (current > previous) return "PRIMARY_UPTREND";
+  if (current < previous) return "PRIMARY_DOWNTREND";
+  return "RANGE";
 };
 
 const formatChange = (pct) => {
@@ -414,7 +439,7 @@ const PAGE = document.body?.dataset?.page || "india";
 const FALLBACK_LIVE_API_URL = typeof window !== "undefined" && window.location
   ? `${window.location.origin}/live`
   : null;
-const LIVE_API_URL = window?.LIVE_API_URL || "http://localhost:8765/live";
+const LIVE_API_URL = window?.LIVE_API_URL || FALLBACK_LIVE_API_URL || "http://localhost:8765/live";
 const THEMES = ["royal", "dark-royal", "sage", "beige", "sunrise", "slate", "silver"];
 const DEFAULT_THEME = "royal";
 const TURNSTILE_SITE_KEY = typeof window !== "undefined" ? String(window.TURNSTILE_SITE_KEY || "").trim() : "";
@@ -687,10 +712,12 @@ const renderIndiaMarketHealthCard = (data, p) => {
   const health = p.market_health?.india || {};
   const score = clampNum(health.score, 0, 100, 0);
   const vixValue = data?.INDIA_VIX?.current_price;
+  const liveActive = Boolean(data?.__live_status?.ok);
+  const freshnessLabel = liveActive ? "Live session" : "Last close";
   const trackedIndices = [
-    { label: "NIFTY 50", trend: data?.NIFTY?.trend },
-    { label: "Bank NIFTY", trend: data?.BANKNIFTY?.trend },
-    { label: "SENSEX", trend: data?.SENSEX?.trend },
+    { label: "NIFTY 50", trend: liveActive ? liveSessionTrend(data?.NIFTY) : data?.NIFTY?.trend },
+    { label: "Bank NIFTY", trend: liveActive ? liveSessionTrend(data?.BANKNIFTY) : data?.BANKNIFTY?.trend },
+    { label: "SENSEX", trend: liveActive ? liveSessionTrend(data?.SENSEX) : data?.SENSEX?.trend },
   ];
   const uptrendCount = trackedIndices.filter((item) => item.trend === "PRIMARY_UPTREND").length;
   const downtrendCount = trackedIndices.filter((item) => item.trend === "PRIMARY_DOWNTREND").length;
@@ -707,7 +734,9 @@ const renderIndiaMarketHealthCard = (data, p) => {
   const opportunity = splitMarketHealthCopy(health.opportunity);
   const keyNote = firstText(
     (health.notes || [])[0],
-    (p.daily_intelligence?.brief || [])[0],
+    liveActive
+      ? `Live session breadth is ${fmtPct(breadthPct)} up / ${fmtPct(100 - breadthPct)} down.`
+      : `Last close breadth is ${fmtPct(p.breadth?.up_pct)} up / ${fmtPct(p.breadth?.down_pct)} down.`,
     "Market health is being monitored for breadth, volatility, and confirmation."
   );
   const summaryLine = [
@@ -743,7 +772,7 @@ const renderIndiaMarketHealthCard = (data, p) => {
             <h2>${esc(humanizeToken(health.status, "Unknown"))}</h2>
             <span class="market-health-chip">${esc(band)}</span>
           </div>
-          <p class="market-health-summary">${esc(summaryLine)}</p>
+          <p class="market-health-summary">${esc(`${freshnessLabel} | ${summaryLine}`)}</p>
           <div class="market-health-badge-row">
             <span class="market-health-badge">${esc(actionLabel)}</span>
             <span class="market-health-badge market-health-badge-soft">${esc(riskBadge)}</span>
@@ -853,9 +882,12 @@ const renderExecutiveInfoCard = (model) => {
 };
 
 const buildExecutiveAssetCard = (label, key, item, options = {}) => {
-  const oneDay = pctChange(item?.history, 1);
-  const oneWeek = pctChange(item?.history, 5);
+  const oneDay = pctChange(item, 1);
+  const oneWeek = pctChange(item, 5);
   const trend = item?.trend;
+  const sourceLabel = PAGE === "commodities" || item?.type === "COMMODITY"
+    ? "Central commodity snapshot"
+    : (item?.price_source || "EOD");
   const tone = options.tone || executiveToneFromBalance(
     typeof oneDay === "number" && oneDay > 0 ? 1 : 0,
     typeof oneDay === "number" && oneDay < 0 ? 1 : 0,
@@ -866,7 +898,7 @@ const buildExecutiveAssetCard = (label, key, item, options = {}) => {
     tone,
     badge: options.badge || executiveTrendLabel(trend),
     primary: formatPriceValue(item?.current_price, key, item, options.digits ?? 2),
-    secondary: options.secondary || `${item?.price_source || "EOD"}${item?.price_timestamp ? ` · ${item.price_timestamp}` : ""}`,
+    secondary: options.secondary || `${sourceLabel}${item?.price_timestamp ? ` · ${item.price_timestamp}` : ""}`,
     metrics: [
       { label: "1D", value: formatChange(oneDay), html: true },
       { label: "1W", value: formatChange(oneWeek), html: true },
@@ -949,9 +981,23 @@ const renderIndiaExecutiveSummary = (data, p) => {
   const daily = p.daily_intelligence || {};
   const gl = p.gainers_losers || {};
   const vixValue = data?.INDIA_VIX?.current_price;
+  const liveActive = Boolean(data?.__live_status?.ok);
+  const freshnessLabel = liveActive ? "Live session" : "Last close";
+  const niftyTrend = liveActive ? liveSessionTrend(data?.NIFTY) : data?.NIFTY?.trend;
+  const bankTrend = liveActive ? liveSessionTrend(data?.BANKNIFTY) : data?.BANKNIFTY?.trend;
+  const sensexTrend = liveActive ? liveSessionTrend(data?.SENSEX) : data?.SENSEX?.trend;
+  const liveTracked = [
+    { label: "NIFTY 50", trend: niftyTrend },
+    { label: "Bank NIFTY", trend: bankTrend },
+    { label: "SENSEX", trend: sensexTrend },
+  ];
+  const uptrendCount = liveTracked.filter((item) => item.trend === "PRIMARY_UPTREND").length;
+  const downtrendCount = liveTracked.filter((item) => item.trend === "PRIMARY_DOWNTREND").length;
+  const rangeCount = liveTracked.length - uptrendCount - downtrendCount;
+  const liveBreadthPct = liveTracked.length ? (uptrendCount / liveTracked.length) * 100 : null;
   const score = clampNum(indiaHealth.score, 0, 100, 0);
-  const breadthUp = typeof breadth.up_pct === "number" ? breadth.up_pct : null;
-  const breadthDown = typeof breadth.down_pct === "number" ? breadth.down_pct : null;
+  const breadthUp = typeof liveBreadthPct === "number" ? liveBreadthPct : (typeof breadth.up_pct === "number" ? breadth.up_pct : null);
+  const breadthDown = typeof breadthUp === "number" ? 100 - breadthUp : (typeof breadth.down_pct === "number" ? breadth.down_pct : null);
   const tone = executiveToneFromStatus({
     status: indiaHealth.status,
     score,
@@ -961,19 +1007,30 @@ const renderIndiaExecutiveSummary = (data, p) => {
   const stance = executiveStanceCopy(tone);
   const stanceNote = firstText(
     (indiaHealth.notes || []).join(" "),
-    (daily.brief || []).join(" "),
-    "Breadth, volatility, and leadership are being monitored for live opportunity quality."
+    liveActive
+      ? `Live session breadth is ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`
+      : `Last close breadth is ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`,
+    "Breadth, volatility, and leadership are being monitored against the latest verified close."
   );
   const marketTone = firstText(
     (indiaHealth.notes || [])[0],
-    (daily.brief || [])[0],
+    liveActive
+      ? `Live NIFTY / BANKNIFTY / SENSEX breadth is ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`
+      : `Last close breadth ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`,
     `Risk trend: ${fmt(p.risk_trend)}.`
   );
   const participation = firstText(
-    (daily.breadth_quality || [])[0],
-    typeof breadthUp === "number" && typeof breadthDown === "number"
-      ? `Breadth ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`
-      : ""
+    liveActive && typeof breadthUp === "number" && typeof breadthDown === "number"
+      ? `Live session breadth: ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`
+      : typeof breadthUp === "number" && typeof breadthDown === "number"
+      ? `Last close breadth: ${fmtPct(breadthUp)} up / ${fmtPct(breadthDown)} down.`
+      : "",
+    liveActive && typeof uptrendCount === "number"
+      ? `Live tracked indices: ${uptrendCount} up, ${downtrendCount} down${rangeCount > 0 ? `, ${rangeCount} range-bound` : ""}.`
+      : typeof gl.india_nifty50?.gainers === "number" || typeof gl.india_nifty50?.losers === "number"
+      ? `NIFTY 50 participation: ${gl.india_nifty50.gainers || 0} gainers / ${gl.india_nifty50.losers || 0} losers.`
+      : "",
+    (daily.breadth_quality || [])[0]
   );
   const tacticalRead = firstText(
     indiaHealth.opportunity,
@@ -988,6 +1045,7 @@ const renderIndiaExecutiveSummary = (data, p) => {
     `Status: ${humanizeToken(indiaHealth.status, "Unknown")}`,
     typeof breadthUp === "number" ? `Breadth Up: ${fmtPct(breadthUp)}` : "",
     typeof breadthDown === "number" ? `Breadth Down: ${fmtPct(breadthDown)}` : "",
+    `Freshness: ${freshnessLabel}`,
     macroLine ? `Macro: ${macroLine}` : "",
   ].filter(Boolean);
 
@@ -1430,17 +1488,21 @@ const updateLiveIndicator = (data) => {
   const isStale = Boolean(data?.__live_status?.stale);
   const dataFresh = lastDataUpdatedAt && Date.now() - lastDataUpdatedAt <= 120000;
   const showLive = isLive || dataFresh;
-  liveDot.classList.toggle("live", showLive);
-  liveDot.classList.toggle("offline", !showLive);
-  if (showLive && isLive) {
-    liveLabel.textContent = isStale ? "Live (stale)" : "Live";
-  } else if (showLive && dataFresh) {
-    liveLabel.textContent = "Live (data)";
-  } else {
-    liveLabel.textContent = "Offline";
-  }
+  const hasLastAvailable = Boolean(lastDataUpdatedAt);
+  const labelText = showLive && isLive
+    ? (isStale ? "Live (stale)" : "Live")
+    : showLive && dataFresh
+    ? "Live (data)"
+    : hasLastAvailable
+    ? "Last Available"
+    : "Offline";
+  const isOffline = labelText === "Offline";
+  liveDot.classList.toggle("live", showLive || hasLastAvailable);
+  liveDot.classList.toggle("offline", isOffline);
+  liveLabel.textContent = labelText;
   liveLabel.classList.toggle("chip-live", showLive);
-  liveLabel.classList.toggle("chip-offline", !showLive);
+  liveLabel.classList.toggle("chip-offline", isOffline);
+  liveLabel.classList.toggle("chip-neutral", !showLive && hasLastAvailable);
 };
 
 const getZonedNowUtc = (timeZone) => {
@@ -1839,7 +1901,7 @@ const collectActiveLiveKeys = (data) => {
   return Array.from(keys);
 };
 
-const applyLivePrices = async (data) => {
+const applyLivePrices = async (data, payloadRoot = null) => {
   if (!data || !LIVE_API_URL) return;
   const urls = [LIVE_API_URL];
   if (FALLBACK_LIVE_API_URL && FALLBACK_LIVE_API_URL !== LIVE_API_URL) {
@@ -1861,6 +1923,21 @@ const applyLivePrices = async (data) => {
         lastLiveOkAt = Date.now();
         lastLiveOkTs = payload.timestamp;
       }
+      if (payload?.summary) {
+        data.__live_summary = payload.summary;
+        if (payload.summary.breadth) {
+          data.breadth = payload.summary.breadth;
+          if (payloadRoot) payloadRoot.breadth = payload.summary.breadth;
+        }
+        if (payload.summary.market_health) {
+          data.market_health = payload.summary.market_health;
+          if (payloadRoot) payloadRoot.market_health = payload.summary.market_health;
+        }
+        if (payload.summary.executive_summary) {
+          data.executive_summary = payload.summary.executive_summary;
+          if (payloadRoot) payloadRoot.executive_summary = payload.summary.executive_summary;
+        }
+      }
       const prices = payload?.prices || {};
       Object.entries(prices).forEach(([key, val]) => {
         if (!data[key] || val?.price === null || val?.price === undefined) return;
@@ -1871,6 +1948,8 @@ const applyLivePrices = async (data) => {
           price_timestamp: val.timestamp || payload?.timestamp,
           day_range: val?.day_range || data[key]?.day_range,
         };
+        const liveTrend = liveSessionTrend(data[key]);
+        if (liveTrend) data[key].trend = liveTrend;
       });
       return;
     } catch (err) {
@@ -1974,9 +2053,12 @@ const renderAssetDetails = (name, item) => {
     ? renderTable(["Date", currencyLabel ? `Close (${currencyLabel})` : "Close"], historyRows)
     : `<p class="muted">History not available.</p>`;
 
+  const sourceLabel = PAGE === "commodities" || item?.type === "COMMODITY"
+    ? "Central commodity snapshot"
+    : (item.price_source || "EOD");
   const priceMeta = item.price_timestamp
-    ? `<p class="muted">Price time: ${esc(item.price_timestamp)} (${esc(item.price_source || "EOD")})</p>`
-    : `<p class="muted">Price source: ${esc(item.price_source || "EOD")}</p>`;
+    ? `<p class="muted">Price time: ${esc(item.price_timestamp)} (${esc(sourceLabel)})</p>`
+    : `<p class="muted">Price source: ${esc(sourceLabel)}</p>`;
   const dayRangeInline = renderDayRangeInline(name, item);
 
   return `
@@ -2086,56 +2168,34 @@ const readStructuredDayRange = (item) => {
   return null;
 };
 
-const buildPreviewDayRange = (name, item, variant = "trend_up") => {
-  const current = Number(item?.current_price);
+const buildLastCloseDayRange = (name, item) => {
+  if (!item) return null;
+  const history = Array.isArray(item.history) ? item.history : [];
+  const lastHistoricalClose = history.length
+    ? Number(history[history.length - 1]?.close)
+    : null;
+  const current = Number.isFinite(Number(item?.current_price))
+    ? Number(item.current_price)
+    : lastHistoricalClose;
   if (!Number.isFinite(current) || current <= 0) return null;
   const digits = getRangePreviewDigits(current);
-  const trend = String(item?.trend || "");
-  const tone = variant === "trend_down" ? "red" : "green";
-
-  let low;
-  let high;
-  let open;
-  let title;
-  let description;
-
-  if (variant === "trend_down") {
-    high = current * 1.013;
-    open = current * 1.007;
-    low = current * 0.993;
-    title = "Sell Pressure";
-    description = "Open gave way early and current price is holding in the lower half of the day range.";
-  } else if (variant === "recovery") {
-    low = current * 0.984;
-    open = current * 0.992;
-    high = current * 1.009;
-    title = "Recovery Structure";
-    description = "Early weakness recovered well enough to regain the opening print and hold upper-range control.";
-  } else {
-    low = current * 0.988;
-    open = current * 0.994;
-    high = current * 1.008;
-    title = "Opening Drive";
-    description = "Open is holding and price is tracking closer to the day high with constructive session tone.";
-  }
-
-  low = roundPreviewValue(low, digits);
-  high = roundPreviewValue(high, digits);
-  open = roundPreviewValue(open, digits);
-
+  const lastClose = roundPreviewValue(current, digits);
+  const prevClose = history.length >= 2 ? Number(history[history.length - 2]?.close) : null;
   return {
     name,
     item,
-    title,
-    description,
-    tone,
-    low,
-    high,
-    open,
-    current: roundPreviewValue(current, digits),
+    title: "Last Close",
+    description: "Live intraday data is unavailable, so the latest completed close is shown instead of a mocked candle.",
+    tone: "neutral",
+    low: lastClose,
+    high: lastClose,
+    open: lastClose,
+    current: lastClose,
+    previous_close: Number.isFinite(prevClose) ? roundPreviewValue(prevClose, digits) : null,
     marketLabel: getAssetMarketLabel(name, item),
-    trend,
-    source: "derived_preview",
+    trend: String(item?.trend || ""),
+    source: "last_close",
+    sourceLabel: "Last Close",
   };
 };
 
@@ -2153,7 +2213,7 @@ const buildDisplayDayRange = (name, item, variant = null) => {
     };
   }
 
-  const fallback = buildPreviewDayRange(name, item, variant || inferPreviewRangeVariant(item));
+  const fallback = buildLastCloseDayRange(name, item);
   return fallback ? { ...fallback, marketLabel } : null;
 };
 
@@ -2170,11 +2230,17 @@ const renderDayRangeInline = (name, item, variant = null) => {
   const rangePosition = computeRangePosition(current, low, high);
   const toHighPct = high ? ((current / high) - 1) * 100 : null;
   const sourceTone = source === "derived_preview" ? tone : "neutral";
-  const chipLabel = sourceLabel || (source === "daily_ohlc" ? "Last Daily Bar" : source === "live_ohlc" ? "Intraday OHLC" : "Derived Preview");
+  const chipLabel = sourceLabel
+    || (source === "daily_ohlc" ? "Last Daily Bar"
+      : source === "live_ohlc" ? "Intraday OHLC"
+      : source === "last_close" ? "Last Close"
+      : "Derived Preview");
   const sourceCopy = description || (source === "derived_preview"
     ? "Open, low, and high are derived locally until backend intraday OHLC is connected."
+    : source === "last_close"
+    ? "Live intraday data is unavailable, so the latest completed close is shown instead."
     : "Open, low, high, and current are flowing from structured market data.");
-  const currentLabel = source === "daily_ohlc" ? "Close" : "Current";
+  const currentLabel = source === "daily_ohlc" ? "Close" : source === "last_close" ? "Last Close" : "Current";
   const digits = getRangePreviewDigits(current);
 
   return `
@@ -2224,7 +2290,62 @@ const renderDayRangeInline = (name, item, variant = null) => {
 
 const renderPreviewDayRangeCard = (sample) => {
   if (!sample) return "";
-  const { name, item, low, high, open, current, tone, title, description, marketLabel } = sample;
+  const { name, item, low, high, open, current, tone, title, description, marketLabel, source } = sample;
+  if (source === "last_close") {
+    const trendClass = String(item?.trend || "").includes("DOWN") ? "down" : "neutral";
+    const prevClose = Number(sample.previous_close);
+    const changePct = Number.isFinite(prevClose) && prevClose !== 0
+      ? ((current / prevClose) - 1) * 100
+      : null;
+    return `
+      <div class="day-range-card">
+        <div class="day-range-head">
+          <strong>${esc(title || "Last Close")}</strong>
+          <span class="day-range-chip neutral">Last Close</span>
+        </div>
+        <div class="day-range-asset">
+          <span class="day-range-symbol">${esc(displayLabel(name))}</span>
+          <span class="day-range-market">${esc(marketLabel)}</span>
+        </div>
+        <p class="day-range-trend-note">${esc(description)}</p>
+        <div class="day-range-stage">
+          <div class="day-range-rail">
+            <div class="day-range-fill neutral" style="left:48%; width:4%;"></div>
+            <div class="day-range-marker current neutral" style="left:50%;">
+              <div class="day-range-marker-label align-right">C ${esc(formatPriceValue(current, name, item, getRangePreviewDigits(current)))}</div>
+              <div class="dot"></div>
+            </div>
+          </div>
+          <div class="day-range-ends">
+            <div class="day-range-end">
+              <span>Last Close</span>
+              <b>${esc(formatPriceValue(current, name, item, getRangePreviewDigits(current)))}</b>
+            </div>
+            <div class="day-range-end">
+              <span>Previous Close</span>
+              <b>${esc(formatPriceValue(prevClose, name, item, getRangePreviewDigits(prevClose)))}</b>
+            </div>
+          </div>
+        </div>
+        <div class="day-range-stats">
+          <div class="day-range-stat">
+            <label>Vs Prev Close</label>
+            <div class="value ${changePct !== null && changePct < 0 ? "down" : "up"}">${changePct !== null ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "—"}</div>
+            <div class="sub">latest completed session</div>
+          </div>
+          <div class="day-range-stat">
+            <label>Session Type</label>
+            <div class="value ${trendClass}">${esc(fmt(item?.trend))}</div>
+            <div class="sub">last verified snapshot</div>
+          </div>
+        </div>
+        <div class="day-range-meta">
+          <span class="day-range-pill">Source: Last Close</span>
+          <span class="day-range-pill">No synthetic candle</span>
+        </div>
+      </div>
+    `;
+  }
   const openPos = computeRangePosition(open, low, high);
   const currentPos = computeRangePosition(current, low, high);
   const fillLeft = Math.min(openPos, currentPos);
@@ -2306,15 +2427,33 @@ const renderPreviewDayRangeCard = (sample) => {
 const renderIndiaRangePreview = (data) => {
   const root = $("indiaRangePreview");
   if (!root || PAGE !== "india") return;
-  const samples = [
-    buildPreviewDayRange("NIFTY", data?.NIFTY, "trend_up"),
-    buildPreviewDayRange("BANKNIFTY", data?.BANKNIFTY, "trend_down"),
-    buildPreviewDayRange("SENSEX", data?.SENSEX, "trend_up"),
-    buildPreviewDayRange("RELIANCE", data?.RELIANCE, "recovery"),
-  ].filter(Boolean);
+  const liveOnly = Boolean(data?.__live_status?.ok);
+  const samples = liveOnly
+    ? [
+        buildDisplayDayRange("NIFTY", data?.NIFTY, "trend_up"),
+        buildDisplayDayRange("BANKNIFTY", data?.BANKNIFTY, "trend_down"),
+        buildDisplayDayRange("SENSEX", data?.SENSEX, "trend_up"),
+        buildDisplayDayRange("RELIANCE", data?.RELIANCE, "recovery"),
+      ].filter((sample) => sample && (sample.source === "live_ohlc" || sample.source === "live"))
+    : [
+        buildDisplayDayRange("NIFTY", data?.NIFTY, "trend_up"),
+        buildDisplayDayRange("BANKNIFTY", data?.BANKNIFTY, "trend_down"),
+        buildDisplayDayRange("SENSEX", data?.SENSEX, "trend_up"),
+        buildDisplayDayRange("RELIANCE", data?.RELIANCE, "recovery"),
+      ].filter(Boolean);
 
   if (!samples.length) {
-    root.innerHTML = "";
+    root.innerHTML = `
+      <div class="card">
+        <div class="day-range-section-head">
+          <div>
+            <h2>India Price Action Range</h2>
+            <p>No session snapshot is available yet.</p>
+          </div>
+          <span class="day-range-section-chip">No Data</span>
+        </div>
+      </div>
+    `;
     return;
   }
 
@@ -2323,9 +2462,9 @@ const renderIndiaRangePreview = (data) => {
       <div class="day-range-section-head">
         <div>
           <h2>India Price Action Range</h2>
-          <p>Current price comes from the live/EOD India page feed. Open, high, and low are visually mocked for now and will switch to real intraday OHLC as soon as we connect the backend day-range feed.</p>
+          <p>${liveOnly ? "Current price, open, high, and low are pulled from the live intraday day-range feed." : "Live data is unavailable, so the last available session snapshot is shown instead."}</p>
         </div>
-        <span class="day-range-section-chip">Local Intraday Sample</span>
+        <span class="day-range-section-chip">${liveOnly ? "Live Intraday" : "Last Available"}</span>
       </div>
       <div class="day-range-grid">
         ${samples.map(renderPreviewDayRangeCard).join("")}
@@ -2560,12 +2699,35 @@ async function refreshData() {
   try {
     ensureStatusRow();
     updateMarketStatus();
-    const res = await fetch(`data.json?ts=${Date.now()}`, { cache: "no-store" });
+    const liveApiOrigin = (() => {
+      try {
+        return new URL(LIVE_API_URL, window.location.href).origin;
+      } catch (err) {
+        return null;
+      }
+    })();
+    const commoditySnapshotUrls = PAGE === "commodities"
+      ? [
+          `/snapshot?timeframe=commodities_daily&ts=${Date.now()}`,
+          ...(liveApiOrigin ? [`${liveApiOrigin}/snapshot?timeframe=commodities_daily&ts=${Date.now()}`] : []),
+          `data.json?ts=${Date.now()}`,
+        ]
+      : [`data.json?ts=${Date.now()}`];
+    let res = null;
+    for (const url of commoditySnapshotUrls) {
+      try {
+        res = await fetch(url, { cache: "no-store" });
+        if (res.ok) break;
+      } catch (err) {
+        res = null;
+      }
+    }
     if (!res.ok) {
       throw new Error(`data_fetch_status_${res.status}`);
     }
     const p = await res.json();
     const data = p.data || {};
+    await applyLivePrices(data, p);
     const render = () => {
       let strategyCardCount = 0;
       let strategySignalCount = 0;
@@ -2981,32 +3143,36 @@ async function refreshData() {
             ? [...cryptoSymbolEntries]
             : [...indiaIndexEntries, ...indiaStockEntries];
 
-      const movers = moverEntries
-        .filter(([, v]) => Array.isArray(v?.history) && v.history.length >= 6)
-        .map(([name, v]) => ({
-          name,
-          one: pctChange(v.history, 1),
-          five: pctChange(v.history, 5),
-          twentyOne: pctChange(v.history, 21)
-        }))
-        .filter((x) => x.one !== null);
+        const movers = moverEntries
+          .filter(([, v]) => Array.isArray(v?.history) && v.history.length >= 6)
+          .map(([name, v]) => ({
+            name,
+            one: pctChange(v, 1),
+            five: pctChange(v, 5),
+            twentyOne: pctChange(v, 21)
+          }))
+          .filter((x) => x.one !== null);
+        const moversFreshnessLabel = data?.__live_status?.ok ? "Live" : "Last close";
 
       const topGainers = $("topGainers");
       if (topGainers) {
         const gainers = movers
+          .filter((item) => item.one > 0)
           .slice()
           .sort((a, b) => b.one - a.one)
           .slice(0, 5);
-        const rows = gainers.map((g) => [
-          `<button class="asset-link" data-asset="${esc(g.name)}">${esc(displayLabel(g.name))}</button>`,
-          formatChange(g.one),
-          formatChange(g.five),
-          formatChange(g.twentyOne)
-        ]);
+        const rows = gainers.length
+          ? gainers.map((g) => [
+              `<button class="asset-link" data-asset="${esc(g.name)}">${esc(displayLabel(g.name))}</button>`,
+              formatChange(g.one),
+              formatChange(g.five),
+              formatChange(g.twentyOne)
+            ])
+          : [[`<span class="muted">No gainers available yet.</span>`, "—", "—", "—"]];
         topGainers.innerHTML = `
           <h2>Top Gainers</h2>
           ${renderTable(["Asset", "1D", "1W", "1M"], rows)}
-          <small class="muted">Top 5 by 1-day move.</small>
+          <small class="muted">Top 5 by 1-day move (${esc(moversFreshnessLabel)} data).</small>
         `;
         topGainers.addEventListener("click", (event) => {
           const el = event.target.closest("[data-asset]");
@@ -3022,19 +3188,22 @@ async function refreshData() {
       const topLosers = $("topLosers");
       if (topLosers) {
         const losers = movers
+          .filter((item) => item.one < 0)
           .slice()
           .sort((a, b) => a.one - b.one)
           .slice(0, 5);
-        const rows = losers.map((l) => [
-          `<button class="asset-link" data-asset="${esc(l.name)}">${esc(displayLabel(l.name))}</button>`,
-          formatChange(l.one),
-          formatChange(l.five),
-          formatChange(l.twentyOne)
-        ]);
+        const rows = losers.length
+          ? losers.map((l) => [
+              `<button class="asset-link" data-asset="${esc(l.name)}">${esc(displayLabel(l.name))}</button>`,
+              formatChange(l.one),
+              formatChange(l.five),
+              formatChange(l.twentyOne)
+            ])
+          : [[`<span class="muted">No losers available yet.</span>`, "—", "—", "—"]];
         topLosers.innerHTML = `
           <h2>Top Losers</h2>
           ${renderTable(["Asset", "1D", "1W", "1M"], rows)}
-          <small class="muted">Top 5 by 1-day drawdown.</small>
+          <small class="muted">Top 5 by 1-day drawdown (${esc(moversFreshnessLabel)} data).</small>
         `;
         topLosers.addEventListener("click", (event) => {
           const el = event.target.closest("[data-asset]");
@@ -3355,21 +3524,11 @@ async function refreshData() {
         announcePublisherContentEmpty(`insufficient-content:${PAGE}:${pageAssetCount}`);
       }
     };
-    if (lastGeneratedAt && p.generated_at === lastGeneratedAt) {
-      applyLivePrices(data).then(() => {
-        syncRealtimeKeySignals(data);
-        syncActiveDetailPanels(data);
-        updateLiveIndicator(data);
-      });
-      return;
-    }
     render();
     lastGeneratedAt = p.generated_at;
-    applyLivePrices(data).then(() => {
-      syncRealtimeKeySignals(data);
-      syncActiveDetailPanels(data);
-      updateLiveIndicator(data);
-    });
+    syncRealtimeKeySignals(data);
+    syncActiveDetailPanels(data);
+    updateLiveIndicator(data);
   } catch (err) {
     console.error("FETCH ERROR", err);
     const root = $("liveIntelligence");

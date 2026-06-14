@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from backend.agentic_pipeline import format_single_agent_group_message, run_single_agent_quant_terminal
+
 
 def _load_env_file(path: Path):
     if not path.exists():
@@ -115,14 +117,30 @@ def main():
     if not to_send:
         return 0
 
-    from backend.agent_trade_assistant import generate_group_brief
-
     sent_keys = []
     for trade_key, rec in to_send:
-        agent_input = str(rec.get("agent_input") or "").strip()
-        if not agent_input:
-            continue
-        brief = generate_group_brief(agent_input)
+        ticker = str(rec.get("ticker") or "").strip().upper() or "UNKNOWN"
+        side = str(rec.get("side") or "").strip().upper()
+        signal_time = str(rec.get("signal_time") or "").strip()
+        compact_line = str(rec.get("compact_line") or "").strip()
+        if not compact_line:
+            compact_line = f"INDIA | {ticker} | {side} | {signal_time}".strip()
+        terminal_result = run_single_agent_quant_terminal(ticker, strategy_item=rec)
+        brief = format_single_agent_group_message(
+            compact_line,
+            terminal_result,
+            market="INDIA",
+            strategy_context={
+                "title": "India Morning Re-Evaluation",
+                "id": "india_morning_reeval",
+                "mode": "RE-EVAL",
+                "market": "INDIA",
+                "trade_type": "SWING",
+                "selection": "queued prior-day INDIA trades",
+                "freshness": "next-working-day review",
+                "filters": "Auto-queued from prior India trade alerts",
+            },
+        )
         if not brief:
             continue
         if args.dry_run:
@@ -144,4 +162,3 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

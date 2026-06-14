@@ -31,7 +31,7 @@ def main():
     )
 
     print("[LIVE] Started:")
-    print(f"  - Data updater + live API via: {START_SCRIPT}")
+    print(f"  - Data updater + live API + pattern scanner via: {START_SCRIPT}")
     print(f"  - Frontend server: http://{FRONTEND_HOST}:{FRONTEND_PORT}/index.html")
     print("Press Ctrl+C to stop.")
 

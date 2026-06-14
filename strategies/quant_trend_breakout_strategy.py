@@ -7,6 +7,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
+import pandas as pd
 from index_futures_universe import get_index_overlay_assets, merge_unique_assets
 
 NIFTY50_TICKERS = [
@@ -245,6 +246,60 @@ def _fetch_yahoo_chart(ticker, days=HISTORY_DAYS, retries=2):
         except Exception:
             continue
     return []
+
+
+def _fetch_dhan_india_chart(ticker):
+    symbol = str(ticker or "").strip().upper()
+    if not symbol:
+        return []
+    try:
+        root = Path(__file__).resolve().parents[1]
+        if str(root) not in sys.path:
+            sys.path.insert(0, str(root))
+        from backend.data_fetcher import _fetch_dhan_india_daily_frame
+        from backend.dhan_strategy_schema import standardize_dhan_history_frame_from_daily
+    except Exception:
+        return []
+    try:
+        daily, _snapshot = _fetch_dhan_india_daily_frame(symbol)
+    except Exception:
+        return []
+    rows, _meta = standardize_dhan_history_frame_from_daily(
+        daily,
+        symbol=symbol,
+        market="india",
+        interval="1d",
+        contract=((_snapshot or {}).get("meta") if isinstance(_snapshot, dict) else None),
+        price_source=str((_snapshot or {}).get("meta", {}).get("source") or (_snapshot or {}).get("source") or "DHAN_INTRADAY"),
+    )
+    return rows
+
+
+def _fetch_dhan_commodity_chart(asset_name):
+    asset = str(asset_name or "").strip().upper()
+    if not asset:
+        return []
+    try:
+        root = Path(__file__).resolve().parents[1]
+        if str(root) not in sys.path:
+            sys.path.insert(0, str(root))
+        from backend.data_fetcher import _fetch_dhan_commodity_daily_frame
+        from backend.dhan_strategy_schema import standardize_dhan_history_frame_from_daily
+    except Exception:
+        return []
+    try:
+        daily, _snapshot = _fetch_dhan_commodity_daily_frame(asset)
+    except Exception:
+        return []
+    rows, _meta = standardize_dhan_history_frame_from_daily(
+        daily,
+        symbol=asset,
+        market="commodities",
+        interval="1d",
+        contract=((_snapshot or {}).get("meta") if isinstance(_snapshot, dict) else None),
+        price_source=str((_snapshot or {}).get("meta", {}).get("source") or (_snapshot or {}).get("source") or "DHAN_INTRADAY"),
+    )
+    return rows
 
 
 def _sma(values, window, idx):
@@ -505,6 +560,11 @@ def _build_strategy_payload(
     index_futures_enabled=False,
     universe_breakdown=None,
 ):
+    try:
+        from backend.dhan_strategy_schema import required_strategy_input_manifest
+        schema_manifest = required_strategy_input_manifest()
+    except Exception:
+        schema_manifest = []
     items_sorted = _sort_signal_items(signal_items)
     if args.max_items > 0:
         items_sorted = items_sorted[:args.max_items]
@@ -594,6 +654,10 @@ def _build_strategy_payload(
                 "sell_max": args.breadth_sell_max,
             },
             "filter_mode": filter_mode,
+        },
+        "input_schema": {
+            "schema_version": "dhan_strategy_input_v1",
+            "required_fields": schema_manifest,
         },
         "notes": notes,
         "items": items_sorted,
@@ -788,7 +852,13 @@ def run():
     asset_name_by_symbol = {}
 
     for asset_name, symbol in scan_assets:
-        rows = _fetch_yahoo_chart(symbol)
+        rows = []
+        if effective_market == "commodities":
+            rows = _fetch_dhan_commodity_chart(asset_name)
+        elif effective_market == "india":
+            rows = _fetch_dhan_india_chart(symbol)
+        if effective_market not in {"india", "commodities"} and not rows:
+            rows = _fetch_yahoo_chart(symbol)
         if not rows:
             if not args.only_signal:
                 print(f"{asset_name} ({symbol}): no data")

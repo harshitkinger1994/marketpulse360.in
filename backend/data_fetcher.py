@@ -2,8 +2,10 @@ import logging
 import re
 import contextlib
 import io
+import os
 import time
 from datetime import datetime
+from pathlib import Path
 import requests
 import pytz
 import pandas as pd
@@ -20,9 +22,28 @@ yf_logger.disabled = True
 logging.getLogger("urllib3").setLevel(logging.CRITICAL)
 
 IST = pytz.timezone("Asia/Kolkata")
+ROOT = Path(__file__).resolve().parents[1]
 nse = NSEClient()
 GOLD_OZ_TO_10G = 10 / 31.1034768
 SILVER_OZ_TO_KG = 32.1507466
+
+
+def _pick_col(df, names):
+    if df is None or df.empty:
+        return None
+    cols = {str(c).strip().upper(): c for c in df.columns}
+    for name in names:
+        key = str(name or "").strip().upper()
+        if key in cols:
+            return cols[key]
+    for name in names:
+        key = str(name or "").strip().upper()
+        if not key:
+            continue
+        for uc, real in cols.items():
+            if key in uc:
+                return real
+    return None
 
 # -------------------------------
 # SYMBOL DEFINITIONS
@@ -51,6 +72,12 @@ COMMODITIES = {
 }
 
 SYMBOLS.update(COMMODITIES)
+COMMODITY_SYMBOL_TO_NAME = {str(symbol).strip().upper(): name for name, symbol in COMMODITIES.items()}
+COMMODITY_SYMBOL_TO_NAME.update({
+    "SI=F": "SILVER",
+})
+
+STRICT_LIVE_ONLY_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "GOLD", "SILVER", "CRUDEOIL"}
 
 NIFTY50_FALLBACK = {
     "RELIANCE": "RELIANCE.NS",
@@ -736,151 +763,7 @@ def _yf_ticker_silent(symbol):
 
 
 def _fetch_silver_inr_series(start=None, period=None, interval=None):
-    # Try direct INR series first if available.
-    try:
-        df_direct = _yf_download_silent(
-            "XAGINR=X",
-            start=start,
-            period=period,
-            interval=interval,
-            progress=False,
-            threads=False,
-            show_errors=False,
-        )
-    except TypeError:
-        try:
-            df_direct = _yf_download_silent("XAGINR=X", start=start, period=period, interval=interval, progress=False, threads=False)
-        except Exception:
-            df_direct = None
-    except Exception:
-        df_direct = None
-
-    if df_direct is not None and not df_direct.empty:
-        try:
-            cols = [c for c in ["Open", "High", "Low", "Close"] if c in df_direct.columns]
-            if not cols:
-                return None
-            out = df_direct[cols].copy()
-            if "Close" in out.columns:
-                for col in ["Open", "High", "Low"]:
-                    if col not in out.columns:
-                        out[col] = out["Close"]
-            out["Volume"] = df_direct["Volume"] if "Volume" in df_direct.columns else 0
-            return out[["Open", "High", "Low", "Close", "Volume"]]
-        except Exception:
-            pass
-
-    try:
-        df_xag = _yf_download_silent(
-            "XAGUSD=X",
-            start=start,
-            period=period,
-            interval=interval,
-            progress=False,
-            threads=False,
-            show_errors=False,
-        )
-        df_inr = _yf_download_silent(
-            "USDINR=X",
-            start=start,
-            period=period,
-            interval=interval,
-            progress=False,
-            threads=False,
-            show_errors=False,
-        )
-    except TypeError:
-        try:
-            df_xag = _yf_download_silent("XAGUSD=X", start=start, period=period, interval=interval, progress=False, threads=False)
-            df_inr = _yf_download_silent("USDINR=X", start=start, period=period, interval=interval, progress=False, threads=False)
-        except Exception:
-            df_xag = None
-            df_inr = None
-    except Exception:
-        df_xag = None
-        df_inr = None
-
-    if df_xag is None or df_xag.empty:
-        try:
-            df_xag = _yf_download_silent(
-                "SI=F",
-                start=start,
-                period=period,
-                interval=interval,
-                progress=False,
-                threads=False,
-                show_errors=False,
-            )
-        except TypeError:
-            try:
-                df_xag = _yf_download_silent("SI=F", start=start, period=period, interval=interval, progress=False, threads=False)
-            except Exception:
-                df_xag = None
-        except Exception:
-            df_xag = None
-
-    if df_xag is None or df_xag.empty or df_inr is None or df_inr.empty:
-        return None
-
-    if isinstance(df_xag.columns, pd.MultiIndex):
-        df_xag.columns = [c[0] if isinstance(c, tuple) else c for c in df_xag.columns]
-    if isinstance(df_inr.columns, pd.MultiIndex):
-        df_inr.columns = [c[0] if isinstance(c, tuple) else c for c in df_inr.columns]
-    cols_xag = [c for c in ["Open", "High", "Low", "Close"] if c in df_xag.columns]
-    cols_inr = [c for c in ["Open", "High", "Low", "Close"] if c in df_inr.columns]
-    if not cols_xag or not cols_inr:
-        return None
-    df_xag = df_xag[cols_xag].copy()
-    df_inr = df_inr[cols_inr].copy()
-    if "Close" in df_xag.columns:
-        for col in ["Open", "High", "Low"]:
-            if col not in df_xag.columns:
-                df_xag[col] = df_xag["Close"]
-    if "Close" in df_inr.columns:
-        for col in ["Open", "High", "Low"]:
-            if col not in df_inr.columns:
-                df_inr[col] = df_inr["Close"]
-    if "Volume" not in df_xag.columns:
-        df_xag["Volume"] = 0
-
-    df_xag = df_xag.copy()
-    df_inr = df_inr.copy()
-    xag_idx = df_xag.index.get_level_values(0) if isinstance(df_xag.index, pd.MultiIndex) else df_xag.index
-    inr_idx = df_inr.index.get_level_values(0) if isinstance(df_inr.index, pd.MultiIndex) else df_inr.index
-    df_xag["date"] = pd.to_datetime(xag_idx).date
-    df_inr["date"] = pd.to_datetime(inr_idx).date
-    df_xag = df_xag.groupby("date").last().reset_index()
-    df_inr = df_inr.groupby("date").last().reset_index()
-    df_xag = df_xag.rename(columns={c: f"{c}_xag" for c in ["Open", "High", "Low", "Close", "Volume"] if c in df_xag.columns})
-    df_inr = df_inr.rename(columns={c: f"{c}_inr" for c in ["Open", "High", "Low", "Close"] if c in df_inr.columns})
-    df = df_xag.merge(df_inr, on="date", how="inner")
-    if df.empty:
-        try:
-            last_xag = df_xag.iloc[-1]
-            last_inr = df_inr.iloc[-1]
-            close_xag = float(last_xag.get("Close_xag") or last_xag.get("Close") or last_xag.get("Open_xag") or last_xag.get("Open"))
-            close_inr = float(last_inr.get("Close_inr") or last_inr.get("Close") or last_inr.get("Open_inr") or last_inr.get("Open"))
-            dt = last_xag.get("date") or last_inr.get("date")
-            out = pd.DataFrame(
-                {
-                    "Open": [close_xag * close_inr],
-                    "High": [close_xag * close_inr],
-                    "Low": [close_xag * close_inr],
-                    "Close": [close_xag * close_inr],
-                    "Volume": [0],
-                },
-                index=pd.to_datetime([dt]),
-            )
-            return out
-        except Exception:
-            return None
-    out = pd.DataFrame(index=pd.to_datetime(df["date"]))
-    out["Open"] = df["Open_xag"] * df["Open_inr"]
-    out["High"] = df["High_xag"] * df["High_inr"]
-    out["Low"] = df["Low_xag"] * df["Low_inr"]
-    out["Close"] = df["Close_xag"] * df["Close_inr"]
-    out["Volume"] = df["Volume_xag"] if "Volume_xag" in df.columns else 0
-    return out
+    return None
 
 
 def _normalize_epoch(ts):
@@ -956,49 +839,11 @@ def _fetch_metal_usd_spot(metal):
 
 
 def _fetch_silver_inr_spot():
-    usd_price, ts = _fetch_metal_usd_spot("silver")
-    if usd_price is None:
-        usd_price, ts = _fetch_yahoo_quote("XAGUSD=X")
-    if usd_price is None:
-        usd_price, ts = _fetch_yahoo_quote("SI=F")
-    if usd_price is None:
-        return None, None
-
-    rate = _fetch_usdinr_rate()
-    if rate is None:
-        rate, _ = _fetch_yahoo_quote("USDINR=X")
-    if rate is None:
-        return None, None
-    price_inr = usd_price * rate
-    if ts is None:
-        return price_inr, None
-    if isinstance(ts, (int, float)):
-        dt = datetime.utcfromtimestamp(ts).replace(tzinfo=pytz.UTC)
-        return price_inr, dt.isoformat()
-    return price_inr, ts
+    return None, None
 
 
 def _fetch_gold_inr_spot():
-    usd_price, ts = _fetch_metal_usd_spot("gold")
-    if usd_price is None:
-        usd_price, ts = _fetch_yahoo_quote("XAUUSD=X")
-    if usd_price is None:
-        usd_price, ts = _fetch_yahoo_quote("GC=F")
-    if usd_price is None:
-        return None, None
-
-    rate = _fetch_usdinr_rate()
-    if rate is None:
-        rate, _ = _fetch_yahoo_quote("USDINR=X")
-    if rate is None:
-        return None, None
-    price_inr = usd_price * rate * GOLD_OZ_TO_10G
-    if ts is None:
-        return price_inr, None
-    if isinstance(ts, (int, float)):
-        dt = datetime.utcfromtimestamp(ts).replace(tzinfo=pytz.UTC)
-        return price_inr, dt.isoformat()
-    return price_inr, ts
+    return None, None
 
 
 def _insert_spot_price(name, price, ts_iso=None):
@@ -1136,25 +981,262 @@ def _normalize_metal_snapshot(symbol, snapshot):
     }
 
 
+def _resolve_commodity_name(symbol):
+    key = str(symbol or "").strip().upper()
+    if not key:
+        return None
+    if key in COMMODITIES:
+        return key
+    return COMMODITY_SYMBOL_TO_NAME.get(key)
+
+
+def _fetch_dhan_commodity_daily_frame(symbol):
+    commodity = _resolve_commodity_name(symbol)
+    if not commodity:
+        return None, None
+    try:
+        from backend.dhan_intraday import fetch_intraday_history
+    except Exception:
+        fetch_intraday_history = None
+
+    frame, meta = None, None
+    if os.environ.get("DHAN_ACCESS_TOKEN", "").strip() and fetch_intraday_history is not None:
+        try:
+            frame, meta = fetch_intraday_history(commodity, interval="15m", data_range="60d", market="commodities")
+        except Exception:
+            frame, meta = None, None
+
+    if frame is None or frame.empty:
+        cache_candidates = [
+            ROOT / "backend" / "reports" / "cache" / "bullish_15m_oi_ema9" / f"{commodity}_60d_15m.csv",
+            ROOT / "backend" / "reports" / "cache" / "bullish_15m_oi_ema9" / f"{commodity.upper()}_60d_15m.csv",
+        ]
+        for cache_path in cache_candidates:
+            try:
+                if cache_path.exists():
+                    cached = pd.read_csv(cache_path)
+                    if not cached.empty:
+                        dt_col = _pick_col(cached, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+                        if dt_col is not None:
+                            cached[dt_col] = pd.to_datetime(cached[dt_col], errors="coerce", utc=True)
+                            cached = cached.dropna(subset=[dt_col]).set_index(dt_col)
+                        frame = cached.copy()
+                        meta = {"source": "LOCAL_DHAN_CACHE", "cache_path": str(cache_path)}
+                        break
+            except Exception:
+                continue
+
+    if frame is None or frame.empty:
+        return None, None
+
+    daily = frame.copy()
+    try:
+        daily.index = pd.to_datetime(daily.index, utc=True, errors="coerce")
+    except Exception:
+        return None, None
+    if getattr(daily.index, "tz", None) is None:
+        try:
+            daily.index = daily.index.tz_localize("UTC")
+        except Exception:
+            return None, None
+    try:
+        daily = daily.tz_convert(IST)
+    except Exception:
+        return None, None
+    daily.columns = [str(col).strip().lower() for col in daily.columns]
+    if not {"open", "high", "low", "close"}.issubset(set(daily.columns)):
+        return None, None
+
+    agg_map = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in daily.columns:
+        agg_map["volume"] = "sum"
+
+    daily = daily.resample("1D").agg(agg_map).dropna(subset=["close"])
+    if daily.empty:
+        return None, None
+
+    daily = daily.reset_index().rename(columns={"index": "date"})
+    if "date" not in daily.columns:
+        dt_col = _pick_col(daily, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+        if dt_col is not None and dt_col != "date":
+            daily = daily.rename(columns={dt_col: "date"})
+    daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
+    daily = daily.dropna(subset=["date"])
+    if daily.empty:
+        return None, None
+
+    last_row = daily.iloc[-1]
+    prev_close = float(daily["close"].iloc[-2]) if len(daily) >= 2 else None
+    timestamp = daily["date"].iloc[-1].isoformat()
+    snapshot = _build_day_range_payload(
+        last_row.get("open"),
+        last_row.get("high"),
+        last_row.get("low"),
+        last_row.get("close"),
+        timestamp,
+        "DHAN_INTRADAY",
+        basis="daily",
+        previous_close=prev_close,
+    )
+    if not snapshot:
+        return None, None
+
+    history = [
+        {
+            "date": str(pd.Timestamp(dt).date()),
+            "close": round(float(close), 2),
+        }
+        for dt, close in zip(daily["date"].iloc[-22:], daily["close"].iloc[-22:])
+        if pd.notna(dt) and pd.notna(close)
+    ]
+    return daily, {
+        "price": snapshot["current"],
+        "timestamp": timestamp,
+        "day_range": snapshot,
+        "history": history,
+        "meta": meta,
+    }
+
+
+def _fetch_dhan_india_daily_frame(symbol):
+    key = str(symbol or "").strip().upper()
+    if not key:
+        return None, None
+    try:
+        from backend.dhan_intraday import fetch_intraday_history
+    except Exception:
+        fetch_intraday_history = None
+
+    frame, meta = None, None
+    if os.environ.get("DHAN_ACCESS_TOKEN", "").strip() and fetch_intraday_history is not None:
+        try:
+            frame, meta = fetch_intraday_history(key, interval="15m", data_range="60d", market="india")
+        except Exception:
+            frame, meta = None, None
+
+    if frame is None or frame.empty:
+        cache_names = [
+            f"{key}_60d_15m.csv",
+            f"{key.replace('.NS', '_NS')}_60d_15m.csv",
+            f"{key.replace('-', '_')}_60d_15m.csv",
+        ]
+        cache_dirs = [
+            ROOT / "backend" / "reports" / "cache" / "bullish_15m_oi_ema9",
+        ]
+        for cache_dir in cache_dirs:
+            for cache_name in cache_names:
+                cache_path = cache_dir / cache_name
+                try:
+                    if cache_path.exists():
+                        cached = pd.read_csv(cache_path)
+                        if not cached.empty:
+                            dt_col = _pick_col(cached, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+                            if dt_col is not None:
+                                cached[dt_col] = pd.to_datetime(cached[dt_col], errors="coerce", utc=True)
+                                cached = cached.dropna(subset=[dt_col]).set_index(dt_col)
+                            frame = cached.copy()
+                            meta = {"source": "LOCAL_DHAN_CACHE", "cache_path": str(cache_path)}
+                            break
+                except Exception:
+                    continue
+            if frame is not None and not frame.empty:
+                break
+
+    if frame is None or frame.empty:
+        return None, None
+
+    daily = frame.copy()
+    try:
+        daily.index = pd.to_datetime(daily.index, utc=True, errors="coerce")
+    except Exception:
+        return None, None
+    if getattr(daily.index, "tz", None) is None:
+        try:
+            daily.index = daily.index.tz_localize("UTC")
+        except Exception:
+            return None, None
+    try:
+        daily = daily.tz_convert(IST)
+    except Exception:
+        return None, None
+    daily.columns = [str(col).strip().lower() for col in daily.columns]
+    if not {"open", "high", "low", "close"}.issubset(set(daily.columns)):
+        return None, None
+
+    agg_map = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in daily.columns:
+        agg_map["volume"] = "sum"
+
+    daily = daily.resample("1D").agg(agg_map).dropna(subset=["close"])
+    if daily.empty:
+        return None, None
+
+    daily = daily.reset_index().rename(columns={"index": "date"})
+    if "date" not in daily.columns:
+        dt_col = _pick_col(daily, ["Datetime", "Date", "Timestamp", "time", "datetime"])
+        if dt_col is not None and dt_col != "date":
+            daily = daily.rename(columns={dt_col: "date"})
+    daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
+    daily = daily.dropna(subset=["date"])
+    if daily.empty:
+        return None, None
+
+    last_row = daily.iloc[-1]
+    prev_close = float(daily["close"].iloc[-2]) if len(daily) >= 2 else None
+    timestamp = daily["date"].iloc[-1].isoformat()
+    snapshot = _build_day_range_payload(
+        last_row.get("open"),
+        last_row.get("high"),
+        last_row.get("low"),
+        last_row.get("close"),
+        timestamp,
+        "DHAN_INTRADAY",
+        basis="daily",
+        previous_close=prev_close,
+    )
+    if not snapshot:
+        return None, None
+
+    history = [
+        {
+            "date": str(pd.Timestamp(dt).date()),
+            "close": round(float(close), 2),
+        }
+        for dt, close in zip(daily["date"].iloc[-22:], daily["close"].iloc[-22:])
+        if pd.notna(dt) and pd.notna(close)
+    ]
+    return daily, {
+        "price": snapshot["current"],
+        "timestamp": timestamp,
+        "day_range": snapshot,
+        "history": history,
+        "meta": meta,
+    }
+
+
 def fetch_live_snapshot(symbol, name=None):
     if name in {"NIFTY", "BANKNIFTY", "INDIA_VIX"}:
         snapshot = fetch_nse_index_snapshot(name)
         if snapshot:
             return snapshot
+        if name in STRICT_LIVE_ONLY_NAMES:
+            return None
+
+    commodity_name = _resolve_commodity_name(name or symbol)
+    if commodity_name:
+        _daily_frame, commodity_snapshot = _fetch_dhan_commodity_daily_frame(commodity_name)
+        if commodity_snapshot:
+            return commodity_snapshot
+        if commodity_name in STRICT_LIVE_ONLY_NAMES:
+            return None
+        return None
 
     if symbol and symbol.endswith(".NS"):
         snapshot = fetch_nse_stock_snapshot(symbol.replace(".NS", ""))
         if snapshot:
             return snapshot
-
-    if symbol == "XAGINR=X":
-        snapshot = _build_snapshot_from_frame(
-            _fetch_silver_inr_series(period="1d", interval="1m"),
-            "YFINANCE_INTRADAY",
-            basis="intraday",
-        )
-        if snapshot:
-            return _normalize_metal_snapshot(symbol, snapshot)
+    if (name or "").strip().upper() in STRICT_LIVE_ONLY_NAMES:
+        return None
 
     try:
         df = _yf_download_silent(
@@ -1205,60 +1287,17 @@ def fetch_live_snapshot(symbol, name=None):
 
 
 def fetch_live_price(symbol):
-    if symbol == "XAGINR=X":
-        df = _fetch_silver_inr_series(period="1d", interval="1m")
-        if df is None or df.empty:
-            df = _fetch_silver_inr_series(period="5d", interval="1h")
-        if df is None or df.empty:
-            df = _fetch_silver_inr_series(period="1mo", interval="1d")
-        if df is None or df.empty:
-            price_inr, ts = _fetch_silver_inr_spot()
-            if price_inr is not None:
-                return float(price_inr), ts
-            try:
-                df_xag = _yf_download_silent("XAGUSD=X", period="1d", interval="1m", progress=False, threads=False, show_errors=False)
-                df_inr = _yf_download_silent("USDINR=X", period="1d", interval="1m", progress=False, threads=False, show_errors=False)
-            except TypeError:
-                try:
-                    df_xag = _yf_download_silent("XAGUSD=X", period="1d", interval="1m", progress=False, threads=False)
-                    df_inr = _yf_download_silent("USDINR=X", period="1d", interval="1m", progress=False, threads=False)
-                except Exception:
-                    df_xag = None
-                    df_inr = None
-            except Exception:
-                df_xag = None
-                df_inr = None
-            price_xag = _extract_close_price(df_xag) if df_xag is not None else None
-            price_inr = _extract_close_price(df_inr) if df_inr is not None else None
-            if price_xag is None or price_inr is None:
-                return None, None
-            ts = None
-            try:
-                ts = df_xag.index[-1] if df_xag is not None and len(df_xag.index) else None
-            except Exception:
-                ts = None
-            if ts is None:
-                return float(price_xag * price_inr), None
-            ts = pd.to_datetime(ts)
-            if ts.tzinfo is None:
-                ts = pytz.UTC.localize(ts)
-            else:
-                ts = ts.tz_convert("UTC")
-            return float(price_xag * price_inr), ts.isoformat()
-        price = _extract_close_price(df)
-        if price is None:
+    commodity_name = _resolve_commodity_name(symbol)
+    if commodity_name:
+        _daily_frame, commodity_snapshot = _fetch_dhan_commodity_daily_frame(commodity_name)
+        if commodity_snapshot and commodity_snapshot.get("price") is not None:
+            return float(commodity_snapshot["price"]), commodity_snapshot.get("timestamp")
+        if commodity_name in STRICT_LIVE_ONLY_NAMES:
             return None, None
-        ts = df.index[-1]
-        ts = pd.to_datetime(ts)
-        if ts.tzinfo is None:
-            ts = pytz.UTC.localize(ts)
-        else:
-            ts = ts.tz_convert("UTC")
-        return float(price), ts.isoformat()
-    if symbol == "GC=F":
-        price_inr, ts = _fetch_gold_inr_spot()
-        if price_inr is not None:
-            return float(price_inr), ts
+        return None, None
+    if str(symbol or "").strip().upper() in STRICT_LIVE_ONLY_NAMES:
+        return None, None
+
     try:
         df = _yf_download_silent(
             symbol,
@@ -1349,21 +1388,37 @@ def fetch_incremental(name, symbol, symbol_type=None):
             rt.get("timestamp"),
             rt.get("open"),
             rt.get("high"),
-            rt.get("low"),
+                rt.get("low"),
         ):
             return
 
     df = None
-    try:
-        df = _yf_download_silent(symbol, start=start, progress=False, threads=False, show_errors=False)
-    except TypeError:
-        # Older yfinance versions may not support show_errors
+    if name in COMMODITIES and os.environ.get("DHAN_ACCESS_TOKEN", "").strip():
         try:
-            df = _yf_download_silent(symbol, start=start, progress=False, threads=False)
+            commodity_daily, _commodity_snapshot = _fetch_dhan_commodity_daily_frame(name)
+            if commodity_daily is not None and not commodity_daily.empty:
+                df = commodity_daily
         except Exception:
             df = None
-    except Exception:
-        df = None
+
+    if name in COMMODITIES:
+        if df is None or df.empty:
+            return
+    else:
+        try:
+            if df is None or df.empty:
+                df = _yf_download_silent(symbol, start=start, progress=False, threads=False, show_errors=False)
+        except TypeError:
+            # Older yfinance versions may not support show_errors
+            try:
+                if df is None or df.empty:
+                    df = _yf_download_silent(symbol, start=start, progress=False, threads=False)
+            except Exception:
+                if df is None or df.empty:
+                    df = None
+        except Exception:
+            if df is None or df.empty:
+                df = None
 
     if df is None or df.empty:
         if name == "SILVER" and symbol == "XAGINR=X":
@@ -1387,18 +1442,11 @@ def fetch_incremental(name, symbol, symbol_type=None):
                 conn.close()
                 return
             price, ts = fetch_live_price(symbol)
-            if price is None:
-                price, ts = _fetch_silver_inr_spot()
             if price is not None:
                 if _insert_spot_price(name, float(price), ts):
                     return
-        if name == "SILVER":
+        if name in COMMODITIES:
             return
-        if name == "GOLD" and symbol == "GC=F":
-            price, ts = _fetch_gold_inr_spot()
-            if price is not None:
-                _insert_spot_price(name, float(price), ts)
-                return
         # Fallback to NSE realtime for Indian symbols
         if symbol_type == "INDIAN":
             if name in ["NIFTY", "BANKNIFTY", "INDIA_VIX"]:
