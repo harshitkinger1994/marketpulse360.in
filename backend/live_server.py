@@ -51,6 +51,7 @@ from backend.suggest_store import (  # noqa: E402
     upsert_block,
 )
 from backend.auto_trader import load_latest_trade_report, load_recent_trade_orders  # noqa: E402
+from backend.market_snapshot_store import load_latest_market_snapshot_payload  # noqa: E402
 
 from backend.data_fetcher import (
     SYMBOLS,
@@ -413,6 +414,17 @@ class LiveHandler(BaseHTTPRequestHandler):
                     "recent_orders": load_recent_trade_orders(limit=limit),
                 },
             )
+            return
+        if parsed.path == "/snapshot":
+            params = parse_qs(parsed.query)
+            timeframe = (params.get("timeframe") or ["dashboard"])[0]
+            payload = load_latest_market_snapshot_payload(
+                timeframe_preference=(timeframe,),
+            )
+            if not payload:
+                self._send(404, {"error": "snapshot_not_found", "timeframe": timeframe})
+                return
+            self._send(200, payload)
             return
         if parsed.path != "/live":
             self._send(404, {"error": "not_found"})

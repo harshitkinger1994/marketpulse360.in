@@ -12,6 +12,7 @@ idna==3.11
 multitasking==0.0.12
 numpy==2.4.1
 pandas==2.3.3
+pyarrow==20.0.0
 peewee==3.19.0
 platformdirs==4.5.1
 protobuf==6.33.3

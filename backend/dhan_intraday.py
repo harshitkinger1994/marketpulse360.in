@@ -22,6 +22,7 @@ DHAN_HOSTS = {"api.dhan.co", "images.dhan.co"}
 IST = ZoneInfo("Asia/Kolkata")
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_DHAN_MASTER_CACHE = ROOT.parent / "market-context-local-data" / "dhan_scrip_master_cache.csv"
+DISABLE_LOCAL_DHAN_MASTER_CACHE = os.environ.get("DHAN_DISABLE_LOCAL_MASTER_CACHE", "").strip() == "1"
 _COMMODITY_ALIASES = {
     "GOLD": ["GOLD"],
     "SILVER": ["SILVER"],
@@ -171,7 +172,7 @@ def _parse_epoch_to_utc(epoch_series):
 
 
 def _fetch_dhan_scrip_master():
-    if LOCAL_DHAN_MASTER_CACHE.exists():
+    if not DISABLE_LOCAL_DHAN_MASTER_CACHE and LOCAL_DHAN_MASTER_CACHE.exists():
         try:
             cached = pd.read_csv(LOCAL_DHAN_MASTER_CACHE, low_memory=False)
             if cached is not None and not cached.empty:

@@ -439,7 +439,7 @@ const PAGE = document.body?.dataset?.page || "india";
 const FALLBACK_LIVE_API_URL = typeof window !== "undefined" && window.location
   ? `${window.location.origin}/live`
   : null;
-const LIVE_API_URL = window?.LIVE_API_URL || "http://localhost:8765/live";
+const LIVE_API_URL = window?.LIVE_API_URL || FALLBACK_LIVE_API_URL || "http://localhost:8765/live";
 const THEMES = ["royal", "dark-royal", "sage", "beige", "sunrise", "slate", "silver"];
 const DEFAULT_THEME = "royal";
 const TURNSTILE_SITE_KEY = typeof window !== "undefined" ? String(window.TURNSTILE_SITE_KEY || "").trim() : "";
@@ -885,6 +885,9 @@ const buildExecutiveAssetCard = (label, key, item, options = {}) => {
   const oneDay = pctChange(item, 1);
   const oneWeek = pctChange(item, 5);
   const trend = item?.trend;
+  const sourceLabel = PAGE === "commodities" || item?.type === "COMMODITY"
+    ? "Central commodity snapshot"
+    : (item?.price_source || "EOD");
   const tone = options.tone || executiveToneFromBalance(
     typeof oneDay === "number" && oneDay > 0 ? 1 : 0,
     typeof oneDay === "number" && oneDay < 0 ? 1 : 0,
@@ -895,7 +898,7 @@ const buildExecutiveAssetCard = (label, key, item, options = {}) => {
     tone,
     badge: options.badge || executiveTrendLabel(trend),
     primary: formatPriceValue(item?.current_price, key, item, options.digits ?? 2),
-    secondary: options.secondary || `${item?.price_source || "EOD"}${item?.price_timestamp ? ` · ${item.price_timestamp}` : ""}`,
+    secondary: options.secondary || `${sourceLabel}${item?.price_timestamp ? ` · ${item.price_timestamp}` : ""}`,
     metrics: [
       { label: "1D", value: formatChange(oneDay), html: true },
       { label: "1W", value: formatChange(oneWeek), html: true },
@@ -2050,9 +2053,12 @@ const renderAssetDetails = (name, item) => {
     ? renderTable(["Date", currencyLabel ? `Close (${currencyLabel})` : "Close"], historyRows)
     : `<p class="muted">History not available.</p>`;
 
+  const sourceLabel = PAGE === "commodities" || item?.type === "COMMODITY"
+    ? "Central commodity snapshot"
+    : (item.price_source || "EOD");
   const priceMeta = item.price_timestamp
-    ? `<p class="muted">Price time: ${esc(item.price_timestamp)} (${esc(item.price_source || "EOD")})</p>`
-    : `<p class="muted">Price source: ${esc(item.price_source || "EOD")}</p>`;
+    ? `<p class="muted">Price time: ${esc(item.price_timestamp)} (${esc(sourceLabel)})</p>`
+    : `<p class="muted">Price source: ${esc(sourceLabel)}</p>`;
   const dayRangeInline = renderDayRangeInline(name, item);
 
   return `
@@ -2693,7 +2699,29 @@ async function refreshData() {
   try {
     ensureStatusRow();
     updateMarketStatus();
-    const res = await fetch(`data.json?ts=${Date.now()}`, { cache: "no-store" });
+    const liveApiOrigin = (() => {
+      try {
+        return new URL(LIVE_API_URL, window.location.href).origin;
+      } catch (err) {
+        return null;
+      }
+    })();
+    const commoditySnapshotUrls = PAGE === "commodities"
+      ? [
+          `/snapshot?timeframe=commodities_daily&ts=${Date.now()}`,
+          ...(liveApiOrigin ? [`${liveApiOrigin}/snapshot?timeframe=commodities_daily&ts=${Date.now()}`] : []),
+          `data.json?ts=${Date.now()}`,
+        ]
+      : [`data.json?ts=${Date.now()}`];
+    let res = null;
+    for (const url of commoditySnapshotUrls) {
+      try {
+        res = await fetch(url, { cache: "no-store" });
+        if (res.ok) break;
+      } catch (err) {
+        res = null;
+      }
+    }
     if (!res.ok) {
       throw new Error(`data_fetch_status_${res.status}`);
     }

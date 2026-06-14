@@ -80,6 +80,7 @@ SNAPSHOT_PATH = DATA_DIR / "_yesterday_snapshot.json"
 
 GLOBAL_INDEX_NAMES = ["SP500", "NASDAQ", "DAX", "NIKKEI", "HANGSENG"]
 KEY_INDIA_INDEX_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "INDIA_VIX"}
+STRICT_LIVE_ONLY_NAMES = {"NIFTY", "BANKNIFTY", "SENSEX", "GOLD", "SILVER", "CRUDEOIL"}
 TOP_TRADES_PATH = ROOT / "strategies" / "top_trades.json"
 STRATEGY_DIR = ROOT / "strategies"
 STRATEGY_NOTIFY_STATE_PATH = STRATEGY_DIR / ".strategy_notify_state.json"
@@ -191,6 +192,47 @@ def _load_json_file(path, default=None, label=None):
 
 
 PREVIOUS_FRONTEND_DATA = _load_json_file(DATA_PATH, default={}, label="previous frontend data")
+
+
+def _publish_dashboard_snapshot_store(final_payload):
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        store = MarketSnapshotStore()
+        store.write_payload(final_payload, timeframe="dashboard")
+    except Exception as exc:
+        print(f"[WARN] failed to publish dashboard snapshot store: {exc}")
+
+
+def _publish_commodity_snapshot_store(final_payload):
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        commodities = {
+            str(name).strip().upper(): value
+            for name, value in (final_payload.get("data") or {}).items()
+            if str(name).strip().upper() in COMMODITIES
+        }
+        commodity_strategies = [
+            strategy
+            for strategy in (final_payload.get("strategies") or [])
+            if str(strategy.get("market") or "").strip().lower() == "commodities"
+        ]
+        if not commodities:
+            return
+        commodity_payload = {
+            "generated_at": final_payload.get("generated_at"),
+            "source": "daily_run",
+            "market": "commodities",
+            "data": commodities,
+            "strategies": commodity_strategies,
+            "commodity_trends": final_payload.get("commodity_trends") or {},
+            "top_trades": final_payload.get("top_trades") or [],
+        }
+        store = MarketSnapshotStore()
+        store.write_payload(commodity_payload, timeframe="commodities_daily")
+    except Exception as exc:
+        print(f"[WARN] failed to publish commodity snapshot store: {exc}")
 
 
 def _write_json_atomic(path, payload):
@@ -2746,6 +2788,8 @@ def process_full(name, symbol, asset_type):
             "timestamp": live.get("timestamp"),
             "day_range": (live or {}).get("day_range"),
         }
+    if name in STRICT_LIVE_ONLY_NAMES and live is None:
+        return
     eod_timestamp = _estimate_series_timestamp(name, asset_type, df)
     last_updated = (live or {}).get("timestamp") or eod_timestamp or NOW_UTC
     sr = compute_support_resistance(df)
@@ -3207,4 +3251,6 @@ finally:
         except Exception:
             pass
 
+_publish_dashboard_snapshot_store(safe_final)
+_publish_commodity_snapshot_store(safe_final)
 print("Daily data updated - stable & production-safe")

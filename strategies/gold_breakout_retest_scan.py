@@ -19,6 +19,7 @@ INTERVAL = os.getenv("COMMODITY_BR_INTERVAL", "60m")
 DATA_RANGE = os.getenv("COMMODITY_BR_RANGE", "180d")
 DAILY_INTERVAL = "1d"
 DAILY_RANGE = os.getenv("COMMODITY_BR_DAILY_RANGE", "400d")
+DHAN_RANGE = os.getenv("COMMODITY_BR_DHAN_RANGE", "60d")
 MOMENTUM_LOOKBACK = int(os.getenv("COMMODITY_BR_LOOKBACK", "30"))
 VOLUME_MULT = float(os.getenv("COMMODITY_BR_VOLUME_MULT", "3.0"))
 MIN_RR = float(os.getenv("COMMODITY_BR_MIN_RR", "1.5"))
@@ -28,6 +29,8 @@ ADX_PERIOD = int(os.getenv("COMMODITY_BR_ADX_PERIOD", "14"))
 ADX_MIN = float(os.getenv("COMMODITY_BR_ADX_MIN", "20"))
 WINDOW_START = int(os.getenv("COMMODITY_BR_WINDOW_START", "5"))
 WINDOW_END = int(os.getenv("COMMODITY_BR_WINDOW_END", "6"))
+COMMODITY_CACHE_MAX_AGE_MIN = int(os.getenv("COMMODITY_BR_CACHE_MAX_AGE_MIN", "30"))
+COMMODITY_CACHE_TIMEFRAME_PREFIX = "commodities_15m"
 
 BASE_DIR = Path(__file__).resolve().parent
 ROOT = BASE_DIR.parent
@@ -64,6 +67,17 @@ def _range_to_days(value):
     if txt.endswith("y") and txt[:-1].isdigit():
         return int(txt[:-1]) * 365
     return 180
+
+
+def _interval_to_resample_rule(interval):
+    text = str(interval or "").strip().lower()
+    if text.endswith("m") and text[:-1].isdigit():
+        return f"{int(text[:-1])}min"
+    if text.endswith("h") and text[:-1].isdigit():
+        return f"{int(text[:-1])}H"
+    if text in {"1d", "d", "day"}:
+        return "1D"
+    return "1H"
 
 
 def _build_df_from_result(result):
@@ -158,6 +172,193 @@ def _fetch_yfinance_chart(symbol, interval=INTERVAL, data_range=DATA_RANGE):
         import yfinance as yf
     except Exception:
         return pd.DataFrame()
+    logging.getLogger("yfinance").setLevel(logging.CRITICAL)
+    logging.getLogger("yfinance").disabled = True
+    try:
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            df = yf.download(
+                tickers=symbol,
+                period=data_range,
+                interval=interval,
+                progress=False,
+                auto_adjust=False,
+                threads=False,
+            )
+    except Exception:
+        return pd.DataFrame()
+    if df is None or df.empty:
+        return pd.DataFrame()
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = [c[0] for c in df.columns]
+
+    col_map = {c.lower(): c for c in df.columns}
+    needed = {"open", "high", "low", "close", "volume"}
+    if not needed.issubset(set(col_map.keys())):
+        return pd.DataFrame()
+
+    out = pd.DataFrame(
+        {
+            "open": pd.to_numeric(df[col_map["open"]], errors="coerce"),
+            "high": pd.to_numeric(df[col_map["high"]], errors="coerce"),
+            "low": pd.to_numeric(df[col_map["low"]], errors="coerce"),
+            "close": pd.to_numeric(df[col_map["close"]], errors="coerce"),
+            "volume": pd.to_numeric(df[col_map["volume"]], errors="coerce"),
+        }
+    ).dropna(subset=["close"])
+    if out.empty:
+        return pd.DataFrame()
+    idx = out.index
+    if getattr(idx, "tz", None) is None:
+        out["dt_utc"] = pd.to_datetime(idx, utc=True)
+    else:
+        out["dt_utc"] = pd.to_datetime(idx).tz_convert("UTC")
+    out["dt_ist"] = out["dt_utc"].dt.tz_convert(IST)
+    return out.reset_index(drop=True)
+
+
+def _commodity_cache_timeframe(asset):
+    return f"{COMMODITY_CACHE_TIMEFRAME_PREFIX}_{str(asset or '').strip().upper()}"
+
+
+def _commodity_cache_path(asset):
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        store = MarketSnapshotStore()
+        return store.latest_path(_commodity_cache_timeframe(asset))
+    except Exception:
+        return None
+
+
+def _load_cached_commodity_frame(asset):
+    path = _commodity_cache_path(asset)
+    if not path or not path.exists():
+        return pd.DataFrame(), False
+    try:
+        frame = pd.read_parquet(path)
+    except Exception:
+        return pd.DataFrame(), False
+    if frame is None or frame.empty:
+        return pd.DataFrame(), False
+    key = str(asset or "").strip().upper()
+    if "symbol" in frame.columns:
+        frame = frame[frame["symbol"].astype(str).str.upper() == key].copy()
+    elif "ticker" in frame.columns:
+        frame = frame[frame["ticker"].astype(str).str.upper() == key].copy()
+    if frame.empty:
+        return pd.DataFrame(), False
+    fresh = False
+    try:
+        age_min = (datetime.now(timezone.utc) - datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)).total_seconds() / 60.0
+        fresh = age_min <= COMMODITY_CACHE_MAX_AGE_MIN
+    except Exception:
+        fresh = False
+    return frame, fresh
+
+
+def _store_commodity_frame(asset, frame, meta=None):
+    if frame is None or frame.empty:
+        return None
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        store = MarketSnapshotStore()
+        payload = frame.copy()
+        payload["asset"] = str(asset or "").strip().upper()
+        payload["market"] = "commodities"
+        payload["interval"] = "15m"
+        payload["price_source"] = str((meta or {}).get("source") or (meta or {}).get("price_source") or "DHAN_INTRADAY")
+        store.write_payload(
+            payload,
+            timeframe=_commodity_cache_timeframe(asset),
+            metadata={
+                "asset": str(asset or "").strip().upper(),
+                "market": "commodities",
+                "interval": "15m",
+                "price_source": str((meta or {}).get("source") or (meta or {}).get("price_source") or "DHAN_INTRADAY"),
+            },
+        )
+    except Exception:
+        return None
+    return True
+
+
+def _fetch_dhan_commodity_raw_frame(asset):
+    asset = str(asset or "").strip().upper()
+    if not asset:
+        return pd.DataFrame(), {}
+    try:
+        from backend.dhan_intraday import fetch_intraday_history
+        from backend.dhan_strategy_schema import standardize_dhan_history_frame
+    except Exception:
+        return pd.DataFrame(), {}
+    try:
+        raw, meta = fetch_intraday_history(asset, interval="15m", data_range=DHAN_RANGE, market="commodities")
+    except Exception:
+        return pd.DataFrame(), {}
+    try:
+        rows, row_meta = standardize_dhan_history_frame(
+            raw,
+            symbol=asset,
+            market="commodities",
+            interval="15m",
+            contract=((meta or {}).get("contract") if isinstance(meta, dict) else None),
+            price_source=str((meta or {}).get("source") or (meta or {}).get("price_source") or "DHAN_INTRADAY"),
+        )
+    except Exception:
+        return pd.DataFrame(), {}
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return pd.DataFrame(), {}
+    _store_commodity_frame(asset, frame, meta or row_meta)
+    return frame, (meta or row_meta or {})
+
+
+def _load_or_refresh_commodity_raw_frame(asset):
+    cached, fresh = _load_cached_commodity_frame(asset)
+    if not cached.empty and fresh:
+        return cached
+    fetched, meta = _fetch_dhan_commodity_raw_frame(asset)
+    if not fetched.empty:
+        return fetched
+    return cached
+
+
+def _resample_commodity_frame(frame, rule):
+    if frame is None or frame.empty:
+        return pd.DataFrame()
+    work = frame.copy()
+    ts_col = None
+    for candidate in ("timestamp", "dt_ist", "dt_utc"):
+        if candidate in work.columns:
+            ts_col = candidate
+            break
+    if ts_col is None:
+        return pd.DataFrame()
+    work["dt_ist"] = pd.to_datetime(work[ts_col], errors="coerce", utc=True)
+    work = work.dropna(subset=["dt_ist", "close"]).sort_values("dt_ist")
+    if work.empty:
+        return pd.DataFrame()
+    try:
+        work["dt_ist"] = work["dt_ist"].dt.tz_convert(IST)
+    except Exception:
+        try:
+            work["dt_ist"] = work["dt_ist"].dt.tz_localize(IST)
+        except Exception:
+            return pd.DataFrame()
+    work["dt_utc"] = work["dt_ist"].dt.tz_convert("UTC")
+    work = work.set_index("dt_ist")
+    agg = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in work.columns:
+        agg["volume"] = "sum"
+    resampled = work.resample(rule, label="right", closed="right").agg(agg)
+    resampled = resampled.dropna(subset=["close"])
+    if resampled.empty:
+        return pd.DataFrame()
+    resampled = resampled.reset_index()
+    resampled["dt_utc"] = resampled["dt_ist"].dt.tz_convert("UTC")
+    resampled["date"] = resampled["dt_ist"].dt.date
+    return resampled
 
     logging.getLogger("yfinance").setLevel(logging.CRITICAL)
     logging.getLogger("yfinance").disabled = True
@@ -438,13 +639,13 @@ def _symbol_to_india_key(symbol):
 
 def _load_market_configs():
     commodities = {
-        "GOLD": ["GC=F", "XAUUSD=X"],
-        "SILVER": ["SI=F", "XAGUSD=X"],
-        "CRUDEOIL": ["CL=F"],
-        "BRENT": ["BZ=F"],
-        "NATGAS": ["NG=F"],
-        "COPPER": ["HG=F"],
-        "PLATINUM": ["PL=F"],
+        "GOLD": ["GOLD"],
+        "SILVER": ["SILVER"],
+        "CRUDEOIL": ["CRUDEOIL"],
+        "BRENT": ["BRENT"],
+        "NATGAS": ["NATGAS"],
+        "COPPER": ["COPPER"],
+        "PLATINUM": ["PLATINUM"],
     }
 
     try:
@@ -534,8 +735,49 @@ def _write_payload(payload):
 
 
 def _scan_single_asset(asset, candidates):
-    symbol, attempted, raw = _fetch_first_available(candidates)
-    if raw.empty:
+    market = None
+    candidate_list = candidates
+    if isinstance(candidates, dict):
+        market = candidates.get("market")
+        candidate_list = candidates.get("candidates")
+    if str(market or "").strip().lower() == "commodities":
+        raw = _load_or_refresh_commodity_raw_frame(asset)
+        attempted = [f"DHAN:{asset}"]
+        symbol = asset
+        if raw.empty:
+            return {
+                "asset": asset,
+                "symbol": None,
+                "attempted": attempted,
+                "bars": 0,
+                "breakouts": 0,
+                "triggered": 0,
+                "items": [],
+            }
+        hourly_rule = _interval_to_resample_rule(INTERVAL)
+        daily_raw = _resample_commodity_frame(raw, "1D")
+        raw = _resample_commodity_frame(raw, hourly_rule)
+        daily_ema = pd.DataFrame(columns=["dt_utc", "daily_ema9"])
+        if not daily_raw.empty and "close" in daily_raw.columns:
+            daily_ema = daily_raw[["dt_utc", "close"]].copy().dropna(subset=["dt_utc", "close"])
+            if not daily_ema.empty:
+                daily_ema = daily_ema.sort_values("dt_utc").reset_index(drop=True)
+                daily_ema["daily_ema9"] = daily_ema["close"].ewm(span=9, adjust=False).mean()
+                daily_ema = daily_ema[["dt_utc", "daily_ema9"]]
+    else:
+        symbol, attempted, raw = _fetch_first_available(candidate_list or [])
+        if raw.empty:
+            return {
+                "asset": asset,
+                "symbol": None,
+                "attempted": attempted,
+                "bars": 0,
+                "breakouts": 0,
+                "triggered": 0,
+                "items": [],
+            }
+        daily_ema = _fetch_daily_ema9(symbol)
+    if str(market or "").strip().lower() != "commodities" and raw.empty:
         return {
             "asset": asset,
             "symbol": None,
@@ -545,7 +787,6 @@ def _scan_single_asset(asset, candidates):
             "triggered": 0,
             "items": [],
         }
-    daily_ema = _fetch_daily_ema9(symbol)
     df = _add_indicators(raw, daily_ema_df=daily_ema)
     setups = _evaluate(df)
     triggered = [s for s in setups if s.get("status") == "TRIGGERED"]
@@ -575,7 +816,7 @@ def _scan_market(cfg):
     results = []
     for asset, candidates in assets.items():
         try:
-            results.append(_scan_single_asset(asset, candidates))
+            results.append(_scan_single_asset(asset, {"market": market, "candidates": candidates}))
         except Exception:
             results.append(
                 {

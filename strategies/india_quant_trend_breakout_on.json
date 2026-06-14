@@ -4,8 +4,8 @@
   "owner": "HARSHIT",
   "trade_type": "SWING",
   "market": "india",
-  "generated_at": "2026-06-13T13:36:33.346739+00:00",
-  "as_of_date": "2026-06-12",
+  "generated_at": "2026-06-14T12:49:36.150637+00:00",
+  "as_of_date": "",
   "counts": {
     "assets": 210,
     "assets_with_data": 3,
@@ -71,6 +71,149 @@
       "sell_max": 0.45
     },
     "filter_mode": "Trend regime: BUY close>SMA50>SMA200, SELL close<SMA50<SMA200 | Breakout: 10D high/low with max overshoot 3.00% | Volume: volume > SMA(20) x 1.50 | RSI: BUY 55.0-75.0, SELL 25.0-45.0 | ATR%: 1.00 to 6.00 | Market gate: NIFTY close vs SMA200 aligned with side | Slope filter: disabled | Relative strength filter: disabled | Candle position filter: disabled | RSI cross filter: disabled | Range expansion filter: (high-low)/ATR14 >= 1.10 | Squeeze filter: STD10/STD50 <= 0.90 | Breadth filter (>%SMA50): BUY >= 0.45, SELL <= 0.45"
+  },
+  "input_schema": {
+    "schema_version": "dhan_strategy_input_v1",
+    "required_fields": [
+      {
+        "field": "symbol",
+        "source": "Dhan scrip master / strategy universe",
+        "required": true,
+        "notes": "Tradable symbol name used by the strategy."
+      },
+      {
+        "field": "security_id",
+        "source": "Dhan scrip master",
+        "required": true,
+        "notes": "Dhan security identifier required for chart lookup."
+      },
+      {
+        "field": "exchange_segment",
+        "source": "Dhan scrip master",
+        "required": true,
+        "notes": "Exchange routing segment such as NSE_EQ, NSE_FNO or MCX_COMM."
+      },
+      {
+        "field": "instrument",
+        "source": "Dhan scrip master",
+        "required": true,
+        "notes": "Instrument type used by the Dhan charts endpoint."
+      },
+      {
+        "field": "market",
+        "source": "Strategy selection",
+        "required": true,
+        "notes": "India, global, commodities, or crypto."
+      },
+      {
+        "field": "interval",
+        "source": "Strategy selection",
+        "required": true,
+        "notes": "15m, 1h, 1d, etc."
+      },
+      {
+        "field": "timestamp",
+        "source": "Dhan intraday / daily chart",
+        "required": true,
+        "notes": "Close timestamp for the candle used by the strategy."
+      },
+      {
+        "field": "open",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle open price."
+      },
+      {
+        "field": "high",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle high price."
+      },
+      {
+        "field": "low",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle low price."
+      },
+      {
+        "field": "close",
+        "source": "Dhan OHLC",
+        "required": true,
+        "notes": "Candle close price."
+      },
+      {
+        "field": "volume",
+        "source": "Dhan volume / chart payload",
+        "required": true,
+        "notes": "Candle volume."
+      },
+      {
+        "field": "vwap",
+        "source": "Derived from Dhan OHLCV",
+        "required": false,
+        "notes": "Intraday session VWAP when the strategy uses it."
+      },
+      {
+        "field": "ema9",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Primary EMA9 trigger line if the strategy needs it."
+      },
+      {
+        "field": "rsi14",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Momentum filter."
+      },
+      {
+        "field": "atr14",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Range / volatility filter."
+      },
+      {
+        "field": "volume_sma14",
+        "source": "Derived from Dhan candles",
+        "required": false,
+        "notes": "Relative volume filter baseline."
+      },
+      {
+        "field": "daily_ema9",
+        "source": "Derived from Dhan daily candles",
+        "required": false,
+        "notes": "Higher timeframe trend confirmation."
+      },
+      {
+        "field": "weekly_ema9",
+        "source": "Derived from Dhan weekly candles",
+        "required": false,
+        "notes": "Higher timeframe trend confirmation."
+      },
+      {
+        "field": "day_range",
+        "source": "Dhan session OHLC",
+        "required": false,
+        "notes": "Structured session range for UI and risk controls."
+      },
+      {
+        "field": "call_oi_strike",
+        "source": "Dhan options chain",
+        "required": false,
+        "notes": "Highest call OI strike for option-barrier strategies."
+      },
+      {
+        "field": "put_oi_strike",
+        "source": "Dhan options chain",
+        "required": false,
+        "notes": "Highest put OI strike for option-barrier strategies."
+      },
+      {
+        "field": "pcr_ratio",
+        "source": "Dhan options chain",
+        "required": false,
+        "notes": "Put-call ratio when derivatives context is used."
+      }
+    ]
   },
   "notes": [
     "Non-EMA momentum strategy with extended quality gates for range expansion, squeeze, slope and breadth.",

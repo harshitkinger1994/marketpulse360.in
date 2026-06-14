@@ -3,11 +3,13 @@ import math
 import os
 import re
 import difflib
+import sys
 from dataclasses import dataclass
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Callable
 
+import numpy as np
 import pandas as pd
 import requests
 from backend.data_fetcher import fetch_live_snapshot, get_nifty50_symbols, nse
@@ -37,6 +39,15 @@ DEFAULT_OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini").strip() or 
 DEFAULT_GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash").strip() or "gemini-2.0-flash"
 LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "").strip().lower()  # "gemini" | "openai"
 ROOT = Path(__file__).resolve().parents[1]
+MARKET_CONTEXT_ROOT = ROOT / "market-context"
+if str(MARKET_CONTEXT_ROOT) not in sys.path:
+    sys.path.insert(0, str(MARKET_CONTEXT_ROOT))
+
+try:
+    from backend.market_snapshot_store import load_latest_market_snapshot_payload
+except Exception:  # pragma: no cover - optional fallback
+    load_latest_market_snapshot_payload = None
+
 FRONTEND_DATA_PATH = ROOT / "frontend" / "data.json"
 SINGLE_AGENT_PROMPT_PATH = ROOT / "backend" / "prompts" / "single_agent_terminal_prompt.txt"
 TRADER_BRIEF_PROMPT_PATH = ROOT / "backend" / "prompts" / "trader_brief_composer_prompt.txt"
@@ -258,12 +269,23 @@ def _normalize_symbol_key(value: str) -> str:
 
 
 def _load_local_stock_snapshot(stock_name: str) -> dict[str, Any] | None:
-    if not FRONTEND_DATA_PATH.exists():
-        return None
-    try:
-        data = json.loads(FRONTEND_DATA_PATH.read_text())
-    except Exception:
-        return None
+    data = None
+    if load_latest_market_snapshot_payload is not None:
+        for timeframe in ("15m", "dashboard", "minute"):
+            try:
+                payload = load_latest_market_snapshot_payload((timeframe,))
+            except Exception:
+                payload = None
+            if isinstance(payload, dict) and isinstance(payload.get("data"), dict) and payload.get("data"):
+                data = payload
+                break
+    if data is None:
+        if not FRONTEND_DATA_PATH.exists():
+            return None
+        try:
+            data = json.loads(FRONTEND_DATA_PATH.read_text())
+        except Exception:
+            return None
     symbols = data.get("data") if isinstance(data, dict) else None
     if not isinstance(symbols, dict):
         return None
@@ -408,7 +430,13 @@ def _compute_rsi_from_closes(closes: list[float], period: int = 14) -> float | N
 def _history_closes(snapshot: dict[str, Any] | None) -> list[float]:
     if not isinstance(snapshot, dict):
         return []
-    history = snapshot.get("history") or []
+    history = snapshot.get("history")
+    if history is None:
+        history = []
+    if isinstance(history, np.ndarray):
+        history = history.tolist()
+    elif isinstance(history, pd.Series):
+        history = history.tolist()
     closes: list[float] = []
     if isinstance(history, list):
         for item in history:

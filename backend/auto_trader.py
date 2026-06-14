@@ -20,8 +20,16 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+MARKET_CONTEXT_ROOT = ROOT / "market-context"
+if str(MARKET_CONTEXT_ROOT) not in sys.path:
+    sys.path.insert(0, str(MARKET_CONTEXT_ROOT))
+
 from backend.database import get_conn, init_db
 from backend.suggest_security import safe_telegram_text
+try:
+    from backend.market_snapshot_store import load_latest_market_snapshot_payload
+except Exception:  # pragma: no cover - optional fallback
+    load_latest_market_snapshot_payload = None
 
 
 STRATEGY_DIR = ROOT / "strategies"
@@ -217,8 +225,19 @@ def _price_from_blob(blob):
 
 
 def load_current_prices(snapshot_path: Path | None = None):
-    path = snapshot_path or FRONTEND_DATA_PATH
-    payload = _load_json_file(path)
+    payload = None
+    if snapshot_path is None and load_latest_market_snapshot_payload is not None:
+        for timeframe in ("15m", "dashboard", "minute"):
+            try:
+                candidate = load_latest_market_snapshot_payload((timeframe,))
+            except Exception:
+                candidate = None
+            if isinstance(candidate, dict) and isinstance(candidate.get("data"), dict) and candidate.get("data"):
+                payload = candidate
+                break
+    if payload is None:
+        path = snapshot_path or FRONTEND_DATA_PATH
+        payload = _load_json_file(path)
     if not isinstance(payload, dict):
         return {}
     data = payload.get("data")

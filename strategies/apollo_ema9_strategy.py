@@ -747,7 +747,7 @@ def run():
 
     for asset_name, symbol in scan_assets:
         rows = _fetch_dhan_india_chart(symbol) if effective_market == "india" else []
-        if effective_market != "india" and not rows:
+        if effective_market not in {"india", "commodities"} and not rows:
             rows = _fetch_yahoo_chart(symbol)
         if not rows:
             if not args.only_signal:

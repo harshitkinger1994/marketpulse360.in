@@ -4,6 +4,7 @@ import bisect
 import json
 import math
 import sqlite3
+import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -14,6 +15,15 @@ DATA_PATH = ROOT / "frontend" / "data.json"
 STRATEGY_DIR = ROOT / "strategies"
 HISTORY_DIR = STRATEGY_DIR / "history"
 DB_PATH = ROOT / "market.db"
+
+MARKET_CONTEXT_ROOT = ROOT / "market-context"
+if str(MARKET_CONTEXT_ROOT) not in sys.path:
+    sys.path.insert(0, str(MARKET_CONTEXT_ROOT))
+
+try:
+    from backend.market_snapshot_store import load_latest_market_snapshot_payload
+except Exception:  # pragma: no cover - optional fallback
+    load_latest_market_snapshot_payload = None
 
 INITIAL_CAPITAL = 100000.0
 DEFAULT_EXCLUDE_TOKENS = ("ema9_growth30_on", "quant_trend_breakout_on")
@@ -144,6 +154,21 @@ def _symbol_candidates(item):
             uniq.append(c)
             seen.add(c)
     return uniq
+
+
+def _load_strategy_snapshot_payload():
+    if load_latest_market_snapshot_payload is not None:
+        for timeframe in ("dashboard", "15m", "minute"):
+            try:
+                payload = load_latest_market_snapshot_payload((timeframe,))
+            except Exception:
+                payload = None
+            if isinstance(payload, dict) and isinstance(payload.get("strategies"), list) and payload.get("strategies"):
+                return payload
+    try:
+        return json.loads(DATA_PATH.read_text())
+    except Exception:
+        return {}
 
 
 def _trade_hold_days(strategy_id, trade_type):
@@ -452,7 +477,7 @@ def main():
         t.strip().lower() for t in str(args.exclude_tokens or "").split(",") if t.strip()
     ]
 
-    data = json.loads(DATA_PATH.read_text())
+    data = _load_strategy_snapshot_payload()
     all_strategies = data.get("strategies") or []
     target = []
     excluded = []
