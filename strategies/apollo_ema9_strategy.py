@@ -191,6 +191,22 @@ def _fmt_num(value, decimals=2):
         return "NA"
 
 
+def _coerce_date_like(value):
+    if isinstance(value, date):
+        return value
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, str) and value.strip():
+        try:
+            return datetime.fromisoformat(value).date()
+        except Exception:
+            try:
+                return datetime.strptime(value[:10], "%Y-%m-%d").date()
+            except Exception:
+                return None
+    return None
+
+
 def _build_signal_item(asset_name, symbol, res, instrument_type="spot"):
     d = res.get("date")
     date_iso = d.isoformat() if isinstance(d, date) else str(d or "")
@@ -361,13 +377,40 @@ def _write_strategy_payload(payload, output_dir):
     out_dir = Path(output_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{strategy_id}.json"
-    out_path.write_text(json.dumps(payload, indent=2))
+    existing_current = None
+    if out_path.exists():
+        try:
+            existing_current = json.loads(out_path.read_text())
+        except Exception:
+            existing_current = None
 
     history_dir = out_dir / "history"
     history_dir.mkdir(parents=True, exist_ok=True)
     day_key = datetime.now(IST).strftime("%Y%m%d")
     history_path = history_dir / f"{strategy_id}_{day_key}.json"
-    history_path.write_text(json.dumps(payload, indent=2))
+
+    def _item_count(data) -> int:
+        if not isinstance(data, dict):
+            return 0
+        items = data.get("items") or []
+        return len(items) if isinstance(items, list) else 0
+
+    new_items_len = _item_count(payload)
+    existing_current_len = _item_count(existing_current)
+    if new_items_len > 0 or existing_current_len == 0:
+        out_path.write_text(json.dumps(payload, indent=2))
+    elif existing_current is not None:
+        payload = existing_current
+
+    existing_history = None
+    if history_path.exists():
+        try:
+            existing_history = json.loads(history_path.read_text())
+        except Exception:
+            existing_history = None
+    existing_history_len = _item_count(existing_history)
+    if new_items_len > 0 or existing_history_len == 0:
+        history_path.write_text(json.dumps(payload, indent=2))
     return out_path, history_path
 
 
@@ -445,6 +488,7 @@ def _fetch_dhan_india_chart(ticker):
     symbol = str(ticker or "").strip().upper()
     if not symbol:
         return []
+    fetch_symbol = symbol[:-3] if symbol.endswith(".NS") else symbol
     try:
         root = Path(__file__).resolve().parents[1]
         if str(root) not in sys.path:
@@ -454,7 +498,7 @@ def _fetch_dhan_india_chart(ticker):
     except Exception:
         return []
     try:
-        daily, _snapshot = _fetch_dhan_india_daily_frame(symbol)
+        daily, _snapshot = _fetch_dhan_india_daily_frame(fetch_symbol)
     except Exception:
         return []
     rows, _meta = standardize_dhan_history_frame_from_daily(
@@ -538,7 +582,7 @@ def _atr(rows, window, idx):
 def _weekly_close_series(rows):
     weekly_map = {}
     for r in rows:
-        d = r.get("date")
+        d = _coerce_date_like(r.get("date"))
         c = r.get("close")
         if d is None or c is None:
             continue
@@ -737,8 +781,15 @@ def run():
     benchmark_rows = _fetch_yahoo_chart(benchmark_symbol) if benchmark_gate_enabled else []
     if benchmark_rows:
         benchmark_rows = sorted(benchmark_rows, key=lambda r: r["date"])
+        benchmark_rows = [
+            {**r, "date": _coerce_date_like(r.get("date")) or r.get("date")}
+            for r in benchmark_rows
+        ]
         if as_of:
-            benchmark_rows = [r for r in benchmark_rows if r["date"] <= as_of]
+            benchmark_rows = [
+                r for r in benchmark_rows
+                if (row_date := _coerce_date_like(r.get("date"))) is not None and row_date <= as_of
+            ]
     benchmark_daily_state = _daily_ema_state_by_date(benchmark_rows)
 
     assets_with_data = 0
@@ -755,8 +806,15 @@ def run():
             continue
 
         rows = sorted(rows, key=lambda r: r["date"])
+        rows = [
+            {**r, "date": _coerce_date_like(r.get("date")) or r.get("date")}
+            for r in rows
+        ]
         if as_of:
-            rows = [r for r in rows if r["date"] <= as_of]
+            rows = [
+                r for r in rows
+                if (row_date := _coerce_date_like(r.get("date"))) is not None and row_date <= as_of
+            ]
             if not rows:
                 print(f"{asset_name} ({symbol}): no data up to {as_of}")
                 continue

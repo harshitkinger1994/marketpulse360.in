@@ -45,6 +45,19 @@ def _pick_col(df, names):
                 return real
     return None
 
+
+def _ensure_date_column(df):
+    if df is None or df.empty:
+        return df
+    work = df.reset_index()
+    if "date" in work.columns:
+        return work
+    for candidate in ("dt_utc", "dt_ist", "datetime", "timestamp", "time", "index"):
+        if candidate in work.columns:
+            return work.rename(columns={candidate: "date"})
+    first_col = work.columns[0]
+    return work.rename(columns={first_col: "date"})
+
 # -------------------------------
 # SYMBOL DEFINITIONS
 # -------------------------------
@@ -1055,11 +1068,7 @@ def _fetch_dhan_commodity_daily_frame(symbol):
     if daily.empty:
         return None, None
 
-    daily = daily.reset_index().rename(columns={"index": "date"})
-    if "date" not in daily.columns:
-        dt_col = _pick_col(daily, ["Datetime", "Date", "Timestamp", "time", "datetime"])
-        if dt_col is not None and dt_col != "date":
-            daily = daily.rename(columns={dt_col: "date"})
+    daily = _ensure_date_column(daily)
     daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
     daily = daily.dropna(subset=["date"])
     if daily.empty:
@@ -1171,11 +1180,7 @@ def _fetch_dhan_india_daily_frame(symbol):
     if daily.empty:
         return None, None
 
-    daily = daily.reset_index().rename(columns={"index": "date"})
-    if "date" not in daily.columns:
-        dt_col = _pick_col(daily, ["Datetime", "Date", "Timestamp", "time", "datetime"])
-        if dt_col is not None and dt_col != "date":
-            daily = daily.rename(columns={dt_col: "date"})
+    daily = _ensure_date_column(daily)
     daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
     daily = daily.dropna(subset=["date"])
     if daily.empty:
