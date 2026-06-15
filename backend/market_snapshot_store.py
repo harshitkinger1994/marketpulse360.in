@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import hashlib
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any, Iterable
@@ -14,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STORE_ROOT = ROOT / "backend" / "data" / "center_store"
 DEFAULT_LATEST_FILENAME = "latest.parquet"
 CANDLE_HISTORY_DIRNAME = "candle_history"
+ARTIFACTS_DIRNAME = "artifacts"
 JSON_SUFFIXES = {
     "day_range",
     "option_chain",
@@ -34,6 +36,12 @@ TIMEFRAME_DIRS = {
     "5m": "everyminute_center_daa",
     "15m": "15_min_center_data",
     "15_min": "15_min_center_data",
+    "75m": "75_min_center_data",
+    "75_min": "75_min_center_data",
+    "3h": "3h_center_data",
+    "4h": "4h_center_data",
+    "weekly": "weekly_center_data",
+    "monthly": "monthly_center_data",
     "commodities_daily": "commodities_daily",
     "dashboard": "dashboard_center_data",
     "daily": "dashboard_center_data",
@@ -259,6 +267,57 @@ class MarketSnapshotStore:
         safe_interval = str(interval or "").strip().lower().replace("/", "_") or "15m"
         return self.timeframe_dir(timeframe) / CANDLE_HISTORY_DIRNAME / safe_market / safe_interval / f"{safe_symbol}.parquet"
 
+    def raw_candle_history_path(self, timeframe: str, symbol: str, market: str, interval: str) -> Path:
+        return self.candle_history_path(timeframe, symbol, market, interval)
+
+    def strategy_artifact_path(
+        self,
+        layer: str,
+        strategy_id: str,
+        symbol: str,
+        market: str,
+        interval: str,
+    ) -> Path:
+        safe_layer = str(layer or "").strip().lower().replace("/", "_") or "signals"
+        safe_strategy = str(strategy_id or "").strip().lower().replace("/", "_") or "strategy"
+        safe_symbol = _normalize_symbol(symbol)
+        safe_market = str(market or "").strip().lower().replace("/", "_") or "india"
+        safe_interval = str(interval or "").strip().lower().replace("/", "_") or "15m"
+        return (
+            self.base_dir
+            / ARTIFACTS_DIRNAME
+            / safe_layer
+            / safe_strategy
+            / safe_market
+            / safe_interval
+            / f"{safe_symbol}.parquet"
+        )
+
+    def signal_artifact_path(self, strategy_id: str, symbol: str, market: str, interval: str) -> Path:
+        return self.strategy_artifact_path("signals", strategy_id, symbol, market, interval)
+
+    def feature_artifact_path(self, strategy_id: str, symbol: str, market: str, interval: str) -> Path:
+        return self.strategy_artifact_path("features", strategy_id, symbol, market, interval)
+
+    def alert_artifact_path(self, strategy_id: str, symbol: str, market: str, interval: str) -> Path:
+        return self.strategy_artifact_path("alert_events", strategy_id, symbol, market, interval)
+
+    def alert_event_path(
+        self,
+        strategy_id: str,
+        symbol: str,
+        market: str,
+        interval: str,
+        signature: str,
+    ) -> Path:
+        safe_signature = hashlib.sha1(str(signature or "").encode("utf-8")).hexdigest()[:16]
+        return self.alert_artifact_path(
+            f"{strategy_id}_{safe_signature}",
+            symbol,
+            market,
+            interval,
+        )
+
     def _write_frame_to_parquet(self, frame: pd.DataFrame, path: Path) -> None:
         _ensure_parquet_support()
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -376,6 +435,20 @@ class MarketSnapshotStore:
         _json_write_atomic(self.metadata_path(timeframe), metadata_payload)
         self._write_frame_to_parquet(frame, history_path)
         return latest_path
+
+    def write_artifact_payload(
+        self,
+        payload: Any,
+        path: Path,
+        *,
+        metadata: dict[str, Any] | None = None,
+    ) -> Path | None:
+        frame = self._prepare_frame(payload, timeframe="artifact", metadata=metadata)
+        if frame.empty:
+            return None
+        path.parent.mkdir(parents=True, exist_ok=True)
+        self._write_frame_to_parquet(frame, path)
+        return path
 
     def read_candle_history(self, timeframe: str, symbol: str, market: str, interval: str) -> pd.DataFrame | None:
         path = self.candle_history_path(timeframe, symbol, market, interval)
@@ -575,16 +648,28 @@ class MarketSnapshotStore:
                 data[symbol] = record
 
         generated_at = None
+        published_at = None
         meta = _json_load(self.metadata_path(timeframe)) or {}
         if isinstance(meta, dict):
-            generated_at = meta.get("written_at") or meta.get("generated_at")
+            published_at = meta.get("written_at") or meta.get("generated_at")
+            generated_at = published_at
         if generated_at is None and latest_dt is not None:
             generated_at = latest_dt.astimezone(timezone.utc).isoformat()
+        if published_at is None:
+            published_at = generated_at
         if generated_at is None:
             generated_at = _utc_now().isoformat()
+        if published_at is None:
+            published_at = generated_at
 
-        return {
+        payload_meta = {}
+        if isinstance(meta, dict) and meta.get("payload_meta_json") is not None:
+            decoded_meta = _decode_json_column(meta.get("payload_meta_json"))
+            payload_meta = decoded_meta if isinstance(decoded_meta, dict) else {}
+
+        payload = {
             "generated_at": generated_at,
+            "published_at": published_at,
             "source": {
                 "store_root": str(self.base_dir),
                 "timeframe": _normalize_timeframe(timeframe),
@@ -597,12 +682,16 @@ class MarketSnapshotStore:
                 "timeframe": _normalize_timeframe(timeframe),
                 "row_count": len(data),
             },
-            **(
-                _decode_json_column(meta.get("payload_meta_json"))
-                if isinstance(meta, dict) and meta.get("payload_meta_json") is not None
-                else {}
-            ),
+            **payload_meta,
         }
+        if isinstance(meta, dict):
+            payload["store_generated_at"] = meta.get("generated_at")
+            payload["store_written_at"] = meta.get("written_at")
+            if meta.get("written_at") and not payload.get("published_at"):
+                payload["published_at"] = meta.get("written_at")
+            if meta.get("written_at") and not payload.get("generated_at"):
+                payload["generated_at"] = meta.get("written_at")
+        return payload
 
 
 def load_latest_market_snapshot_payload(

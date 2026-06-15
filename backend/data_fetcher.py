@@ -508,6 +508,12 @@ def fetch_nse_index_snapshot(name):
             data = nse.get_index("NIFTY 50")
         elif name == "BANKNIFTY":
             data = nse.get_index("NIFTY BANK")
+        elif name == "SENSEX":
+            try:
+                ticker = _yf_ticker_silent("^BSESN")
+                data = ticker.history(period="1d", interval="1m", auto_adjust=False)
+            except Exception:
+                data = None
         elif name == "INDIA_VIX":
             data = nse.get_indices()
             for item in data.get("data", []):
@@ -539,6 +545,18 @@ def fetch_nse_index_snapshot(name):
             return None
     except Exception:
         return None
+
+    if name == "SENSEX":
+        if data is None or getattr(data, "empty", True):
+            return None
+        snapshot = _build_snapshot_from_frame(data, "YFINANCE_INTRADAY", basis="intraday")
+        if not snapshot:
+            return None
+        snapshot["day_range"] = snapshot.get("day_range") or {}
+        if isinstance(snapshot["day_range"], dict):
+            snapshot["day_range"]["basis"] = "intraday"
+            snapshot["day_range"]["source"] = "LIVE"
+        return snapshot
 
     records = data.get("data", [])
     if not records:
@@ -775,6 +793,77 @@ def _yf_ticker_silent(symbol):
         return yf.Ticker(symbol)
 
 
+def _yf_frame_to_candles(frame):
+    if frame is None or getattr(frame, "empty", True):
+        return None
+    work = frame.copy()
+    if "dt_utc" not in work.columns:
+        work = work.reset_index()
+        if "index" in work.columns and "dt_utc" not in work.columns:
+            work = work.rename(columns={"index": "dt_utc"})
+    rename_map = {}
+    for src, dst in (("Open", "open"), ("High", "high"), ("Low", "low"), ("Close", "close"), ("Volume", "volume")):
+        if src in work.columns:
+            rename_map[src] = dst
+    work = work.rename(columns=rename_map)
+    if "dt_utc" not in work.columns:
+        return None
+    work["dt_utc"] = pd.to_datetime(work["dt_utc"], utc=True, errors="coerce")
+    work = work.dropna(subset=["dt_utc"])
+    if work.empty:
+        return None
+    if "dt_ist" not in work.columns:
+        work["dt_ist"] = work["dt_utc"].dt.tz_convert(IST)
+    keep_cols = ["dt_utc", "dt_ist", "open", "high", "low", "close", "volume"]
+    for col in keep_cols:
+        if col not in work.columns:
+            work[col] = None
+    return work[keep_cols].copy()
+
+
+def fetch_crypto_history(symbol, interval="15m", data_range="60d"):
+    ticker = CRYPTO.get(str(symbol or "").strip().upper())
+    if not ticker:
+        ticker = str(symbol or "").strip().upper()
+    if not ticker:
+        return None, None
+    try:
+        frame = _yf_download_silent(
+            ticker,
+            period=data_range or "60d",
+            interval=interval or "15m",
+            auto_adjust=False,
+            progress=False,
+            threads=False,
+            show_errors=False,
+        )
+    except TypeError:
+        try:
+            frame = _yf_download_silent(
+                ticker,
+                period=data_range or "60d",
+                interval=interval or "15m",
+                auto_adjust=False,
+                progress=False,
+                threads=False,
+            )
+        except Exception:
+            return None, None
+    except Exception:
+        return None, None
+
+    candles = _yf_frame_to_candles(frame)
+    if candles is None or candles.empty:
+        return None, None
+    return candles, {
+        "symbol": str(symbol or "").strip().upper(),
+        "ticker": ticker,
+        "interval": interval,
+        "data_range": data_range,
+        "source": "YFINANCE_CRYPTO",
+    }
+
+
 def _fetch_silver_inr_series(start=None, period=None, interval=None):
     return None
 
@@ -806,33 +895,6 @@ def _fetch_usdinr_rate():
     except Exception:
         return None
     return None
-
-
-def _fetch_yahoo_quote(symbol):
-    try:
-        resp = requests.get(
-            "https://query1.finance.yahoo.com/v7/finance/quote",
-            params={"symbols": symbol},
-            headers={"User-Agent": "Mozilla/5.0"},
-            timeout=8,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        result = data.get("quoteResponse", {}).get("result", [])
-        if not result:
-            return None, None
-        row = result[0] or {}
-        price = row.get("regularMarketPrice")
-        ts = row.get("regularMarketTime")
-        if price is None:
-            return None, None
-        ts_iso = None
-        if ts:
-            dt = datetime.utcfromtimestamp(float(ts)).replace(tzinfo=pytz.UTC)
-            ts_iso = dt.isoformat()
-        return float(price), ts_iso
-    except Exception:
-        return None, None
 
 
 def _fetch_metal_usd_spot(metal):
@@ -1219,8 +1281,174 @@ def _fetch_dhan_india_daily_frame(symbol):
     }
 
 
+def _load_stored_dhan_india_daily_frame(symbol, timeframe="15m"):
+    key = str(symbol or "").strip().upper()
+    if not key:
+        return None, None
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+    except Exception:
+        return None, None
+
+    store = MarketSnapshotStore()
+    try:
+        frame = store.read_candle_history(timeframe, key, "india", timeframe)
+    except Exception:
+        frame = None
+    if frame is None or frame.empty:
+        return None, None
+
+    work = frame.reset_index().rename(columns={"dt_utc": "date"})
+    if "date" not in work.columns:
+        return None, None
+    try:
+        work["date"] = pd.to_datetime(work["date"], utc=True, errors="coerce")
+    except Exception:
+        return None, None
+    work = work.dropna(subset=["date"])
+    if work.empty:
+        return None, None
+    if getattr(work["date"].dt, "tz", None) is None:
+        work["date"] = work["date"].dt.tz_localize("UTC")
+    work["date"] = work["date"].dt.tz_convert(IST)
+    work.columns = [str(col).strip().lower() for col in work.columns]
+    if not {"open", "high", "low", "close"}.issubset(set(work.columns)):
+        return None, None
+
+    agg_map = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in work.columns:
+        agg_map["volume"] = "sum"
+    daily = work.resample("1D", on="date").agg(agg_map).dropna(subset=["close"])
+    if daily.empty:
+        return None, None
+    daily = daily.reset_index()
+    daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
+    daily = daily.dropna(subset=["date"])
+    if daily.empty:
+        return None, None
+
+    history = [
+        {
+            "date": str(pd.Timestamp(dt).date()),
+            "close": round(float(close), 2),
+        }
+        for dt, close in zip(daily["date"].iloc[-22:], daily["close"].iloc[-22:])
+        if pd.notna(dt) and pd.notna(close)
+    ]
+    last_row = daily.iloc[-1]
+    timestamp = daily["date"].iloc[-1].isoformat()
+    prev_close = float(daily["close"].iloc[-2]) if len(daily) >= 2 else None
+    snapshot = _build_day_range_payload(
+        last_row.get("open"),
+        last_row.get("high"),
+        last_row.get("low"),
+        last_row.get("close"),
+        timestamp,
+        "CENTRAL_STORE",
+        basis="daily",
+        previous_close=prev_close,
+    )
+    if not snapshot:
+        return None, None
+
+    return daily, {
+        "price": snapshot["current"],
+        "timestamp": timestamp,
+        "day_range": snapshot,
+        "history": history,
+        "meta": {
+            "source": "CENTRAL_STORE",
+            "timeframe": timeframe,
+            "symbol": key,
+        },
+    }
+
+
+def _load_stored_dhan_commodity_daily_frame(symbol, timeframe="15m"):
+    commodity = _resolve_commodity_name(symbol)
+    if not commodity:
+        return None, None
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+    except Exception:
+        return None, None
+
+    store = MarketSnapshotStore()
+    try:
+        frame = store.read_candle_history(timeframe, commodity, "commodities", timeframe)
+    except Exception:
+        frame = None
+    if frame is None or frame.empty:
+        return None, None
+
+    work = frame.reset_index().rename(columns={"dt_utc": "date"})
+    if "date" not in work.columns:
+        return None, None
+    try:
+        work["date"] = pd.to_datetime(work["date"], utc=True, errors="coerce")
+    except Exception:
+        return None, None
+    work = work.dropna(subset=["date"])
+    if work.empty:
+        return None, None
+    if getattr(work["date"].dt, "tz", None) is None:
+        work["date"] = work["date"].dt.tz_localize("UTC")
+    work["date"] = work["date"].dt.tz_convert(IST)
+    work.columns = [str(col).strip().lower() for col in work.columns]
+    if not {"open", "high", "low", "close"}.issubset(set(work.columns)):
+        return None, None
+
+    agg_map = {"open": "first", "high": "max", "low": "min", "close": "last"}
+    if "volume" in work.columns:
+        agg_map["volume"] = "sum"
+    daily = work.resample("1D", on="date").agg(agg_map).dropna(subset=["close"])
+    if daily.empty:
+        return None, None
+    daily = daily.reset_index()
+    daily["date"] = pd.to_datetime(daily["date"], errors="coerce")
+    daily = daily.dropna(subset=["date"])
+    if daily.empty:
+        return None, None
+
+    history = [
+        {
+            "date": str(pd.Timestamp(dt).date()),
+            "close": round(float(close), 2),
+        }
+        for dt, close in zip(daily["date"].iloc[-22:], daily["close"].iloc[-22:])
+        if pd.notna(dt) and pd.notna(close)
+    ]
+    last_row = daily.iloc[-1]
+    timestamp = daily["date"].iloc[-1].isoformat()
+    prev_close = float(daily["close"].iloc[-2]) if len(daily) >= 2 else None
+    snapshot = _build_day_range_payload(
+        last_row.get("open"),
+        last_row.get("high"),
+        last_row.get("low"),
+        last_row.get("close"),
+        timestamp,
+        "CENTRAL_STORE",
+        basis="daily",
+        previous_close=prev_close,
+    )
+    if not snapshot:
+        return None, None
+
+    return daily, {
+        "price": snapshot["current"],
+        "timestamp": timestamp,
+        "day_range": snapshot,
+        "history": history,
+        "meta": {
+            "source": "CENTRAL_STORE",
+            "timeframe": timeframe,
+            "symbol": commodity,
+        },
+    }
+
+
 def fetch_live_snapshot(symbol, name=None):
-    if name in {"NIFTY", "BANKNIFTY", "INDIA_VIX"}:
+    if name in {"NIFTY", "BANKNIFTY", "SENSEX", "INDIA_VIX"}:
         snapshot = fetch_nse_index_snapshot(name)
         if snapshot:
             return snapshot

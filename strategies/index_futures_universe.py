@@ -16,6 +16,19 @@ INDIA_INDEX_COMPANIONS = [
     ("SENSEX INDEX", "^BSESN"),
 ]
 
+INDIA_INDEX_FUTURES = [
+    ("NIFTY FUT", "NIFTY"),
+    ("BANKNIFTY FUT", "BANKNIFTY"),
+    ("SENSEX FUT", "SENSEX"),
+    ("FINNIFTY FUT", "FINNIFTY"),
+    ("MIDCPNIFTY FUT", "MIDCPNIFTY"),
+    ("NIFTYNXT50 FUT", "NIFTYNXT50"),
+    ("BANKEX FUT", "BANKEX"),
+    ("SENSEX50 FUT", "SENSEX50"),
+    ("MCXBULLDEX FUT", "MCXBULLDEX"),
+    ("MCXMETLDEX FUT", "MCXMETLDEX"),
+]
+
 MARKET_INDEX_FUTURES = {
     "global": GLOBAL_INDEX_FUTURES,
     "india": INDIA_INDEX_COMPANIONS,
@@ -29,6 +42,10 @@ def get_index_overlay_assets(market):
 
 def get_index_futures_assets(market):
     return get_index_overlay_assets(market)
+
+
+def get_india_index_futures_assets():
+    return list(INDIA_INDEX_FUTURES)
 
 
 def merge_unique_assets(base_assets, extra_assets):

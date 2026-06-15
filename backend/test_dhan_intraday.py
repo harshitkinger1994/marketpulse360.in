@@ -26,6 +26,20 @@ class DhanIntradayTests(unittest.TestCase):
         self.assertEqual(out[1]["security_id"], "2002")
         self.assertEqual(out[1]["exchange_segment"], "BSE_EQ")
 
+    def test_resolve_index_future_contract_candidates_prefers_front_month(self):
+        frame = pd.DataFrame(
+            [
+                {"EXCH_ID": "NSE", "SEGMENT": "D", "SECURITY_ID": "1001", "INSTRUMENT": "FUTIDX", "UNDERLYING_SYMBOL": "NIFTY", "SYMBOL_NAME": "NIFTY", "DISPLAY_NAME": "NIFTY 30 JUN FUT", "SM_EXPIRY_DATE": "30 JUN 2026"},
+                {"EXCH_ID": "NSE", "SEGMENT": "D", "SECURITY_ID": "1002", "INSTRUMENT": "FUTIDX", "UNDERLYING_SYMBOL": "NIFTY", "SYMBOL_NAME": "NIFTY", "DISPLAY_NAME": "NIFTY 28 JUL FUT", "SM_EXPIRY_DATE": "28 JUL 2026"},
+                {"EXCH_ID": "NSE", "SEGMENT": "D", "SECURITY_ID": "2002", "INSTRUMENT": "FUTIDX", "UNDERLYING_SYMBOL": "BANKNIFTY", "SYMBOL_NAME": "BANKNIFTY", "DISPLAY_NAME": "BANKNIFTY 30 JUN FUT", "SM_EXPIRY_DATE": "30 JUN 2026"},
+            ]
+        )
+        with patch.object(dhan, "_fetch_dhan_scrip_master", return_value=frame):
+            out = dhan.resolve_contract_candidates("NIFTY", market="india")
+        self.assertEqual(out[0]["security_id"], "1001")
+        self.assertEqual(out[0]["instrument"], "FUTIDX")
+        self.assertEqual(out[0]["exchange_segment"], "NSE_FNO")
+
     def test_fetch_intraday_history_normalizes_payload(self):
         payload = {
             "start_Time": [1717224300000, 1717225200000],
@@ -40,12 +54,9 @@ class DhanIntradayTests(unittest.TestCase):
         response.content = b"ok"
         response.json.return_value = payload
 
-        def fake_post(*args, **kwargs):
-            return response
-
         with patch.dict(os.environ, {"DHAN_ACCESS_TOKEN": "token", "DHAN_CLIENT_ID": "cid", "DHAN_INTRADAY_CHUNK_DAYS": "1"}), \
              patch.object(dhan, "resolve_contract_candidates", return_value=[{"security_id": "1001", "exchange_segment": "NSE_EQ", "instrument": "EQUITY", "trading_symbol": "BAJFINANCE"}]), \
-             patch.object(dhan.requests, "post", side_effect=fake_post):
+             patch.object(dhan, "_dhan_request", return_value=response):
             frame, meta = dhan.fetch_intraday_history("BAJFINANCE", interval="15m", data_range="1d")
 
         self.assertEqual(meta["security_id"], "1001")

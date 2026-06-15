@@ -2,6 +2,7 @@ import io
 import json
 import math
 import os
+import re
 import socket
 import subprocess
 from contextlib import contextmanager
@@ -336,6 +337,30 @@ def _looks_like_match(value, candidates):
     return False
 
 
+def _normalize_index_future_symbol(value):
+    text = str(value or "").strip().upper()
+    if not text:
+        return ""
+    for token in (" FUTURE", " FUT", " INDEX FUTURE", " INDEX", " INDEX FUT"):
+        if text.endswith(token):
+            text = text[: -len(token)].strip()
+    return text
+
+
+INDIA_INDEX_FUTURE_UNDERLYINGS = {
+    "NIFTY",
+    "BANKNIFTY",
+    "SENSEX",
+    "FINNIFTY",
+    "MIDCPNIFTY",
+    "NIFTYNXT50",
+    "BANKEX",
+    "SENSEX50",
+    "MCXBULLDEX",
+    "MCXMETLDEX",
+}
+
+
 def resolve_contract_candidates(symbol, market="india"):
     raw = str(symbol or "").strip().upper()
     if not raw:
@@ -402,12 +427,36 @@ def resolve_contract_candidates(symbol, market="india"):
             future = exact
         exact = future.sort_values(["_score", "_expiry_date", sid_col]).drop_duplicates(subset=[exch_col, seg_col, sid_col])
     else:
-        exact = work[work[sym_col].astype(str).str.upper().eq(raw)]
-        if exact.empty:
-            exact = work[work["_sym_text"].str.contains(raw, na=False)]
-        exact = exact[exact[inst_col].astype(str).str.upper().eq("EQUITY")]
-        if exact.empty:
-            raise RuntimeError(f"No Dhan equity contract found for symbol {raw}")
+        index_raw = _normalize_index_future_symbol(raw)
+        index_pattern = rf"(?<![A-Z0-9]){re.escape(index_raw)}(?![A-Z0-9])"
+        index_exact = work[
+            work[inst_col].astype(str).str.upper().eq("FUTIDX")
+            & (
+                work[sym_col].astype(str).str.upper().eq(index_raw)
+                | work["_sym_text"].str.contains(index_pattern, na=False, regex=True)
+            )
+        ].copy()
+        if not index_exact.empty:
+            exact = index_exact
+            exact["_priority"] = exact[exch_col].astype(str).str.upper().map({"NSE": 0, "BSE": 1, "MCX": 2}).fillna(9)
+            if "SM_EXPIRY_DATE" in exact.columns:
+                exact["_expiry_date"] = exact["SM_EXPIRY_DATE"].apply(_parse_expiry_date)
+            elif "EXPIRY_DATE" in exact.columns:
+                exact["_expiry_date"] = exact["EXPIRY_DATE"].apply(_parse_expiry_date)
+            else:
+                exact["_expiry_date"] = None
+            today = datetime.now(timezone.utc).astimezone(IST).date()
+            future = exact[exact["_expiry_date"].notna() & (exact["_expiry_date"] >= today)]
+            if future.empty:
+                future = exact
+            exact = future.sort_values(["_priority", "_expiry_date", sid_col]).drop_duplicates(subset=[exch_col, seg_col, sid_col])
+        else:
+            exact = work[work[sym_col].astype(str).str.upper().eq(raw)]
+            if exact.empty:
+                exact = work[work["_sym_text"].str.contains(raw, na=False)]
+            exact = exact[exact[inst_col].astype(str).str.upper().eq("EQUITY")]
+            if exact.empty:
+                raise RuntimeError(f"No Dhan equity contract found for symbol {raw}")
 
         exact = exact.copy()
         exact["_priority"] = exact[exch_col].astype(str).str.upper().map({"NSE": 0, "BSE": 1}).fillna(9)

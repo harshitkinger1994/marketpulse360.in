@@ -13,6 +13,7 @@ BACKUP_ROOT="${DEPLOY_BACKUP_ROOT:-/opt/market-context-backups}"
 CLEANUP_CALENDAR="${DEPLOY_CLEANUP_CALENDAR:-daily}"
 MORNING_REEVAL_CALENDAR="${DEPLOY_MORNING_REEVAL_CALENDAR:-Mon..Fri *-*-* 04:00:00}"
 DHAN_TOKEN_REFRESH_CALENDAR="${DEPLOY_DHAN_TOKEN_REFRESH_CALENDAR:-*-*-* 11:30:00 UTC}"
+DATA_REFRESH_CALENDAR="${DEPLOY_DATA_REFRESH_CALENDAR:-*-*-* *:0/15:00}"
 SSH_KEY="${DEPLOY_SSH_KEY:-${HOME}/.ssh/id_digitalocean}"
 RSYNC_PROGRESS_FLAG=""
 RSYNC_PROGRESS_NOTE=""
@@ -73,6 +74,7 @@ rollback() {
   systemctl stop market-context-cleanup.timer >/dev/null 2>&1 || true
   systemctl stop market-context-morning-reeval.timer >/dev/null 2>&1 || true
   systemctl stop market-context-dhan-token-refresh.timer >/dev/null 2>&1 || true
+  systemctl stop market-context-dashboard-refresh.timer >/dev/null 2>&1 || true
   if [ -d "${BACKUP_DIR}/market-context" ]; then
     rm -rf "${REMOTE_DIR}"
     mv "${BACKUP_DIR}/market-context" "${REMOTE_DIR}"
@@ -111,6 +113,12 @@ rollback() {
   if [ -f "${BACKUP_DIR}/market-context-dhan-token-refresh.timer" ]; then
     cp -a "${BACKUP_DIR}/market-context-dhan-token-refresh.timer" /etc/systemd/system/market-context-dhan-token-refresh.timer
   fi
+  if [ -f "${BACKUP_DIR}/market-context-dashboard-refresh.service" ]; then
+    cp -a "${BACKUP_DIR}/market-context-dashboard-refresh.service" /etc/systemd/system/market-context-dashboard-refresh.service
+  fi
+  if [ -f "${BACKUP_DIR}/market-context-dashboard-refresh.timer" ]; then
+    cp -a "${BACKUP_DIR}/market-context-dashboard-refresh.timer" /etc/systemd/system/market-context-dashboard-refresh.timer
+  fi
   systemctl daemon-reload >/dev/null 2>&1 || true
   nginx -t >/dev/null 2>&1 && systemctl reload nginx >/dev/null 2>&1 || true
   systemctl restart market-context-live >/dev/null 2>&1 || true
@@ -118,6 +126,7 @@ rollback() {
   systemctl restart market-context-cleanup.timer >/dev/null 2>&1 || true
   systemctl restart market-context-morning-reeval.timer >/dev/null 2>&1 || true
   systemctl restart market-context-dhan-token-refresh.timer >/dev/null 2>&1 || true
+  systemctl restart market-context-dashboard-refresh.timer >/dev/null 2>&1 || true
   echo "[ROLLBACK] Completed."
 }
 
@@ -154,11 +163,18 @@ fi
 if [ -f /etc/systemd/system/market-context-dhan-token-refresh.timer ]; then
   cp -a /etc/systemd/system/market-context-dhan-token-refresh.timer "${BACKUP_DIR}/market-context-dhan-token-refresh.timer"
 fi
+if [ -f /etc/systemd/system/market-context-dashboard-refresh.service ]; then
+  cp -a /etc/systemd/system/market-context-dashboard-refresh.service "${BACKUP_DIR}/market-context-dashboard-refresh.service"
+fi
+if [ -f /etc/systemd/system/market-context-dashboard-refresh.timer ]; then
+  cp -a /etc/systemd/system/market-context-dashboard-refresh.timer "${BACKUP_DIR}/market-context-dashboard-refresh.timer"
+fi
 
 systemctl stop market-context-live market-context-updater >/dev/null 2>&1 || true
 systemctl stop market-context-cleanup.timer >/dev/null 2>&1 || true
 systemctl stop market-context-morning-reeval.timer >/dev/null 2>&1 || true
 systemctl stop market-context-dhan-token-refresh.timer >/dev/null 2>&1 || true
+systemctl stop market-context-dashboard-refresh.timer >/dev/null 2>&1 || true
 
 if [ -d "${WEB_ROOT}" ]; then
   mv "${WEB_ROOT}" "${BACKUP_DIR}/web-root"
@@ -206,6 +222,7 @@ ln -sf "${REMOTE_DIR}/frontend/_yesterday_snapshot.json" "${WEB_ROOT}/_yesterday
 
 chmod +x "${REMOTE_DIR}/server_scripts/start_live.sh" "${REMOTE_DIR}/server_scripts/cleanup.sh"
 chmod +x "${REMOTE_DIR}/server_scripts/refresh_dhan_token.sh"
+chmod +x "${REMOTE_DIR}/server_scripts/refresh_market_data.sh"
 
 cat >/etc/nginx/sites-available/market-context <<NGINXCONF
 server {
@@ -406,6 +423,32 @@ Persistent=true
 WantedBy=timers.target
 TIMER
 
+cat >/etc/systemd/system/market-context-dashboard-refresh.service <<SERVICE
+[Unit]
+Description=Market Context Dashboard Refresh
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=${REMOTE_DIR}
+EnvironmentFile=${REMOTE_DIR}/backend/.env
+Environment=MARKET_CONTEXT_DIR=${REMOTE_DIR}
+Environment=PYTHONUNBUFFERED=1
+ExecStart=${REMOTE_DIR}/server_scripts/refresh_market_data.sh
+SERVICE
+
+cat >/etc/systemd/system/market-context-dashboard-refresh.timer <<TIMER
+[Unit]
+Description=Market Context Dashboard Refresh Timer
+
+[Timer]
+OnCalendar=${DATA_REFRESH_CALENDAR}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+TIMER
+
 systemctl disable --now market-context-updater >/dev/null 2>&1 || true
 rm -f /etc/systemd/system/market-context-updater.service
 systemctl daemon-reload
@@ -413,6 +456,7 @@ systemctl enable --now market-context-live
 systemctl enable --now market-context-cleanup.timer
 systemctl enable --now market-context-morning-reeval.timer
 systemctl enable --now market-context-dhan-token-refresh.timer
+systemctl enable --now market-context-dashboard-refresh.timer
 systemctl restart market-context-live
 systemctl start market-context-cleanup.service || true
 

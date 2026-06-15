@@ -1,4 +1,3 @@
-import yfinance as yf
 import pandas as pd
 import numpy as np
 import time
@@ -479,9 +478,6 @@ RESIST_TOL_PCT = 0.6  # cluster tolerance for resistance levels
 MIN_TOUCHES = 2  # minimum touches to treat resistance as strong
 SMA_PERIODS = (50, 100, 200)
 ATR_TARGET_MULT = 2.0
-logging.getLogger("yfinance").setLevel(logging.CRITICAL)
-logging.getLogger("yfinance").propagate = False
-
 def _maybe_print(*args, **kwargs):
     if not SHOW_ONLY_GAP_PROXIMITY:
         print(*args, **kwargs)
@@ -854,47 +850,54 @@ def _download_daily_data(ticker):
         if cached is not None and not cached.empty:
             return cached
 
-    data = None
-    for _ in range(MAX_RETRIES):
-        try:
-            data = yf.download(
-                ticker,
-                start=START_DATE.strftime("%Y-%m-%d"),
-                end=END_DATE.strftime("%Y-%m-%d"),
-                interval="1d",
-                progress=False,
-                threads=False
-            )
-            if data is not None and not data.empty:
-                break
-            if data is not None and data.empty:
-                break
-        except Exception:
-            time.sleep(2)
+    symbol = str(ticker or "").strip().upper().replace(".NS", "")
+    try:
+        from backend.data_fetcher import _fetch_dhan_india_daily_frame
+    except Exception:
+        _fetch_dhan_india_daily_frame = None
+
+    if _fetch_dhan_india_daily_frame is None:
+        return None
+
+    try:
+        data, _meta = _fetch_dhan_india_daily_frame(symbol)
+    except Exception:
+        data = None
 
     if data is None or data.empty:
         return None
 
-    if isinstance(data.columns, pd.MultiIndex):
-        if ticker in data.columns.get_level_values(-1):
-            data = data.xs(ticker, axis=1, level=-1)
-        else:
-            data.columns = data.columns.get_level_values(0)
+    data = data.copy()
+    if "date" in data.columns:
+        data["Date"] = pd.to_datetime(data["date"], errors="coerce")
+        data = data.dropna(subset=["Date"])
+        if data.empty:
+            return None
+        data = data.set_index("Date")
+    else:
+        data.index = pd.to_datetime(data.index, errors="coerce")
 
-    if data.columns.duplicated().any():
-        data = data.loc[:, ~data.columns.duplicated()]
+    rename_map = {}
+    for col in data.columns:
+        lower = str(col).strip().lower()
+        if lower == "open":
+            rename_map[col] = "Open"
+        elif lower == "high":
+            rename_map[col] = "High"
+        elif lower == "low":
+            rename_map[col] = "Low"
+        elif lower == "close":
+            rename_map[col] = "Close"
+        elif lower == "volume":
+            rename_map[col] = "Volume"
+    if rename_map:
+        data = data.rename(columns=rename_map)
 
     desired_cols = ["Open", "High", "Low", "Close", "Volume"]
     for col in desired_cols:
         if col not in data.columns:
             data[col] = np.nan
     data = data[desired_cols].copy()
-
-    for col in ["Open", "High", "Low", "Close", "Volume"]:
-        if isinstance(data.get(col), pd.DataFrame):
-            data[col] = data[col].iloc[:, 0]
-
-    data.index = pd.to_datetime(data.index)
     if USE_PRICE_CACHE:
         _save_cached_price(ticker, data)
     return data
@@ -918,7 +921,7 @@ def analyze_ticker(ticker, name):
             "ticker": ticker,
             "name": name,
             "title": f"Gap Proximity — {name} ({ticker}) [{asset_type}]",
-            "lines": ["Failed to fetch data from Yahoo Finance."],
+            "lines": ["Failed to fetch Dhan-backed data."],
         }
 
     # -------------------------------------------------

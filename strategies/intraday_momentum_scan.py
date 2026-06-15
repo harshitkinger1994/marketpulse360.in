@@ -9,6 +9,11 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import requests
 
+try:
+    from backend.dhan_intraday import fetch_intraday_history
+except Exception:
+    fetch_intraday_history = None
+
 from apollo_ema9_strategy import NIFTY50_TICKERS, _load_fno_tickers
 from pathlib import Path
 import json
@@ -99,40 +104,32 @@ def _download_nifty500_list():
     return []
 
 
-def _fetch_yahoo_5m(ticker, days=DEFAULT_LOOKBACK_DAYS, retries=2):
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
-    params = {
-        "range": f"{int(days)}d",
-        "interval": "5m",
-        "includePrePost": "false",
-        "events": "div",
-    }
+def _fetch_dhan_5m(ticker, days=DEFAULT_LOOKBACK_DAYS, retries=2):
+    symbol = str(ticker or "").strip().upper().replace(".NS", "")
+    if not symbol or fetch_intraday_history is None:
+        return pd.DataFrame()
     last_err = None
     for _ in range(retries + 1):
         try:
-            resp = requests.get(url, params=params, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
-            resp.raise_for_status()
-            data = resp.json()
-            result = (data.get("chart", {}).get("result") or [None])[0]
-            if not result:
+            frame, _meta = fetch_intraday_history(symbol, interval="5m", data_range=f"{int(days)}d", market="india")
+            if frame is None or frame.empty:
                 return pd.DataFrame()
-            ts = result.get("timestamp") or []
-            quote = (result.get("indicators", {}).get("quote") or [{}])[0]
-            df = pd.DataFrame({
-                "ts": ts,
-                "open": quote.get("open") or [],
-                "high": quote.get("high") or [],
-                "low": quote.get("low") or [],
-                "close": quote.get("close") or [],
-                "volume": quote.get("volume") or [],
-            })
-            df = df.dropna(subset=["close"])
-            if df.empty:
-                return df
-            df["dt_utc"] = pd.to_datetime(df["ts"], unit="s", utc=True)
-            df["dt_ist"] = df["dt_utc"].dt.tz_convert(IST)
+            df = frame.reset_index().rename(columns={"dt_utc": "dt_utc"})
+            df.columns = [str(col).strip().lower() for col in df.columns]
+            if "dt_utc" not in df.columns:
+                for candidate in ("timestamp", "dt_ist"):
+                    if candidate in df.columns:
+                        df["dt_utc"] = pd.to_datetime(df[candidate], utc=True, errors="coerce")
+                        break
+            if "dt_ist" not in df.columns and "dt_utc" in df.columns:
+                df["dt_ist"] = pd.to_datetime(df["dt_utc"], utc=True, errors="coerce").dt.tz_convert(IST)
             df["date_ist"] = df["dt_ist"].dt.date
-            return df
+            rename_map = {col: col.lower() for col in df.columns if col in {"Open", "High", "Low", "Close", "Volume"}}
+            if rename_map:
+                df = df.rename(columns=rename_map)
+            out = df[["dt_utc", "dt_ist", "date_ist", "open", "high", "low", "close", "volume"]].copy()
+            out = out.dropna(subset=["close"]).reset_index(drop=True)
+            return out
         except Exception as exc:
             last_err = exc
             continue
@@ -162,8 +159,8 @@ def _calc_index_bias(index_df):
 
 
 def _build_market_context():
-    nifty = _fetch_yahoo_5m("^NSEI", days=2, retries=1)
-    bank = _fetch_yahoo_5m("^NSEBANK", days=2, retries=1)
+    nifty = _fetch_dhan_5m("NIFTY", days=2, retries=1)
+    bank = _fetch_dhan_5m("BANKNIFTY", days=2, retries=1)
     nifty_bias = _calc_index_bias(nifty)
     bank_bias = _calc_index_bias(bank)
     if nifty_bias is None and bank_bias is None:
@@ -375,7 +372,7 @@ def run():
     }
     for ticker in tickers:
         debug_counts["scanned"] += 1
-        df = _fetch_yahoo_5m(ticker)
+        df = _fetch_dhan_5m(ticker)
         if df.empty:
             continue
         debug_counts["with_data"] += 1

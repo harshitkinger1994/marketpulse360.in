@@ -105,117 +105,6 @@ def _build_df_from_result(result):
     return df
 
 
-def _fetch_yahoo_chart(symbol, interval=INTERVAL, data_range=DATA_RANGE):
-    import requests
-
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
-    intraday = {"1m", "2m", "5m", "15m", "30m", "60m", "90m"}
-    days = _range_to_days(data_range)
-
-    def _one(params):
-        try:
-            resp = requests.get(
-                url,
-                params=params,
-                headers={"User-Agent": "Mozilla/5.0"},
-                timeout=15,
-            )
-            resp.raise_for_status()
-            payload = resp.json()
-        except Exception:
-            return pd.DataFrame()
-        result = ((payload.get("chart") or {}).get("result") or [None])[0]
-        if not result:
-            return pd.DataFrame()
-        return _build_df_from_result(result)
-
-    if str(interval).lower() in intraday and days > 60:
-        now_utc = datetime.now(timezone.utc)
-        start_utc = now_utc - timedelta(days=days)
-        chunk_dfs = []
-        cursor = start_utc
-        while cursor < now_utc:
-            chunk_end = min(cursor + timedelta(days=59), now_utc)
-            part = _one(
-                {
-                    "period1": int(cursor.timestamp()),
-                    "period2": int(chunk_end.timestamp()),
-                    "interval": interval,
-                    "includePrePost": "false",
-                    "events": "div,splits",
-                }
-            )
-            if not part.empty:
-                chunk_dfs.append(part)
-            cursor = chunk_end + timedelta(minutes=1)
-        if not chunk_dfs:
-            return pd.DataFrame()
-        return (
-            pd.concat(chunk_dfs, ignore_index=True)
-            .drop_duplicates(subset=["timestamp"])
-            .sort_values("timestamp")
-            .reset_index(drop=True)
-        )
-
-    return _one(
-        {
-            "range": data_range,
-            "interval": interval,
-            "includePrePost": "false",
-            "events": "div,splits",
-        }
-    )
-
-
-def _fetch_yfinance_chart(symbol, interval=INTERVAL, data_range=DATA_RANGE):
-    try:
-        import yfinance as yf
-    except Exception:
-        return pd.DataFrame()
-    logging.getLogger("yfinance").setLevel(logging.CRITICAL)
-    logging.getLogger("yfinance").disabled = True
-    try:
-        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-            df = yf.download(
-                tickers=symbol,
-                period=data_range,
-                interval=interval,
-                progress=False,
-                auto_adjust=False,
-                threads=False,
-            )
-    except Exception:
-        return pd.DataFrame()
-    if df is None or df.empty:
-        return pd.DataFrame()
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = [c[0] for c in df.columns]
-
-    col_map = {c.lower(): c for c in df.columns}
-    needed = {"open", "high", "low", "close", "volume"}
-    if not needed.issubset(set(col_map.keys())):
-        return pd.DataFrame()
-
-    out = pd.DataFrame(
-        {
-            "open": pd.to_numeric(df[col_map["open"]], errors="coerce"),
-            "high": pd.to_numeric(df[col_map["high"]], errors="coerce"),
-            "low": pd.to_numeric(df[col_map["low"]], errors="coerce"),
-            "close": pd.to_numeric(df[col_map["close"]], errors="coerce"),
-            "volume": pd.to_numeric(df[col_map["volume"]], errors="coerce"),
-        }
-    ).dropna(subset=["close"])
-    if out.empty:
-        return pd.DataFrame()
-    idx = out.index
-    if getattr(idx, "tz", None) is None:
-        out["dt_utc"] = pd.to_datetime(idx, utc=True)
-    else:
-        out["dt_utc"] = pd.to_datetime(idx).tz_convert("UTC")
-    out["dt_ist"] = out["dt_utc"].dt.tz_convert(IST)
-    return out.reset_index(drop=True)
-
-
 def _commodity_cache_timeframe(asset):
     return f"{COMMODITY_CACHE_TIMEFRAME_PREFIX}_{str(asset or '').strip().upper()}"
 
@@ -360,49 +249,6 @@ def _resample_commodity_frame(frame, rule):
     resampled["date"] = resampled["dt_ist"].dt.date
     return resampled
 
-    logging.getLogger("yfinance").setLevel(logging.CRITICAL)
-    logging.getLogger("yfinance").disabled = True
-    try:
-        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-            df = yf.download(
-                tickers=symbol,
-                period=data_range,
-                interval=interval,
-                progress=False,
-                auto_adjust=False,
-                threads=False,
-            )
-    except Exception:
-        return pd.DataFrame()
-    if df is None or df.empty:
-        return pd.DataFrame()
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = [c[0] for c in df.columns]
-
-    col_map = {c.lower(): c for c in df.columns}
-    needed = {"open", "high", "low", "close", "volume"}
-    if not needed.issubset(set(col_map.keys())):
-        return pd.DataFrame()
-
-    out = pd.DataFrame(
-        {
-            "open": pd.to_numeric(df[col_map["open"]], errors="coerce"),
-            "high": pd.to_numeric(df[col_map["high"]], errors="coerce"),
-            "low": pd.to_numeric(df[col_map["low"]], errors="coerce"),
-            "close": pd.to_numeric(df[col_map["close"]], errors="coerce"),
-            "volume": pd.to_numeric(df[col_map["volume"]], errors="coerce"),
-        }
-    ).dropna(subset=["close"])
-    if out.empty:
-        return pd.DataFrame()
-    idx = out.index
-    if getattr(idx, "tz", None) is None:
-        out["dt_utc"] = pd.to_datetime(idx, utc=True)
-    else:
-        out["dt_utc"] = pd.to_datetime(idx).tz_convert("UTC")
-    out["dt_ist"] = out["dt_utc"].dt.tz_convert(IST)
-    return out.reset_index(drop=True)
-
 
 def _fetch_first_available(candidates):
     attempted = []
@@ -411,9 +257,7 @@ def _fetch_first_available(candidates):
         if not s:
             continue
         attempted.append(s)
-        df = _fetch_yahoo_chart(s)
-        if df.empty:
-            df = _fetch_yfinance_chart(s)
+        df = _load_or_refresh_commodity_raw_frame(s)
         if not df.empty:
             return s, attempted, df
     return "", attempted, pd.DataFrame()
@@ -422,12 +266,18 @@ def _fetch_first_available(candidates):
 def _fetch_daily_ema9(symbol):
     if not symbol:
         return pd.DataFrame(columns=["dt_utc", "daily_ema9"])
-    df = _fetch_yahoo_chart(symbol, interval=DAILY_INTERVAL, data_range=DAILY_RANGE)
-    if df.empty:
-        df = _fetch_yfinance_chart(symbol, interval=DAILY_INTERVAL, data_range=DAILY_RANGE)
+    df = _load_or_refresh_commodity_raw_frame(symbol)
     if df.empty:
         return pd.DataFrame(columns=["dt_utc", "daily_ema9"])
-    out = df[["dt_utc", "close"]].copy().dropna(subset=["dt_utc", "close"]).sort_values("dt_utc")
+    out = df.copy()
+    if "dt_utc" not in out.columns:
+        for candidate in ("timestamp", "dt_ist"):
+            if candidate in out.columns:
+                out["dt_utc"] = pd.to_datetime(out[candidate], utc=True, errors="coerce")
+                break
+    if "close" not in out.columns and "Close" in out.columns:
+        out["close"] = out["Close"]
+    out = out[["dt_utc", "close"]].copy().dropna(subset=["dt_utc", "close"]).sort_values("dt_utc")
     if out.empty:
         return pd.DataFrame(columns=["dt_utc", "daily_ema9"])
     out["daily_ema9"] = out["close"].ewm(span=9, adjust=False).mean()

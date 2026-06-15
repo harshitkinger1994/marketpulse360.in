@@ -1489,20 +1489,22 @@ const updateLiveIndicator = (data) => {
   const dataFresh = lastDataUpdatedAt && Date.now() - lastDataUpdatedAt <= 120000;
   const showLive = isLive || dataFresh;
   const hasLastAvailable = Boolean(lastDataUpdatedAt);
-  const labelText = showLive && isLive
-    ? (isStale ? "Live (stale)" : "Live")
-    : showLive && dataFresh
-    ? "Live (data)"
-    : hasLastAvailable
-    ? "Last Available"
-    : "Offline";
+  const labelText = PAGE === "india"
+    ? (isLive ? (isStale ? "Live (stale)" : "Live") : "Live Unavailable")
+    : showLive && isLive
+      ? (isStale ? "Live (stale)" : "Live")
+      : showLive && dataFresh
+      ? "Live (data)"
+      : hasLastAvailable
+      ? "Last Available"
+      : "Offline";
   const isOffline = labelText === "Offline";
-  liveDot.classList.toggle("live", showLive || hasLastAvailable);
+  liveDot.classList.toggle("live", PAGE === "india" ? isLive : (showLive || hasLastAvailable));
   liveDot.classList.toggle("offline", isOffline);
   liveLabel.textContent = labelText;
-  liveLabel.classList.toggle("chip-live", showLive);
+  liveLabel.classList.toggle("chip-live", PAGE === "india" ? isLive : showLive);
   liveLabel.classList.toggle("chip-offline", isOffline);
-  liveLabel.classList.toggle("chip-neutral", !showLive && hasLastAvailable);
+  liveLabel.classList.toggle("chip-neutral", PAGE === "india" ? !isLive : (!showLive && hasLastAvailable));
 };
 
 const getZonedNowUtc = (timeZone) => {
@@ -1724,9 +1726,15 @@ const syncActiveDetailPanels = (data) => {
     const output = $("indiaSearchOutput");
     if (input && output) {
       const query = input.value.trim();
+      if (!data?.__live_status?.ok) {
+        output.innerHTML = `<p class="muted">Live data unavailable right now.</p>`;
+        return;
+      }
       if (query) {
-        const indiaIndexEntries = INDIA_INDICES.filter((name) => data[name]).map((name) => [name, data[name]]);
-        const indiaStockEntries = Object.entries(data).filter(([, v]) => v?.type === "INDIA_STOCK");
+        const indiaIndexEntries = INDIA_INDICES
+          .filter((name) => data[name] && String(data[name]?.price_source || "").toUpperCase() === "LIVE")
+          .map((name) => [name, data[name]]);
+        const indiaStockEntries = Object.entries(data).filter(([, v]) => v?.type === "INDIA_STOCK" && String(v?.price_source || "").toUpperCase() === "LIVE");
         const searchItems = [...indiaIndexEntries, ...indiaStockEntries].map(([key, value]) => ({
           key,
           label: displayLabel(key),
@@ -1734,6 +1742,10 @@ const syncActiveDetailPanels = (data) => {
         }));
         const match = matchSearch(searchItems, query);
         if (match) {
+          if (String(match.value?.price_source || "").toUpperCase() !== "LIVE") {
+            output.innerHTML = `<p class="muted">Live data unavailable for this symbol.</p>`;
+            return;
+          }
           output.innerHTML = `
             <h3>${esc(displayLabel(match.key))}</h3>
             ${renderAssetDetails(match.key, match.value)}
@@ -2433,14 +2445,8 @@ const renderIndiaRangePreview = (data) => {
         buildDisplayDayRange("NIFTY", data?.NIFTY, "trend_up"),
         buildDisplayDayRange("BANKNIFTY", data?.BANKNIFTY, "trend_down"),
         buildDisplayDayRange("SENSEX", data?.SENSEX, "trend_up"),
-        buildDisplayDayRange("RELIANCE", data?.RELIANCE, "recovery"),
-      ].filter((sample) => sample && (sample.source === "live_ohlc" || sample.source === "live"))
-    : [
-        buildDisplayDayRange("NIFTY", data?.NIFTY, "trend_up"),
-        buildDisplayDayRange("BANKNIFTY", data?.BANKNIFTY, "trend_down"),
-        buildDisplayDayRange("SENSEX", data?.SENSEX, "trend_up"),
-        buildDisplayDayRange("RELIANCE", data?.RELIANCE, "recovery"),
-      ].filter(Boolean);
+      ].filter(Boolean)
+    : [];
 
   if (!samples.length) {
     root.innerHTML = `
@@ -2448,9 +2454,9 @@ const renderIndiaRangePreview = (data) => {
         <div class="day-range-section-head">
           <div>
             <h2>India Price Action Range</h2>
-            <p>No session snapshot is available yet.</p>
+            <p>Live data is unavailable right now, so this section is hidden until the live feed comes back.</p>
           </div>
-          <span class="day-range-section-chip">No Data</span>
+          <span class="day-range-section-chip">Live Only</span>
         </div>
       </div>
     `;
@@ -2462,15 +2468,56 @@ const renderIndiaRangePreview = (data) => {
       <div class="day-range-section-head">
         <div>
           <h2>India Price Action Range</h2>
-          <p>${liveOnly ? "Current price, open, high, and low are pulled from the live intraday day-range feed." : "Live data is unavailable, so the last available session snapshot is shown instead."}</p>
+          <p>${liveOnly ? "Current price, open, high, and low are pulled from the live intraday day-range feed." : "Live data is unavailable, so this section is not showing stale values."}</p>
         </div>
-        <span class="day-range-section-chip">${liveOnly ? "Live Intraday" : "Last Available"}</span>
+        <span class="day-range-section-chip">${liveOnly ? "Live Intraday" : "Live Only"}</span>
       </div>
       <div class="day-range-grid">
         ${samples.map(renderPreviewDayRangeCard).join("")}
       </div>
     </div>
   `;
+};
+
+const renderIndiaBenchmarkStrip = (data) => {
+  const root = $("indiaBenchmarkStrip");
+  if (!root || PAGE !== "india") return;
+  const liveActive = Boolean(data?.__live_status?.ok);
+  const keys = ["NIFTY", "BANKNIFTY", "SENSEX"];
+  if (!liveActive) {
+    root.innerHTML = `
+      <div class="card">
+        <h2>India Benchmark Strip</h2>
+        <p class="muted">Live benchmark data is unavailable right now.</p>
+      </div>
+    `;
+    return;
+  }
+  const cards = keys
+    .map((name) => {
+      const item = data?.[name];
+      if (!item || String(item?.price_source || "").toUpperCase() !== "LIVE") return "";
+      const current = formatPriceValue(item.current_price, name, item, 2);
+      const trend = fmt(item.trend);
+      return `
+        <article class="india-benchmark-card">
+          <div class="india-benchmark-head">
+            <strong>${esc(displayLabel(name))}</strong>
+            <span class="india-benchmark-source">LIVE</span>
+          </div>
+          <div class="india-benchmark-price">${esc(current)}</div>
+          <div class="india-benchmark-meta">
+            <span>Trend: ${esc(trend)}</span>
+            <span>${esc((item.day_range?.basis || "daily").toString().toUpperCase())}</span>
+          </div>
+        </article>
+      `;
+    })
+    .filter(Boolean)
+    .join("");
+  root.innerHTML = cards
+    ? `<div class="india-benchmark-grid">${cards}</div>`
+    : `<div class="card"><p class="muted">No live benchmark data available.</p></div>`;
 };
 
 const renderRegimeCard = (p) => {
@@ -2560,6 +2607,30 @@ const parseGeneratedAt = (value) => {
   if (month === undefined) return null;
   const utcMs = Date.UTC(year, month, day, hour - 5, minute - 30, second);
   return utcMs;
+};
+
+const resolveSnapshotTimestamp = (payload, response) => {
+  const headers = response?.headers;
+  const candidates = [
+    payload?.published_at,
+    payload?.publishedAt,
+    headers?.get?.("x-market-published-at"),
+    headers?.get?.("last-modified"),
+    payload?.store_written_at,
+    payload?.store_generated_at,
+    payload?.generated_at,
+    payload?.generatedAt,
+  ];
+  for (const candidate of candidates) {
+    const parsed = parseGeneratedAt(candidate);
+    if (parsed) {
+      return { ms: parsed, raw: candidate };
+    }
+  }
+  return {
+    ms: null,
+    raw: payload?.published_at || payload?.generated_at || payload?.publishedAt || payload?.generatedAt || null,
+  };
 };
 
 const formatDateTimeInZone = (ms, timeZone, label) => {
@@ -2706,15 +2777,21 @@ async function refreshData() {
         return null;
       }
     })();
-    const commoditySnapshotUrls = PAGE === "commodities"
+    const snapshotUrls = PAGE === "commodities"
       ? [
           `/snapshot?timeframe=commodities_daily&ts=${Date.now()}`,
           ...(liveApiOrigin ? [`${liveApiOrigin}/snapshot?timeframe=commodities_daily&ts=${Date.now()}`] : []),
           `data.json?ts=${Date.now()}`,
         ]
+      : PAGE === "india"
+        ? [
+            `/snapshot?timeframe=dashboard&ts=${Date.now()}`,
+            ...(liveApiOrigin ? [`${liveApiOrigin}/snapshot?timeframe=dashboard&ts=${Date.now()}`] : []),
+            `data.json?ts=${Date.now()}`,
+          ]
       : [`data.json?ts=${Date.now()}`];
     let res = null;
-    for (const url of commoditySnapshotUrls) {
+    for (const url of snapshotUrls) {
       try {
         res = await fetch(url, { cache: "no-store" });
         if (res.ok) break;
@@ -2737,18 +2814,18 @@ async function refreshData() {
 
       const lastUpdated = $("lastUpdated");
       if (lastUpdated) {
-        const parsed = parseGeneratedAt(p.generated_at);
+        const resolvedTimestamp = resolveSnapshotTimestamp(p, res);
         const lastUpdatedZone =
           PAGE === "global" || PAGE === "commodities"
             ? { tz: ET_TIMEZONE, label: "ET" }
             : { tz: IST_TIMEZONE, label: "IST" };
-        lastUpdated.textContent = parsed
-          ? `Last Updated: ${formatDateTimeInZone(parsed, lastUpdatedZone.tz, lastUpdatedZone.label)}`
-          : `Last Updated: ${fmt(p.generated_at)}`;
+        lastUpdated.textContent = resolvedTimestamp.ms
+          ? `Last Updated: ${formatDateTimeInZone(resolvedTimestamp.ms, lastUpdatedZone.tz, lastUpdatedZone.label)}`
+          : `Last Updated: ${fmt(resolvedTimestamp.raw || p.generated_at)}`;
       }
-      if (p.generated_at) {
-        const parsed = parseGeneratedAt(p.generated_at);
-        if (parsed) lastDataUpdatedAt = parsed;
+      if (p.published_at || p.generated_at) {
+        const resolvedTimestamp = resolveSnapshotTimestamp(p, res);
+        if (resolvedTimestamp.ms) lastDataUpdatedAt = resolvedTimestamp.ms;
       }
       const liveTime = $("livePriceTime");
       if (liveTime) {
@@ -2891,6 +2968,7 @@ async function refreshData() {
       }
 
       const topTrades = $("topTrades");
+      renderIndiaBenchmarkStrip(data);
       renderIndiaRangePreview(data);
       if (topTrades) {
         const strategies = Array.isArray(p.strategies) && p.strategies.length
@@ -3423,16 +3501,28 @@ async function refreshData() {
       const indiaSearchList = $("indiaSearchList");
       const indiaSearchOutput = $("indiaSearchOutput");
       if (PAGE === "india" && indiaSearchInput && indiaSearchList && indiaSearchOutput) {
-        const searchItems = [...indiaIndexEntries, ...indiaStockEntries].map(([key, value]) => ({
+        const liveIndiaIndexEntries = INDIA_INDICES
+          .filter((name) => data[name] && String(data[name]?.price_source || "").toUpperCase() === "LIVE")
+          .map((name) => [name, data[name]]);
+        const liveIndiaStockEntries = Object.entries(data).filter(([, v]) => v?.type === "INDIA_STOCK" && String(v?.price_source || "").toUpperCase() === "LIVE");
+        const searchItems = [...liveIndiaIndexEntries, ...liveIndiaStockEntries].map(([key, value]) => ({
           key,
           label: displayLabel(key),
           value
         }));
         buildSearchList(searchItems, indiaSearchList);
+        indiaSearchInput.value = "";
+        indiaSearchOutput.innerHTML = data?.__live_status?.ok
+          ? ""
+          : `<p class="muted">Live data unavailable right now.</p>`;
 
         const renderMatch = (match) => {
           if (!match) {
             indiaSearchOutput.innerHTML = `<p class="muted">No matching symbol found.</p>`;
+            return;
+          }
+          if (String(match.value?.price_source || "").toUpperCase() !== "LIVE") {
+            indiaSearchOutput.innerHTML = `<p class="muted">Live data unavailable for this symbol.</p>`;
             return;
           }
           indiaSearchOutput.innerHTML = `

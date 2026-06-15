@@ -1,4 +1,5 @@
 import json
+from email.utils import format_datetime
 import os
 import sys
 import time
@@ -345,7 +346,7 @@ class LiveHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         return
 
-    def _send(self, status, payload):
+    def _send(self, status, payload, extra_headers=None):
         body = json.dumps(payload).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -353,8 +354,23 @@ class LiveHandler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        if extra_headers:
+            for key, value in extra_headers.items():
+                if value is not None and value != "":
+                    self.send_header(str(key), str(value))
         self.end_headers()
         self.wfile.write(body)
+
+    def _http_date(self, value):
+        if not value:
+            return None
+        try:
+            parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=timezone.utc)
+            return format_datetime(parsed.astimezone(timezone.utc))
+        except Exception:
+            return str(value)
 
     def do_OPTIONS(self):
         self.send_response(204)
@@ -424,13 +440,26 @@ class LiveHandler(BaseHTTPRequestHandler):
         if parsed.path == "/snapshot":
             params = parse_qs(parsed.query)
             timeframe = (params.get("timeframe") or ["dashboard"])[0]
-            payload = load_latest_market_snapshot_payload(
-                timeframe_preference=(timeframe,),
-            )
+            try:
+                payload = load_latest_market_snapshot_payload(
+                    timeframe_preference=(timeframe,),
+                )
+            except Exception as exc:
+                self._send(500, {"error": "snapshot_error", "timeframe": timeframe, "detail": str(exc)})
+                return
             if not payload:
                 self._send(404, {"error": "snapshot_not_found", "timeframe": timeframe})
                 return
-            self._send(200, payload)
+            published_at = (
+                payload.get("published_at")
+                or payload.get("store_written_at")
+                or payload.get("store_generated_at")
+                or payload.get("generated_at")
+            )
+            self._send(200, payload, extra_headers={
+                "Last-Modified": self._http_date(published_at),
+                "X-Market-Published-At": published_at,
+            })
             return
         if parsed.path != "/live":
             self._send(404, {"error": "not_found"})

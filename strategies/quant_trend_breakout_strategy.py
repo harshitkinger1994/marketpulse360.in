@@ -257,11 +257,14 @@ def _fetch_dhan_india_chart(ticker):
         if str(root) not in sys.path:
             sys.path.insert(0, str(root))
         from backend.data_fetcher import _fetch_dhan_india_daily_frame
+        from backend.data_fetcher import _load_stored_dhan_india_daily_frame
         from backend.dhan_strategy_schema import standardize_dhan_history_frame_from_daily
     except Exception:
         return []
     try:
-        daily, _snapshot = _fetch_dhan_india_daily_frame(symbol)
+        daily, _snapshot = _load_stored_dhan_india_daily_frame(symbol)
+        if daily is None or getattr(daily, "empty", True):
+            daily, _snapshot = _fetch_dhan_india_daily_frame(symbol)
     except Exception:
         return []
     rows, _meta = standardize_dhan_history_frame_from_daily(
@@ -284,11 +287,14 @@ def _fetch_dhan_commodity_chart(asset_name):
         if str(root) not in sys.path:
             sys.path.insert(0, str(root))
         from backend.data_fetcher import _fetch_dhan_commodity_daily_frame
+        from backend.data_fetcher import _load_stored_dhan_commodity_daily_frame
         from backend.dhan_strategy_schema import standardize_dhan_history_frame_from_daily
     except Exception:
         return []
     try:
-        daily, _snapshot = _fetch_dhan_commodity_daily_frame(asset)
+        daily, _snapshot = _load_stored_dhan_commodity_daily_frame(asset)
+        if daily is None or getattr(daily, "empty", True):
+            daily, _snapshot = _fetch_dhan_commodity_daily_frame(asset)
     except Exception:
         return []
     rows, _meta = standardize_dhan_history_frame_from_daily(
@@ -838,7 +844,14 @@ def run():
     except Exception:
         as_of = None
 
-    benchmark_rows = _fetch_yahoo_chart(benchmark_symbol) if (benchmark_symbol and (benchmark_gate_enabled or args.use_rs_filter)) else []
+    benchmark_rows = []
+    if benchmark_symbol and (benchmark_gate_enabled or args.use_rs_filter):
+        if effective_market == "india":
+            benchmark_rows = _fetch_dhan_india_chart(benchmark_symbol)
+        elif effective_market == "commodities":
+            benchmark_rows = _fetch_dhan_commodity_chart(benchmark_symbol)
+        else:
+            benchmark_rows = _fetch_yahoo_chart(benchmark_symbol)
     if benchmark_rows:
         benchmark_rows = sorted(benchmark_rows, key=lambda r: r["date"])
         if as_of:

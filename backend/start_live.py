@@ -28,6 +28,38 @@ def _spawn(script_path, extra_env=None, extra_args=None):
     )
 
 
+def _scanner_subprocess_env():
+    env = {}
+    try:
+        workers = int(os.environ.get("DHAN_SCAN_WORKERS", "4"))
+    except Exception:
+        workers = 4
+    try:
+        batch_size = int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "10"))
+    except Exception:
+        batch_size = 10
+    env["DHAN_SCAN_WORKERS"] = str(max(workers, 4))
+    env["DHAN_SCAN_BATCH_SIZE"] = str(max(batch_size, 5))
+    return env
+
+
+def _scanner_args() -> list[str]:
+    return [
+        "--fast-mode",
+        "--fast-strike-window",
+        "1",
+        "--nifty-futures",
+        "--setup-alerts",
+        "--gate3-alerts",
+        "--strategy-id",
+        "india_ema9_growth30_on",
+        "--strategy-lookback-days",
+        "4",
+        "--store-timeframe",
+        "15m",
+    ]
+
+
 def main():
     missing = [path.name for path in (LIVE_SCRIPT,) if not path.exists()]
     if UPDATER_ENABLED and not UPDATER_SCRIPT.exists():
@@ -40,7 +72,15 @@ def main():
 
     live = _spawn(LIVE_SCRIPT)
     updater = _spawn(UPDATER_SCRIPT) if UPDATER_ENABLED else None
-    scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode", "--fast-strike-window", "1"]) if SCANNER_ENABLED else None
+    scanner = (
+        _spawn(
+            SCANNER_SCRIPT,
+            extra_env=_scanner_subprocess_env(),
+            extra_args=_scanner_args(),
+        )
+        if SCANNER_ENABLED
+        else None
+    )
     scanner_restart_count = 0
     scanner_restart_delay = 1.0
 
@@ -65,7 +105,11 @@ def main():
                 )
                 time.sleep(scanner_restart_delay)
                 scanner_restart_delay = min(scanner_restart_delay * 2.0, 60.0)
-                scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode", "--fast-strike-window", "1"])
+                scanner = _spawn(
+                    SCANNER_SCRIPT,
+                    extra_env=_scanner_subprocess_env(),
+                    extra_args=_scanner_args(),
+                )
             time.sleep(1)
     except KeyboardInterrupt:
         pass

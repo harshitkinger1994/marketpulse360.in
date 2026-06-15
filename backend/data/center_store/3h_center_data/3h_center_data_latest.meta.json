@@ -1,0 +1,8 @@
+{
+  "timeframe": "3h_center_data",
+  "row_count": 1,
+  "written_at": "2026-06-15T16:23:37.280781+00:00",
+  "latest_path": "/Users/harshitkinger5jan/afford-check/market-context/backend/data/center_store/3h_center_data/3h_center_data_latest.parquet",
+  "history_path": "/Users/harshitkinger5jan/afford-check/market-context/backend/data/center_store/3h_center_data/history/20260615/3h_center_data_20260615_162337.parquet",
+  "payload_meta_json": "{\"generated_at\": \"2026-06-15T16:23:37.278466+00:00\", \"strategy_name\": \"Pattern+OI+VWAP/EMA\", \"source_strategy_id\": \"india_ema9_growth30_on\", \"interval\": \"3h\", \"lookback_days\": 10, \"market\": \"india\", \"fast_mode\": true, \"fast_strike_window\": 3, \"watchlist\": [\"TCS\"], \"triggered_signals\": [], \"gate12_alerts_enabled\": true, \"gate12_alerts\": [], \"gate3_alerts_enabled\": false, \"gate3_alerts\": []}"
+}

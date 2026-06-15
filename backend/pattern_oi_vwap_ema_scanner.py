@@ -36,7 +36,7 @@ DHAN_BASE_URL = "https://api.dhan.co/v2"
 MARKET_OPEN = dt_time(9, 15)
 MARKET_CLOSE = dt_time(15, 30)
 DEFAULT_BUFFER_SECONDS = 1.5
-DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "1"))
+DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "4"))
 DEFAULT_FAST_STRIKE_WINDOW = int(os.environ.get("DHAN_FAST_STRIKE_WINDOW", "3"))
 DEFAULT_INTRADAY_RETRIES = int(os.environ.get("DHAN_INTRADAY_RETRIES", "3"))
 DEFAULT_LIVE_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_LOOKBACK_DAYS", "10"))
@@ -62,6 +62,7 @@ if str(BACKEND_SRC) not in sys.path:
 
 from backend.agentic_pipeline import format_single_agent_group_message
 from backend.suggest_security import safe_telegram_text
+from backend.timeframe_rollup import higher_timeframe_for
 try:
     from backend.market_snapshot_store import MarketSnapshotStore
 except Exception:  # pragma: no cover - optional for older environments
@@ -152,7 +153,18 @@ DEFAULT_STORE_TIMEFRAME = os.environ.get("DHAN_STORE_TIMEFRAME", "15m").strip() 
 STORE_PUBLISH_ENABLED = os.environ.get("DHAN_STORE_PUBLISH_ENABLED", "1") == "1"
 DEFAULT_SETUP_ALERTS = os.environ.get("DHAN_SETUP_ALERTS", "1") == "1"
 DEFAULT_REPEAT_PATTERN_ALERTS = os.environ.get("DHAN_REPEAT_PATTERN_ALERTS", "0") == "1"
-INDIA_INDEX_SCAN_SYMBOLS = ("NIFTY", "BANKNIFTY", "SENSEX")
+INDIA_INDEX_SCAN_SYMBOLS = (
+    "NIFTY",
+    "BANKNIFTY",
+    "SENSEX",
+    "FINNIFTY",
+    "MIDCPNIFTY",
+    "NIFTYNXT50",
+    "BANKEX",
+    "SENSEX50",
+    "MCXBULLDEX",
+    "MCXMETLDEX",
+)
 
 
 def _load_env_files() -> None:
@@ -204,6 +216,150 @@ def _publish_market_snapshot_store(payload: dict[str, Any], timeframe: str) -> N
         logger.warning("Market snapshot store publish failed for %s: %s", timeframe, exc)
 
 
+def _build_run_snapshot_payload(
+    *,
+    strategy_name: str,
+    source_strategy_id: str | None,
+    interval: str,
+    lookback_days: int,
+    market: str,
+    as_of_date: date | None,
+    fast_mode: bool,
+    fast_strike_window: int,
+    watchlist: dict[str, int | None],
+    snapshots: list[dict[str, Any]],
+    triggered_signals: list[dict[str, Any]],
+    gate12_alert_candidates: list[dict[str, Any]],
+    gate3_alert_candidates: list[dict[str, Any]],
+    setup_alerts_enabled: bool,
+    gate3_alerts_enabled: bool,
+) -> dict[str, Any]:
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "strategy_name": strategy_name,
+        "source_strategy_id": source_strategy_id or "",
+        "interval": interval,
+        "lookback_days": lookback_days,
+        "market": market,
+        "as_of_date": as_of_date.isoformat() if as_of_date else None,
+        "fast_mode": bool(fast_mode),
+        "fast_strike_window": fast_strike_window,
+        "watchlist": list(watchlist.keys()),
+        "snapshots": snapshots,
+        "triggered_signals": triggered_signals,
+        "gate12_alerts_enabled": bool(setup_alerts_enabled),
+        "gate12_alerts": gate12_alert_candidates,
+        "gate3_alerts_enabled": bool(gate3_alerts_enabled),
+        "gate3_alerts": gate3_alert_candidates,
+    }
+
+
+def _send_gate12_alert_batch(
+    alerts: list[dict[str, Any]],
+    *,
+    strategy_key: str | None,
+    market: str,
+    interval: str,
+) -> None:
+    _deliver_telegram_alerts(
+        alerts,
+        gate_label="gate12",
+        strategy_key=strategy_key,
+        market=market,
+        interval=interval,
+    )
+    state = _load_gate3_state()
+    last_gate12_meta_map = state.get("last_gate12_meta_map")
+    if not isinstance(last_gate12_meta_map, dict):
+        last_gate12_meta_map = {}
+    for alert in alerts:
+        symbol = str(alert.get("symbol") or "").upper()
+        signature = alert.get("signature")
+        if symbol and isinstance(signature, dict):
+            last_gate12_meta_map[symbol] = signature
+    state["last_gate12_meta_map"] = last_gate12_meta_map
+    state["last_gate12_at"] = datetime.now(IST).isoformat()
+    state["gate12_alert_count"] = int(state.get("gate12_alert_count") or 0) + len(alerts)
+    _save_gate3_state(state)
+
+
+def _send_gate3_alert_batch(
+    alerts: list[dict[str, Any]],
+    *,
+    strategy_key: str | None,
+    market: str,
+    interval: str,
+    personal_alerts_only: bool = False,
+) -> None:
+    _deliver_telegram_alerts(
+        alerts,
+        gate_label="gate3",
+        strategy_key=strategy_key,
+        market=market,
+        interval=interval,
+        personal_alerts_only=personal_alerts_only,
+    )
+    state = _load_gate3_state()
+    last_gate3_meta_map = state.get("last_gate3_meta_map")
+    if not isinstance(last_gate3_meta_map, dict):
+        last_gate3_meta_map = {}
+    for alert in alerts:
+        symbol = str(alert.get("symbol") or "").upper()
+        signature = alert.get("signature")
+        if symbol and isinstance(signature, dict):
+            last_gate3_meta_map[symbol] = signature
+    state["last_gate3_meta_map"] = last_gate3_meta_map
+    state["last_gate3_at"] = datetime.now(IST).isoformat()
+    state["gate3_alert_count"] = int(state.get("gate3_alert_count") or 0) + len(alerts)
+    _save_gate3_state(state)
+
+
+def _flush_incremental_snapshot_publish(
+    *,
+    strategy_name: str,
+    source_strategy_id: str | None,
+    interval: str,
+    lookback_days: int,
+    market: str,
+    as_of_date: date | None,
+    fast_mode: bool,
+    fast_strike_window: int,
+    watchlist: dict[str, int | None],
+    snapshots: list[dict[str, Any]],
+    triggered_signals: list[dict[str, Any]],
+    gate12_alert_candidates: list[dict[str, Any]],
+    gate3_alert_candidates: list[dict[str, Any]],
+    store_timeframe: str,
+    setup_alerts_enabled: bool,
+    gate3_alerts_enabled: bool,
+) -> None:
+    if not STORE_PUBLISH_ENABLED:
+        return
+    try:
+        _publish_market_snapshot_store(
+            _build_run_snapshot_payload(
+                strategy_name=strategy_name,
+                source_strategy_id=source_strategy_id,
+                interval=interval,
+                lookback_days=lookback_days,
+                market=market,
+                as_of_date=as_of_date,
+                fast_mode=fast_mode,
+                fast_strike_window=fast_strike_window,
+                watchlist=watchlist,
+                snapshots=snapshots,
+                triggered_signals=triggered_signals,
+                gate12_alert_candidates=gate12_alert_candidates,
+                gate3_alert_candidates=gate3_alert_candidates,
+                setup_alerts_enabled=setup_alerts_enabled,
+                gate3_alerts_enabled=gate3_alerts_enabled,
+            ),
+            timeframe=store_timeframe,
+        )
+    except Exception as exc:
+        logger.warning("Incremental snapshot publish failed for %s: %s", store_timeframe, exc)
+
+
 def _telegram_config() -> tuple[str | None, str | None, str | None]:
     token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip() or None
     group_chat_id = (
@@ -246,6 +402,157 @@ def _send_telegram_to(chat_id: str | None, message: str) -> bool:
     except Exception as exc:
         logger.warning("Telegram send exception: %s", exc)
         return False
+
+
+def _alert_strategy_key(strategy_key: str | None, gate_label: str) -> str:
+    base = str(strategy_key or "").strip().lower().replace("/", "_") or "pattern_oi_vwap_ema"
+    gate = str(gate_label or "").strip().lower().replace("/", "_") or "alert"
+    return f"{base}_{gate}"
+
+
+def _alert_signature_text(alert: dict[str, Any], gate_label: str) -> str:
+    signature = alert.get("signature")
+    if not isinstance(signature, dict):
+        signature = {"value": str(signature or "")}
+    payload = {"gate": str(gate_label or "").strip().lower() or "alert", **signature}
+    return json.dumps(payload, sort_keys=True, ensure_ascii=False, default=str)
+
+
+def _build_alert_record(
+    alert: dict[str, Any],
+    *,
+    gate_label: str,
+    strategy_key: str | None,
+    market: str,
+    interval: str,
+    status: str,
+    group_sent: bool | None = None,
+    personal_sent: bool | None = None,
+) -> dict[str, Any]:
+    signature = alert.get("signature")
+    if not isinstance(signature, dict):
+        signature = {"value": str(signature or "")}
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "alert_gate": gate_label,
+        "strategy_id": str(strategy_key or "").strip(),
+        "symbol": str(alert.get("symbol") or "").strip().upper(),
+        "market": str(market or "").strip().lower(),
+        "interval": str(interval or "").strip().lower(),
+        "status": status,
+        "group_sent": bool(group_sent) if group_sent is not None else None,
+        "personal_sent": bool(personal_sent) if personal_sent is not None else None,
+        "signature": signature,
+        "strategy": alert.get("strategy"),
+        "source_note": alert.get("source_note"),
+        "group_message": str(alert.get("group_message") or ""),
+        "personal_message": str(alert.get("personal_message") or ""),
+    }
+
+
+def _deliver_telegram_alerts(
+    alerts: list[dict[str, Any]],
+    *,
+    gate_label: str,
+    strategy_key: str | None,
+    market: str,
+    interval: str,
+    personal_alerts_only: bool = False,
+) -> None:
+    if not alerts:
+        return
+    store = MarketSnapshotStore() if MarketSnapshotStore is not None else None
+    for alert in alerts:
+        symbol = str(alert.get("symbol") or "").upper()
+        group_message = str(alert.get("group_message") or "").strip()
+        personal_message = str(alert.get("personal_message") or "").strip()
+        alert_key = _alert_strategy_key(strategy_key, gate_label)
+        signature_text = _alert_signature_text(alert, gate_label)
+        event_path = None
+        if store is not None and symbol:
+            event_path = store.alert_event_path(alert_key, symbol, market, interval, signature_text)
+            if event_path.exists():
+                logger.info("%s alert already recorded for %s; skipping duplicate.", gate_label, symbol)
+                continue
+            pending_record = _build_alert_record(
+                alert,
+                gate_label=gate_label,
+                strategy_key=strategy_key,
+                market=market,
+                interval=interval,
+                status="pending",
+            )
+            store.write_artifact_payload(
+                pending_record,
+                event_path,
+                metadata={
+                    "alert_gate": gate_label,
+                    "strategy_id": str(strategy_key or ""),
+                    "symbol": symbol,
+                    "market": market,
+                    "interval": interval,
+                    "signature": signature_text,
+                },
+            )
+            signal_path = store.signal_artifact_path(alert_key, symbol, market, interval)
+            store.write_artifact_payload(
+                _build_alert_record(
+                    alert,
+                    gate_label=gate_label,
+                    strategy_key=strategy_key,
+                    market=market,
+                    interval=interval,
+                    status="signal",
+                ),
+                signal_path,
+                metadata={
+                    "alert_gate": gate_label,
+                    "strategy_id": str(strategy_key or ""),
+                    "symbol": symbol,
+                    "market": market,
+                    "interval": interval,
+                    "signature": signature_text,
+                },
+            )
+
+        group_sent = False
+        personal_sent = False
+        if group_message and not personal_alerts_only:
+            group_sent = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
+            logger.info("%s group alert %s for %s", gate_label, "sent" if group_sent else "not sent", symbol)
+        if personal_message:
+            personal_chat_id = (
+                os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
+                or os.getenv("TELEGRAM_STATUS_CHAT_ID")
+                or os.getenv("TELEGRAM_CHAT_ID")
+            )
+            personal_sent = _send_telegram_to(personal_chat_id, personal_message)
+            logger.info("%s personal alert %s for %s", gate_label, "sent" if personal_sent else "not sent", symbol)
+
+        if store is not None and event_path is not None:
+            store.write_artifact_payload(
+                _build_alert_record(
+                    alert,
+                    gate_label=gate_label,
+                    strategy_key=strategy_key,
+                    market=market,
+                    interval=interval,
+                    status="sent" if group_sent or personal_sent else "failed",
+                    group_sent=group_sent,
+                    personal_sent=personal_sent,
+                ),
+                event_path,
+                metadata={
+                    "alert_gate": gate_label,
+                    "strategy_id": str(strategy_key or ""),
+                    "symbol": symbol,
+                    "market": market,
+                    "interval": interval,
+                    "signature": signature_text,
+                    "group_sent": group_sent,
+                    "personal_sent": personal_sent,
+                },
+            )
 
 
 def _is_fresh_gate3(previous: dict[str, str] | None, current: dict[str, str]) -> bool:
@@ -529,6 +836,49 @@ def _load_candidate_pool_symbols(strategy_id: str) -> list[str]:
             seen.add(symbol)
             symbols.append(symbol)
     return symbols
+
+
+def _timeframe_pattern_context(
+    symbol: str,
+    market: str,
+    timeframe: str,
+    *,
+    store: "MarketSnapshotStore" | None = None,
+) -> dict[str, Any]:
+    tf = str(timeframe or "").strip().lower()
+    if not tf or MarketSnapshotStore is None:
+        return {"timeframe": tf or "NA", "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
+    history_store = store if store is not None else MarketSnapshotStore()
+    try:
+        frame = history_store.read_candle_history(tf, symbol, market, tf)
+    except Exception:
+        frame = None
+    if frame is None or frame.empty:
+        return {"timeframe": tf, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
+    try:
+        snapshot_work = frame.reset_index().rename(columns={"dt_utc": "dt_utc"})
+        snapshot_work["dt_utc"] = pd.to_datetime(snapshot_work["dt_utc"], utc=True, errors="coerce")
+        snapshot_work = snapshot_work.dropna(subset=["dt_utc"]).sort_values("dt_utc")
+        if snapshot_work.empty:
+            return {"timeframe": tf, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
+        if "dt_ist" not in snapshot_work.columns:
+            snapshot_work["dt_ist"] = snapshot_work["dt_utc"].dt.tz_convert(IST)
+        snapshot_work = snapshot_work.set_index("dt_utc")
+        snapshot = _historical_snapshot_from_work(snapshot_work, len(snapshot_work) - 1, symbol, tf)
+        strategy = _evaluate_strategy(snapshot)
+        pattern = str(strategy.get("pattern") or "No Pattern")
+        direction = strategy.get("direction")
+        if not strategy.get("gate1_pass") and not strategy.get("gate2_pass"):
+            pattern = "No Pattern"
+            direction = None
+        return {
+            "timeframe": tf,
+            "pattern": pattern,
+            "direction": direction,
+            "candle_time_ist": snapshot.candle_time_ist,
+        }
+    except Exception:
+        return {"timeframe": tf, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
 
 
 def _load_broad_india_universe_symbols() -> list[str]:
@@ -2246,6 +2596,8 @@ def _format_gate3_group_message(
     contract: dict | None,
     strategy_name: str = DEFAULT_STRATEGY_NAME,
     source_note: str | None = None,
+    timeframe_label: str | None = None,
+    higher_timeframe_context: dict[str, Any] | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2253,12 +2605,21 @@ def _format_gate3_group_message(
     put_velocity = strategy.get("put_oi_velocity_pct")
     pcr = strategy.get("pcr")
     pcr_prev = strategy.get("pcr_prev")
+    htf = higher_timeframe_context or {}
+    htf_label = str(htf.get("timeframe") or "").strip().upper()
+    htf_pattern = str(htf.get("pattern") or "No Pattern")
+    htf_direction = str(htf.get("direction") or "").strip().upper() or "NA"
+    htf_candle_time = str(htf.get("candle_time_ist") or "NA")
     compact_trade_line = (
         f"{strategy_name} | {symbol.upper()} | {direction} | Pattern {pattern} | "
         f"Call OI {call_velocity if call_velocity is not None else 'NA'}% | "
         f"Put OI {put_velocity if put_velocity is not None else 'NA'}% | "
         f"PCR {pcr if pcr is not None else 'NA'} vs {pcr_prev if pcr_prev is not None else 'NA'}"
     )
+    if timeframe_label:
+        compact_trade_line = f"{compact_trade_line} | TF {timeframe_label}"
+    if htf_label:
+        compact_trade_line = f"{compact_trade_line} | Higher TF {htf_label}: {htf_pattern} ({htf_direction}) @ {htf_candle_time}"
     if source_note:
         compact_trade_line = f"{compact_trade_line} | {source_note}"
     payload = {
@@ -2310,7 +2671,7 @@ def _format_gate3_group_message(
         "selection": "Master EMA9 symbols with Pattern + OI + VWAP/EMA",
         "freshness": "fresh Gate 3 trigger only",
         "filters": "Pattern + OI + VWAP/EMA alignment with Gate 3 OI velocity and PCR",
-        "source": source_note or "Pattern-only universe",
+        "source": source_note or "Universe",
     }
     terminal_result = {
         "input_payload": payload,
@@ -2384,7 +2745,7 @@ def _format_gate3_group_message(
             f"Strategy: {strategy_name}",
             f"## {symbol.upper()} | Side: {direction}",
             f"Pattern Name: {pattern}",
-            f"Source: {source_note or 'Pattern-only universe'}",
+            f"Source: {source_note or 'Universe'}",
             f"PCR: {pcr if pcr is not None else 'NA'} | Prev PCR: {pcr_prev if pcr_prev is not None else 'NA'}",
             f"Call OI Velocity: {call_velocity if call_velocity is not None else 'NA'}%",
             f"Put OI Velocity: {put_velocity if put_velocity is not None else 'NA'}%",
@@ -2392,6 +2753,10 @@ def _format_gate3_group_message(
             f"Put Floor: {getattr(snapshot.option_chain, 'highest_put_oi_strike', None) if snapshot.option_chain else 'NA'}",
             f"Signal: {compact_trade_line}",
         ]
+        if timeframe_label:
+            lines.insert(1, f"Timeframe: {timeframe_label}")
+        if htf_label:
+            lines.append(f"Higher TF {htf_label}: {htf_pattern} | Direction: {htf_direction}")
         return "\n".join(lines)
 
 
@@ -2401,6 +2766,8 @@ def _format_gate12_group_message(
     strategy: dict[str, Any],
     strategy_name: str = DEFAULT_STRATEGY_NAME,
     source_note: str | None = None,
+    timeframe_label: str | None = None,
+    higher_timeframe_context: dict[str, Any] | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2408,16 +2775,24 @@ def _format_gate12_group_message(
     vwap = snapshot.vwap if snapshot.vwap is not None else "NA"
     ema9 = snapshot.ema9 if snapshot.ema9 is not None else "NA"
     candle_time = snapshot.candle_time_ist or "NA"
-    return "\n".join(
-        [
-            f"{strategy_name} SETUP | {symbol.upper()} | {direction}",
-            f"Pattern: {pattern}",
-            f"Source: {source_note or 'Pattern-only universe'}",
-            f"Signals clear: Pattern + VWAP/EMA alignment",
-            f"Close: {close} | VWAP: {vwap} | EMA9: {ema9}",
-            f"Candle Time: {candle_time}",
-        ]
-    )
+    htf = higher_timeframe_context or {}
+    htf_label = str(htf.get("timeframe") or "").strip().upper()
+    htf_pattern = str(htf.get("pattern") or "No Pattern")
+    htf_direction = str(htf.get("direction") or "").strip().upper() or "NA"
+    htf_candle_time = str(htf.get("candle_time_ist") or "NA")
+    lines = [
+        f"{strategy_name} SETUP | {symbol.upper()} | {direction}",
+        f"Pattern: {pattern}",
+        f"Source: {source_note or 'Universe'}",
+        f"Signals clear: Pattern + VWAP/EMA alignment",
+        f"Close: {close} | VWAP: {vwap} | EMA9: {ema9}",
+        f"Candle Time: {candle_time}",
+    ]
+    if timeframe_label:
+        lines.insert(1, f"Timeframe: {timeframe_label}")
+    if htf_label:
+        lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
+    return "\n".join(lines)
 
 
 def _format_gate3_personal_message(
@@ -2427,6 +2802,8 @@ def _format_gate3_personal_message(
     contract: dict | None,
     strategy_name: str = DEFAULT_STRATEGY_NAME,
     source_note: str | None = None,
+    timeframe_label: str | None = None,
+    higher_timeframe_context: dict[str, Any] | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
@@ -2444,9 +2821,14 @@ def _format_gate3_personal_message(
     put_oi_prev = getattr(snapshot.option_chain, "highest_put_oi_past", None) if snapshot.option_chain else None
     call_oi = getattr(snapshot.option_chain, "highest_call_oi", None) if snapshot.option_chain else None
     put_oi = getattr(snapshot.option_chain, "highest_put_oi", None) if snapshot.option_chain else None
+    htf = higher_timeframe_context or {}
+    htf_label = str(htf.get("timeframe") or "").strip().upper()
+    htf_pattern = str(htf.get("pattern") or "No Pattern")
+    htf_direction = str(htf.get("direction") or "").strip().upper() or "NA"
+    htf_candle_time = str(htf.get("candle_time_ist") or "NA")
     lines = [
         f"{strategy_name.upper()} | {symbol.upper()}",
-        f"Source: {source_note or 'Pattern-only universe'}",
+        f"Source: {source_note or 'Universe'}",
         f"Gate 1: {gate1_pass} | Pattern Name: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
         f"Gate 3: {gate3_pass} | Call OI: {call_oi if call_oi is not None else 'NA'} @ {call_strike if call_strike is not None else 'NA'} vs {call_oi_prev if call_oi_prev is not None else 'NA'} | Put OI: {put_oi if put_oi is not None else 'NA'} @ {put_strike if put_strike is not None else 'NA'} vs {put_oi_prev if put_oi_prev is not None else 'NA'}",
@@ -2455,6 +2837,10 @@ def _format_gate3_personal_message(
         f"Call OI Change: {call_velocity if call_velocity is not None else 'NA'}%",
         f"Put OI Change: {put_velocity if put_velocity is not None else 'NA'}%",
     ]
+    if timeframe_label:
+        lines.insert(1, f"Timeframe: {timeframe_label}")
+    if htf_label:
+        lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
     if contract:
         lines.append(f"Contract: {contract.get('trading_symbol') or symbol.upper()} | {contract.get('exchange_segment') or 'Dhan'}")
     return "\n".join(lines)
@@ -2466,19 +2852,30 @@ def _format_gate12_personal_message(
     strategy: dict[str, Any],
     strategy_name: str = DEFAULT_STRATEGY_NAME,
     source_note: str | None = None,
+    timeframe_label: str | None = None,
+    higher_timeframe_context: dict[str, Any] | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
     gate1_pass = "PASS" if strategy.get("gate1_pass") else "FAIL"
     gate2_pass = "PASS" if strategy.get("gate2_pass") else "FAIL"
+    htf = higher_timeframe_context or {}
+    htf_label = str(htf.get("timeframe") or "").strip().upper()
+    htf_pattern = str(htf.get("pattern") or "No Pattern")
+    htf_direction = str(htf.get("direction") or "").strip().upper() or "NA"
+    htf_candle_time = str(htf.get("candle_time_ist") or "NA")
     lines = [
         f"{strategy_name.upper()} SETUP | {symbol.upper()}",
-        f"Source: {source_note or 'Pattern-only universe'}",
+        f"Source: {source_note or 'Universe'}",
         f"Gate 1: {gate1_pass} | Pattern Name: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
         "Signal: Pattern and VWAP/EMA are clear.",
         f"Candle Time: {snapshot.candle_time_ist or 'NA'}",
     ]
+    if timeframe_label:
+        lines.insert(1, f"Timeframe: {timeframe_label}")
+    if htf_label:
+        lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
     return "\n".join(lines)
 
 
@@ -2604,42 +3001,30 @@ def _replay_gate3_snapshot_file(
             )
 
     if gate12_alerts and setup_alert_candidates:
+        _deliver_telegram_alerts(
+            setup_alert_candidates,
+            gate_label="gate12_replay",
+            strategy_key=DEFAULT_STRATEGY_NAME,
+            market=str(payload.get("market") or "india"),
+            interval=str(payload.get("interval") or "15m"),
+        )
         for alert in setup_alert_candidates:
             symbol = str(alert.get("symbol") or "").upper()
             signature = alert.get("signature")
-            group_message = str(alert.get("group_message") or "").strip()
-            personal_message = str(alert.get("personal_message") or "").strip()
-            if group_message:
-                sent_group = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
-                logger.info("Gate 1/2 replay group alert %s for %s", "sent" if sent_group else "not sent", symbol)
-            if personal_message:
-                personal_chat_id = (
-                    os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
-                    or os.getenv("TELEGRAM_STATUS_CHAT_ID")
-                    or os.getenv("TELEGRAM_CHAT_ID")
-                )
-                sent_personal = _send_telegram_to(personal_chat_id, personal_message)
-                logger.info("Gate 1/2 replay personal alert %s for %s", "sent" if sent_personal else "not sent", symbol)
             if symbol and isinstance(signature, dict):
                 last_gate12_meta_map[symbol] = signature
 
     if gate3_alerts and alert_candidates:
+        _deliver_telegram_alerts(
+            alert_candidates,
+            gate_label="gate3_replay",
+            strategy_key=DEFAULT_STRATEGY_NAME,
+            market=str(payload.get("market") or "india"),
+            interval=str(payload.get("interval") or "15m"),
+        )
         for alert in alert_candidates:
             symbol = str(alert.get("symbol") or "").upper()
             signature = alert.get("signature")
-            group_message = str(alert.get("group_message") or "").strip()
-            personal_message = str(alert.get("personal_message") or "").strip()
-            if group_message:
-                sent_group = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
-                logger.info("Gate 3 replay group alert %s for %s", "sent" if sent_group else "not sent", symbol)
-            if personal_message:
-                personal_chat_id = (
-                    os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
-                    or os.getenv("TELEGRAM_STATUS_CHAT_ID")
-                    or os.getenv("TELEGRAM_CHAT_ID")
-                )
-                sent_personal = _send_telegram_to(personal_chat_id, personal_message)
-                logger.info("Gate 3 replay personal alert %s for %s", "sent" if sent_personal else "not sent", symbol)
             if symbol and isinstance(signature, dict):
                 last_gate3_meta_map[symbol] = signature
         _save_gate3_state(
@@ -3339,6 +3724,7 @@ def run_once(
     if not isinstance(last_gate12_meta_map, dict):
         last_gate12_meta_map = {}
     history_store = MarketSnapshotStore() if MarketSnapshotStore is not None else None
+    higher_timeframe = higher_timeframe_for(interval)
     if not SCANNED_SIGNALS_CSV.exists():
         SCANNED_SIGNALS_CSV.parent.mkdir(parents=True, exist_ok=True)
         with SCANNED_SIGNALS_CSV.open("w", newline="", encoding="utf-8") as fh:
@@ -3372,6 +3758,7 @@ def run_once(
             return payload, None, None, None
 
         gate12_alert = None
+        higher_timeframe_context = _timeframe_pattern_context(symbol, market, higher_timeframe, store=history_store) if higher_timeframe else {"timeframe": None, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
         if setup_alerts:
             direction = str(pre_strategy.get("direction") or "").strip().upper()
             gate12_pass = bool(pre_strategy.get("gate1_pass") and pre_strategy.get("gate2_pass"))
@@ -3379,7 +3766,7 @@ def run_once(
                 source_note = (
                     "From 9 EMA strategy pool"
                     if symbol.upper() in source_pool_symbols
-                    else "Pattern-only universe"
+                    else "Universe"
                 )
                 signature = _gate12_trigger_signature(symbol, snapshot, pre_strategy)
                 previous_meta = last_gate12_meta_map.get(symbol.upper())
@@ -3389,8 +3776,24 @@ def run_once(
                     gate12_alert = {
                         "symbol": symbol.upper(),
                         "signature": signature,
-                        "group_message": _format_gate12_group_message(symbol, snapshot, pre_strategy, strategy_name, source_note=source_note),
-                        "personal_message": _format_gate12_personal_message(symbol, snapshot, pre_strategy, strategy_name, source_note=source_note),
+                        "group_message": _format_gate12_group_message(
+                            symbol,
+                            snapshot,
+                            pre_strategy,
+                            strategy_name,
+                            source_note=source_note,
+                            timeframe_label=interval,
+                            higher_timeframe_context=higher_timeframe_context,
+                        ),
+                        "personal_message": _format_gate12_personal_message(
+                            symbol,
+                            snapshot,
+                            pre_strategy,
+                            strategy_name,
+                            source_note=source_note,
+                            timeframe_label=interval,
+                            higher_timeframe_context=higher_timeframe_context,
+                        ),
                         "strategy": pre_strategy,
                         "source_note": source_note,
                     }
@@ -3448,7 +3851,7 @@ def run_once(
                 source_note = (
                     "From 9 EMA strategy pool"
                     if symbol.upper() in source_pool_symbols
-                    else "Pattern-only universe"
+                    else "Universe"
                 )
                 signature = _gate3_trigger_signature(symbol, snapshot, strategy)
                 previous_meta = last_gate3_meta_map.get(symbol.upper())
@@ -3458,8 +3861,26 @@ def run_once(
                     gate3_alert = {
                         "symbol": symbol.upper(),
                         "signature": signature,
-                        "group_message": _format_gate3_group_message(symbol, snapshot, strategy, payload.get("contract"), strategy_name, source_note=source_note),
-                        "personal_message": _format_gate3_personal_message(symbol, snapshot, strategy, payload.get("contract"), strategy_name, source_note=source_note),
+                        "group_message": _format_gate3_group_message(
+                            symbol,
+                            snapshot,
+                            strategy,
+                            payload.get("contract"),
+                            strategy_name,
+                            source_note=source_note,
+                            timeframe_label=interval,
+                            higher_timeframe_context=higher_timeframe_context,
+                        ),
+                        "personal_message": _format_gate3_personal_message(
+                            symbol,
+                            snapshot,
+                            strategy,
+                            payload.get("contract"),
+                            strategy_name,
+                            source_note=source_note,
+                            timeframe_label=interval,
+                            higher_timeframe_context=higher_timeframe_context,
+                        ),
                         "strategy": strategy,
                         "source_note": source_note,
                     }
@@ -3477,6 +3898,8 @@ def run_once(
         batch_symbols = symbols[batch_start : batch_start + batch_size]
         if not batch_symbols:
             continue
+        batch_gate12_start = len(gate12_alert_candidates)
+        batch_gate3_start = len(gate3_alert_candidates)
         logger.info("Scanning batch %s-%s of %s symbols.", batch_start + 1, batch_start + len(batch_symbols), total)
         with concurrent.futures.ThreadPoolExecutor(max_workers=min(max_workers, len(batch_symbols))) as executor:
             future_to_symbol = {executor.submit(_process_symbol, symbol): symbol for symbol in batch_symbols}
@@ -3495,69 +3918,93 @@ def run_once(
                     gate3_alert_candidates.append(gate3_alert)
                 del payload, signal_row, gate12_alert, gate3_alert
         gc.collect()
+        new_gate12_alerts = gate12_alert_candidates[batch_gate12_start:]
+        new_gate3_alerts = gate3_alert_candidates[batch_gate3_start:]
+        strategy_key = source_strategy_id or strategy_name
+        if new_gate12_alerts:
+            _send_gate12_alert_batch(
+                new_gate12_alerts,
+                strategy_key=strategy_key,
+                market=market,
+                interval=interval,
+            )
+        if gate3_alerts and new_gate3_alerts:
+            _send_gate3_alert_batch(
+                new_gate3_alerts,
+                strategy_key=strategy_key,
+                market=market,
+                interval=interval,
+                personal_alerts_only=personal_alerts_only,
+            )
+        if new_gate12_alerts or new_gate3_alerts or batch_start == 0 or batch_start + len(batch_symbols) >= total:
+            _flush_incremental_snapshot_publish(
+                strategy_name=strategy_name,
+                source_strategy_id=source_strategy_id,
+                interval=interval,
+                lookback_days=lookback_days,
+                market=market,
+                as_of_date=as_of_date,
+                fast_mode=fast_mode,
+                fast_strike_window=fast_strike_window,
+                watchlist=watchlist,
+                snapshots=snapshots,
+                triggered_signals=triggered_signals,
+                gate12_alert_candidates=gate12_alert_candidates,
+                gate3_alert_candidates=gate3_alert_candidates,
+                store_timeframe=store_timeframe,
+                setup_alerts_enabled=setup_alerts,
+                gate3_alerts_enabled=gate3_alerts,
+            )
 
     for signal_row in triggered_signals:
         _append_signal_csv(SCANNED_SIGNALS_CSV, signal_row)
+    if history_store is not None and triggered_signals:
+        try:
+            signal_batch_path = history_store.strategy_artifact_path(
+                "signals",
+                source_strategy_id or strategy_name,
+                "__batch__",
+                market,
+                interval,
+            )
+            history_store.write_artifact_payload(
+                {
+                    "generated_at": datetime.now(timezone.utc).isoformat(),
+                    "strategy_id": source_strategy_id or strategy_name,
+                    "strategy_name": strategy_name,
+                    "market": market,
+                    "interval": interval,
+                    "triggered_signals": triggered_signals,
+                },
+                signal_batch_path,
+                metadata={
+                    "strategy_id": source_strategy_id or strategy_name,
+                    "market": market,
+                    "interval": interval,
+                    "row_count": len(triggered_signals),
+                },
+            )
+        except Exception as exc:
+            logger.warning("Signal batch artifact publish failed: %s", exc)
 
-    if gate12_alert_candidates:
-        for alert in gate12_alert_candidates:
-            symbol = str(alert.get("symbol") or "").upper()
-            signature = alert.get("signature")
-            group_message = str(alert.get("group_message") or "").strip()
-            personal_message = str(alert.get("personal_message") or "").strip()
-            if group_message:
-                sent_group = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
-                logger.info("Gate 1/2 setup group alert %s for %s", "sent" if sent_group else "not sent", symbol)
-            if personal_message:
-                personal_chat_id = (
-                    os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
-                    or os.getenv("TELEGRAM_STATUS_CHAT_ID")
-                    or os.getenv("TELEGRAM_CHAT_ID")
-                )
-                sent_personal = _send_telegram_to(personal_chat_id, personal_message)
-                logger.info("Gate 1/2 setup personal alert %s for %s", "sent" if sent_personal else "not sent", symbol)
-            if symbol and isinstance(signature, dict):
-                last_gate12_meta_map[symbol] = signature
+    final_gate3_state = _load_gate3_state()
+    final_gate12_meta_map = final_gate3_state.get("last_gate12_meta_map")
+    if not isinstance(final_gate12_meta_map, dict):
+        final_gate12_meta_map = last_gate12_meta_map
+    final_gate3_meta_map = final_gate3_state.get("last_gate3_meta_map")
+    if not isinstance(final_gate3_meta_map, dict):
+        final_gate3_meta_map = last_gate3_meta_map
 
-    if gate3_alerts and gate3_alert_candidates:
-        for alert in gate3_alert_candidates:
-            symbol = str(alert.get("symbol") or "").upper()
-            signature = alert.get("signature")
-            group_message = str(alert.get("group_message") or "").strip()
-            personal_message = str(alert.get("personal_message") or "").strip()
-            if group_message and not personal_alerts_only:
-                sent_group = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
-                logger.info("Gate 3 group alert %s for %s", "sent" if sent_group else "not sent", symbol)
-            if personal_message:
-                personal_chat_id = (
-                    os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
-                    or os.getenv("TELEGRAM_STATUS_CHAT_ID")
-                    or os.getenv("TELEGRAM_CHAT_ID")
-                )
-                sent_personal = _send_telegram_to(personal_chat_id, personal_message)
-                logger.info("Gate 3 personal alert %s for %s", "sent" if sent_personal else "not sent", symbol)
-            if symbol and isinstance(signature, dict):
-                last_gate3_meta_map[symbol] = signature
-        _save_gate3_state(
-            {
-                "last_gate12_meta_map": last_gate12_meta_map,
-                "last_gate3_meta_map": last_gate3_meta_map,
-                "last_gate3_at": datetime.now(IST).isoformat(),
-                "last_gate12_at": datetime.now(IST).isoformat(),
-                "gate12_alert_count": len(gate12_alert_candidates),
-                "gate3_alert_count": len(gate3_alert_candidates),
-            }
-        )
-    elif gate12_alert_candidates:
-        _save_gate3_state(
-            {
-                "last_gate12_meta_map": last_gate12_meta_map,
-                "last_gate3_meta_map": last_gate3_meta_map,
-                "last_gate12_at": datetime.now(IST).isoformat(),
-                "gate12_alert_count": len(gate12_alert_candidates),
-                "gate3_alert_count": len(gate3_alert_candidates),
-            }
-        )
+    _save_gate3_state(
+        {
+            "last_gate12_meta_map": final_gate12_meta_map,
+            "last_gate3_meta_map": final_gate3_meta_map,
+            "last_gate3_at": datetime.now(IST).isoformat() if gate3_alert_candidates else final_gate3_state.get("last_gate3_at"),
+            "last_gate12_at": datetime.now(IST).isoformat() if gate12_alert_candidates else final_gate3_state.get("last_gate12_at"),
+            "gate12_alert_count": len(gate12_alert_candidates),
+            "gate3_alert_count": len(gate3_alert_candidates),
+        }
+    )
 
     triggered_signals.sort(key=lambda row: (-float(row.get("SCORE") or 0), str(row.get("TIMESTAMP") or "")))
     rows = [
@@ -3791,21 +4238,13 @@ def run_repeat_pattern_once(
                 alert_rows.append(alert)
 
     if alert_rows:
-        for alert in alert_rows:
-            symbol = str(alert.get("symbol") or "").upper()
-            group_message = str(alert.get("group_message") or "").strip()
-            personal_message = str(alert.get("personal_message") or "").strip()
-            if group_message:
-                sent_group = _send_telegram_to(os.getenv("TELEGRAM_TRADE_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID"), group_message)
-                logger.info("Repeat-pattern group alert %s for %s", "sent" if sent_group else "not sent", symbol)
-            if personal_message:
-                personal_chat_id = (
-                    os.getenv("TELEGRAM_PERSONAL_CHAT_ID")
-                    or os.getenv("TELEGRAM_STATUS_CHAT_ID")
-                    or os.getenv("TELEGRAM_CHAT_ID")
-                )
-                sent_personal = _send_telegram_to(personal_chat_id, personal_message)
-                logger.info("Repeat-pattern personal alert %s for %s", "sent" if sent_personal else "not sent", symbol)
+        _deliver_telegram_alerts(
+            alert_rows,
+            gate_label="repeat_pattern",
+            strategy_key="repeat_pattern",
+            market=market,
+            interval=interval,
+        )
         _save_repeat_pattern_state(
             {
                 "last_repeat_pattern_meta_map": last_meta_map,
@@ -4639,7 +5078,7 @@ def run_forever(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Dhan realtime ingestion and option-chain snapshot loop.")
-    parser.add_argument("--interval", default="15m", help="Candle interval, e.g. 15m, 5m, 1h.")
+    parser.add_argument("--interval", default="15m", help="Candle interval, e.g. 15m, 75m, 3h, 4h, daily, weekly, monthly.")
     parser.add_argument("--lookback-days", type=int, default=DEFAULT_LIVE_LOOKBACK_DAYS, help="Days of OHLCV history to load for indicators.")
     parser.add_argument("--option-lookback-days", type=int, default=DEFAULT_LIVE_OPTION_LOOKBACK_DAYS, help="Days of option contract history to load for OI.")
     parser.add_argument("--market", default="india", help="Market label used by the Dhan contract resolver.")
@@ -4674,7 +5113,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gate3-alerts", action="store_true", help="Send group and personal Telegram alerts when Gate 3 confirms a fresh OI shift.")
     parser.add_argument("--personal-alerts-only", action="store_true", help="Only send Gate 3 alerts to the personal Telegram chat.")
     parser.add_argument("--nifty-futures", action="store_true", help="Scan the cached 207-stock Nifty F&O universe.")
-    parser.add_argument("--store-timeframe", default=DEFAULT_STORE_TIMEFRAME, choices=("minute", "1m", "5m", "15m", "15_min", "dashboard", "daily"), help="Central snapshot store timeframe to publish for this run.")
+    parser.add_argument(
+        "--store-timeframe",
+        default=DEFAULT_STORE_TIMEFRAME,
+        choices=("minute", "1m", "5m", "15m", "15_min", "75m", "75_min", "3h", "4h", "weekly", "monthly", "dashboard", "daily"),
+        help="Central snapshot store timeframe to publish for this run.",
+    )
     parser.add_argument(
         "--symbols",
         default="",
@@ -4736,7 +5180,13 @@ def main(argv: list[str] | None = None) -> int:
             if strategy_symbols:
                 watchlist = {symbol: None for symbol in strategy_symbols}
             else:
-                logger.warning("No symbols found in source strategy %s; using built-in watchlist fallback.", source_strategy_id)
+                logger.warning("No symbols found in source strategy %s; using broad India universe fallback.", source_strategy_id)
+                universe_symbols = _load_broad_india_universe_symbols()
+                if universe_symbols:
+                    watchlist = {symbol: None for symbol in universe_symbols}
+                else:
+                    logger.warning("Broad universe missing; using NIFTY50 fallback.")
+                    watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
         else:
             universe_symbols = _load_broad_india_universe_symbols()
             if universe_symbols:
@@ -4786,7 +5236,13 @@ def main(argv: list[str] | None = None) -> int:
         if strategy_symbols:
             watchlist = {symbol: None for symbol in strategy_symbols}
         else:
-            logger.warning("No symbols found in source strategy %s; using built-in watchlist fallback.", source_strategy_id)
+            logger.warning("No symbols found in source strategy %s; using broad India universe fallback.", source_strategy_id)
+            universe_symbols = _load_broad_india_universe_symbols()
+            if universe_symbols:
+                watchlist = {symbol: None for symbol in universe_symbols}
+            else:
+                logger.warning("Broad universe missing; using NIFTY50 fallback.")
+                watchlist = {_normalize_symbol_token(symbol): None for symbol in NIFTY50_TICKERS}
     else:
         universe_symbols = _load_broad_india_universe_symbols()
         if universe_symbols:

@@ -286,6 +286,33 @@ a:hover {
   padding: 36px 32px 72px;
 }
 
+body[data-page="india"] .container {
+  padding-top: 0;
+}
+
+body[data-page="india"] .topbar {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+body[data-page="india"] .consent-banner {
+  padding: 10px 12px;
+}
+
+body[data-page="india"] .consent-banner p {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+body[data-page="india"] .consent-actions {
+  margin-top: 8px;
+}
+
+body[data-page="india"] .consent-actions button {
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -301,6 +328,67 @@ a:hover {
 
 .full-width {
   width: 100%;
+}
+
+.india-benchmark-strip {
+  margin-bottom: 18px;
+}
+
+.india-benchmark-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.india-benchmark-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.india-benchmark-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.india-benchmark-head strong {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.india-benchmark-source {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
+.india-benchmark-price {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.india-benchmark-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .card {
@@ -692,8 +780,12 @@ small {
 
 .day-range-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+body[data-page="india"] .day-range-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .day-range-section-head {
@@ -2295,6 +2387,43 @@ main > *:nth-child(6) { animation-delay: 0.22s; }
     grid-template-columns: 1fr;
   }
 
+  .india-benchmark-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .india-benchmark-card {
+    padding: 12px 12px 10px;
+  }
+
+  .india-benchmark-head {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .india-benchmark-head strong {
+    font-size: 14px;
+  }
+
+  .india-benchmark-price {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .india-benchmark-source {
+    padding: 4px 6px;
+    font-size: 9px;
+  }
+
+  .india-benchmark-meta {
+    font-size: 10px;
+    gap: 4px 8px;
+  }
+
+  .india-benchmark-grid {
+    grid-template-columns: 1fr;
+  }
+
   .exec-summary-topline {
     flex-direction: column;
   }
@@ -2328,6 +2457,10 @@ main > *:nth-child(6) { animation-delay: 0.22s; }
   }
 
   .day-range-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="india"] .day-range-grid {
     grid-template-columns: 1fr;
   }
 

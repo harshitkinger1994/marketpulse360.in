@@ -73,6 +73,10 @@ from backend.reliability.freshness_engine import attach_freshness, DEFAULT_THRES
 from backend.ingestion.kotak_neo_data import fetch_kotak_deltas
 from backend.constituents import get_global_index_constituents
 from backend.agentic_pipeline import format_agentic_group_message, format_single_agent_group_message, run_single_agent_quant_terminal
+try:
+    from backend.market_snapshot_store import MarketSnapshotStore
+except Exception:  # pragma: no cover - optional for local smoke tests
+    MarketSnapshotStore = None
 
 DATA_DIR = ROOT / "frontend"
 DATA_PATH = DATA_DIR / "data.json"
@@ -97,6 +101,8 @@ STRATEGY_NOTIFY_ON_FIRST_RUN = os.getenv("STRATEGY_NOTIFY_ON_FIRST_RUN", "1") ==
 STRATEGY_NOTIFY_MAX_SIGNAL_AGE_DAYS = int(os.getenv("STRATEGY_NOTIFY_MAX_SIGNAL_AGE_DAYS", "0"))
 FAST_DHAN_ALERTS = os.getenv("FAST_DHAN_ALERTS", "1") == "1"
 FAST_DHAN_ONLY = os.getenv("FAST_DHAN_ONLY", "0") == "1"
+DAILY_RUN_PUBLISH_ONLY = os.getenv("DAILY_RUN_PUBLISH_ONLY", "0") == "1"
+GLOBAL_PAGE_ENABLED = os.getenv("GLOBAL_PAGE_ENABLED", "0") == "1"
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")  # Back-compat default
 TELEGRAM_TRADE_CHAT_ID = os.environ.get("TELEGRAM_TRADE_CHAT_ID") or TELEGRAM_CHAT_ID
@@ -1782,6 +1788,94 @@ def _save_strategy_notify_state(state):
         pass
 
 
+def _strategy_alert_store():
+    if MarketSnapshotStore is None:
+        return None
+    try:
+        return MarketSnapshotStore()
+    except Exception:
+        return None
+
+
+def _strategy_alert_signature(strategy_id: str, item: dict, *, market: str) -> str:
+    parts = [
+        str(strategy_id or "").strip().upper(),
+        str(market or "").strip().upper(),
+        str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper(),
+        str(item.get("side") or item.get("signal") or "").strip().upper(),
+        _strategy_signal_day(item),
+        _strategy_pattern_hint(item),
+        str(item.get("notify_key") or "").strip(),
+    ]
+    return "|".join(part for part in parts if part)
+
+
+def _strategy_alert_event_path(strategy_id: str, item: dict, *, market: str):
+    store = _strategy_alert_store()
+    if store is None:
+        return None
+    ticker = str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper()
+    if not ticker:
+        return None
+    signature = _strategy_alert_signature(strategy_id, item, market=market)
+    try:
+        return store.alert_event_path(strategy_id, ticker, market, "daily", signature)
+    except Exception:
+        return None
+
+
+def _strategy_alert_already_recorded(strategy_id: str, item: dict, *, market: str) -> bool:
+    event_path = _strategy_alert_event_path(strategy_id, item, market=market)
+    return bool(event_path and event_path.exists())
+
+
+def _record_strategy_alert_artifact(
+    *,
+    strategy_id: str,
+    market: str,
+    item: dict,
+    message: str,
+    status: str,
+) -> None:
+    store = _strategy_alert_store()
+    event_path = _strategy_alert_event_path(strategy_id, item, market=market)
+    if store is None or event_path is None:
+        return
+    ticker = str(item.get("ticker") or item.get("symbol") or item.get("name") or "").strip().upper()
+    if not ticker:
+        return
+    signature = _strategy_alert_signature(strategy_id, item, market=market)
+    try:
+        store.write_artifact_payload(
+            {
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "strategy_id": strategy_id,
+                "market": market,
+                "interval": "daily",
+                "ticker": ticker,
+                "symbol": ticker,
+                "status": status,
+                "signature": signature,
+                "notify_key": str(item.get("notify_key") or "").strip(),
+                "signal_time": str(item.get("signal_time") or item.get("entry_time") or item.get("time") or "").strip(),
+                "side": str(item.get("side") or item.get("signal") or "").strip().upper(),
+                "pattern": _strategy_pattern_hint(item),
+                "message": message,
+            },
+            event_path,
+            metadata={
+                "strategy_id": strategy_id,
+                "market": market,
+                "interval": "daily",
+                "ticker": ticker,
+                "signature": signature,
+                "status": status,
+            },
+        )
+    except Exception:
+        pass
+
+
 def _safe_read_json(path: Path, default):
     try:
         if not path.exists():
@@ -2208,6 +2302,9 @@ def _notify_new_strategy_trades(strategies):
         send_sigs, stale_dropped = _filter_recent_alert_sigs(sig_to_item, send_sigs, strategy)
         if not send_sigs:
             continue
+        send_sigs = [sig for sig in send_sigs if not _strategy_alert_already_recorded(strategy_id, sig_to_item.get(sig, {}), market=strategy.get("market") or "india")]
+        if not send_sigs:
+            continue
         send_sigs = _select_alert_sigs(sig_to_item, send_sigs)
         if not send_sigs:
             continue
@@ -2219,6 +2316,7 @@ def _notify_new_strategy_trades(strategies):
 
         for page_start in range(0, len(send_sigs), page_size):
             chunk_sigs = send_sigs[page_start:page_start + page_size]
+            chunk_items = [sig_to_item.get(sig, {}) for sig in chunk_sigs]
             page_no = (page_start // page_size) + 1
             page_total = (len(send_sigs) + page_size - 1) // page_size
             lines = [
@@ -2269,11 +2367,32 @@ def _notify_new_strategy_trades(strategies):
                             "compact_line": _compact_trade_line(item, market_tag=market, currency_symbol=_market_currency_symbol(market)),
                         }
                     )
-            alerts.append("\n".join(lines))
+            alerts.append(
+                {
+                    "strategy_id": strategy_id,
+                    "market": market,
+                    "message": "\n".join(lines),
+                    "items": chunk_items,
+                }
+            )
 
     _save_strategy_notify_state(next_state)
-    for message in alerts:
-        _send_telegram_chunks(message)
+    for alert in alerts:
+        if isinstance(alert, dict):
+            message = str(alert.get("message") or "")
+            items = alert.get("items") or []
+            if _send_telegram_chunks(message):
+                for item in items:
+                    if isinstance(item, dict):
+                        _record_strategy_alert_artifact(
+                            strategy_id=str(alert.get("strategy_id") or ""),
+                            market=str(alert.get("market") or "india"),
+                            item=item,
+                            message=message,
+                            status="sent",
+                        )
+        else:
+            _send_telegram_chunks(str(alert))
 
     # Group gets 1 message per stock: tag | ticker | side | time | CMP + combined agent output
     compact_lines = [ln for ln in compact_lines if ln]
@@ -2372,7 +2491,6 @@ def run_gold_breakout_retest_scan():
     enabled_ids = _cagr_gate_enabled_ids(
         [
             "india_breakout_retest_on",
-            "global_breakout_retest_on",
             "crypto_breakout_retest_on",
             "commodities_breakout_retest_on",
         ],
@@ -2416,7 +2534,6 @@ def run_ema9_growth30_scan():
         _cagr_gate_enabled_ids(
             [
                 "india_ema9_growth30_on",
-                "global_ema9_growth30_on",
                 "commodities_ema9_growth30_on",
                 "crypto_ema9_growth30_on",
             ],
@@ -2455,12 +2572,6 @@ def run_ema9_growth30_scan():
             "extra_args": ["--nifty-futures", "--include-index-futures"],
         },
         {
-            "market": "global",
-            "strategy_id": "global_ema9_growth30_on",
-            "strategy_title": "Global EMA9 Growth 30",
-            "extra_args": ["--include-index-futures"],
-        },
-        {
             "market": "commodities",
             "strategy_id": "commodities_ema9_growth30_on",
             "strategy_title": "Commodities EMA9 Growth 30",
@@ -2496,7 +2607,6 @@ def run_quant_trend_breakout_scan():
         _cagr_gate_enabled_ids(
             [
                 "india_quant_trend_breakout_on",
-                "global_quant_trend_breakout_on",
                 "commodities_quant_trend_breakout_on",
                 "crypto_quant_trend_breakout_on",
             ],
@@ -2549,12 +2659,6 @@ def run_quant_trend_breakout_scan():
             "strategy_id": "india_quant_trend_breakout_on",
             "strategy_title": "India F&O + Index Radar (1-Week Breakout)",
             "extra_args": ["--nifty-futures", "--include-index-futures"],
-        },
-        {
-            "market": "global",
-            "strategy_id": "global_quant_trend_breakout_on",
-            "strategy_title": "Global 1-Week Breakout Strategy",
-            "extra_args": ["--include-index-futures"],
         },
         {
             "market": "commodities",
@@ -3099,7 +3203,7 @@ def process_full(name, symbol, asset_type):
             "timestamp": live.get("timestamp"),
             "day_range": (live or {}).get("day_range"),
         }
-    if name in STRICT_LIVE_ONLY_NAMES and live is None:
+    if name in STRICT_LIVE_ONLY_NAMES and live is None and name not in KEY_INDIA_INDEX_NAMES:
         return
     eod_timestamp = _estimate_series_timestamp(name, asset_type, df)
     last_updated = (live or {}).get("timestamp") or eod_timestamp or NOW_UTC
@@ -3186,8 +3290,11 @@ banknifty_symbols = get_niftybank_symbols()
 sensex_symbols = get_sensex_symbols()
 
 # ---------------- GLOBAL TOP STOCKS ----------------
-for k, v in GLOBAL_STOCKS.items():
-    process_full(k, v, "GLOBAL_STOCK")
+if GLOBAL_PAGE_ENABLED:
+    for k, v in GLOBAL_STOCKS.items():
+        process_full(k, v, "GLOBAL_STOCK")
+else:
+    print("[GLOBAL_PAGE_ENABLED=0] skipping global stock refresh.")
 
 # ---------------- CRYPTO ----------------
 for k, v in CRYPTO.items():
@@ -3208,17 +3315,18 @@ for k in nifty50_symbols.keys():
         nifty50_trends["range"] += 1
 
 global_trends = {"bullish": 0, "bearish": 0, "range": 0, "total": 0}
-for k in GLOBAL_STOCKS.keys():
-    trend = output.get(k, {}).get("trend")
-    if not trend:
-        continue
-    global_trends["total"] += 1
-    if trend == "PRIMARY_UPTREND":
-        global_trends["bullish"] += 1
-    elif trend == "PRIMARY_DOWNTREND":
-        global_trends["bearish"] += 1
-    else:
-        global_trends["range"] += 1
+if GLOBAL_PAGE_ENABLED:
+    for k in GLOBAL_STOCKS.keys():
+        trend = output.get(k, {}).get("trend")
+        if not trend:
+            continue
+        global_trends["total"] += 1
+        if trend == "PRIMARY_UPTREND":
+            global_trends["bullish"] += 1
+        elif trend == "PRIMARY_DOWNTREND":
+            global_trends["bearish"] += 1
+        else:
+            global_trends["range"] += 1
 
 commodity_trends = {"bullish": 0, "bearish": 0, "range": 0, "total": 0}
 for k in COMMODITIES:
@@ -3237,22 +3345,28 @@ india_index_gainers = _gainers_losers_for_symbols(nifty50_symbols)
 banknifty_gainers = _gainers_losers_for_symbols(banknifty_symbols)
 sensex_gainers = _gainers_losers_for_symbols(sensex_symbols)
 india_overall_gainers = _gainers_losers_from_output("INDIA_STOCK")
-global_constituents = get_global_index_constituents()
-global_gl_cache = _load_metric_cache("global_index_gl", GLOBAL_GL_CACHE_TTL_MIN)
-if global_gl_cache and isinstance(global_gl_cache.get("detail"), dict):
-    global_index_detail = global_gl_cache.get("detail", {})
-    global_index_gainers = global_gl_cache.get("aggregate", {})
+if GLOBAL_PAGE_ENABLED:
+    global_constituents = get_global_index_constituents()
+    global_gl_cache = _load_metric_cache("global_index_gl", GLOBAL_GL_CACHE_TTL_MIN)
+    if global_gl_cache and isinstance(global_gl_cache.get("detail"), dict):
+        global_index_detail = global_gl_cache.get("detail", {})
+        global_index_gainers = global_gl_cache.get("aggregate", {})
+    else:
+        global_index_detail = {
+            name: _gainers_losers_for_tickers(tickers)
+            for name, tickers in global_constituents.items()
+        }
+        global_index_gainers = _aggregate_gainers_losers(global_index_detail)
+        _save_metric_cache(
+            "global_index_gl",
+            {"detail": global_index_detail, "aggregate": global_index_gainers}
+        )
+    global_overall_gainers = _gainers_losers_from_output("GLOBAL_STOCK")
 else:
-    global_index_detail = {
-        name: _gainers_losers_for_tickers(tickers)
-        for name, tickers in global_constituents.items()
-    }
-    global_index_gainers = _aggregate_gainers_losers(global_index_detail)
-    _save_metric_cache(
-        "global_index_gl",
-        {"detail": global_index_detail, "aggregate": global_index_gainers}
-    )
-global_overall_gainers = _gainers_losers_from_output("GLOBAL_STOCK")
+    global_constituents = {}
+    global_index_detail = {}
+    global_index_gainers = {}
+    global_overall_gainers = {"gainers": 0, "losers": 0, "unchanged": 0, "total": 0, "total_assets": 0}
 crypto_overall_gainers = _gainers_losers_from_output("CRYPTO")
 
 # ---------------- NIFTY 500 (BREADTH ONLY) ----------------
@@ -3454,24 +3568,35 @@ executive_summary = build_executive_summary(
 
 # ---------------- FINAL PAYLOAD ----------------
 refresh_dhan_live_strategy()
-notify_fast_dhan_strategies()
+if not DAILY_RUN_PUBLISH_ONLY:
+    notify_fast_dhan_strategies()
+else:
+    print("[PUBLISH_ONLY] skipping fast Dhan Telegram notifications.")
 if FAST_DHAN_ONLY:
     print("[FAST_DHAN_ONLY] exiting after Dhan pilot refresh")
     raise SystemExit(0)
-run_intraday_momentum_scan()
-run_ema9_growth30_scan()
+if not DAILY_RUN_PUBLISH_ONLY:
+    run_intraday_momentum_scan()
+    run_ema9_growth30_scan()
+else:
+    print("[PUBLISH_ONLY] skipping intraday and EMA9 scan subprocess fan-out.")
 _publish_strategy_candidate_pool("india_ema9_growth30_on", lookback_days=STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS)
 strategies = load_strategies()
-_notify_new_strategy_trades(strategies)
-if _should_run_weekly_close_scans():
+if not DAILY_RUN_PUBLISH_ONLY:
+    _notify_new_strategy_trades(strategies)
+else:
+    print("[PUBLISH_ONLY] skipping strategy trade notifications.")
+if not DAILY_RUN_PUBLISH_ONLY and _should_run_weekly_close_scans():
     print("[WEEKLY_CLOSE] running quant_trend_breakout, weekly_range_potential, and gold_breakout_retest scans")
     run_weekly_range_potential_scan()
     run_gold_breakout_retest_scan()
     run_quant_trend_breakout_scan()
     _mark_weekly_close_scans_complete()
+elif DAILY_RUN_PUBLISH_ONLY:
+    print("[PUBLISH_ONLY] skipping weekly close scan fan-out.")
 else:
     print("[WEEKLY_CLOSE] scans deferred until weekly close window")
-if _strategy_passes_cagr_gate("global_gap_setups"):
+if GLOBAL_PAGE_ENABLED and _strategy_passes_cagr_gate("global_gap_setups"):
     strategies.append(
         _build_gap_strategy(
             "global",
@@ -3481,7 +3606,7 @@ if _strategy_passes_cagr_gate("global_gap_setups"):
             direction_filter="up"
         )
     )
-else:
+elif GLOBAL_PAGE_ENABLED:
     print("[CAGR_GATE] skip=synthetic sid=global_gap_setups")
 if _strategy_passes_cagr_gate("commodities_trend_setups"):
     strategies.append(

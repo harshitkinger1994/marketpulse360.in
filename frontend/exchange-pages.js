@@ -561,6 +561,30 @@ const parseGeneratedAt = (value) => {
   return Date.UTC(year, month, day, hour - 5, minute - 30, second);
 };
 
+const resolveSnapshotTimestamp = (payload, response) => {
+  const headers = response?.headers;
+  const candidates = [
+    payload?.published_at,
+    payload?.publishedAt,
+    headers?.get?.("x-market-published-at"),
+    headers?.get?.("last-modified"),
+    payload?.store_written_at,
+    payload?.store_generated_at,
+    payload?.generated_at,
+    payload?.generatedAt,
+  ];
+  for (const candidate of candidates) {
+    const parsed = parseGeneratedAt(candidate);
+    if (parsed) {
+      return { ms: parsed, raw: candidate };
+    }
+  }
+  return {
+    ms: null,
+    raw: payload?.published_at || payload?.generated_at || payload?.publishedAt || payload?.generatedAt || null,
+  };
+};
+
 const formatDateTimeInZone = (ms, timeZone, label) => {
   if (!ms) return "";
   const formatter = new Intl.DateTimeFormat("en-GB", {
@@ -1663,11 +1687,11 @@ const renderWorldLanding = (payload) => {
   const directory = $("exchangeDirectory");
   const roadmap = $("exchangeCoverage");
   const lastUpdated = $("lastUpdated");
-  const parsed = parseGeneratedAt(payload?.generated_at);
   if (lastUpdated) {
-    lastUpdated.textContent = parsed
-      ? `Last Updated: ${formatDateTimeInZone(parsed, IST_TIMEZONE, "IST")}`
-      : `Last Updated: ${fmt(payload?.generated_at)}`;
+    const resolvedTimestamp = resolveSnapshotTimestamp(payload, window.__exchangeResponse);
+    lastUpdated.textContent = resolvedTimestamp.ms
+      ? `Last Updated: ${formatDateTimeInZone(resolvedTimestamp.ms, IST_TIMEZONE, "IST")}`
+      : `Last Updated: ${fmt(resolvedTimestamp.raw || payload?.generated_at)}`;
   }
 
   const cards = EXCHANGE_ORDER.map((id) => {
@@ -1843,12 +1867,12 @@ const renderExchangePage = (payload) => {
   const breadth = computeBreadth(stockEntries.length ? stockEntries : entries);
   const statusMeta = EXCHANGE_STATUS_META[status];
   const strategyCounts = renderStrategyCards(payload, cfg, universe);
-  const parsed = parseGeneratedAt(payload?.generated_at);
   const lastUpdated = $("lastUpdated");
   if (lastUpdated) {
-    lastUpdated.textContent = parsed
-      ? `Last Updated: ${formatDateTimeInZone(parsed, cfg.timeZone, cfg.timeZoneLabel)}`
-      : `Last Updated: ${fmt(payload?.generated_at)}`;
+    const resolvedTimestamp = resolveSnapshotTimestamp(payload, window.__exchangeResponse);
+    lastUpdated.textContent = resolvedTimestamp.ms
+      ? `Last Updated: ${formatDateTimeInZone(resolvedTimestamp.ms, cfg.timeZone, cfg.timeZoneLabel)}`
+      : `Last Updated: ${fmt(resolvedTimestamp.raw || payload?.generated_at)}`;
   }
 
   const benchmarkTone = benchmark?.trend === "PRIMARY_UPTREND"
@@ -2135,6 +2159,7 @@ const boot = async () => {
       throw new Error(`data_fetch_status_${response.status}`);
     }
     const payload = await response.json();
+    window.__exchangeResponse = response;
     window.__exchangePayload = payload;
     window.__exchangeData = payload?.data || {};
     window.__exchangeUniverseManifest = manifest;

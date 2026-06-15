@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import sys
 from zoneinfo import ZoneInfo
-from index_futures_universe import get_index_overlay_assets, merge_unique_assets
+from index_futures_universe import get_index_overlay_assets, get_india_index_futures_assets, merge_unique_assets
 
 DEFAULT_TICKERS = ["APOLLOHOSP.NS"]
 NIFTY50_TICKERS = [
@@ -338,9 +338,9 @@ def _build_strategy_payload(
     ]
     if index_futures_enabled:
         notes.append(
-            "Curated live-supported index companions are appended to this India universe with the same strategy filters."
+            "Top 10 index futures are appended to this India universe with the same strategy filters."
             if str(args.strategy_market or "").lower() == "india"
-            else "Curated live-supported index futures are appended to this market universe with the same strategy filters."
+            else "Top 10 index futures are appended to this market universe with the same strategy filters."
         )
     if universe_breakdown:
         parts = [f"{label.replace('_', ' ')}: {count}" for label, count in universe_breakdown.items() if count]
@@ -361,6 +361,7 @@ def _build_strategy_payload(
             "window_days": max(1, args.last_n_days),
             "signals_total": len(items_sorted),
             "universe_breakdown": universe_breakdown or {},
+            "index_futures": int((universe_breakdown or {}).get("index_futures", 0) or 0),
         },
         "rules": rules,
         "input_schema": {
@@ -494,11 +495,14 @@ def _fetch_dhan_india_chart(ticker):
         if str(root) not in sys.path:
             sys.path.insert(0, str(root))
         from backend.data_fetcher import _fetch_dhan_india_daily_frame
+        from backend.data_fetcher import _load_stored_dhan_india_daily_frame
         from backend.dhan_strategy_schema import standardize_dhan_history_frame_from_daily
     except Exception:
         return []
     try:
-        daily, _snapshot = _fetch_dhan_india_daily_frame(fetch_symbol)
+        daily, _snapshot = _load_stored_dhan_india_daily_frame(fetch_symbol)
+        if daily is None or getattr(daily, "empty", True):
+            daily, _snapshot = _fetch_dhan_india_daily_frame(fetch_symbol)
     except Exception:
         return []
     rows, _meta = standardize_dhan_history_frame_from_daily(
@@ -765,10 +769,13 @@ def run():
 
     index_futures_assets = []
     if args.include_index_futures and not args.tickers:
-        index_futures_assets = get_index_overlay_assets(effective_market)
+        if effective_market == "india":
+            index_futures_assets = get_india_index_futures_assets()
+        else:
+            index_futures_assets = get_index_overlay_assets(effective_market)
         scan_assets = merge_unique_assets(scan_assets, index_futures_assets)
         if effective_market == "india":
-            universe_breakdown["index_companions"] = len(index_futures_assets)
+            universe_breakdown["index_futures"] = len(index_futures_assets)
         elif index_futures_assets:
             universe_breakdown["index_futures"] = len(index_futures_assets)
     index_future_symbols = {symbol.upper() for _, symbol in index_futures_assets}
@@ -778,7 +785,12 @@ def run():
     except Exception:
         as_of = None
 
-    benchmark_rows = _fetch_yahoo_chart(benchmark_symbol) if benchmark_gate_enabled else []
+    benchmark_rows = []
+    if benchmark_gate_enabled:
+        if effective_market == "india":
+            benchmark_rows = _fetch_dhan_india_chart(benchmark_symbol)
+        else:
+            benchmark_rows = _fetch_yahoo_chart(benchmark_symbol)
     if benchmark_rows:
         benchmark_rows = sorted(benchmark_rows, key=lambda r: r["date"])
         benchmark_rows = [
