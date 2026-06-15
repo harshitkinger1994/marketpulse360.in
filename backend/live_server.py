@@ -82,14 +82,13 @@ TURNSTILE_REQUIRED = os.environ.get("TURNSTILE_REQUIRED", "0").strip() == "1"
 _CACHE = {}
 _LAST_CLOSE_CACHE = {}
 _LAST_CLOSE_TTL_SEC = int(os.environ.get("LIVE_LAST_CLOSE_TTL_SEC", "300"))
-_EXCHANGE_UNIVERSE_MANIFEST = build_exchange_universe_manifest()
+_EXCHANGE_UNIVERSE_MANIFEST = None
 _NIFTY50_SYMBOLS = get_nifty50_symbols()
 _LIVE_SYMBOLS = {
     **SYMBOLS,
     **GLOBAL_STOCKS,
     **_NIFTY50_SYMBOLS,
     **CRYPTO,
-    **build_exchange_symbol_map(_EXCHANGE_UNIVERSE_MANIFEST),
 }
 
 _LIVE_INDIA_INDEX_KEYS = {"NIFTY", "BANKNIFTY", "SENSEX"}
@@ -213,6 +212,13 @@ def _build_live_summary(prices):
 
 def _utc_now_iso():
     return datetime.now(timezone.utc).isoformat()
+
+
+def _get_exchange_universe_manifest():
+    global _EXCHANGE_UNIVERSE_MANIFEST
+    if _EXCHANGE_UNIVERSE_MANIFEST is None:
+        _EXCHANGE_UNIVERSE_MANIFEST = build_exchange_universe_manifest()
+    return _EXCHANGE_UNIVERSE_MANIFEST
 
 
 def _resolve_symbol(key):
@@ -398,7 +404,7 @@ class LiveHandler(BaseHTTPRequestHandler):
             self._send(200, {"status": "ok", "timestamp": _utc_now_iso()})
             return
         if parsed.path == "/universe":
-            self._send(200, _EXCHANGE_UNIVERSE_MANIFEST)
+            self._send(200, _get_exchange_universe_manifest())
             return
         if parsed.path == "/trading":
             params = parse_qs(parsed.query)
