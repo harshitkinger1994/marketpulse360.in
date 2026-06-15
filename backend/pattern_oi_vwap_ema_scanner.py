@@ -9,6 +9,7 @@ import math
 import os
 import sys
 import time
+from functools import lru_cache
 from dataclasses import dataclass
 from datetime import date, datetime, time as dt_time, timedelta, timezone
 from pathlib import Path
@@ -37,7 +38,7 @@ DEFAULT_BUFFER_SECONDS = 1.5
 DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "1"))
 DEFAULT_FAST_STRIKE_WINDOW = int(os.environ.get("DHAN_FAST_STRIKE_WINDOW", "3"))
 DEFAULT_INTRADAY_RETRIES = int(os.environ.get("DHAN_INTRADAY_RETRIES", "3"))
-DEFAULT_LIVE_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_LOOKBACK_DAYS", "20"))
+DEFAULT_LIVE_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_LOOKBACK_DAYS", "10"))
 DEFAULT_LIVE_OPTION_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_OPTION_LOOKBACK_DAYS", "1"))
 DEFAULT_EQUITY_CACHE_REFRESH_DAYS = int(os.environ.get("DHAN_EQUITY_HISTORY_REFRESH_DAYS", "2"))
 DEFAULT_OPTION_CHAIN_WORKERS = int(os.environ.get("DHAN_OPTION_CHAIN_WORKERS", "1"))
@@ -568,6 +569,7 @@ def _load_fno_tickers(cache_path: Path = FNO_CACHE_PATH) -> list[str]:
     return tickers
 
 
+@lru_cache(maxsize=1)
 def _load_manual_security_map() -> dict[str, int]:
     if not MANUAL_DHAN_SECURITY_MAP_FILE.exists():
         return {}
@@ -587,6 +589,7 @@ def _load_manual_security_map() -> dict[str, int]:
     return out
 
 
+@lru_cache(maxsize=1)
 def _load_cached_dhan_scrip_master() -> pd.DataFrame | None:
     if not LOCAL_DHAN_MASTER_CACHE.exists():
         return None
@@ -680,6 +683,7 @@ def _merge_equity_history_frames(
     return combined if not combined.empty else None
 
 
+@lru_cache(maxsize=1)
 def _load_dhan_scrip_master_frame() -> pd.DataFrame:
     cached = _load_cached_dhan_scrip_master()
     if cached is not None and not cached.empty:
