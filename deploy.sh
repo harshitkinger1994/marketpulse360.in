@@ -53,6 +53,7 @@ rsync -az --delete ${RSYNC_PROGRESS_FLAG} \
   --exclude "backend/logs" \
   --exclude "backend/reports" \
   --exclude "backend/.env" \
+  --exclude "*.swp" \
   --exclude "frontend/data.json" \
   --exclude "strategies/.price_cache" \
   --exclude "strategies/history" \
@@ -60,7 +61,7 @@ rsync -az --delete ${RSYNC_PROGRESS_FLAG} \
   "${SCRIPT_DIR}/" "${SERVER}:${RELEASE_DIR}/"
 
 echo "==> Running remote setup"
-ssh -i "${SSH_KEY}" -o IdentitiesOnly=yes "${SERVER}" "DOMAIN='${DOMAIN}' WEB_ROOT='${WEB_ROOT}' REMOTE_DIR='${REMOTE_DIR}' RELEASE_DIR='${RELEASE_DIR}' BACKUP_ROOT='${BACKUP_ROOT}' LIVE_PORT='${LIVE_PORT}' CLEANUP_CALENDAR='${CLEANUP_CALENDAR}' MORNING_REEVAL_CALENDAR='${MORNING_REEVAL_CALENDAR}' DHAN_TOKEN_REFRESH_CALENDAR='${DHAN_TOKEN_REFRESH_CALENDAR}' bash -s" <<'EOF'
+ssh -i "${SSH_KEY}" -o IdentitiesOnly=yes "${SERVER}" "DOMAIN='${DOMAIN}' WEB_ROOT='${WEB_ROOT}' REMOTE_DIR='${REMOTE_DIR}' RELEASE_DIR='${RELEASE_DIR}' BACKUP_ROOT='${BACKUP_ROOT}' LIVE_PORT='${LIVE_PORT}' CLEANUP_CALENDAR='${CLEANUP_CALENDAR}' MORNING_REEVAL_CALENDAR='${MORNING_REEVAL_CALENDAR}' DHAN_TOKEN_REFRESH_CALENDAR='${DHAN_TOKEN_REFRESH_CALENDAR}' DATA_REFRESH_CALENDAR='${DATA_REFRESH_CALENDAR}' bash -s" <<'EOF'
 set -euo pipefail
 
 export DEBIAN_FRONTEND=noninteractive
