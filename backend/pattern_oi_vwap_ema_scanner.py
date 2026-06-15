@@ -3312,6 +3312,7 @@ def run_once(
     gate12_alert_candidates: list[dict[str, Any]] = []
     gate3_alert_candidates: list[dict[str, Any]] = []
     total = len(symbols)
+    batch_size = max(1, int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "15")))
     allowed_patterns = {pattern_filter} if pattern_filter else None
     gate3_state = _load_gate3_state()
     last_gate3_meta_map = gate3_state.get("last_gate3_meta_map")
@@ -3446,26 +3447,35 @@ def run_once(
         return payload, signal_row, gate12_alert, gate3_alert
 
     max_workers = min(DEFAULT_SCAN_WORKERS, max(1, total))
-    logger.info("Firing concurrent scan across %s symbols using %s workers.", total, max_workers)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_symbol = {executor.submit(_process_symbol, symbol): symbol for symbol in symbols}
-        completed = 0
-        for future in concurrent.futures.as_completed(future_to_symbol):
-            completed += 1
-            symbol = future_to_symbol[future]
-            logger.info("Scanning progress %s/%s: %s", completed, total, symbol)
-            payload, signal_row, gate12_alert, gate3_alert = future.result()
-            if payload is not None:
-                snapshots.append(payload)
-            if signal_row is not None:
-                triggered_signals.append(signal_row)
-            if gate12_alert is not None:
-                gate12_alert_candidates.append(gate12_alert)
-            if gate3_alert is not None:
-                gate3_alert_candidates.append(gate3_alert)
-            del payload, signal_row, gate12_alert, gate3_alert
-            if completed % 25 == 0:
-                gc.collect()
+    logger.info(
+        "Firing concurrent scan across %s symbols using %s workers (batch size %s).",
+        total,
+        max_workers,
+        batch_size,
+    )
+    completed = 0
+    for batch_start in range(0, total, batch_size):
+        batch_symbols = symbols[batch_start : batch_start + batch_size]
+        if not batch_symbols:
+            continue
+        logger.info("Scanning batch %s-%s of %s symbols.", batch_start + 1, batch_start + len(batch_symbols), total)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(max_workers, len(batch_symbols))) as executor:
+            future_to_symbol = {executor.submit(_process_symbol, symbol): symbol for symbol in batch_symbols}
+            for future in concurrent.futures.as_completed(future_to_symbol):
+                completed += 1
+                symbol = future_to_symbol[future]
+                logger.info("Scanning progress %s/%s: %s", completed, total, symbol)
+                payload, signal_row, gate12_alert, gate3_alert = future.result()
+                if payload is not None:
+                    snapshots.append(payload)
+                if signal_row is not None:
+                    triggered_signals.append(signal_row)
+                if gate12_alert is not None:
+                    gate12_alert_candidates.append(gate12_alert)
+                if gate3_alert is not None:
+                    gate3_alert_candidates.append(gate3_alert)
+                del payload, signal_row, gate12_alert, gate3_alert
+        gc.collect()
 
     for signal_row in triggered_signals:
         _append_signal_csv(SCANNED_SIGNALS_CSV, signal_row)
