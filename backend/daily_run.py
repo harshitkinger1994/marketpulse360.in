@@ -156,12 +156,16 @@ SILVER_INR_KG_OVERRIDE = os.getenv("SILVER_INR_KG_OVERRIDE")
 CACHE_DIR = ROOT / "backend" / "cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 RUN_LOCK_PATH = CACHE_DIR / "daily_run.lock"
+WEEKLY_CLOSE_SCAN_STATE_PATH = CACHE_DIR / "weekly_close_scan_state.json"
 SILVER_MIGRATION_SENTINEL = CACHE_DIR / "silver_inr_migrated.json"
 PREOPEN_MIN = int(os.getenv("PREOPEN_MIN", "20"))
 ET = pytz.timezone("America/New_York")
 GLOBAL_GL_CACHE_TTL_MIN = int(os.getenv("GLOBAL_GL_CACHE_TTL_MIN", "60"))
 BREADTH_CACHE_TTL_MIN = int(os.getenv("BREADTH_CACHE_TTL_MIN", "120"))
 DHAN_BREADTH_CACHE_TTL_MIN = int(os.getenv("DHAN_BREADTH_CACHE_TTL_MIN", str(BREADTH_CACHE_TTL_MIN)))
+WEEKLY_CLOSE_SCANS_ENABLED = os.getenv("WEEKLY_CLOSE_SCANS_ENABLED", "1") == "1"
+WEEKLY_CLOSE_SCAN_RUN_HOUR = int(os.getenv("WEEKLY_CLOSE_SCAN_RUN_HOUR", "2"))
+WEEKLY_CLOSE_SCAN_RUN_MINUTE = int(os.getenv("WEEKLY_CLOSE_SCAN_RUN_MINUTE", "0"))
 DHAN_BREADTH_SYMBOLS = [
     s.strip().upper()
     for s in os.getenv(
@@ -605,6 +609,60 @@ def _should_fetch_now(name, asset_type):
         return True
     next_open = _next_open(now, open_time.hour, open_time.minute)
     return (next_open - now) <= timedelta(minutes=PREOPEN_MIN)
+
+
+def _load_weekly_close_scan_state():
+    return _load_json_file(WEEKLY_CLOSE_SCAN_STATE_PATH, default={}, label="weekly close scan state")
+
+
+def _save_weekly_close_scan_state(payload):
+    try:
+        with open(WEEKLY_CLOSE_SCAN_STATE_PATH, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+    except Exception:
+        pass
+
+
+def _weekly_close_scan_week_key(now=None):
+    now = now or datetime.now(IST)
+    iso = now.isocalendar()
+    return f"{iso.year}-W{iso.week:02d}"
+
+
+def _weekly_close_scan_window_open(now=None):
+    now = now or datetime.now(IST)
+    if now.weekday() < 5:
+        return False
+    if now.weekday() > 5:
+        return True
+    open_time = now.replace(
+        hour=WEEKLY_CLOSE_SCAN_RUN_HOUR,
+        minute=WEEKLY_CLOSE_SCAN_RUN_MINUTE,
+        second=0,
+        microsecond=0,
+    )
+    return now >= open_time
+
+
+def _should_run_weekly_close_scans(now=None):
+    if not WEEKLY_CLOSE_SCANS_ENABLED:
+        return False
+    now = now or datetime.now(IST)
+    if not _weekly_close_scan_window_open(now):
+        return False
+    state = _load_weekly_close_scan_state()
+    current_week_key = _weekly_close_scan_week_key(now)
+    return str(state.get("last_completed_week_key") or "") != current_week_key
+
+
+def _mark_weekly_close_scans_complete(now=None):
+    now = now or datetime.now(IST)
+    _save_weekly_close_scan_state(
+        {
+            "last_completed_week_key": _weekly_close_scan_week_key(now),
+            "completed_at": now.astimezone(timezone.utc).isoformat(),
+        }
+    )
 
 
 def _previous_business_day(day):
@@ -2311,6 +2369,22 @@ def run_gold_breakout_retest_scan():
         return
 
 
+def run_weekly_range_potential_scan():
+    scan_script = ROOT / "strategies" / "weekly_range_potential_scanner.py"
+    if not scan_script.exists():
+        return
+    try:
+        subprocess.run(
+            [sys.executable, str(scan_script)],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            cwd=str(ROOT),
+        )
+    except Exception:
+        return
+
+
 def run_ema9_growth30_scan():
     scan_script = ROOT / "strategies" / "apollo_ema9_strategy.py"
     if not scan_script.exists():
@@ -3362,12 +3436,18 @@ if FAST_DHAN_ONLY:
     print("[FAST_DHAN_ONLY] exiting after Dhan pilot refresh")
     raise SystemExit(0)
 run_intraday_momentum_scan()
-run_gold_breakout_retest_scan()
 run_ema9_growth30_scan()
 _publish_strategy_candidate_pool("india_ema9_growth30_on", lookback_days=STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS)
-run_quant_trend_breakout_scan()
 strategies = load_strategies()
 _notify_new_strategy_trades(strategies)
+if _should_run_weekly_close_scans():
+    print("[WEEKLY_CLOSE] running quant_trend_breakout, weekly_range_potential, and gold_breakout_retest scans")
+    run_weekly_range_potential_scan()
+    run_gold_breakout_retest_scan()
+    run_quant_trend_breakout_scan()
+    _mark_weekly_close_scans_complete()
+else:
+    print("[WEEKLY_CLOSE] scans deferred until weekly close window")
 if _strategy_passes_cagr_gate("global_gap_setups"):
     strategies.append(
         _build_gap_strategy(

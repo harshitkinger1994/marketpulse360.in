@@ -35,6 +35,7 @@ def main():
     live = _spawn(LIVE_SCRIPT)
     updater = _spawn(UPDATER_SCRIPT)
     scanner = _spawn(SCANNER_SCRIPT) if SCANNER_ENABLED else None
+    scanner_restart_count = 0
 
     print("[START] Live server + auto updater" + (" + pattern scanner" if SCANNER_ENABLED else "") + " running. Press Ctrl+C to stop.")
 
@@ -47,8 +48,14 @@ def main():
                 print("[START] auto_updater.py exited. Stopping...")
                 break
             if scanner is not None and scanner.poll() is not None:
-                print("[START] pattern_oi_vwap_ema_scanner.py exited. Stopping...")
-                break
+                code = scanner.returncode
+                scanner_restart_count += 1
+                print(
+                    f"[START] pattern_oi_vwap_ema_scanner.py exited with code {code}; "
+                    f"restarting (count={scanner_restart_count})..."
+                )
+                time.sleep(1)
+                scanner = _spawn(SCANNER_SCRIPT)
             time.sleep(1)
     except KeyboardInterrupt:
         pass
