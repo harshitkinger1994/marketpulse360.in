@@ -3172,6 +3172,7 @@ class DhanRealtimeClient:
         store = history_store if history_store is not None else (MarketSnapshotStore() if use_history_cache else None)
         contract: dict[str, Any] | None = None
         frame: pd.DataFrame | None = None
+        max_history_bars = max(120, int(max(lookback_days, 1) * 26))
         if store is not None:
             retention_days = max(
                 1,
@@ -3189,10 +3190,12 @@ class DhanRealtimeClient:
                     end_ist=end_ist,
                 )
                 if frame is not None and not frame.empty:
+                    frame = frame.tail(max_history_bars)
                     store.write_candle_history(interval, symbol, market, interval, frame, retention_days=retention_days, now=end_ist)
             else:
                 try:
                     fresh_days = fetch_days
+                    cached = cached.tail(max_history_bars)
                     logger.info(
                         "Refreshing candle history store tail for %s (%s, %s) with last %s day(s).",
                         symbol,
@@ -3214,6 +3217,8 @@ class DhanRealtimeClient:
                         window_days=retention_days,
                         end_ist=end_ist,
                     )
+                    if frame is not None and not frame.empty:
+                        frame = frame.tail(max_history_bars)
                 except Exception as exc:
                     logger.warning("Falling back to stored candle history for %s: %s", symbol, exc)
                     frame = cached
@@ -3225,6 +3230,8 @@ class DhanRealtimeClient:
                 market=market,
                 end_ist=end_ist,
             )
+        if frame is not None and not frame.empty:
+            frame = frame.tail(max_history_bars)
         frame = _filter_frame_to_as_of_date(frame, as_of_date)
         if frame is None or frame.empty:
             label = as_of_date.isoformat() if as_of_date else "latest"
