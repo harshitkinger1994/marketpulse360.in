@@ -3172,7 +3172,7 @@ class DhanRealtimeClient:
         store = history_store if history_store is not None else (MarketSnapshotStore() if use_history_cache else None)
         contract: dict[str, Any] | None = None
         frame: pd.DataFrame | None = None
-        max_history_bars = max(60, int(max(lookback_days, 1) * 26))
+        max_history_bars = max(50, int(max(lookback_days, 1) * 26))
         if store is not None:
             retention_days = max(
                 1,
