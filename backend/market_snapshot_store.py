@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -13,6 +13,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STORE_ROOT = ROOT / "backend" / "data" / "center_store"
 DEFAULT_LATEST_FILENAME = "latest.parquet"
+CANDLE_HISTORY_DIRNAME = "candle_history"
 JSON_SUFFIXES = {
     "day_range",
     "option_chain",
@@ -252,6 +253,12 @@ class MarketSnapshotStore:
         slug = _normalize_timeframe(timeframe)
         return self.timeframe_dir(timeframe) / "history" / ts.strftime("%Y%m%d") / f"{slug}_{ts.strftime('%Y%m%d_%H%M%S')}.parquet"
 
+    def candle_history_path(self, timeframe: str, symbol: str, market: str, interval: str) -> Path:
+        safe_symbol = _normalize_symbol(symbol)
+        safe_market = str(market or "").strip().lower().replace("/", "_") or "india"
+        safe_interval = str(interval or "").strip().lower().replace("/", "_") or "15m"
+        return self.timeframe_dir(timeframe) / CANDLE_HISTORY_DIRNAME / safe_market / safe_interval / f"{safe_symbol}.parquet"
+
     def _write_frame_to_parquet(self, frame: pd.DataFrame, path: Path) -> None:
         _ensure_parquet_support()
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -260,6 +267,26 @@ class MarketSnapshotStore:
     def _read_frame_from_parquet(self, path: Path) -> pd.DataFrame:
         _ensure_parquet_support()
         return pd.read_parquet(path, engine="pyarrow")
+
+    def _normalize_candle_frame(self, frame: pd.DataFrame) -> pd.DataFrame:
+        if frame is None or frame.empty:
+            return pd.DataFrame()
+        work = frame.copy()
+        if "dt_utc" not in work.columns:
+            if isinstance(work.index, pd.DatetimeIndex):
+                work = work.reset_index()
+                if "index" in work.columns and "dt_utc" not in work.columns:
+                    work = work.rename(columns={"index": "dt_utc"})
+            else:
+                return pd.DataFrame()
+        work["dt_utc"] = pd.to_datetime(work["dt_utc"], utc=True, errors="coerce")
+        if "dt_ist" in work.columns:
+            work["dt_ist"] = pd.to_datetime(work["dt_ist"], utc=True, errors="coerce")
+        for column in ("open", "high", "low", "close", "volume", "oi"):
+            if column in work.columns:
+                work[column] = pd.to_numeric(work[column], errors="coerce")
+        work = work.dropna(subset=["dt_utc"]).sort_values("dt_utc").drop_duplicates(subset=["dt_utc"], keep="last")
+        return work.reset_index(drop=True)
 
     def _prepare_frame(self, payload: Any, *, timeframe: str, metadata: dict[str, Any] | None = None) -> pd.DataFrame:
         records: list[dict[str, Any]] = []
@@ -349,6 +376,137 @@ class MarketSnapshotStore:
         _json_write_atomic(self.metadata_path(timeframe), metadata_payload)
         self._write_frame_to_parquet(frame, history_path)
         return latest_path
+
+    def read_candle_history(self, timeframe: str, symbol: str, market: str, interval: str) -> pd.DataFrame | None:
+        path = self.candle_history_path(timeframe, symbol, market, interval)
+        if not path.exists():
+            return None
+        try:
+            frame = self._read_frame_from_parquet(path)
+        except Exception:
+            return None
+        frame = self._normalize_candle_frame(frame)
+        if frame.empty:
+            return None
+        return frame.set_index("dt_utc")
+
+    def write_candle_history(
+        self,
+        timeframe: str,
+        symbol: str,
+        market: str,
+        interval: str,
+        frame: pd.DataFrame,
+        *,
+        retention_days: int | None = None,
+        now: datetime | None = None,
+    ) -> Path | None:
+        work = self._normalize_candle_frame(frame)
+        if work.empty:
+            return None
+        if retention_days is not None and retention_days > 0:
+            cutoff = (now or _utc_now()) - timedelta(days=retention_days)
+            cutoff = cutoff if cutoff.tzinfo else cutoff.replace(tzinfo=timezone.utc)
+            work = work.loc[work["dt_utc"] >= pd.Timestamp(cutoff)]
+        if work.empty:
+            return None
+
+        path = self.candle_history_path(timeframe, symbol, market, interval)
+        existing = self.read_candle_history(timeframe, symbol, market, interval)
+        if existing is not None and not existing.empty:
+            existing = existing.reset_index()
+            work = pd.concat([existing, work], axis=0, ignore_index=True)
+            work = self._normalize_candle_frame(work)
+            if retention_days is not None and retention_days > 0:
+                cutoff = (now or _utc_now()) - timedelta(days=retention_days)
+                cutoff = cutoff if cutoff.tzinfo else cutoff.replace(tzinfo=timezone.utc)
+                work = work.loc[work["dt_utc"] >= pd.Timestamp(cutoff)]
+        if work.empty:
+            return None
+        self._write_frame_to_parquet(work, path)
+        return path
+
+    def cleanup_timeframe_history(
+        self,
+        timeframe: str,
+        *,
+        retention_days: int,
+        now: datetime | None = None,
+    ) -> dict[str, int]:
+        stats = {"snapshot_dirs_removed": 0, "snapshot_files_removed": 0, "candle_files_trimmed": 0, "candle_files_removed": 0}
+        if retention_days <= 0:
+            return stats
+
+        effective_now = now or _utc_now()
+        cutoff = effective_now - timedelta(days=retention_days)
+        cutoff = cutoff if cutoff.tzinfo else cutoff.replace(tzinfo=timezone.utc)
+        timeframe_root = self.timeframe_dir(timeframe)
+
+        snapshot_history_root = timeframe_root / "history"
+        if snapshot_history_root.exists():
+            for dated_dir in sorted(snapshot_history_root.glob("*")):
+                if not dated_dir.is_dir():
+                    continue
+                if len(dated_dir.name) == 8 and dated_dir.name.isdigit():
+                    try:
+                        dir_date = datetime.strptime(dated_dir.name, "%Y%m%d").date()
+                    except Exception:
+                        dir_date = None
+                    if dir_date is not None and dir_date < cutoff.date():
+                        for child in dated_dir.glob("*.parquet"):
+                            try:
+                                child.unlink()
+                                stats["snapshot_files_removed"] += 1
+                            except Exception:
+                                pass
+                        try:
+                            dated_dir.rmdir()
+                            stats["snapshot_dirs_removed"] += 1
+                        except Exception:
+                            pass
+
+        candle_root = timeframe_root / CANDLE_HISTORY_DIRNAME
+        if candle_root.exists():
+            for candle_file in candle_root.rglob("*.parquet"):
+                try:
+                    frame = self._read_frame_from_parquet(candle_file)
+                except Exception:
+                    continue
+                frame = self._normalize_candle_frame(frame)
+                if frame.empty:
+                    try:
+                        candle_file.unlink()
+                        stats["candle_files_removed"] += 1
+                    except Exception:
+                        pass
+                    continue
+                trimmed = frame.loc[frame["dt_utc"] >= pd.Timestamp(cutoff)]
+                if trimmed.empty:
+                    try:
+                        candle_file.unlink()
+                        stats["candle_files_removed"] += 1
+                    except Exception:
+                        pass
+                    continue
+                if len(trimmed) < len(frame):
+                    self._write_frame_to_parquet(trimmed.reset_index(drop=True), candle_file)
+                    stats["candle_files_trimmed"] += 1
+
+        return stats
+
+    def cleanup_all_timeframes(
+        self,
+        *,
+        retention_days_by_timeframe: dict[str, int],
+        now: datetime | None = None,
+    ) -> dict[str, dict[str, int]]:
+        results: dict[str, dict[str, int]] = {}
+        for timeframe, retention_days in retention_days_by_timeframe.items():
+            try:
+                results[timeframe] = self.cleanup_timeframe_history(timeframe, retention_days=retention_days, now=now)
+            except Exception:
+                results[timeframe] = {"snapshot_dirs_removed": 0, "snapshot_files_removed": 0, "candle_files_trimmed": 0, "candle_files_removed": 0}
+        return results
 
     def read_payload(self, timeframe: str) -> dict[str, Any] | None:
         latest_path = self.latest_path(timeframe)

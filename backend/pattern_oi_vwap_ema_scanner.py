@@ -41,6 +41,8 @@ DEFAULT_FAST_STRIKE_WINDOW = int(os.environ.get("DHAN_FAST_STRIKE_WINDOW", "3"))
 DEFAULT_INTRADAY_RETRIES = int(os.environ.get("DHAN_INTRADAY_RETRIES", "3"))
 DEFAULT_LIVE_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_LOOKBACK_DAYS", "10"))
 DEFAULT_LIVE_OPTION_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_OPTION_LOOKBACK_DAYS", "1"))
+DEFAULT_CANDLE_HISTORY_FETCH_DAYS = int(os.environ.get("DHAN_CANDLE_HISTORY_FETCH_DAYS", "1"))
+DEFAULT_CANDLE_HISTORY_RETENTION_MULTIPLIER = float(os.environ.get("DHAN_CANDLE_HISTORY_RETENTION_MULTIPLIER", "2"))
 DEFAULT_EQUITY_CACHE_REFRESH_DAYS = int(os.environ.get("DHAN_EQUITY_HISTORY_REFRESH_DAYS", "2"))
 DEFAULT_OPTION_CHAIN_WORKERS = int(os.environ.get("DHAN_OPTION_CHAIN_WORKERS", "1"))
 DEFAULT_BODY_MULTIPLIER = float(os.environ.get("DHAN_BODY_MULTIPLIER", "5.5"))
@@ -3159,16 +3161,26 @@ class DhanRealtimeClient:
         fetch_option_chain: bool = True,
         fast_mode: bool = False,
         fast_strike_window: int = DEFAULT_FAST_STRIKE_WINDOW,
+        history_store: "MarketSnapshotStore" | None = None,
     ) -> SymbolSnapshot:
         end_ist = _as_of_end_datetime(as_of_date)
-        use_history_cache = as_of_date is None and os.environ.get("DHAN_DISABLE_EQUITY_HISTORY_CACHE", "").strip() != "1"
+        use_history_cache = (
+            as_of_date is None
+            and os.environ.get("DHAN_DISABLE_EQUITY_HISTORY_CACHE", "").strip() != "1"
+            and MarketSnapshotStore is not None
+        )
+        store = history_store if history_store is not None else (MarketSnapshotStore() if use_history_cache else None)
         contract: dict[str, Any] | None = None
         frame: pd.DataFrame | None = None
-        if use_history_cache:
-            cache_path = _equity_history_cache_path(symbol, interval, market)
-            cached = _load_equity_history_cache(cache_path)
+        if store is not None:
+            retention_days = max(
+                1,
+                int(round(max(lookback_days, 1) * max(DEFAULT_CANDLE_HISTORY_RETENTION_MULTIPLIER, 1.0))),
+            )
+            fetch_days = max(1, min(DEFAULT_CANDLE_HISTORY_FETCH_DAYS, max(lookback_days, 1)))
+            cached = store.read_candle_history(interval, symbol, market, interval)
             if cached is None or cached.empty:
-                logger.info("Seeding Dhan equity cache for %s (%s, %s).", symbol, market, interval)
+                logger.info("Seeding candle history store for %s (%s, %s).", symbol, market, interval)
                 frame, contract = self.fetch_equity_history(
                     symbol,
                     interval=interval,
@@ -3177,12 +3189,12 @@ class DhanRealtimeClient:
                     end_ist=end_ist,
                 )
                 if frame is not None and not frame.empty:
-                    _save_equity_history_cache(cache_path, frame)
+                    store.write_candle_history(interval, symbol, market, interval, frame, retention_days=retention_days, now=end_ist)
             else:
                 try:
-                    fresh_days = max(1, DEFAULT_EQUITY_CACHE_REFRESH_DAYS)
+                    fresh_days = fetch_days
                     logger.info(
-                        "Refreshing Dhan equity cache tail for %s (%s, %s) with last %s day(s).",
+                        "Refreshing candle history store tail for %s (%s, %s) with last %s day(s).",
                         symbol,
                         market,
                         interval,
@@ -3199,13 +3211,13 @@ class DhanRealtimeClient:
                         cached=cached,
                         fresh=fresh,
                         refresh_days=fresh_days,
-                        window_days=max(lookback_days, 1),
+                        window_days=retention_days,
                         end_ist=end_ist,
                     )
                     if frame is not None and not frame.empty:
-                        _save_equity_history_cache(cache_path, frame)
+                        store.write_candle_history(interval, symbol, market, interval, frame, retention_days=retention_days, now=end_ist)
                 except Exception as exc:
-                    logger.warning("Falling back to cached Dhan equity history for %s: %s", symbol, exc)
+                    logger.warning("Falling back to stored candle history for %s: %s", symbol, exc)
                     frame = cached
         if frame is None or frame.empty:
             frame, contract = self.fetch_equity_history(
@@ -3321,6 +3333,7 @@ def run_once(
     last_gate12_meta_map = gate3_state.get("last_gate12_meta_map")
     if not isinstance(last_gate12_meta_map, dict):
         last_gate12_meta_map = {}
+    history_store = MarketSnapshotStore() if MarketSnapshotStore is not None else None
     if not SCANNED_SIGNALS_CSV.exists():
         SCANNED_SIGNALS_CSV.parent.mkdir(parents=True, exist_ok=True)
         with SCANNED_SIGNALS_CSV.open("w", newline="", encoding="utf-8") as fh:
@@ -3337,10 +3350,11 @@ def run_once(
                 option_lookback_days=option_lookback_days,
                 as_of_date=as_of_date,
                 fetch_option_chain=False,
+                history_store=history_store,
             )
         except Exception as exc:
             logger.warning("Skipping %s: %s", symbol, exc)
-            return None, None, None
+            return None, None, None, None
 
         payload = snapshot.as_dict(include_recent_bars=False, include_option_chain=False)
         pre_strategy = _evaluate_strategy(snapshot, allowed_patterns=allowed_patterns)

@@ -85,6 +85,8 @@ TOP_TRADES_PATH = ROOT / "strategies" / "top_trades.json"
 STRATEGY_DIR = ROOT / "strategies"
 STRATEGY_CANDIDATE_POOL_DIR = ROOT / "backend" / "data" / "strategy_candidate_pools"
 STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS = int(os.getenv("STRATEGY_CANDIDATE_POOL_LOOKBACK_DAYS", "4"))
+CANDLE_HISTORY_RETENTION_DAYS = int(os.getenv("DHAN_CANDLE_HISTORY_RETENTION_DAYS", "20"))
+SNAPSHOT_HISTORY_RETENTION_DAYS = int(os.getenv("DHAN_SNAPSHOT_HISTORY_RETENTION_DAYS", "30"))
 STRATEGY_NOTIFY_STATE_PATH = STRATEGY_DIR / ".strategy_notify_state.json"
 INDIA_MORNING_REEVAL_QUEUE_PATH = ROOT / "backend" / "data" / "india_morning_reeval_queue.json"
 INDIA_MORNING_REEVAL_SENT_PATH = ROOT / "backend" / "data" / "india_morning_reeval_sent.json"
@@ -248,6 +250,27 @@ def _publish_commodity_snapshot_store(final_payload):
         store.write_payload(commodity_payload, timeframe="commodities_daily")
     except Exception as exc:
         print(f"[WARN] failed to publish commodity snapshot store: {exc}")
+
+
+def _cleanup_market_snapshot_store_after_close():
+    try:
+        from backend.market_snapshot_store import MarketSnapshotStore
+
+        store = MarketSnapshotStore()
+        retention_map = {
+            "minute": CANDLE_HISTORY_RETENTION_DAYS,
+            "1m": CANDLE_HISTORY_RETENTION_DAYS,
+            "5m": CANDLE_HISTORY_RETENTION_DAYS,
+            "15m": CANDLE_HISTORY_RETENTION_DAYS,
+            "15_min": CANDLE_HISTORY_RETENTION_DAYS,
+            "dashboard": SNAPSHOT_HISTORY_RETENTION_DAYS,
+            "daily": SNAPSHOT_HISTORY_RETENTION_DAYS,
+            "commodities_daily": SNAPSHOT_HISTORY_RETENTION_DAYS,
+        }
+        stats = store.cleanup_all_timeframes(retention_days_by_timeframe=retention_map, now=datetime.now(timezone.utc))
+        print(f"[CLEANUP] market snapshot store pruned: {stats}")
+    except Exception as exc:
+        print(f"[WARN] failed to clean up market snapshot store: {exc}")
 
 
 def _merge_previous_commodity_data(final_payload):
@@ -3549,4 +3572,5 @@ finally:
 
 _publish_dashboard_snapshot_store(safe_final)
 _publish_commodity_snapshot_store(safe_final)
+_cleanup_market_snapshot_store_after_close()
 print("Daily data updated - stable & production-safe")
