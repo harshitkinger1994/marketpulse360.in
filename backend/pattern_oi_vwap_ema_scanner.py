@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import csv
+import gc
 import json
 import logging
 import math
@@ -2863,12 +2864,11 @@ class SymbolSnapshot:
     is_big_candle: bool = False
     option_chain: OptionChainSnapshot | None = None
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self, include_recent_bars: bool = True, include_option_chain: bool = True) -> dict[str, Any]:
         payload = {
             "symbol": self.symbol,
             "interval": self.interval,
             "candle_time_ist": self.candle_time_ist,
-            "recent_bars": self.recent_bars,
             "close": self.close,
             "vwap": self.vwap,
             "ema9": self.ema9,
@@ -2879,7 +2879,9 @@ class SymbolSnapshot:
             "body_avg_14": self.body_avg_14,
             "is_big_candle": self.is_big_candle,
         }
-        if self.option_chain is not None:
+        if include_recent_bars:
+            payload["recent_bars"] = self.recent_bars
+        if include_option_chain and self.option_chain is not None:
             payload["option_chain"] = self.option_chain.as_dict()
         return payload
 
@@ -3339,7 +3341,7 @@ def run_once(
             logger.warning("Skipping %s: %s", symbol, exc)
             return None, None, None
 
-        payload = snapshot.as_dict()
+        payload = snapshot.as_dict(include_recent_bars=False, include_option_chain=False)
         pre_strategy = _evaluate_strategy(snapshot, allowed_patterns=allowed_patterns)
         payload["pre_strategy"] = pre_strategy
         if not (pre_strategy["gate1_pass"] and pre_strategy["gate2_pass"]):
@@ -3461,6 +3463,9 @@ def run_once(
                 gate12_alert_candidates.append(gate12_alert)
             if gate3_alert is not None:
                 gate3_alert_candidates.append(gate3_alert)
+            del payload, signal_row, gate12_alert, gate3_alert
+            if completed % 25 == 0:
+                gc.collect()
 
     for signal_row in triggered_signals:
         _append_signal_csv(SCANNED_SIGNALS_CSV, signal_row)
