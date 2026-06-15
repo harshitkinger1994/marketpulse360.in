@@ -348,18 +348,22 @@ class LiveHandler(BaseHTTPRequestHandler):
 
     def _send(self, status, payload, extra_headers=None):
         body = json.dumps(payload).encode("utf-8")
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(body)))
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        if extra_headers:
-            for key, value in extra_headers.items():
-                if value is not None and value != "":
-                    self.send_header(str(key), str(value))
-        self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+            if extra_headers:
+                for key, value in extra_headers.items():
+                    if value is not None and value != "":
+                        self.send_header(str(key), str(value))
+            self.end_headers()
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError, OSError):
+            # Client disconnected while we were writing the response.
+            return
 
     def _http_date(self, value):
         if not value:
