@@ -7,9 +7,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN_SCRIPT = ROOT / "backend" / "run_all.py"
-# Default to 60 seconds so fresh data lands quickly without turning into a busy loop.
-INTERVAL_SEC = int(os.environ.get("UPDATE_INTERVAL_SEC", "60"))
-BACKOFF_SEC = int(os.environ.get("UPDATE_FAIL_BACKOFF_SEC", "60"))
+# Default to 30 minutes so the full refresh does not overlap too aggressively with the live scanner.
+INTERVAL_SEC = int(os.environ.get("UPDATE_INTERVAL_SEC", "1800"))
+BACKOFF_SEC = int(os.environ.get("UPDATE_FAIL_BACKOFF_SEC", "300"))
 
 
 def main():

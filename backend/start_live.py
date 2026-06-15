@@ -36,6 +36,7 @@ def main():
     updater = _spawn(UPDATER_SCRIPT)
     scanner = _spawn(SCANNER_SCRIPT) if SCANNER_ENABLED else None
     scanner_restart_count = 0
+    scanner_restart_delay = 1.0
 
     print("[START] Live server + auto updater" + (" + pattern scanner" if SCANNER_ENABLED else "") + " running. Press Ctrl+C to stop.")
 
@@ -54,7 +55,8 @@ def main():
                     f"[START] pattern_oi_vwap_ema_scanner.py exited with code {code}; "
                     f"restarting (count={scanner_restart_count})..."
                 )
-                time.sleep(1)
+                time.sleep(scanner_restart_delay)
+                scanner_restart_delay = min(scanner_restart_delay * 2.0, 60.0)
                 scanner = _spawn(SCANNER_SCRIPT)
             time.sleep(1)
     except KeyboardInterrupt:
