@@ -14,12 +14,15 @@ SCANNER_ENABLED = os.environ.get("PATTERN_OI_VWAP_EMA_ENABLED", "1").strip() == 
 UPDATER_ENABLED = os.environ.get("AUTO_UPDATER_ENABLED", "0").strip() == "1"
 
 
-def _spawn(script_path, extra_env=None):
+def _spawn(script_path, extra_env=None, extra_args=None):
     env = os.environ.copy()
     if extra_env:
         env.update(extra_env)
+    cmd = [sys.executable, str(script_path)]
+    if extra_args:
+        cmd.extend(extra_args)
     return subprocess.Popen(
-        [sys.executable, str(script_path)],
+        cmd,
         cwd=str(ROOT),
         env=env,
     )
@@ -37,7 +40,7 @@ def main():
 
     live = _spawn(LIVE_SCRIPT)
     updater = _spawn(UPDATER_SCRIPT) if UPDATER_ENABLED else None
-    scanner = _spawn(SCANNER_SCRIPT) if SCANNER_ENABLED else None
+    scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode"]) if SCANNER_ENABLED else None
     scanner_restart_count = 0
     scanner_restart_delay = 1.0
 
@@ -62,7 +65,7 @@ def main():
                 )
                 time.sleep(scanner_restart_delay)
                 scanner_restart_delay = min(scanner_restart_delay * 2.0, 60.0)
-                scanner = _spawn(SCANNER_SCRIPT)
+                scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode"])
             time.sleep(1)
     except KeyboardInterrupt:
         pass
