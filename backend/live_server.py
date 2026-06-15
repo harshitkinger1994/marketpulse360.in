@@ -4,7 +4,7 @@ import sys
 import time
 import math
 from datetime import datetime, timezone
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
@@ -677,7 +677,8 @@ class LiveHandler(BaseHTTPRequestHandler):
 
 
 def main():
-    server = HTTPServer((HOST, PORT), LiveHandler)
+    server = ThreadingHTTPServer((HOST, PORT), LiveHandler)
+    server.daemon_threads = True
     print(f"[LIVE] Serving on http://{HOST}:{PORT}")
     server.serve_forever()
 
