@@ -3395,11 +3395,6 @@ def run_once(
                         "source_note": source_note,
                     }
 
-        should_fetch_option_chain = gate3_alerts or symbol.upper() in source_pool_symbols
-        if not should_fetch_option_chain:
-            payload["strategy"] = pre_strategy
-            return payload, None, gate12_alert, None
-
         try:
             logger.info("Fetching option-chain confirmation for %s...", symbol)
             snapshot.option_chain = client.fetch_option_chain_snapshot(
