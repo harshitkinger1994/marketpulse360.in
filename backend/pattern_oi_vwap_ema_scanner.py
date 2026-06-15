@@ -3214,8 +3214,6 @@ class DhanRealtimeClient:
                         window_days=retention_days,
                         end_ist=end_ist,
                     )
-                    if frame is not None and not frame.empty:
-                        store.write_candle_history(interval, symbol, market, interval, frame, retention_days=retention_days, now=end_ist)
                 except Exception as exc:
                     logger.warning("Falling back to stored candle history for %s: %s", symbol, exc)
                     frame = cached
