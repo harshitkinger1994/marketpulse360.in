@@ -40,7 +40,7 @@ def main():
 
     live = _spawn(LIVE_SCRIPT)
     updater = _spawn(UPDATER_SCRIPT) if UPDATER_ENABLED else None
-    scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode"]) if SCANNER_ENABLED else None
+    scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode", "--fast-strike-window", "1"]) if SCANNER_ENABLED else None
     scanner_restart_count = 0
     scanner_restart_delay = 1.0
 
@@ -65,7 +65,7 @@ def main():
                 )
                 time.sleep(scanner_restart_delay)
                 scanner_restart_delay = min(scanner_restart_delay * 2.0, 60.0)
-                scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode"])
+                scanner = _spawn(SCANNER_SCRIPT, extra_args=["--fast-mode", "--fast-strike-window", "1"])
             time.sleep(1)
     except KeyboardInterrupt:
         pass
