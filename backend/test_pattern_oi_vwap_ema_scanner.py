@@ -79,15 +79,66 @@ class PatternOIVwapEmaScannerTests(unittest.TestCase):
             strategy_name="Pattern+OI+VWAP/EMA",
             source_note="Universe",
             timeframe_label="75m",
-            higher_timeframe_context={
-                "timeframe": "3H",
-                "pattern": "Bearish Engulfing",
-                "direction": "BEARISH",
-                "candle_time_ist": "2026-06-15T12:15:00+05:30",
-            },
+            higher_timeframe_contexts=[
+                {
+                    "timeframe": "3h",
+                    "pattern": "Bearish Engulfing",
+                    "direction": "BEARISH",
+                    "candle_time_ist": "2026-06-15T12:15:00+05:30",
+                    "previous_pattern": "Hammer",
+                    "previous_direction": "BULLISH",
+                    "previous_candle_time_ist": "2026-06-15T09:15:00+05:30",
+                }
+            ],
         )
 
-        self.assertIn("Higher TF 3H: Bearish Engulfing | When: 2026-06-15T12:15:00+05:30 | Direction: BEARISH", text)
+        self.assertTrue(text.startswith("#####\n\n"))
+        self.assertTrue(text.endswith("\n\n#####"))
+        self.assertIn("Higher Timeframe Context:", text)
+        self.assertIn("- 3H: Current Pattern: Bearish Engulfing | When: 2026-06-15T12:15:00+05:30 | Direction: BEARISH", text)
+        self.assertIn("Higher Timeframe Context:", text)
+        self.assertIn("Previous Pattern: Hammer", text)
+
+    def test_higher_timeframe_contexts_are_rendered_for_multiple_frames(self):
+        contexts = [
+            {
+                "timeframe": "daily",
+                "pattern": "Bullish Engulfing",
+                "direction": "BULLISH",
+                "candle_time_ist": "2026-06-15T15:15:00+05:30",
+                "previous_pattern": "Hammer",
+                "previous_direction": "BULLISH",
+                "previous_candle_time_ist": "2026-06-14T15:15:00+05:30",
+            },
+            {
+                "timeframe": "weekly",
+                "pattern": "Double Bottom",
+                "direction": "BULLISH",
+                "candle_time_ist": "2026-06-13T15:30:00+05:30",
+                "previous_pattern": "No Pattern",
+                "previous_direction": None,
+                "previous_candle_time_ist": None,
+            },
+        ]
+        class Snapshot:
+            close = 511.95
+            vwap = 506.41
+            ema9 = 503.4
+            candle_time_ist = "2026-06-15T15:15:00+05:30"
+            option_chain = None
+
+        text = _format_gate12_group_message(
+            "TCS",
+            Snapshot(),
+            {"direction": "BULLISH", "pattern": "Double Bottom"},
+            strategy_name="Pattern+OI+VWAP/EMA",
+            source_note="Universe",
+            timeframe_label="75m",
+            higher_timeframe_contexts=contexts,
+        )
+
+        self.assertIn("- DAILY: Current Pattern: Bullish Engulfing | When: 2026-06-15T15:15:00+05:30 | Direction: BULLISH | Previous Pattern: Hammer | Prev When: 2026-06-14T15:15:00+05:30 | Prev Direction: BULLISH", text)
+        self.assertIn("- WEEKLY: Current Pattern: Double Bottom | When: 2026-06-13T15:30:00+05:30 | Direction: BULLISH | Previous Pattern: No Pattern | Prev When: NA | Prev Direction: NA", text)
 
     def test_gate12_message_uses_na_when_pattern_is_missing(self):
         class Snapshot:

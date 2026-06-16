@@ -72,6 +72,7 @@ if str(BACKEND_SRC) not in sys.path:
     sys.path.insert(0, str(BACKEND_SRC))
 
 from backend.agentic_pipeline import format_single_agent_group_message
+from backend.notification_router import send_personal_alert, send_trade_alert
 from backend.suggest_security import safe_telegram_text
 from backend.timeframe_rollup import higher_timeframe_for
 try:
@@ -427,31 +428,25 @@ def _telegram_config() -> tuple[str | None, str | None, str | None]:
 
 
 def _send_telegram_to(chat_id: str | None, message: str) -> bool:
-    token, _, _ = _telegram_config()
-    if not token or not chat_id:
-        logger.warning("Telegram is not configured; skipping alert.")
+    _, group_chat_id, personal_chat_id = _telegram_config()
+    if not chat_id:
+        logger.warning("Alert destination is not configured; skipping alert.")
         return False
-    text = safe_telegram_text(message, max_len=3500)
     if os.getenv("TELEGRAM_DRY_RUN", "").strip() == "1":
         GATE3_DRY_RUN_LOG.parent.mkdir(parents=True, exist_ok=True)
         with GATE3_DRY_RUN_LOG.open("a", encoding="utf-8") as fh:
-            fh.write(text + "\n\n---\n\n")
-        logger.info("Telegram dry-run captured to %s", GATE3_DRY_RUN_LOG)
+            fh.write(safe_telegram_text(message, max_len=3500) + "\n\n---\n\n")
+        logger.info("Notification dry-run captured to %s", GATE3_DRY_RUN_LOG)
         return True
-    base_url = str(os.getenv("TELEGRAM_API_BASE_URL") or "https://api.telegram.org").rstrip("/")
-    try:
-        resp = requests.post(
-            f"{base_url}/bot{token}/sendMessage",
-            json={"chat_id": chat_id, "text": text},
-            timeout=15,
-        )
-        if resp.status_code >= 400:
-            logger.warning("Telegram send failed: %s", resp.text[:240])
-            return False
-        return True
-    except Exception as exc:
-        logger.warning("Telegram send exception: %s", exc)
-        return False
+    if chat_id == group_chat_id:
+        ok = send_trade_alert(message, max_len=1900, timeout=15)
+    elif chat_id == personal_chat_id:
+        ok = send_personal_alert(message, max_len=1900, timeout=15)
+    else:
+        ok = send_personal_alert(message, max_len=1900, timeout=15)
+    if not ok:
+        logger.warning("Alert send failed for destination %s", chat_id)
+    return ok
 
 
 def _alert_strategy_key(strategy_key: str | None, gate_label: str) -> str:
@@ -960,6 +955,148 @@ def _timeframe_pattern_context(
         }
     except Exception:
         return {"timeframe": tf, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
+
+
+def _higher_timeframe_scan_targets(interval: str) -> list[str]:
+    tf = str(interval or "").strip().lower()
+    if tf in {"15m", "75m", "3h", "4h"}:
+        return ["daily", "weekly", "monthly"]
+    if tf == "daily":
+        return ["weekly", "monthly"]
+    if tf == "weekly":
+        return ["monthly"]
+    return []
+
+
+def _build_timeframe_pattern_context(
+    symbol: str,
+    market: str,
+    timeframe: str,
+    *,
+    store: "MarketSnapshotStore" | None = None,
+) -> dict[str, Any]:
+    tf = str(timeframe or "").strip().lower()
+    if not tf or MarketSnapshotStore is None:
+        return {
+            "timeframe": tf or "NA",
+            "pattern": "No Pattern",
+            "direction": None,
+            "candle_time_ist": None,
+            "previous_pattern": None,
+            "previous_direction": None,
+            "previous_candle_time_ist": None,
+        }
+    history_store = store if store is not None else MarketSnapshotStore()
+    try:
+        frame = history_store.read_candle_history(tf, symbol, market, tf)
+    except Exception:
+        frame = None
+    if frame is None or frame.empty:
+        return {
+            "timeframe": tf,
+            "pattern": "No Pattern",
+            "direction": None,
+            "candle_time_ist": None,
+            "previous_pattern": None,
+            "previous_direction": None,
+            "previous_candle_time_ist": None,
+        }
+    try:
+        snapshot_work = frame.reset_index().rename(columns={"dt_utc": "dt_utc"})
+        snapshot_work["dt_utc"] = pd.to_datetime(snapshot_work["dt_utc"], utc=True, errors="coerce")
+        snapshot_work = snapshot_work.dropna(subset=["dt_utc"]).sort_values("dt_utc").reset_index(drop=True)
+        if snapshot_work.empty:
+            return {
+                "timeframe": tf,
+                "pattern": "No Pattern",
+                "direction": None,
+                "candle_time_ist": None,
+                "previous_pattern": None,
+                "previous_direction": None,
+                "previous_candle_time_ist": None,
+            }
+        if "dt_ist" not in snapshot_work.columns:
+            snapshot_work["dt_ist"] = snapshot_work["dt_utc"].dt.tz_convert(IST)
+        latest_idx = len(snapshot_work) - 1
+        latest_snapshot = _historical_snapshot_from_work(snapshot_work, latest_idx, symbol, tf)
+        latest_strategy = _evaluate_strategy(latest_snapshot)
+        latest_pattern = str(latest_strategy.get("pattern") or "No Pattern")
+        latest_direction = latest_strategy.get("direction")
+        if not latest_strategy.get("gate1_pass") and not latest_strategy.get("gate2_pass"):
+            latest_pattern = "No Pattern"
+            latest_direction = None
+
+        previous_pattern: str | None = None
+        previous_direction: str | None = None
+        previous_candle_time_ist: str | None = None
+        if latest_idx >= 1:
+            prev_snapshot = _historical_snapshot_from_work(snapshot_work, latest_idx - 1, symbol, tf)
+            prev_strategy = _evaluate_strategy(prev_snapshot)
+            previous_pattern = str(prev_strategy.get("pattern") or "No Pattern")
+            previous_direction = prev_strategy.get("direction")
+            previous_candle_time_ist = prev_snapshot.candle_time_ist
+            if not prev_strategy.get("gate1_pass") and not prev_strategy.get("gate2_pass"):
+                previous_pattern = "No Pattern"
+                previous_direction = None
+
+        return {
+            "timeframe": tf,
+            "pattern": latest_pattern,
+            "direction": latest_direction,
+            "candle_time_ist": latest_snapshot.candle_time_ist,
+            "previous_pattern": previous_pattern,
+            "previous_direction": previous_direction,
+            "previous_candle_time_ist": previous_candle_time_ist,
+        }
+    except Exception:
+        return {
+            "timeframe": tf,
+            "pattern": "No Pattern",
+            "direction": None,
+            "candle_time_ist": None,
+            "previous_pattern": None,
+            "previous_direction": None,
+            "previous_candle_time_ist": None,
+        }
+
+
+def _higher_timeframe_contexts(
+    symbol: str,
+    market: str,
+    interval: str,
+    *,
+    store: "MarketSnapshotStore" | None = None,
+) -> list[dict[str, Any]]:
+    return [
+        _build_timeframe_pattern_context(symbol, market, timeframe, store=store)
+        for timeframe in _higher_timeframe_scan_targets(interval)
+    ]
+
+
+def _timeframe_context_lines(contexts: list[dict[str, Any]] | None) -> list[str]:
+    if not contexts:
+        return []
+    lines = ["Higher Timeframe Context:"]
+    for context in contexts:
+        if not isinstance(context, dict):
+            continue
+        tf_label = str(context.get("timeframe") or "NA").strip().upper()
+        pattern = str(context.get("pattern") or "No Pattern")
+        direction = str(context.get("direction") or "NA").strip().upper() or "NA"
+        candle_time = str(context.get("candle_time_ist") or "NA")
+        previous_pattern = str(context.get("previous_pattern") or "No Pattern")
+        previous_direction = str(context.get("previous_direction") or "NA").strip().upper() or "NA"
+        previous_candle_time = str(context.get("previous_candle_time_ist") or "NA")
+        lines.append(
+            f"- {tf_label}: Current Pattern: {pattern} | When: {candle_time} | Direction: {direction} | "
+            f"Previous Pattern: {previous_pattern} | Prev When: {previous_candle_time} | Prev Direction: {previous_direction}"
+        )
+    return lines
+
+
+def _wrap_alert_message(lines: list[str]) -> str:
+    body = "\n".join(line for line in lines if line is not None)
+    return f"#####\n\n{body}\n\n#####"
 
 
 def _load_broad_india_universe_symbols() -> list[str]:
@@ -2803,6 +2940,7 @@ def _format_gate3_group_message(
     source_note: str | None = None,
     timeframe_label: str | None = None,
     higher_timeframe_context: dict[str, Any] | None = None,
+    higher_timeframe_contexts: list[dict[str, Any]] | None = None,
     gate_label: str = "Gate 3",
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
@@ -2983,7 +3121,8 @@ def _format_gate3_group_message(
             lines.insert(1, f"Timeframe: {timeframe_label}")
         if htf_label:
             lines.append(f"Higher TF {htf_label}: {htf_pattern} | Direction: {htf_direction}")
-        return "\n".join(lines)
+        lines.extend(_timeframe_context_lines(higher_timeframe_contexts))
+        return _wrap_alert_message(lines)
 
 
 def _format_gate12_group_message(
@@ -2994,6 +3133,7 @@ def _format_gate12_group_message(
     source_note: str | None = None,
     timeframe_label: str | None = None,
     higher_timeframe_context: dict[str, Any] | None = None,
+    higher_timeframe_contexts: list[dict[str, Any]] | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "NA")
@@ -3020,7 +3160,8 @@ def _format_gate12_group_message(
         lines.insert(1, f"Timeframe: {timeframe_label}")
     if htf_label:
         lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
-    return "\n".join(lines)
+    lines.extend(_timeframe_context_lines(higher_timeframe_contexts))
+    return _wrap_alert_message(lines)
 
 
 def _format_gate3_personal_message(
@@ -3032,6 +3173,7 @@ def _format_gate3_personal_message(
     source_note: str | None = None,
     timeframe_label: str | None = None,
     higher_timeframe_context: dict[str, Any] | None = None,
+    higher_timeframe_contexts: list[dict[str, Any]] | None = None,
     gate_label: str = "Gate 3",
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
@@ -3075,9 +3217,10 @@ def _format_gate3_personal_message(
         lines.insert(1, f"Timeframe: {timeframe_label}")
     if htf_label:
         lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
+    lines.extend(_timeframe_context_lines(higher_timeframe_contexts))
     if contract:
         lines.append(f"Contract: {contract.get('trading_symbol') or symbol.upper()} | {contract.get('exchange_segment') or 'Dhan'}")
-    return "\n".join(lines)
+    return _wrap_alert_message(lines)
 
 
 def _format_gate4_group_message(
@@ -3089,6 +3232,7 @@ def _format_gate4_group_message(
     source_note: str | None = None,
     timeframe_label: str | None = None,
     higher_timeframe_context: dict[str, Any] | None = None,
+    higher_timeframe_contexts: list[dict[str, Any]] | None = None,
 ) -> str:
     message = _format_gate3_group_message(
         symbol,
@@ -3099,6 +3243,7 @@ def _format_gate4_group_message(
         source_note=source_note,
         timeframe_label=timeframe_label,
         higher_timeframe_context=higher_timeframe_context,
+        higher_timeframe_contexts=higher_timeframe_contexts,
         gate_label="Gate 4",
     )
     return message
@@ -3113,6 +3258,7 @@ def _format_gate4_personal_message(
     source_note: str | None = None,
     timeframe_label: str | None = None,
     higher_timeframe_context: dict[str, Any] | None = None,
+    higher_timeframe_contexts: list[dict[str, Any]] | None = None,
 ) -> str:
     message = _format_gate3_personal_message(
         symbol,
@@ -3123,6 +3269,7 @@ def _format_gate4_personal_message(
         source_note=source_note,
         timeframe_label=timeframe_label,
         higher_timeframe_context=higher_timeframe_context,
+        higher_timeframe_contexts=higher_timeframe_contexts,
         gate_label="Gate 4",
     )
     return message
@@ -3136,6 +3283,7 @@ def _format_gate12_personal_message(
     source_note: str | None = None,
     timeframe_label: str | None = None,
     higher_timeframe_context: dict[str, Any] | None = None,
+    higher_timeframe_contexts: list[dict[str, Any]] | None = None,
 ) -> str:
     direction = str(strategy.get("direction") or "NEUTRAL").upper()
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "NA")
@@ -3161,7 +3309,8 @@ def _format_gate12_personal_message(
         lines.insert(1, f"Timeframe: {timeframe_label}")
     if htf_label:
         lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
-    return "\n".join(lines)
+    lines.extend(_timeframe_context_lines(higher_timeframe_contexts))
+    return _wrap_alert_message(lines)
 
 
 def _repeat_pattern_sequence_label(direction: str | None, sequence_no: int) -> str:
@@ -4096,6 +4245,7 @@ def run_once(
 
         gate12_alert = None
         higher_timeframe_context = _timeframe_pattern_context(symbol, market, higher_timeframe, store=history_store) if higher_timeframe else {"timeframe": None, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
+        higher_timeframe_contexts = _higher_timeframe_contexts(symbol, market, interval, store=history_store)
         if setup_alerts:
             direction = str(pre_strategy.get("direction") or "").strip().upper()
             gate12_pass = bool(pre_strategy.get("gate1_pass") and pre_strategy.get("gate2_pass"))
@@ -4121,6 +4271,7 @@ def run_once(
                             source_note=source_note,
                             timeframe_label=interval,
                             higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
                         ),
                         "personal_message": _format_gate12_personal_message(
                             symbol,
@@ -4130,6 +4281,7 @@ def run_once(
                             source_note=source_note,
                             timeframe_label=interval,
                             higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
                         ),
                         "strategy": pre_strategy,
                         "source_note": source_note,
@@ -4207,6 +4359,7 @@ def run_once(
                             source_note=source_note,
                             timeframe_label=interval,
                             higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
                         ),
                         "personal_message": _format_gate3_personal_message(
                             symbol,
@@ -4217,6 +4370,7 @@ def run_once(
                             source_note=source_note,
                             timeframe_label=interval,
                             higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
                         ),
                         "strategy": strategy,
                         "source_note": source_note,
@@ -4248,6 +4402,7 @@ def run_once(
                             source_note=source_note,
                             timeframe_label=interval,
                             higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
                         ),
                         "personal_message": _format_gate4_personal_message(
                             symbol,
@@ -4258,6 +4413,7 @@ def run_once(
                             source_note=source_note,
                             timeframe_label=interval,
                             higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
                         ),
                         "strategy": strategy,
                         "source_note": source_note,
