@@ -228,6 +228,27 @@ class MarketCandleIngestionTests(unittest.TestCase):
             self.assertEqual(summary["failed"], 0)
             self.assertTrue(any("center_data/4h/candle_history/india/4h/TCS.parquet" in p for p in captured_paths))
 
+    def test_fetch_and_store_treats_missing_history_as_skip_not_failure(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            store = MarketSnapshotStore(base_dir=Path(tmpdir))
+
+            with patch("backend.market_candle_ingestion._load_broad_india_universe_symbols", return_value=["SENSEX50"]), patch(
+                "backend.market_candle_ingestion.fetch_intraday_history", return_value=(pd.DataFrame(), {"source": "DHAN"})
+            ), patch("backend.market_candle_ingestion.MarketSnapshotStore", return_value=store):
+                summary = fetch_and_store(
+                    universe="broad-india",
+                    market="india",
+                    interval="15m",
+                    data_range="60d",
+                    symbols=[],
+                    retention_days=120,
+                )
+
+            self.assertEqual(summary["symbols"], 1)
+            self.assertEqual(summary["written"], 0)
+            self.assertEqual(summary["failed"], 0)
+            self.assertEqual(summary["skipped_missing"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()
