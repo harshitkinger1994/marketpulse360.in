@@ -25,7 +25,7 @@ except Exception:  # pragma: no cover - optional for local smoke tests
 from backend.market_snapshot_store import MarketSnapshotStore
 from backend.dhan_intraday import fetch_intraday_history
 from backend.data_fetcher import CRYPTO, _fetch_dhan_india_daily_frame, fetch_crypto_history
-from backend.timeframe_rollup import resample_ohlcv
+from backend.timeframe_rollup import derive_custom_intraday, derive_macro_timeframes
 
 try:
     from backend.pattern_oi_vwap_ema_scanner import _load_broad_india_universe_symbols
@@ -142,19 +142,29 @@ def _derive_75m_from_15m(symbol: str, market: str) -> pd.DataFrame | None:
     base = _load_15m_history_for_symbol(symbol, market)
     if base is None or base.empty:
         return None
-    work = resample_ohlcv(base, "75m")
-    if work is None or work.empty:
-        return None
-    return work
+    work = derive_custom_intraday(base)
+    frame = work.get("75m")
+    return frame if frame is not None and not frame.empty else None
+
+
+def _fetch_direct_60m(symbol: str, market: str, data_range: str) -> pd.DataFrame | None:
+    try:
+        frame, _meta = fetch_intraday_history(symbol, interval="60m", data_range=data_range, market=market)
+        frame = _intraday_frame_to_candles(frame if isinstance(frame, pd.DataFrame) else pd.DataFrame())
+        if frame is not None and not frame.empty:
+            return frame
+    except Exception:
+        pass
+    return None
 
 
 def _derive_3h_4h_from_60m(symbol: str, market: str, timeframe: str, data_range: str) -> pd.DataFrame | None:
-    frame, _meta = fetch_intraday_history(symbol, interval="60m", data_range=data_range, market=market)
-    frame = _intraday_frame_to_candles(frame if isinstance(frame, pd.DataFrame) else pd.DataFrame())
-    if frame is None or frame.empty:
+    base = _fetch_direct_60m(symbol, market, data_range)
+    if base is None or base.empty:
         return None
-    work = resample_ohlcv(frame, timeframe)
-    return work if work is not None and not work.empty else None
+    work = derive_custom_intraday(base)
+    frame = work.get(timeframe)
+    return frame if frame is not None and not frame.empty else None
 
 
 def _derive_weekly_monthly_from_daily(symbol: str, market: str) -> pd.DataFrame | None:
@@ -170,14 +180,15 @@ def _derive_timeframe_from_sources(symbol: str, market: str, timeframe: str) -> 
     if tf == "75m":
         return _derive_75m_from_15m(symbol, market)
     if tf in {"3h", "4h"}:
-        # Dhan historical intraday only exposes up to 60m, so bootstrap 3h/4h from the lightest direct source.
+        # Dhan historical intraday only exposes up to 60m, so bootstrap 3h/4h from the native 60m source.
         return _derive_3h_4h_from_60m(symbol, market, tf, data_range="60d")
     if tf in {"weekly", "monthly"}:
         daily = _derive_weekly_monthly_from_daily(symbol, market)
         if daily is None or daily.empty:
             return None
-        work = resample_ohlcv(daily, tf)
-        return work if work is not None and not work.empty else None
+        work = derive_macro_timeframes(daily)
+        frame = work.get(tf)
+        return frame if frame is not None and not frame.empty else None
     return None
 
 
@@ -259,7 +270,11 @@ def fetch_and_store(
                 frame = _intraday_frame_to_candles(frame if isinstance(frame, pd.DataFrame) else pd.DataFrame())
                 if frame is None or frame.empty:
                     frame = _derive_timeframe_from_sources(symbol, effective_market, interval_label)
-            elif interval_label in {"3h", "4h", "weekly", "monthly"}:
+            elif interval_label == "3h":
+                frame = _derive_3h_4h_from_60m(symbol, effective_market, interval_label, data_range)
+            elif interval_label == "4h":
+                frame = _derive_3h_4h_from_60m(symbol, effective_market, interval_label, data_range)
+            elif interval_label in {"weekly", "monthly"}:
                 frame = _derive_timeframe_from_sources(symbol, effective_market, interval_label)
             elif interval_label in {"1d", "daily"}:
                 daily, _snapshot = _fetch_dhan_india_daily_frame(symbol)

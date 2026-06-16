@@ -50,6 +50,11 @@ DEFAULT_SOURCE_STRATEGY_ID = os.environ.get("DHAN_WATCH_STRATEGY_ID", "india_ema
 DEFAULT_SOURCE_STRATEGY_LOOKBACK_DAYS = int(os.environ.get("DHAN_WATCH_STRATEGY_LOOKBACK_DAYS", "4"))
 DEFAULT_STRATEGY_NAME = os.environ.get("DHAN_PATTERN_STRATEGY_NAME", "Pattern+OI+VWAP/EMA").strip() or "Pattern+OI+VWAP/EMA"
 DEFAULT_SCAN_UNIVERSE = os.environ.get("PATTERN_OI_VWAP_EMA_UNIVERSE", "all").strip().lower() or "all"
+DEFAULT_GATE3_ENABLED = os.environ.get("PATTERN_OI_GATE3_ENABLED", "0").strip().lower() not in {"0", "false", "no", "off"}
+DEFAULT_GATE4_BULLISH_SHIFT_MIN = float(os.environ.get("PATTERN_OI_GATE4_BULLISH_SHIFT_MIN", "10"))
+DEFAULT_GATE4_BULLISH_SHIFT_MAX = float(os.environ.get("PATTERN_OI_GATE4_BULLISH_SHIFT_MAX", "20"))
+DEFAULT_GATE4_BEARISH_SHIFT_MIN = float(os.environ.get("PATTERN_OI_GATE4_BEARISH_SHIFT_MIN", "-6"))
+DEFAULT_GATE4_BEARISH_SHIFT_MAX = float(os.environ.get("PATTERN_OI_GATE4_BEARISH_SHIFT_MAX", "-5"))
 FNO_CACHE_PATH = ROOT / "strategies" / ".fno_cache.json"
 EQUITY_HISTORY_CACHE_DIR = ROOT / "backend" / "data" / "dhan_equity_cache"
 STRATEGY_CANDIDATE_POOL_DIR = ROOT / "backend" / "data" / "strategy_candidate_pools"
@@ -2018,13 +2023,15 @@ def _is_head_shoulders(bars: list[dict[str, Any]], vwap: float | None = None, em
 
 
 def _strategy_gate_summary(patterns: list[str], gate2: bool, gate3: bool, gate4: bool, direction: str | None = None) -> dict[str, Any]:
+    gate3_enabled = DEFAULT_GATE3_ENABLED
     return {
         "gate1_pattern": patterns[0] if patterns else None,
         "gate1_pass": bool(patterns),
         "gate2_pass": bool(gate2),
-        "gate3_pass": bool(gate3),
+        "gate3_pass": bool(gate3) if gate3_enabled else True,
         "gate4_pass": bool(gate4),
-        "strategy_pass": bool(patterns) and gate2 and gate3 and gate4,
+        "strategy_pass": bool(patterns) and gate2 and gate4,
+        "gate3_enabled": gate3_enabled,
         "direction": direction,
     }
 
@@ -2143,38 +2150,51 @@ def _gate3_metrics(option_chain: OptionChainSnapshot | None) -> dict[str, Any]:
 def _gate4_metrics(option_chain: OptionChainSnapshot | None) -> dict[str, Any]:
     pcr = None
     pcr_prev = None
+    pcr_shift_pct = None
     bullish_gate4 = False
     bearish_gate4 = False
     reason = "PCR unavailable"
     if option_chain is not None:
         pcr = option_chain.pcr_intraday
         pcr_prev = option_chain.pcr_intraday_past
-        bullish_gate4 = bool(pcr is not None and (pcr > 1.0 or (pcr_prev is not None and pcr > pcr_prev)))
-        bearish_gate4 = bool(pcr is not None and (pcr < 1.0 or (pcr_prev is not None and pcr < pcr_prev)))
-        if bullish_gate4 and pcr is not None and pcr_prev is not None and pcr > pcr_prev:
-            reason = "PCR rising, bullish confirmed"
-        elif bullish_gate4 and pcr is not None and pcr > 1.0:
-            reason = "PCR above 1, bullish confirmed"
-        elif bearish_gate4 and pcr is not None and pcr_prev is not None and pcr < pcr_prev:
-            reason = "PCR falling, bearish confirmed"
-        elif bearish_gate4 and pcr is not None and pcr < 1.0:
-            reason = "PCR below 1, bearish confirmed"
-        elif pcr is not None and pcr_prev is not None:
-            if pcr > pcr_prev:
-                reason = "PCR rising, bearish not confirmed"
-            elif pcr < pcr_prev:
-                reason = "PCR falling, bullish not confirmed"
-            else:
-                reason = "PCR flat, no directional confirmation"
-        elif pcr is not None:
-            reason = "PCR available, no prior PCR to compare"
+        pcr_shift_pct = _pcr_shift_pct(pcr, pcr_prev)
+        bullish_gate4 = bool(
+            pcr_shift_pct is not None
+            and DEFAULT_GATE4_BULLISH_SHIFT_MIN <= pcr_shift_pct <= DEFAULT_GATE4_BULLISH_SHIFT_MAX
+        )
+        bearish_gate4 = bool(
+            pcr_shift_pct is not None
+            and DEFAULT_GATE4_BEARISH_SHIFT_MIN <= pcr_shift_pct <= DEFAULT_GATE4_BEARISH_SHIFT_MAX
+        )
+        if bullish_gate4:
+            reason = (
+                f"PCR Shift {pcr_shift_pct}% within bullish confirmation band "
+                f"[{DEFAULT_GATE4_BULLISH_SHIFT_MIN}, {DEFAULT_GATE4_BULLISH_SHIFT_MAX}]"
+            )
+        elif bearish_gate4:
+            reason = (
+                f"PCR Shift {pcr_shift_pct}% within bearish confirmation band "
+                f"[{DEFAULT_GATE4_BEARISH_SHIFT_MIN}, {DEFAULT_GATE4_BEARISH_SHIFT_MAX}]"
+            )
+        elif pcr_shift_pct is not None:
+            reason = f"PCR Shift {pcr_shift_pct}% outside confirmation bands"
     return {
         "pcr": pcr,
         "pcr_prev": pcr_prev,
+        "pcr_shift_pct": pcr_shift_pct,
         "bullish_gate4": bullish_gate4,
         "bearish_gate4": bearish_gate4,
         "reason": reason,
     }
+
+
+def _pcr_shift_pct(pcr: float | None, pcr_prev: float | None) -> float | None:
+    if pcr is None or pcr_prev in [None, 0]:
+        return None
+    try:
+        return round(((float(pcr) - float(pcr_prev)) / abs(float(pcr_prev))) * 100.0, 2)
+    except Exception:
+        return None
 
 
 def _rejection_reasons(snapshot: "SymbolSnapshot", strategy: dict[str, Any]) -> list[str]:
@@ -2202,25 +2222,22 @@ def _rejection_reasons(snapshot: "SymbolSnapshot", strategy: dict[str, Any]) -> 
                 else "Gate 2 failed: close/VWAP/EMA9 missing"
             )
 
-    if strategy.get("gate3_pass") is not True:
-        put_velocity = strategy.get("put_oi_velocity_pct")
-        call_velocity = strategy.get("call_oi_velocity_pct")
-        if direction == "BEARISH":
-            reasons.append(
-                f"Gate 3 failed: call OI velocity {call_velocity}%, put OI velocity {put_velocity}%"
-            )
-        else:
-            reasons.append(
-                f"Gate 3 failed: put OI velocity {put_velocity}%, call OI velocity {call_velocity}%"
-            )
-
     if strategy.get("gate4_pass") is not True:
         pcr = strategy.get("pcr")
         pcr_prev = strategy.get("pcr_prev")
+        pcr_shift_pct = strategy.get("pcr_shift_pct")
         if direction == "BEARISH":
-            reasons.append(f"Gate 4 failed: PCR {pcr} not below or falling vs {pcr_prev}")
+            reasons.append(
+                f"Gate 4 failed: PCR Shift {pcr_shift_pct}% not in bearish band [-6.0, -5.0]"
+                if pcr_shift_pct is not None
+                else f"Gate 4 failed: PCR {pcr} not below or falling vs {pcr_prev}"
+            )
         else:
-            reasons.append(f"Gate 4 failed: PCR {pcr} not above or rising vs {pcr_prev}")
+            reasons.append(
+                f"Gate 4 failed: PCR Shift {pcr_shift_pct}% not in bullish band [10.0, 20.0]"
+                if pcr_shift_pct is not None
+                else f"Gate 4 failed: PCR {pcr} not above or rising vs {pcr_prev}"
+            )
 
     return reasons
 
@@ -2814,6 +2831,7 @@ def _format_gate3_personal_message(
     gate1_pass = "PASS" if strategy.get("gate1_pass") else "FAIL"
     gate2_pass = "PASS" if strategy.get("gate2_pass") else "FAIL"
     gate3_pass = "PASS" if strategy.get("gate3_pass") else "FAIL"
+    gate3_label = f"{gate3_pass} (disabled)" if not DEFAULT_GATE3_ENABLED else gate3_pass
     gate4_pass = "PASS" if strategy.get("gate4_pass") else "FAIL"
     call_strike = getattr(snapshot.option_chain, "highest_call_oi_strike", None) if snapshot.option_chain else None
     call_oi_prev = getattr(snapshot.option_chain, "highest_call_oi_past", None) if snapshot.option_chain else None
@@ -2831,8 +2849,8 @@ def _format_gate3_personal_message(
         f"Source: {source_note or 'Universe'}",
         f"Gate 1: {gate1_pass} | Pattern Name: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
-        f"Gate 3: {gate3_pass} | Call OI: {call_oi if call_oi is not None else 'NA'} @ {call_strike if call_strike is not None else 'NA'} vs {call_oi_prev if call_oi_prev is not None else 'NA'} | Put OI: {put_oi if put_oi is not None else 'NA'} @ {put_strike if put_strike is not None else 'NA'} vs {put_oi_prev if put_oi_prev is not None else 'NA'}",
-        f"Gate 4: {gate4_pass} | PCR: {pcr if pcr is not None else 'NA'} | Prev PCR: {pcr_prev if pcr_prev is not None else 'NA'}",
+        f"Gate 3: {gate3_label} | Call OI: {call_oi if call_oi is not None else 'NA'} @ {call_strike if call_strike is not None else 'NA'} vs {call_oi_prev if call_oi_prev is not None else 'NA'} | Put OI: {put_oi if put_oi is not None else 'NA'} @ {put_strike if put_strike is not None else 'NA'} vs {put_oi_prev if put_oi_prev is not None else 'NA'}",
+        f"Gate 4: {gate4_pass} | PCR: {pcr if pcr is not None else 'NA'} | Prev PCR: {pcr_prev if pcr_prev is not None else 'NA'} | PCR Shift: {strategy.get('pcr_shift_pct') if strategy.get('pcr_shift_pct') is not None else 'NA'}%",
         f"Candle Time: {snapshot.candle_time_ist or 'NA'}",
         f"Call OI Change: {call_velocity if call_velocity is not None else 'NA'}%",
         f"Put OI Change: {put_velocity if put_velocity is not None else 'NA'}%",
@@ -2859,6 +2877,8 @@ def _format_gate12_personal_message(
     pattern = str(strategy.get("gate1_pattern") or strategy.get("pattern") or "UNAVAILABLE")
     gate1_pass = "PASS" if strategy.get("gate1_pass") else "FAIL"
     gate2_pass = "PASS" if strategy.get("gate2_pass") else "FAIL"
+    gate3_pass = "PASS" if strategy.get("gate3_pass") else "FAIL"
+    gate3_label = f"{gate3_pass} (disabled)" if not DEFAULT_GATE3_ENABLED else gate3_pass
     htf = higher_timeframe_context or {}
     htf_label = str(htf.get("timeframe") or "").strip().upper()
     htf_pattern = str(htf.get("pattern") or "No Pattern")
@@ -2869,6 +2889,7 @@ def _format_gate12_personal_message(
         f"Source: {source_note or 'Universe'}",
         f"Gate 1: {gate1_pass} | Pattern Name: {pattern} | Direction: {direction}",
         f"Gate 2: {gate2_pass} | Close: {snapshot.close if snapshot.close is not None else 'NA'} | VWAP: {snapshot.vwap if snapshot.vwap is not None else 'NA'} | EMA9: {snapshot.ema9 if snapshot.ema9 is not None else 'NA'}",
+        f"Gate 3: {gate3_label}",
         "Signal: Pattern and VWAP/EMA are clear.",
         f"Candle Time: {snapshot.candle_time_ist or 'NA'}",
     ]

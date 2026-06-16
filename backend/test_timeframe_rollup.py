@@ -4,7 +4,7 @@ import unittest
 
 import pandas as pd
 
-from backend.timeframe_rollup import resample_ohlcv, higher_timeframe_for
+from backend.timeframe_rollup import derive_custom_intraday, derive_macro_timeframes, resample_ohlcv, higher_timeframe_for
 
 
 class TimeframeRollupTests(unittest.TestCase):
@@ -67,6 +67,63 @@ class TimeframeRollupTests(unittest.TestCase):
         self.assertFalse(rolled.empty)
         self.assertIn("dt_utc", rolled.columns)
         self.assertGreaterEqual(len(rolled), 1)
+
+    def test_derive_custom_intraday_returns_all_bootstrapped_frames(self):
+        frame = pd.DataFrame(
+            {
+                "dt_utc": pd.to_datetime(
+                    [
+                        "2026-06-15T03:45:00Z",
+                        "2026-06-15T04:00:00Z",
+                        "2026-06-15T04:15:00Z",
+                        "2026-06-15T04:30:00Z",
+                        "2026-06-15T04:45:00Z",
+                        "2026-06-15T05:00:00Z",
+                        "2026-06-15T05:15:00Z",
+                        "2026-06-15T05:30:00Z",
+                        "2026-06-15T05:45:00Z",
+                        "2026-06-15T06:00:00Z",
+                        "2026-06-15T06:15:00Z",
+                        "2026-06-15T06:30:00Z",
+                    ]
+                ),
+                "open": list(range(100, 112)),
+                "high": list(range(101, 113)),
+                "low": [x - 1 for x in range(100, 112)],
+                "close": [x + 0.5 for x in range(100, 112)],
+                "volume": [100 + (x * 10) for x in range(12)],
+            }
+        )
+        rolled = derive_custom_intraday(frame)
+        self.assertIn("75m", rolled)
+        self.assertIn("3h", rolled)
+        self.assertIn("4h", rolled)
+        self.assertFalse(rolled["75m"].empty)
+        self.assertFalse(rolled["3h"].empty)
+        self.assertFalse(rolled["4h"].empty)
+
+    def test_derive_macro_timeframes_returns_weekly_and_monthly(self):
+        frame = pd.DataFrame(
+            {
+                "dt_utc": pd.to_datetime(
+                    [
+                        "2026-06-01T03:45:00Z",
+                        "2026-06-08T03:45:00Z",
+                        "2026-06-15T03:45:00Z",
+                        "2026-06-22T03:45:00Z",
+                        "2026-06-29T03:45:00Z",
+                    ]
+                ),
+                "open": [100.0, 101.0, 102.0, 103.0, 104.0],
+                "high": [101.0, 102.0, 103.0, 104.0, 105.0],
+                "low": [99.0, 100.0, 101.0, 102.0, 103.0],
+                "close": [100.5, 101.5, 102.5, 103.5, 104.5],
+                "volume": [100, 110, 120, 130, 140],
+            }
+        )
+        rolled = derive_macro_timeframes(frame)
+        self.assertIn("weekly", rolled)
+        self.assertIn("monthly", rolled)
 
 
 if __name__ == "__main__":

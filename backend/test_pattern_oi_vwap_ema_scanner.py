@@ -10,6 +10,8 @@ from backend.pattern_oi_vwap_ema_scanner import (
     _alert_signature_text,
     _deliver_telegram_alerts,
     _format_gate12_group_message,
+    _gate4_metrics,
+    _strategy_gate_summary,
 )
 
 
@@ -79,6 +81,33 @@ class PatternOIVwapEmaScannerTests(unittest.TestCase):
         )
 
         self.assertIn("Higher TF 3H: Bearish Engulfing | When: 2026-06-15T12:15:00+05:30 | Direction: BEARISH", text)
+
+    def test_gate4_uses_pcr_shift_bands_and_gate3_is_disabled_by_default(self):
+        class OptionChain:
+            pcr_intraday = 1.12
+            pcr_intraday_past = 1.0
+
+        metrics = _gate4_metrics(OptionChain())
+        self.assertTrue(metrics["bullish_gate4"])
+        self.assertFalse(metrics["bearish_gate4"])
+        self.assertEqual(metrics["pcr_shift_pct"], 12.0)
+        self.assertIn("bullish confirmation band", metrics["reason"])
+
+        summary = _strategy_gate_summary(["Double Bottom"], True, False, True, direction="BULLISH")
+        self.assertTrue(summary["strategy_pass"])
+        self.assertTrue(summary["gate3_pass"])
+        self.assertFalse(summary["gate3_enabled"])
+
+    def test_gate4_bearish_shift_band_is_supported(self):
+        class OptionChain:
+            pcr_intraday = 0.94
+            pcr_intraday_past = 1.0
+
+        metrics = _gate4_metrics(OptionChain())
+        self.assertFalse(metrics["bullish_gate4"])
+        self.assertTrue(metrics["bearish_gate4"])
+        self.assertEqual(metrics["pcr_shift_pct"], -6.0)
+        self.assertIn("bearish confirmation band", metrics["reason"])
 
 
 if __name__ == "__main__":

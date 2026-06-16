@@ -109,3 +109,24 @@ def resample_ohlcv(frame: pd.DataFrame, timeframe: str) -> pd.DataFrame:
     resampled["dt_ist"] = pd.to_datetime(resampled.index).tz_convert(IST)
     resampled["dt_utc"] = resampled["dt_ist"].dt.tz_convert("UTC")
     return resampled.reset_index(drop=True)[["dt_utc", "dt_ist", "open", "high", "low", "close", "volume"]]
+
+
+def derive_custom_intraday(base_df: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    work = _normalize_frame(base_df)
+    if work.empty:
+        return {"75m": pd.DataFrame(), "3h": pd.DataFrame(), "4h": pd.DataFrame()}
+    return {
+        "75m": resample_ohlcv(work, "75m"),
+        "3h": resample_ohlcv(work, "3h"),
+        "4h": resample_ohlcv(work, "4h"),
+    }
+
+
+def derive_macro_timeframes(daily_df: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    work = _normalize_frame(daily_df)
+    if work.empty:
+        return {"weekly": pd.DataFrame(), "monthly": pd.DataFrame()}
+    return {
+        "weekly": resample_ohlcv(work, "weekly"),
+        "monthly": resample_ohlcv(work, "monthly"),
+    }
