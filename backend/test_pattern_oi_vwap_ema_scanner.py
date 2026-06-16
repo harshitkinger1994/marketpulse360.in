@@ -5,6 +5,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+import pandas as pd
+
 from backend.market_snapshot_store import MarketSnapshotStore
 from backend.pattern_oi_vwap_ema_scanner import (
     _alert_signature_text,
@@ -19,6 +21,7 @@ from backend.pattern_oi_vwap_ema_scanner import (
     _preflight_dhan_token,
     _seconds_until_first_closed_scan,
     _strategy_gate_summary,
+    DhanRealtimeClient,
 )
 
 
@@ -231,6 +234,52 @@ class PatternOIVwapEmaScannerTests(unittest.TestCase):
         self.assertIn("Gate 3: PASS | Call OI: 12345 @ 51500 vs 12001", text)
         self.assertIn("Gate 4: PASS | Put OI: 9987 @ 50000 vs 10044", text)
         self.assertIn("PCR Shift: +12.00% | ↑ Long Added", text)
+
+    def test_snapshot_symbol_skips_refresh_when_cached_history_is_current(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            store = MarketSnapshotStore(base_dir=Path(tmpdir))
+            cached = pd.DataFrame(
+                {
+                    "dt_utc": pd.to_datetime(
+                        [
+                            "2026-06-15T04:45:00Z",
+                            "2026-06-15T05:00:00Z",
+                        ]
+                    ),
+                    "open": [100.0, 101.0],
+                    "high": [101.0, 102.0],
+                    "low": [99.5, 100.5],
+                    "close": [100.5, 101.5],
+                    "volume": [1000, 1100],
+                }
+            ).set_index("dt_utc")
+            write_calls = {"count": 0}
+
+            def fake_write(frame_arg: pd.DataFrame, path: Path) -> None:
+                write_calls["count"] += 1
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.touch()
+
+            client = DhanRealtimeClient.__new__(DhanRealtimeClient)
+
+            with patch("backend.pattern_oi_vwap_ema_scanner._as_of_end_datetime", return_value=pd.Timestamp("2026-06-15T10:35:00+05:30").to_pydatetime()), patch.object(
+                store, "read_candle_history", return_value=cached
+            ), patch.object(store, "write_candle_history", side_effect=fake_write), patch.object(
+                DhanRealtimeClient, "fetch_equity_history", side_effect=AssertionError("should not fetch")
+            ):
+                snapshot = client.snapshot_symbol(
+                    "TCS",
+                    interval="15m",
+                    lookback_days=30,
+                    market="india",
+                    option_lookback_days=2,
+                    as_of_date=None,
+                    fetch_option_chain=False,
+                    history_store=store,
+                )
+
+            self.assertEqual(snapshot.candle_time_ist, "2026-06-15T10:30:00+05:30")
+            self.assertEqual(write_calls["count"], 0)
 
     def test_gate12_message_uses_na_when_pattern_is_missing(self):
         class Snapshot:

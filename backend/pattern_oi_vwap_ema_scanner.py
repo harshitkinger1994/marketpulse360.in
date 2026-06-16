@@ -779,6 +779,35 @@ def _next_15_minute_boundary(dt: datetime) -> datetime:
     return floored + timedelta(minutes=15)
 
 
+def _intraday_interval_minutes(interval: str | None) -> int | None:
+    text = str(interval or "").strip().lower()
+    if text.endswith("m") and text[:-1].isdigit():
+        return int(text[:-1])
+    if text.endswith("h") and text[:-1].isdigit():
+        return int(text[:-1]) * 60
+    return None
+
+
+def _latest_closed_intraday_boundary(now: datetime, interval: str | None) -> datetime | None:
+    minutes = _intraday_interval_minutes(interval)
+    if minutes is None or minutes <= 0:
+        return None
+    current = now.astimezone(IST) if now.tzinfo is not None else now.replace(tzinfo=IST)
+    if current.weekday() >= 5:
+        return None
+    open_dt, close_dt = _market_day_bounds(current)
+    if current < open_dt:
+        return None
+    elapsed_minutes = int((current - open_dt).total_seconds() // 60)
+    intervals = elapsed_minutes // minutes
+    boundary = open_dt + timedelta(minutes=intervals * minutes)
+    if boundary > close_dt:
+        boundary = close_dt
+    if boundary < open_dt:
+        return None
+    return boundary
+
+
 def _is_weekday(dt: datetime) -> bool:
     return dt.weekday() < 5
 
@@ -4071,35 +4100,53 @@ class DhanRealtimeClient:
                     frame = frame.tail(max_history_bars)
                     store.write_candle_history(interval, symbol, market, interval, frame, retention_days=retention_days, now=end_ist)
             else:
-                try:
-                    fresh_days = fetch_days
-                    cached = cached.tail(max_history_bars)
-                    logger.info(
-                        "Refreshing candle history store tail for %s (%s, %s) with last %s day(s).",
-                        symbol,
-                        market,
-                        interval,
-                        fresh_days,
-                    )
-                    fresh, contract = self.fetch_equity_history(
-                        symbol,
-                        interval=interval,
-                        data_range=f"{fresh_days}d",
-                        market=market,
-                        end_ist=end_ist,
-                    )
-                    frame = _merge_equity_history_frames(
-                        cached=cached,
-                        fresh=fresh,
-                        refresh_days=fresh_days,
-                        window_days=retention_days,
-                        end_ist=end_ist,
-                    )
-                    if frame is not None and not frame.empty:
-                        frame = frame.tail(max_history_bars)
-                except Exception as exc:
-                    logger.warning("Falling back to stored candle history for %s: %s", symbol, exc)
-                    frame = cached
+                cached = cached.tail(max_history_bars)
+                latest_cached_utc = cached.index.max() if isinstance(cached.index, pd.DatetimeIndex) and not cached.empty else None
+                latest_closed_boundary = _latest_closed_intraday_boundary(end_ist, interval)
+                if latest_cached_utc is not None and latest_closed_boundary is not None:
+                    latest_closed_utc = pd.Timestamp(latest_closed_boundary).tz_convert("UTC")
+                    if latest_cached_utc >= latest_closed_utc:
+                        logger.info(
+                            "Using cached candle history for %s (%s, %s); already current through %s.",
+                            symbol,
+                            market,
+                            interval,
+                            latest_closed_boundary.isoformat(),
+                        )
+                        frame = cached
+                if frame is None:
+                    try:
+                        fresh_days = fetch_days
+                        logger.info(
+                            "Refreshing candle history store tail for %s (%s, %s) with last %s day(s).",
+                            symbol,
+                            market,
+                            interval,
+                            fresh_days,
+                        )
+                        fresh, contract = self.fetch_equity_history(
+                            symbol,
+                            interval=interval,
+                            data_range=f"{fresh_days}d",
+                            market=market,
+                            end_ist=end_ist,
+                        )
+                        if fresh is not None and not fresh.empty and latest_cached_utc is not None:
+                            fresh = fresh.loc[fresh.index > latest_cached_utc]
+                        frame = _merge_equity_history_frames(
+                            cached=cached,
+                            fresh=fresh,
+                            refresh_days=fresh_days,
+                            window_days=retention_days,
+                            end_ist=end_ist,
+                        )
+                        if frame is not None and not frame.empty:
+                            frame = frame.tail(max_history_bars)
+                            if latest_cached_utc is not None and frame.index.max() > latest_cached_utc:
+                                store.write_candle_history(interval, symbol, market, interval, frame, retention_days=retention_days, now=end_ist)
+                    except Exception as exc:
+                        logger.warning("Falling back to stored candle history for %s: %s", symbol, exc)
+                        frame = cached
         if frame is None or frame.empty:
             frame, contract = self.fetch_equity_history(
                 symbol,
