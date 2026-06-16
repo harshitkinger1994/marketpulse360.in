@@ -233,6 +233,11 @@ def _resolve_universe(universe: str, symbols: list[str]) -> list[str]:
         return []
 
 
+def _is_missing_history_error(exc: Exception) -> bool:
+    text = str(exc or "").strip().lower()
+    return "no dhan intraday history returned" in text or "no dhan daily history returned" in text
+
+
 def fetch_and_store(
     *,
     universe: str,
@@ -301,6 +306,10 @@ def fetch_and_store(
                 continue
             written += 1
         except Exception as exc:
+            if _is_missing_history_error(exc):
+                skipped_missing += 1
+                messages.append(f"{symbol}: {exc}")
+                continue
             failed += 1
             messages.append(f"{symbol}: {exc}")
     return {

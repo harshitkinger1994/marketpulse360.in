@@ -233,7 +233,8 @@ class MarketCandleIngestionTests(unittest.TestCase):
             store = MarketSnapshotStore(base_dir=Path(tmpdir))
 
             with patch("backend.market_candle_ingestion._load_broad_india_universe_symbols", return_value=["SENSEX50"]), patch(
-                "backend.market_candle_ingestion.fetch_intraday_history", return_value=(pd.DataFrame(), {"source": "DHAN"})
+                "backend.market_candle_ingestion.fetch_intraday_history",
+                side_effect=RuntimeError("No Dhan intraday history returned for SENSEX50"),
             ), patch("backend.market_candle_ingestion.MarketSnapshotStore", return_value=store):
                 summary = fetch_and_store(
                     universe="broad-india",
