@@ -11,6 +11,8 @@ import requests
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 ENV_PATH = ROOT / "backend" / ".env"
 INGESTION_SCRIPT = ROOT / "backend" / "market_candle_ingestion.py"
 CRYPTO_SCANNER_SCRIPT = ROOT / "backend" / "crypto_pattern_oi_vwap_ema_scanner.py"
@@ -88,20 +90,13 @@ TELEGRAM_STATUS_CHAT_ID = (
     or os.environ.get("TELEGRAM_PERSONAL_CHAT_ID")
     or TELEGRAM_CHAT_ID
 )
+from backend.notification_router import send_status_alert
 
 
 def _send_telegram(message):
-    if not TELEGRAM_TOKEN or not TELEGRAM_STATUS_CHAT_ID:
+    if not message:
         return False
-    try:
-        resp = requests.post(
-            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-            json={"chat_id": TELEGRAM_STATUS_CHAT_ID, "text": message},
-            timeout=10,
-        )
-        return resp.status_code == 200
-    except Exception:
-        return False
+    return send_status_alert(message, max_len=3500, timeout=10)
 
 
 def _load_json(path):
@@ -154,7 +149,13 @@ def _intraday_boundary(now: datetime, minutes: int) -> datetime | None:
         return None
     boundary = open_dt + timedelta(minutes=intervals * minutes)
     if boundary > close_dt:
-        return None
+        close_elapsed = close_dt - open_dt
+        intervals = int(close_elapsed.total_seconds() // (minutes * 60))
+        if intervals < 1:
+            return None
+        boundary = open_dt + timedelta(minutes=intervals * minutes)
+        if boundary > close_dt:
+            return None
     return boundary
 
 
