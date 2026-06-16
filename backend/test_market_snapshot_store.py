@@ -50,7 +50,7 @@ class MarketSnapshotStoreTests(unittest.TestCase):
                 latest_path = store.write_payload(payload, timeframe="15m")
                 roundtrip = store.read_payload("15m")
 
-            self.assertTrue(str(latest_path).endswith("15_min_center_data_latest.parquet"))
+            self.assertIn("/center_data/15m/15m_latest.parquet", str(latest_path))
             self.assertIsInstance(roundtrip, dict)
             self.assertIn("TCS", roundtrip["data"])
             row = roundtrip["data"]["TCS"]
@@ -58,6 +58,11 @@ class MarketSnapshotStoreTests(unittest.TestCase):
             self.assertEqual(row["close"], 100.5)
             self.assertEqual(row["strategy"]["pattern"], "Hammer")
             self.assertEqual(row["option_chain"]["pcr_intraday"], 1.2)
+
+    def test_timeframe_state_and_signal_paths_use_clean_layout(self):
+        store = MarketSnapshotStore(base_dir=Path("/tmp/test-center-store"))
+        self.assertIn("/state/75m/telegram_dedupe.json", str(store.state_path("75m")))
+        self.assertIn("/signals/75m/latest.parquet", str(store.signal_path("75m")))
 
     def test_dashboard_payload_prefers_data_dict(self):
         with tempfile.TemporaryDirectory() as tmpdir:

@@ -12,10 +12,13 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_STORE_ROOT = ROOT / "backend" / "data" / "center_store"
+DEFAULT_STORE_ROOT = ROOT / "backend" / "data"
 DEFAULT_LATEST_FILENAME = "latest.parquet"
 CANDLE_HISTORY_DIRNAME = "candle_history"
 ARTIFACTS_DIRNAME = "artifacts"
+TIMEFRAME_ROOTNAME = "center_data"
+SIGNALS_ROOTNAME = "signals"
+STATE_ROOTNAME = "state"
 JSON_SUFFIXES = {
     "day_range",
     "option_chain",
@@ -31,6 +34,23 @@ JSON_SUFFIXES = {
 }
 
 TIMEFRAME_DIRS = {
+    "minute": "15m",
+    "1m": "15m",
+    "5m": "15m",
+    "15m": "15m",
+    "15_min": "15m",
+    "75m": "75m",
+    "75_min": "75m",
+    "3h": "3h",
+    "4h": "4h",
+    "daily": "daily",
+    "dashboard": "dashboard",
+    "weekly": "weekly",
+    "monthly": "monthly",
+    "commodities_daily": "commodities_daily",
+}
+
+LEGACY_TIMEFRAME_DIRS = {
     "minute": "everyminute_center_daa",
     "1m": "everyminute_center_daa",
     "5m": "everyminute_center_daa",
@@ -40,11 +60,11 @@ TIMEFRAME_DIRS = {
     "75_min": "75_min_center_data",
     "3h": "3h_center_data",
     "4h": "4h_center_data",
+    "daily": "dashboard_center_data",
+    "dashboard": "dashboard_center_data",
     "weekly": "weekly_center_data",
     "monthly": "monthly_center_data",
     "commodities_daily": "commodities_daily",
-    "dashboard": "dashboard_center_data",
-    "daily": "dashboard_center_data",
 }
 
 
@@ -106,6 +126,13 @@ def _normalize_timeframe(timeframe: str) -> str:
     if not text:
         return "dashboard"
     return TIMEFRAME_DIRS.get(text, text)
+
+
+def _legacy_timeframe_name(timeframe: str) -> str:
+    text = str(timeframe or "").strip().lower()
+    if not text:
+        return "dashboard_center_data"
+    return LEGACY_TIMEFRAME_DIRS.get(text, text)
 
 
 def _normalize_symbol(value: Any) -> str:
@@ -245,15 +272,58 @@ class MarketSnapshotStore:
     def __init__(self, base_dir: Path | None = None):
         self.base_dir = base_dir or DEFAULT_STORE_ROOT
 
+    def _center_root(self) -> Path:
+        return self.base_dir / TIMEFRAME_ROOTNAME
+
+    def _signals_root(self) -> Path:
+        return self.base_dir / SIGNALS_ROOTNAME
+
+    def _state_root(self) -> Path:
+        return self.base_dir / STATE_ROOTNAME
+
     def timeframe_dir(self, timeframe: str) -> Path:
-        return self.base_dir / _normalize_timeframe(timeframe)
+        return self._center_root() / _normalize_timeframe(timeframe)
+
+    def legacy_timeframe_dir(self, timeframe: str) -> Path:
+        return self.base_dir / "center_store" / _legacy_timeframe_name(timeframe)
+
+    def signal_timeframe_dir(self, timeframe: str) -> Path:
+        return self._signals_root() / _normalize_timeframe(timeframe)
+
+    def state_timeframe_dir(self, timeframe: str) -> Path:
+        return self._state_root() / _normalize_timeframe(timeframe)
+
+    def state_path(self, timeframe: str, name: str = "telegram_dedupe.json") -> Path:
+        return self.state_timeframe_dir(timeframe) / name
+
+    def signal_path(self, timeframe: str, name: str = "latest.parquet") -> Path:
+        return self.signal_timeframe_dir(timeframe) / name
+
+    def _timeframe_dir_candidates(self, timeframe: str) -> list[Path]:
+        candidates = [self.timeframe_dir(timeframe), self.legacy_timeframe_dir(timeframe)]
+        seen: set[str] = set()
+        out: list[Path] = []
+        for candidate in candidates:
+            key = str(candidate)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(candidate)
+        return out
 
     def latest_path(self, timeframe: str) -> Path:
         slug = _normalize_timeframe(timeframe)
         return self.timeframe_dir(timeframe) / f"{slug}_{DEFAULT_LATEST_FILENAME}"
 
+    def legacy_latest_path(self, timeframe: str) -> Path:
+        slug = _legacy_timeframe_name(timeframe)
+        return self.legacy_timeframe_dir(timeframe) / f"{slug}_{DEFAULT_LATEST_FILENAME}"
+
     def metadata_path(self, timeframe: str) -> Path:
         return self.latest_path(timeframe).with_suffix(".meta.json")
+
+    def legacy_metadata_path(self, timeframe: str) -> Path:
+        return self.legacy_latest_path(timeframe).with_suffix(".meta.json")
 
     def history_path(self, timeframe: str, timestamp: datetime | None = None) -> Path:
         ts = timestamp or _utc_now()
@@ -451,17 +521,24 @@ class MarketSnapshotStore:
         return path
 
     def read_candle_history(self, timeframe: str, symbol: str, market: str, interval: str) -> pd.DataFrame | None:
-        path = self.candle_history_path(timeframe, symbol, market, interval)
-        if not path.exists():
-            return None
-        try:
-            frame = self._read_frame_from_parquet(path)
-        except Exception:
-            return None
-        frame = self._normalize_candle_frame(frame)
-        if frame.empty:
-            return None
-        return frame.set_index("dt_utc")
+        safe_market = str(market or "").strip().lower().replace("/", "_") or "india"
+        safe_interval = str(interval or "").strip().lower().replace("/", "_") or "15m"
+        safe_symbol = _normalize_symbol(symbol)
+        for path in (
+            self.candle_history_path(timeframe, symbol, market, interval),
+            self.legacy_timeframe_dir(timeframe) / CANDLE_HISTORY_DIRNAME / safe_market / safe_interval / f"{safe_symbol}.parquet",
+        ):
+            if not path.exists():
+                continue
+            try:
+                frame = self._read_frame_from_parquet(path)
+            except Exception:
+                continue
+            frame = self._normalize_candle_frame(frame)
+            if frame.empty:
+                continue
+            return frame.set_index("dt_utc")
+        return None
 
     def write_candle_history(
         self,
@@ -513,57 +590,56 @@ class MarketSnapshotStore:
         effective_now = now or _utc_now()
         cutoff = effective_now - timedelta(days=retention_days)
         cutoff = cutoff if cutoff.tzinfo else cutoff.replace(tzinfo=timezone.utc)
-        timeframe_root = self.timeframe_dir(timeframe)
-
-        snapshot_history_root = timeframe_root / "history"
-        if snapshot_history_root.exists():
-            for dated_dir in sorted(snapshot_history_root.glob("*")):
-                if not dated_dir.is_dir():
-                    continue
-                if len(dated_dir.name) == 8 and dated_dir.name.isdigit():
-                    try:
-                        dir_date = datetime.strptime(dated_dir.name, "%Y%m%d").date()
-                    except Exception:
-                        dir_date = None
-                    if dir_date is not None and dir_date < cutoff.date():
-                        for child in dated_dir.glob("*.parquet"):
+        for timeframe_root in self._timeframe_dir_candidates(timeframe):
+            snapshot_history_root = timeframe_root / "history"
+            if snapshot_history_root.exists():
+                for dated_dir in sorted(snapshot_history_root.glob("*")):
+                    if not dated_dir.is_dir():
+                        continue
+                    if len(dated_dir.name) == 8 and dated_dir.name.isdigit():
+                        try:
+                            dir_date = datetime.strptime(dated_dir.name, "%Y%m%d").date()
+                        except Exception:
+                            dir_date = None
+                        if dir_date is not None and dir_date < cutoff.date():
+                            for child in dated_dir.glob("*.parquet"):
+                                try:
+                                    child.unlink()
+                                    stats["snapshot_files_removed"] += 1
+                                except Exception:
+                                    pass
                             try:
-                                child.unlink()
-                                stats["snapshot_files_removed"] += 1
+                                dated_dir.rmdir()
+                                stats["snapshot_dirs_removed"] += 1
                             except Exception:
                                 pass
+
+            candle_root = timeframe_root / CANDLE_HISTORY_DIRNAME
+            if candle_root.exists():
+                for candle_file in candle_root.rglob("*.parquet"):
+                    try:
+                        frame = self._read_frame_from_parquet(candle_file)
+                    except Exception:
+                        continue
+                    frame = self._normalize_candle_frame(frame)
+                    if frame.empty:
                         try:
-                            dated_dir.rmdir()
-                            stats["snapshot_dirs_removed"] += 1
+                            candle_file.unlink()
+                            stats["candle_files_removed"] += 1
                         except Exception:
                             pass
-
-        candle_root = timeframe_root / CANDLE_HISTORY_DIRNAME
-        if candle_root.exists():
-            for candle_file in candle_root.rglob("*.parquet"):
-                try:
-                    frame = self._read_frame_from_parquet(candle_file)
-                except Exception:
-                    continue
-                frame = self._normalize_candle_frame(frame)
-                if frame.empty:
-                    try:
-                        candle_file.unlink()
-                        stats["candle_files_removed"] += 1
-                    except Exception:
-                        pass
-                    continue
-                trimmed = frame.loc[frame["dt_utc"] >= pd.Timestamp(cutoff)]
-                if trimmed.empty:
-                    try:
-                        candle_file.unlink()
-                        stats["candle_files_removed"] += 1
-                    except Exception:
-                        pass
-                    continue
-                if len(trimmed) < len(frame):
-                    self._write_frame_to_parquet(trimmed.reset_index(drop=True), candle_file)
-                    stats["candle_files_trimmed"] += 1
+                        continue
+                    trimmed = frame.loc[frame["dt_utc"] >= pd.Timestamp(cutoff)]
+                    if trimmed.empty:
+                        try:
+                            candle_file.unlink()
+                            stats["candle_files_removed"] += 1
+                        except Exception:
+                            pass
+                        continue
+                    if len(trimmed) < len(frame):
+                        self._write_frame_to_parquet(trimmed.reset_index(drop=True), candle_file)
+                        stats["candle_files_trimmed"] += 1
 
         return stats
 
@@ -582,16 +658,19 @@ class MarketSnapshotStore:
         return results
 
     def read_payload(self, timeframe: str) -> dict[str, Any] | None:
-        latest_path = self.latest_path(timeframe)
-        if not latest_path.exists():
-            return None
-        try:
-            frame = self._read_frame_from_parquet(latest_path)
-        except Exception:
-            return None
-        if frame is None or frame.empty:
-            return None
-        return self.frame_to_payload(frame, timeframe=timeframe)
+        for latest_path in (self.latest_path(timeframe), self.legacy_latest_path(timeframe)):
+            if not latest_path.exists():
+                continue
+            try:
+                frame = self._read_frame_from_parquet(latest_path)
+            except Exception:
+                continue
+            if frame is None or frame.empty:
+                continue
+            payload = self.frame_to_payload(frame, timeframe=timeframe)
+            if payload:
+                return payload
+        return None
 
     def frame_to_payload(self, frame: pd.DataFrame, *, timeframe: str) -> dict[str, Any]:
         if frame.empty:

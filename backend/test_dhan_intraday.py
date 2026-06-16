@@ -7,6 +7,7 @@ import pandas as pd
 
 import backend.dhan_intraday as dhan
 import backend.data_fetcher as data_fetcher
+from strategies.index_futures_universe import get_india_index_futures_assets, get_index_overlay_assets
 
 
 class DhanIntradayTests(unittest.TestCase):
@@ -107,6 +108,11 @@ class DhanIntradayTests(unittest.TestCase):
         self.assertEqual(snapshot["day_range"]["source"], "DHAN_INTRADAY")
         self.assertEqual(price, 102.5)
         self.assertEqual(ts, "2026-06-12T09:30:00+00:00")
+
+    def test_india_index_futures_universe_contains_10_symbols(self):
+        assets = get_india_index_futures_assets()
+        self.assertEqual(len(assets), 10)
+        self.assertEqual(len(get_index_overlay_assets("india")), 10)
 
 
 if __name__ == "__main__":

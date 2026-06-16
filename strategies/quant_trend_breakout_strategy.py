@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 import pandas as pd
-from index_futures_universe import get_index_overlay_assets, merge_unique_assets
+from index_futures_universe import get_index_overlay_assets, get_india_index_futures_assets, merge_unique_assets
 
 NIFTY50_TICKERS = [
     "ADANIPORTS.NS", "APOLLOHOSP.NS", "ASIANPAINT.NS", "AXISBANK.NS", "BAJAJ-AUTO.NS",
@@ -831,10 +831,13 @@ def run():
 
     index_futures_assets = []
     if args.include_index_futures and not args.tickers:
-        index_futures_assets = get_index_overlay_assets(effective_market)
+        if effective_market == "india":
+            index_futures_assets = get_india_index_futures_assets()
+        else:
+            index_futures_assets = get_index_overlay_assets(effective_market)
         scan_assets = merge_unique_assets(scan_assets, index_futures_assets)
         if effective_market == "india":
-            universe_breakdown["index_companions"] = len(index_futures_assets)
+            universe_breakdown["index_futures"] = len(index_futures_assets)
         elif index_futures_assets:
             universe_breakdown["index_futures"] = len(index_futures_assets)
     index_future_symbols = {symbol.upper() for _, symbol in index_futures_assets}

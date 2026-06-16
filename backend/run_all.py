@@ -375,6 +375,7 @@ def _run_main_15m_scanner():
             "--nifty-futures",
             "--setup-alerts",
             "--gate3-alerts",
+            "--gate4-alerts",
             "--once",
         ],
     )

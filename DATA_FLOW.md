@@ -27,7 +27,7 @@ The important idea is:
 
 Location:
 
-- `backend/data/center_store/`
+- `backend/data/center_data/`
 
 This is the reusable storage layer used by the backend.
 
@@ -40,8 +40,15 @@ It keeps:
 
 Common subfolders:
 
-- `everyminute_center_daa/` for minute-style storage
-- `15_min_center_data/` for 15 minute storage
+- `center_data/15m/` for 15 minute storage
+- `center_data/75m/` for 75 minute storage
+- `center_data/3h/` for 3 hour storage
+- `center_data/4h/` for 4 hour storage
+- `center_data/daily/` for daily storage
+- `center_data/weekly/` for weekly storage
+- `center_data/monthly/` for monthly storage
+- `signals/15m/`, `signals/75m/`, etc. for signal artifacts
+- `state/15m/`, `state/75m/`, etc. for alert dedupe state
 - `commodities_daily/` for commodities daily snapshots
 - `dashboard_center_data/` for dashboard snapshot output
 
@@ -76,6 +83,7 @@ Role:
 
 - fetches fresh candle data from Dhan
 - writes candle history into the central snapshot store
+- derives custom frames from native base candles where required
 - keeps the live fetch work in one place
 
 Think of this as the “data collector”.
@@ -90,6 +98,7 @@ Role:
 - updates `frontend/data.json`
 - writes to the central snapshot store
 - performs cleanup after market close
+- keeps the 15m, 75m, 3h, 4h, daily, weekly, and monthly published artifacts in sync
 
 Think of this as the “daily publisher”.
 
@@ -140,9 +149,9 @@ Think of this as the “daily scheduler wrapper”.
 ### During market hours
 
 1. `market_candle_ingestion.py` fetches the newest candles from Dhan.
-2. The fetched candles are written into `backend/data/center_store/...`.
+2. The fetched candles are written into `backend/data/center_data/<timeframe>/...`.
 3. `pattern_oi_vwap_ema_scanner.py` reads from that store and evaluates the current signals.
-4. If a symbol passes the rules, the scanner writes signal/alert artifacts and sends Telegram.
+4. If a symbol passes the rules, the scanner writes signal/alert artifacts into `signals/<timeframe>/...` and dedupe state into `state/<timeframe>/...`.
 5. `live_server.py` serves the newest available data to the frontend.
 6. The frontend shows the live values in the India page, commodity page, and other sections.
 
@@ -183,6 +192,8 @@ Then it computes:
 - OI related checks
 - VWAP and EMA checks
 - gate 1 / gate 2 / gate 3 / gate 4 logic
+- repeat-pattern dedupe per symbol / timeframe / candle
+- per-timeframe alert text that includes the timeframe and latest supporting values
 
 If a symbol passes, the scanner creates:
 
@@ -211,9 +222,23 @@ If a symbol passes, the scanner creates:
 - `frontend/app.js`
 - `frontend/data.json`
 
-## 9. Short Version
+## 9. Universe Notes
+
+India strategies now treat the benchmark companions as ten explicit index futures:
+
+- `NIFTY FUT`
+- `BANKNIFTY FUT`
+- `SENSEX FUT`
+- `FINNIFTY FUT`
+- `MIDCPNIFTY FUT`
+- `NIFTYNXT50 FUT`
+- `BANKEX FUT`
+- `SENSEX50 FUT`
+- `MCXBULLDEX FUT`
+- `MCXMETLDEX FUT`
+
+## 10. Short Version
 
 If you remember only one sentence, use this:
 
 > Dhan fetches candles once, the backend stores them in parquet snapshots, scanners compute signals from those stored files, and the UI reads the latest published snapshot.
-
