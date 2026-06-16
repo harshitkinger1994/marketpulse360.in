@@ -140,6 +140,98 @@ class PatternOIVwapEmaScannerTests(unittest.TestCase):
         self.assertIn("- DAILY: Current Pattern: Bullish Engulfing | When: 2026-06-15T15:15:00+05:30 | Direction: BULLISH | Previous Pattern: Hammer | Prev When: 2026-06-14T15:15:00+05:30 | Prev Direction: BULLISH", text)
         self.assertIn("- WEEKLY: Current Pattern: Double Bottom | When: 2026-06-13T15:30:00+05:30 | Direction: BULLISH | Previous Pattern: No Pattern | Prev When: NA | Prev Direction: NA", text)
 
+    def test_higher_timeframe_contexts_skip_missing_patterns(self):
+        contexts = [
+            {
+                "timeframe": "3h",
+                "pattern": "No Pattern",
+                "direction": None,
+                "candle_time_ist": None,
+                "previous_pattern": None,
+                "previous_direction": None,
+                "previous_candle_time_ist": None,
+            },
+            {
+                "timeframe": "4h",
+                "pattern": "Bullish Engulfing",
+                "direction": "BULLISH",
+                "candle_time_ist": "2026-06-15T12:15:00+05:30",
+                "previous_pattern": "Hammer",
+                "previous_direction": "BULLISH",
+                "previous_candle_time_ist": "2026-06-15T08:15:00+05:30",
+            },
+        ]
+
+        class Snapshot:
+            close = 511.95
+            vwap = 506.41
+            ema9 = 503.4
+            candle_time_ist = "2026-06-15T15:15:00+05:30"
+            option_chain = None
+
+        text = _format_gate12_group_message(
+            "TCS",
+            Snapshot(),
+            {"direction": "BULLISH", "pattern": "Double Bottom"},
+            strategy_name="Pattern+OI+VWAP/EMA",
+            source_note="Universe",
+            timeframe_label="75m",
+            higher_timeframe_contexts=contexts,
+        )
+
+        self.assertNotIn("- 3H:", text)
+        self.assertIn("- 4H: Current Pattern: Bullish Engulfing | When: 2026-06-15T12:15:00+05:30 | Direction: BULLISH", text)
+
+    def test_gate12_message_includes_gate4_values_when_option_chain_exists(self):
+        class OptionChain:
+            highest_call_oi = 12345
+            highest_call_oi_past = 12001
+            highest_call_oi_strike = 51500
+            highest_put_oi = 9987
+            highest_put_oi_past = 10044
+            highest_put_oi_strike = 50000
+
+        class Snapshot:
+            close = 511.95
+            vwap = 506.41
+            ema9 = 503.4
+            candle_time_ist = "2026-06-15T15:15:00+05:30"
+            option_chain = OptionChain()
+
+        text = _format_gate12_group_message(
+            "TCS",
+            Snapshot(),
+            {
+                "direction": "BULLISH",
+                "pattern": "Double Bottom",
+                "gate1_pass": True,
+                "gate2_pass": True,
+                "gate3_pass": True,
+                "gate4_pass": True,
+                "pcr": 1.12,
+                "pcr_prev": 1.0,
+                "pcr_shift_pct": 12.0,
+            },
+            strategy_name="Pattern+OI+VWAP/EMA",
+            source_note="Universe",
+            timeframe_label="75m",
+            higher_timeframe_contexts=[
+                {
+                    "timeframe": "4h",
+                    "pattern": "Bullish Engulfing",
+                    "direction": "BULLISH",
+                    "candle_time_ist": "2026-06-15T12:15:00+05:30",
+                    "previous_pattern": "Hammer",
+                    "previous_direction": "BULLISH",
+                    "previous_candle_time_ist": "2026-06-15T08:15:00+05:30",
+                }
+            ],
+        )
+
+        self.assertIn("Gate 3: PASS | Call OI: 12345 @ 51500 vs 12001", text)
+        self.assertIn("Gate 4: PASS | Put OI: 9987 @ 50000 vs 10044", text)
+        self.assertIn("PCR Shift: +12.00% | ↑ Long Added", text)
+
     def test_gate12_message_uses_na_when_pattern_is_missing(self):
         class Snapshot:
             close = 511.95
@@ -160,8 +252,8 @@ class PatternOIVwapEmaScannerTests(unittest.TestCase):
         self.assertIn("Pattern: NA", text)
         self.assertIn("Gate 1: FAIL | Pattern Name: NA", text)
         self.assertIn("Gate 2: FAIL | Close: 511.95 | VWAP: 506.41 | EMA9: 503.4", text)
-        self.assertIn("Gate 3: NA", text)
-        self.assertIn("Gate 4: NA", text)
+        self.assertIn("Gate 3: FAIL | Call OI: NA @ NA vs NA | Change: NA | NA", text)
+        self.assertIn("Gate 4: FAIL | Put OI: NA @ NA vs NA | Change: NA | NA | PCR: NA | Prev PCR: NA | PCR Shift: NA | NA", text)
 
     def test_gate3_personal_message_includes_latest_previous_candle_and_oi_labels(self):
         class OptionChain:

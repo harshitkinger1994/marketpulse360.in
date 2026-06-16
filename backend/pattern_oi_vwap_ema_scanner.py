@@ -36,9 +36,9 @@ DHAN_BASE_URL = "https://api.dhan.co/v2"
 MARKET_OPEN = dt_time(9, 15)
 MARKET_CLOSE = dt_time(15, 30)
 DEFAULT_BUFFER_SECONDS = 1.5
-DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "4"))
+DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "2"))
 DEFAULT_FAST_STRIKE_WINDOW = int(os.environ.get("DHAN_FAST_STRIKE_WINDOW", "3"))
-DEFAULT_INTRADAY_RETRIES = int(os.environ.get("DHAN_INTRADAY_RETRIES", "3"))
+DEFAULT_INTRADAY_RETRIES = int(os.environ.get("DHAN_INTRADAY_RETRIES", "2"))
 DEFAULT_LIVE_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_LOOKBACK_DAYS", "10"))
 DEFAULT_LIVE_OPTION_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_OPTION_LOOKBACK_DAYS", "1"))
 DEFAULT_CANDLE_HISTORY_FETCH_DAYS = int(os.environ.get("DHAN_CANDLE_HISTORY_FETCH_DAYS", "1"))
@@ -1073,13 +1073,25 @@ def _higher_timeframe_contexts(
     ]
 
 
+def _has_real_pattern(value: Any) -> bool:
+    text = str(value or "").strip()
+    return bool(text) and text.upper() != "NO PATTERN"
+
+
 def _timeframe_context_lines(contexts: list[dict[str, Any]] | None) -> list[str]:
     if not contexts:
         return []
+    real_contexts = [
+        context
+        for context in contexts
+        if isinstance(context, dict)
+        and _has_real_pattern(context.get("pattern"))
+        and str(context.get("direction") or "").strip().upper() not in {"", "NA"}
+    ]
+    if not real_contexts:
+        return []
     lines = ["Higher Timeframe Context:"]
-    for context in contexts:
-        if not isinstance(context, dict):
-            continue
+    for context in real_contexts:
         tf_label = str(context.get("timeframe") or "NA").strip().upper()
         pattern = str(context.get("pattern") or "No Pattern")
         direction = str(context.get("direction") or "NA").strip().upper() or "NA"
@@ -3146,7 +3158,7 @@ def _format_gate12_group_message(
     htf_pattern = str(htf.get("pattern") or "No Pattern")
     htf_direction = str(htf.get("direction") or "").strip().upper() or "NA"
     htf_candle_time = str(htf.get("candle_time_ist") or "NA")
-    gate_summary_lines = _gate_summary_lines(snapshot, strategy, gate3_available=False, gate4_available=False)
+    gate_summary_lines = _gate_summary_lines(snapshot, strategy, gate3_available=True, gate4_available=True)
     lines = [
         f"{strategy_name} SETUP | {symbol.upper()} | {direction}",
         f"Pattern: {pattern}",
@@ -3158,7 +3170,7 @@ def _format_gate12_group_message(
     ]
     if timeframe_label:
         lines.insert(1, f"Timeframe: {timeframe_label}")
-    if htf_label:
+    if htf_label and _has_real_pattern(htf_pattern):
         lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
     lines.extend(_timeframe_context_lines(higher_timeframe_contexts))
     return _wrap_alert_message(lines)
@@ -3215,7 +3227,7 @@ def _format_gate3_personal_message(
     ]
     if timeframe_label:
         lines.insert(1, f"Timeframe: {timeframe_label}")
-    if htf_label:
+    if htf_label and _has_real_pattern(htf_pattern):
         lines.append(f"Higher TF {htf_label}: {htf_pattern} | When: {htf_candle_time} | Direction: {htf_direction}")
     lines.extend(_timeframe_context_lines(higher_timeframe_contexts))
     if contract:
@@ -4197,7 +4209,7 @@ def run_once(
     gate3_alert_candidates: list[dict[str, Any]] = []
     gate4_alert_candidates: list[dict[str, Any]] = []
     total = len(symbols)
-    batch_size = max(1, int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "15")))
+    batch_size = max(1, int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "8")))
     allowed_patterns = {pattern_filter} if pattern_filter else None
     gate3_state = _load_gate3_state()
     last_gate3_meta_map = gate3_state.get("last_gate3_meta_map")
@@ -4243,50 +4255,8 @@ def run_once(
             payload["strategy"] = pre_strategy
             return payload, None, None, None, None
 
-        gate12_alert = None
         higher_timeframe_context = _timeframe_pattern_context(symbol, market, higher_timeframe, store=history_store) if higher_timeframe else {"timeframe": None, "pattern": "No Pattern", "direction": None, "candle_time_ist": None}
         higher_timeframe_contexts = _higher_timeframe_contexts(symbol, market, interval, store=history_store)
-        if setup_alerts:
-            direction = str(pre_strategy.get("direction") or "").strip().upper()
-            gate12_pass = bool(pre_strategy.get("gate1_pass") and pre_strategy.get("gate2_pass"))
-            if gate12_pass and direction in {"BULLISH", "BEARISH", "BOTH"}:
-                source_note = (
-                    "From 9 EMA strategy pool"
-                    if symbol.upper() in source_pool_symbols
-                    else "Universe"
-                )
-                signature = _gate12_trigger_signature(symbol, snapshot, pre_strategy)
-                previous_meta = last_gate12_meta_map.get(symbol.upper())
-                if not isinstance(previous_meta, dict):
-                    previous_meta = None
-                if _is_fresh_gate12(previous_meta, signature):
-                    gate12_alert = {
-                        "symbol": symbol.upper(),
-                        "signature": signature,
-                        "group_message": _format_gate12_group_message(
-                            symbol,
-                            snapshot,
-                            pre_strategy,
-                            strategy_name,
-                            source_note=source_note,
-                            timeframe_label=interval,
-                            higher_timeframe_context=higher_timeframe_context,
-                            higher_timeframe_contexts=higher_timeframe_contexts,
-                        ),
-                        "personal_message": _format_gate12_personal_message(
-                            symbol,
-                            snapshot,
-                            pre_strategy,
-                            strategy_name,
-                            source_note=source_note,
-                            timeframe_label=interval,
-                            higher_timeframe_context=higher_timeframe_context,
-                            higher_timeframe_contexts=higher_timeframe_contexts,
-                        ),
-                        "strategy": pre_strategy,
-                        "source_note": source_note,
-                    }
-
         try:
             logger.info("Fetching option-chain confirmation for %s...", symbol)
             snapshot.option_chain = client.fetch_option_chain_snapshot(
@@ -4301,7 +4271,7 @@ def run_once(
         except Exception as exc:
             logger.warning("Skipping %s option-chain fetch: %s", symbol, exc)
             payload["strategy"] = pre_strategy
-            return payload, None, gate12_alert, None, None
+            return payload, None, None, None, None
 
         strategy = _evaluate_strategy(snapshot, allowed_patterns=allowed_patterns)
         logger.info(
@@ -4318,6 +4288,47 @@ def run_once(
         )
         payload["strategy"] = strategy
         signal_row = None
+        gate12_alert = None
+        if setup_alerts:
+            direction = str(strategy.get("direction") or "").strip().upper()
+            gate12_pass = bool(strategy.get("gate1_pass") and strategy.get("gate2_pass"))
+            if gate12_pass and direction in {"BULLISH", "BEARISH", "BOTH"}:
+                source_note = (
+                    "From 9 EMA strategy pool"
+                    if symbol.upper() in source_pool_symbols
+                    else "Universe"
+                )
+                signature = _gate12_trigger_signature(symbol, snapshot, strategy)
+                previous_meta = last_gate12_meta_map.get(symbol.upper())
+                if not isinstance(previous_meta, dict):
+                    previous_meta = None
+                if _is_fresh_gate12(previous_meta, signature):
+                    gate12_alert = {
+                        "symbol": symbol.upper(),
+                        "signature": signature,
+                        "group_message": _format_gate12_group_message(
+                            symbol,
+                            snapshot,
+                            strategy,
+                            strategy_name,
+                            source_note=source_note,
+                            timeframe_label=interval,
+                            higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
+                        ),
+                        "personal_message": _format_gate12_personal_message(
+                            symbol,
+                            snapshot,
+                            strategy,
+                            strategy_name,
+                            source_note=source_note,
+                            timeframe_label=interval,
+                            higher_timeframe_context=higher_timeframe_context,
+                            higher_timeframe_contexts=higher_timeframe_contexts,
+                        ),
+                        "strategy": strategy,
+                        "source_note": source_note,
+                    }
         if strategy["strategy_pass"]:
             signal_row = {
                 "TIMESTAMP": snapshot.candle_time_ist or datetime.now(IST).isoformat(),
