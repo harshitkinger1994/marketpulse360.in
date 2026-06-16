@@ -233,6 +233,11 @@ def _resolve_universe(universe: str, symbols: list[str]) -> list[str]:
         return []
 
 
+def _is_missing_history_error(exc: Exception) -> bool:
+    text = str(exc or "").strip().lower()
+    return "no dhan intraday history returned" in text or "no dhan daily history returned" in text
+
+
 def fetch_and_store(
     *,
     universe: str,
@@ -255,6 +260,7 @@ def fetch_and_store(
     effective_market = "crypto" if universe_label == "crypto" or market_label == "crypto" else (market_label or "india")
     written = 0
     failed = 0
+    skipped_missing = 0
     messages: list[str] = []
     for raw_symbol in resolved_symbols:
         symbol = str(raw_symbol or "").strip().upper()
@@ -283,7 +289,8 @@ def fetch_and_store(
                 frame, _meta = fetch_intraday_history(symbol, interval=interval, data_range=data_range, market=market)
                 frame = _intraday_frame_to_candles(frame if isinstance(frame, pd.DataFrame) else pd.DataFrame())
             if frame is None or frame.empty:
-                failed += 1
+                skipped_missing += 1
+                messages.append(f"{symbol}: no candles returned for {interval_label}")
                 continue
             path = store.write_candle_history(
                 timeframe=interval,
@@ -299,12 +306,17 @@ def fetch_and_store(
                 continue
             written += 1
         except Exception as exc:
+            if _is_missing_history_error(exc):
+                skipped_missing += 1
+                messages.append(f"{symbol}: {exc}")
+                continue
             failed += 1
             messages.append(f"{symbol}: {exc}")
     return {
         "symbols": len(resolved_symbols),
         "written": written,
         "failed": failed,
+        "skipped_missing": skipped_missing,
         "retention_days": retention,
         "messages": messages,
     }

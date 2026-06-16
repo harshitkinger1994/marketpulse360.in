@@ -189,6 +189,7 @@ fi
 	  exit 1
 	fi
 	mv "${RELEASE_DIR}" "${REMOTE_DIR}"
+	chmod 755 "${REMOTE_DIR}" "${REMOTE_DIR}/frontend"
 
 	# Preserve server-side secrets/config: keep the previous backend/.env if it existed.
 	if [ -f "${BACKUP_DIR}/market-context/backend/.env" ]; then

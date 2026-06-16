@@ -280,6 +280,8 @@ def _interval_to_dhan(interval):
     txt = str(interval or "").strip().lower()
     if txt.endswith("m") and txt[:-1].isdigit():
         return txt[:-1]
+    if txt.endswith("h") and txt[:-1].isdigit():
+        return str(int(txt[:-1]) * 60)
     return "15"
 
 

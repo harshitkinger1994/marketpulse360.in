@@ -7,13 +7,13 @@
   "generated_at": "2026-06-14T16:19:04.909917+00:00",
   "as_of_date": "",
   "counts": {
-    "assets": 53,
+    "assets": 60,
     "assets_with_data": 0,
     "window_days": 1,
     "signals_total": 0,
     "universe_breakdown": {
       "fno_stocks": 50,
-      "index_companions": 3
+      "index_futures": 10
     }
   },
   "rules": {
@@ -220,8 +220,8 @@
     "Designed to improve 1-week move quality by reducing weak breakout entries.",
     "BUY requires NIFTY above SMA200; SELL requires below.",
     "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures.",
-    "Curated live-supported index companions are appended to this India universe with the same strategy filters.",
-    "Tracked universe: 53 instruments (fno stocks: 50, index companions: 3)."
+    "Curated live-supported top 10 index futures are appended to this India universe with the same strategy filters.",
+    "Tracked universe: 60 instruments (fno stocks: 50, index futures: 10)."
   ],
   "items": []
 }

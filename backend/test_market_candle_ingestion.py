@@ -95,7 +95,7 @@ class MarketCandleIngestionTests(unittest.TestCase):
             self.assertEqual(summary["symbols"], 1)
             self.assertEqual(summary["written"], 1)
             self.assertEqual(summary["failed"], 0)
-            self.assertTrue(any("15_min_center_data/candle_history/india/15m/TCS.parquet" in p for p in captured_paths))
+            self.assertTrue(any("center_data/15m/candle_history/india/15m/TCS.parquet" in p for p in captured_paths))
 
     def test_fetch_and_store_supports_crypto_universe(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -137,7 +137,7 @@ class MarketCandleIngestionTests(unittest.TestCase):
             self.assertEqual(summary["symbols"], 5)
             self.assertEqual(summary["failed"], 0)
             self.assertEqual(summary["written"], 5)
-            self.assertTrue(any("15_min_center_data/candle_history/crypto/15m/BTC.parquet" in p for p in captured_paths))
+            self.assertTrue(any("center_data/15m/candle_history/crypto/15m/BTC.parquet" in p for p in captured_paths))
 
     def test_fetch_and_store_uses_direct_3h_fetch(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -167,8 +167,8 @@ class MarketCandleIngestionTests(unittest.TestCase):
             self.assertEqual(summary["symbols"], 1)
             self.assertEqual(summary["written"], 1)
             self.assertEqual(summary["failed"], 0)
-            self.assertTrue(any("3h_center_data/candle_history/india/3h/TCS.parquet" in p for p in captured_paths))
-            self.assertTrue(any("3h_center_data/candle_history/india/3h/TCS.parquet" in p for p in captured_paths))
+            self.assertTrue(any("center_data/3h/candle_history/india/3h/TCS.parquet" in p for p in captured_paths))
+            self.assertTrue(any("center_data/3h/candle_history/india/3h/TCS.parquet" in p for p in captured_paths))
 
     def test_fetch_and_store_uses_direct_60m_bootstrap_for_4h(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -196,7 +196,7 @@ class MarketCandleIngestionTests(unittest.TestCase):
             self.assertEqual(summary["symbols"], 1)
             self.assertEqual(summary["written"], 1)
             self.assertEqual(summary["failed"], 0)
-            self.assertTrue(any("4h_center_data/candle_history/india/4h/TATASTEEL.parquet" in p for p in captured_paths))
+            self.assertTrue(any("center_data/4h/candle_history/india/4h/TATASTEEL.parquet" in p for p in captured_paths))
 
     def test_fetch_and_store_uses_direct_60m_fetch_for_4h_when_store_missing(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -226,7 +226,29 @@ class MarketCandleIngestionTests(unittest.TestCase):
             self.assertEqual(summary["symbols"], 1)
             self.assertEqual(summary["written"], 1)
             self.assertEqual(summary["failed"], 0)
-            self.assertTrue(any("4h_center_data/candle_history/india/4h/TCS.parquet" in p for p in captured_paths))
+            self.assertTrue(any("center_data/4h/candle_history/india/4h/TCS.parquet" in p for p in captured_paths))
+
+    def test_fetch_and_store_treats_missing_history_as_skip_not_failure(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            store = MarketSnapshotStore(base_dir=Path(tmpdir))
+
+            with patch("backend.market_candle_ingestion._load_broad_india_universe_symbols", return_value=["SENSEX50"]), patch(
+                "backend.market_candle_ingestion.fetch_intraday_history",
+                side_effect=RuntimeError("No Dhan intraday history returned for SENSEX50"),
+            ), patch("backend.market_candle_ingestion.MarketSnapshotStore", return_value=store):
+                summary = fetch_and_store(
+                    universe="broad-india",
+                    market="india",
+                    interval="15m",
+                    data_range="60d",
+                    symbols=[],
+                    retention_days=120,
+                )
+
+            self.assertEqual(summary["symbols"], 1)
+            self.assertEqual(summary["written"], 0)
+            self.assertEqual(summary["failed"], 0)
+            self.assertEqual(summary["skipped_missing"], 1)
 
 
 if __name__ == "__main__":

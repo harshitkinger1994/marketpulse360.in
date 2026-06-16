@@ -54,7 +54,19 @@ class RunAllTests(unittest.TestCase):
         self.assertEqual(rc, 0)
         run_mock.assert_called_once()
         _, kwargs = run_mock.call_args
-        self.assertEqual(kwargs.get("extra_args"), [])
+        self.assertEqual(kwargs.get("extra_args"), ["--once"])
+
+    def test_main_15m_scanner_runs_once_when_due(self):
+        with patch.object(run_all, "_tf_due", return_value=(True, "15m:2026-06-16T09:30:00+05:30")), patch.object(
+            run_all, "_run", return_value=0
+        ) as run_mock, patch.object(run_all, "_mark_tf_complete") as mark_mock:
+            rc = run_all._run_main_15m_scanner()
+
+        self.assertEqual(rc, 0)
+        run_mock.assert_called_once()
+        _, kwargs = run_mock.call_args
+        self.assertIn("--once", kwargs.get("extra_args"))
+        mark_mock.assert_called_once_with("15m", "15m:2026-06-16T09:30:00+05:30")
 
     def test_timeframe_bundle_flags_can_be_enabled(self):
         self.assertTrue(run_all._timeframe_enabled("75m", False, True))

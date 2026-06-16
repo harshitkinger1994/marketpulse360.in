@@ -7,8 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN_SCRIPT = ROOT / "backend" / "run_all.py"
-# Default to 30 minutes so the full refresh does not overlap too aggressively with the live scanner.
-INTERVAL_SEC = int(os.environ.get("UPDATE_INTERVAL_SEC", "1800"))
+# Default to 15 minutes so the scheduler can catch candle-close windows without missing 15m bars.
+INTERVAL_SEC = int(os.environ.get("UPDATE_INTERVAL_SEC", "900"))
 BACKOFF_SEC = int(os.environ.get("UPDATE_FAIL_BACKOFF_SEC", "300"))
 
 

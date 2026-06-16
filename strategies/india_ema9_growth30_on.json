@@ -7,13 +7,13 @@
   "generated_at": "2026-06-15T12:35:25.493496+00:00",
   "as_of_date": "2026-06-15",
   "counts": {
-    "assets": 210,
+    "assets": 217,
     "assets_with_data": 207,
     "window_days": 30,
     "signals_total": 0,
     "universe_breakdown": {
       "fno_stocks": 207,
-      "index_companions": 3
+      "index_futures": 10
     }
   },
   "rules": {
@@ -178,8 +178,8 @@
     "Quality mode can enforce ATR%, EMA9 slope, and stronger volume expansion.",
     "Market benchmark gate is disabled for this strategy.",
     "Telegram latest-trade alert is handled by backend strategy notifier using item notify_key signatures.",
-    "Curated live-supported index companions are appended to this India universe with the same strategy filters.",
-    "Tracked universe: 210 instruments (fno stocks: 207, index companions: 3)."
+    "Curated live-supported top 10 index futures are appended to this India universe with the same strategy filters.",
+    "Tracked universe: 217 instruments (fno stocks: 207, index futures: 10)."
   ],
   "items": []
 }
