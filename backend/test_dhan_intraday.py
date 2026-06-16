@@ -10,6 +10,12 @@ import backend.data_fetcher as data_fetcher
 
 
 class DhanIntradayTests(unittest.TestCase):
+    def test_interval_to_dhan_supports_hour_intervals(self):
+        self.assertEqual(dhan._interval_to_dhan("15m"), "15")
+        self.assertEqual(dhan._interval_to_dhan("75m"), "75")
+        self.assertEqual(dhan._interval_to_dhan("3h"), "180")
+        self.assertEqual(dhan._interval_to_dhan("4h"), "240")
+
     def test_resolve_equity_contract_candidates_prefers_nse(self):
         frame = pd.DataFrame(
             [

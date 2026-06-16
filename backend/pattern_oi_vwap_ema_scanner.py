@@ -61,6 +61,9 @@ STRATEGY_CANDIDATE_POOL_DIR = ROOT / "backend" / "data" / "strategy_candidate_po
 LOCAL_DHAN_MASTER_CACHE = ROOT.parent / "market-context-local-data" / "dhan_scrip_master_cache.csv"
 MANUAL_DHAN_SECURITY_MAP_FILE = ROOT / "backend" / "data" / "manual_dhan_security_map.json"
 OUTPUT_DIR = ROOT / "backend" / "reports" / "pattern_oi_vwap_ema"
+SYMBOL_TOKEN_ALIASES = {
+    "POWERINDIA": "POWERGRID",
+}
 
 if str(BACKEND_SRC) not in sys.path:
     sys.path.insert(0, str(BACKEND_SRC))
@@ -677,9 +680,8 @@ def _preflight_dhan_token(
         text = str(exc)
         if "Invalid_Authentication" in text or "DH-901" in text or "401" in text:
             print("Dhan token expired or invalid.")
-        else:
-            print(f"Dhan token validation failed: {text}")
-        raise SystemExit(1)
+            raise SystemExit(1)
+        print(f"Dhan token validation warning for {symbol}: {text}")
 
 
 def _floor_to_15_minute(dt: datetime) -> datetime:
@@ -749,6 +751,7 @@ def _normalize_symbol_token(symbol: str) -> str:
     text = str(symbol or "").strip().upper()
     if text.endswith(".NS"):
         text = text[:-3]
+    text = SYMBOL_TOKEN_ALIASES.get(text, text)
     return text
 
 
@@ -1284,6 +1287,21 @@ def _seconds_until_next_scan(
         if target < open_dt:
             target = open_dt
     return max(0.0, (target + timedelta(seconds=buffer_seconds) - now).total_seconds())
+
+
+def _seconds_until_first_closed_scan(
+    now: datetime | None = None,
+    buffer_seconds: float = DEFAULT_BUFFER_SECONDS,
+) -> float:
+    now = now or datetime.now(IST)
+    if not _is_weekday(now):
+        return 0.0
+    open_dt, _ = _market_day_bounds(now)
+    first_boundary = _next_15_minute_boundary(open_dt)
+    target = first_boundary + timedelta(seconds=buffer_seconds)
+    if now <= target:
+        return max(0.0, (target - now).total_seconds())
+    return 0.0
 
 
 def _sleep_until_next_scan(
@@ -4303,6 +4321,12 @@ def run_repeat_pattern_forever(
     while True:
         now = datetime.now(IST)
         if _is_market_open(now, close_buffer_seconds=buffer_seconds):
+            if last_run_boundary is None:
+                initial_delay = _seconds_until_first_closed_scan(now, buffer_seconds=buffer_seconds)
+                if initial_delay > 0:
+                    logger.info("Waiting %.1f seconds for first closed candle after market open.", initial_delay)
+                    time.sleep(initial_delay)
+                    continue
             run_repeat_pattern_once(
                 client=client,
                 watchlist=watchlist,
@@ -5069,6 +5093,12 @@ def run_forever(
     while True:
         now = datetime.now(IST)
         if _is_market_open(now, close_buffer_seconds=buffer_seconds):
+            if last_run_boundary is None:
+                initial_delay = _seconds_until_first_closed_scan(now, buffer_seconds=buffer_seconds)
+                if initial_delay > 0:
+                    logger.info("Waiting %.1f seconds for first closed candle after market open.", initial_delay)
+                    time.sleep(initial_delay)
+                    continue
             run_once(
                 client=client,
                 watchlist=watchlist,

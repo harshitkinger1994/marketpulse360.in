@@ -11,6 +11,9 @@ from backend.pattern_oi_vwap_ema_scanner import (
     _deliver_telegram_alerts,
     _format_gate12_group_message,
     _gate4_metrics,
+    _normalize_symbol_token,
+    _preflight_dhan_token,
+    _seconds_until_first_closed_scan,
     _strategy_gate_summary,
 )
 
@@ -108,6 +111,38 @@ class PatternOIVwapEmaScannerTests(unittest.TestCase):
         self.assertTrue(metrics["bearish_gate4"])
         self.assertEqual(metrics["pcr_shift_pct"], -6.0)
         self.assertIn("bearish confirmation band", metrics["reason"])
+
+    def test_powerindia_symbol_normalizes_to_powergrid(self):
+        self.assertEqual(_normalize_symbol_token("POWERINDIA"), "POWERGRID")
+        self.assertEqual(_normalize_symbol_token("POWERINDIA.NS"), "POWERGRID")
+
+    def test_preflight_no_history_warns_instead_of_exiting(self):
+        class Client:
+            def fetch_equity_history(self, *args, **kwargs):
+                raise RuntimeError("No Dhan intraday history returned for POWERGRID")
+
+        with patch("builtins.print") as print_mock:
+            _preflight_dhan_token(Client(), "POWERINDIA")
+
+        printed = " ".join(" ".join(map(str, call.args)) for call in print_mock.call_args_list)
+        self.assertIn("Dhan token validation warning for POWERINDIA", printed)
+
+    def test_first_open_scan_waits_until_first_closed_boundary(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+
+        now = datetime(2026, 6, 16, 9, 15, 5, tzinfo=ZoneInfo("Asia/Kolkata"))
+        delay = _seconds_until_first_closed_scan(now, buffer_seconds=1.5)
+        self.assertGreater(delay, 800)
+        self.assertLess(delay, 900)
+
+    def test_first_open_scan_not_delayed_later_in_session(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+
+        now = datetime(2026, 6, 16, 10, 5, 0, tzinfo=ZoneInfo("Asia/Kolkata"))
+        delay = _seconds_until_first_closed_scan(now, buffer_seconds=1.5)
+        self.assertEqual(delay, 0.0)
 
 
 if __name__ == "__main__":

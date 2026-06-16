@@ -38,8 +38,10 @@ def _scanner_subprocess_env():
         batch_size = int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "10"))
     except Exception:
         batch_size = 10
-    env["DHAN_SCAN_WORKERS"] = str(max(workers, 4))
-    env["DHAN_SCAN_BATCH_SIZE"] = str(max(batch_size, 5))
+    # Keep the live scanner lighter on the 512MB droplet. The scanner itself can still
+    # parallelize, but we cap the live wrapper below to avoid OOM restart loops.
+    env["DHAN_SCAN_WORKERS"] = str(max(1, min(workers, 1)))
+    env["DHAN_SCAN_BATCH_SIZE"] = str(max(1, min(batch_size, 2)))
     return env
 
 
