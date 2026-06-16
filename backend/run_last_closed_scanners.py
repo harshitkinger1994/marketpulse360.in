@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = sys.executable or str(ROOT / "venv" / "bin" / "python")
-DEFAULT_SCAN_WORKERS = os.environ.get("RUN_LAST_CLOSED_SCAN_WORKERS", "2")
-DEFAULT_SCAN_BATCH_SIZE = os.environ.get("RUN_LAST_CLOSED_SCAN_BATCH_SIZE", "8")
+DEFAULT_SCAN_WORKERS = os.environ.get("RUN_LAST_CLOSED_SCAN_WORKERS", "3")
+DEFAULT_SCAN_BATCH_SIZE = os.environ.get("RUN_LAST_CLOSED_SCAN_BATCH_SIZE", "10")
 DEFAULT_OPTION_CHAIN_WORKERS = os.environ.get("RUN_LAST_CLOSED_OPTION_CHAIN_WORKERS", "1")
 DEFAULT_INTRADAY_RETRIES = os.environ.get("RUN_LAST_CLOSED_INTRADAY_RETRIES", "2")
 

@@ -36,7 +36,7 @@ DHAN_BASE_URL = "https://api.dhan.co/v2"
 MARKET_OPEN = dt_time(9, 15)
 MARKET_CLOSE = dt_time(15, 30)
 DEFAULT_BUFFER_SECONDS = 1.5
-DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "2"))
+DEFAULT_SCAN_WORKERS = int(os.environ.get("DHAN_SCAN_WORKERS", "3"))
 DEFAULT_FAST_STRIKE_WINDOW = int(os.environ.get("DHAN_FAST_STRIKE_WINDOW", "3"))
 DEFAULT_INTRADAY_RETRIES = int(os.environ.get("DHAN_INTRADAY_RETRIES", "2"))
 DEFAULT_LIVE_LOOKBACK_DAYS = int(os.environ.get("DHAN_LIVE_LOOKBACK_DAYS", "10"))
@@ -4256,7 +4256,7 @@ def run_once(
     gate3_alert_candidates: list[dict[str, Any]] = []
     gate4_alert_candidates: list[dict[str, Any]] = []
     total = len(symbols)
-    batch_size = max(1, int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "8")))
+    batch_size = max(1, int(os.environ.get("DHAN_SCAN_BATCH_SIZE", "10")))
     allowed_patterns = {pattern_filter} if pattern_filter else None
     gate3_state = _load_gate3_state()
     last_gate3_meta_map = gate3_state.get("last_gate3_meta_map")
